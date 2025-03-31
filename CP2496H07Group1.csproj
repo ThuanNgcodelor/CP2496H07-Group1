@@ -1,0 +1,345 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Configs\Email\" />
+      <Folder Include="Configs\Sms\" />
+      <Folder Include="Dtos\" />
+      <Folder Include="Views\Vip\" />
+      <Folder Include="wwwroot\Admin\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\material-dashboard.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\material-dashboard.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\material-dashboard.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\nucleo-icons.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\nucleo-svg.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\apple-icon.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\bg-pricing.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\bg-smart-home-1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\bg-smart-home-2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\bruce-mars.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\down-arrow-dark.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\down-arrow-white.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\down-arrow.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\drake.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\favicon.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\home-decor-1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\home-decor-2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\home-decor-3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\icons\flags\AU.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\icons\flags\BR.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\icons\flags\DE.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\icons\flags\GB.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\icons\flags\US.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\chat.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\danger-chat-ill.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\dark-lock-ill.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\error-404.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\error-500.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\illustration-lock.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\illustration-reset.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\illustration-signin.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\illustration-signup.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\illustration-verification.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\lock.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\pattern-tree.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\illustrations\rocket-white.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\ivana-square.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\ivana-squares.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\ivancik.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\kal-visuals-square.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logo-ct-dark.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logo-ct.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-coinbase.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-nasa.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-netflix.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-pinterest.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-spotify.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\logos\gray-logos\logo-vodafone.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\marie.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\meeting.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\office-dark.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\product-12.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\bootstrap.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\creative-tim.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\devto.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\github.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\google-webdev.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\icon-bulb.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\icon-sun-cloud.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-asana.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-atlassian.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-invision.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-jira.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-slack.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-spotify.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\small-logos\logo-xd.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\team-1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\team-2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\team-3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\team-4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\team-5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\img\vr-bg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\badges\_badge-circle.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\badges\_badge-dot.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\badges\_badge-floating.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\badges\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\bootstrap-grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\bootstrap-reboot.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\bootstrap-utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\bootstrap.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_floating-labels.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_form-check.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_form-control.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_form-range.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_form-select.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_form-text.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_input-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_labels.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\forms\_validation.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_clearfix.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_color-bg.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_colored-links.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_focus-ring.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_icon-link.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_position.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_ratio.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_stacks.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_stretched-link.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_text-truncation.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_visually-hidden.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\helpers\_vr.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_alert.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_backdrop.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_banner.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_border-radius.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_box-shadow.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_breakpoints.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_caret.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_clearfix.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_color-mode.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_color-scheme.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_container.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_deprecate.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_gradients.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_image.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_list-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_lists.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_reset-text.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_resize.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_table-variants.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_text-truncate.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_transition.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\mixins\_visually-hidden.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\jasmine.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\mixins\_auto-import-of-variables-dark.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\mixins\_color-modes.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\mixins\_media-query-color-mode-full.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\mixins\_utilities.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\sass-true\register.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\sass-true\runner.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\tests\utilities\_api.test.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\utilities\_api.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\vendor\_rfs.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_accordion.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_alert.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_breadcrumb.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_button-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_card.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_carousel.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_close.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_containers.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_dropdown.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_functions.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_grid.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_helpers.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_images.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_list-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_maps.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_mixins.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_modal.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_nav.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_navbar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_offcanvas.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_placeholders.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_popover.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_progress.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_reboot.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_root.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_spinners.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_tables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_toasts.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_tooltip.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_transitions.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_type.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_variables-dark.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\bootstrap\_variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-background.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-blog.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-horizontal.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-pricing.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-profile.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\cards\card-rotate.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\custom\_styles.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\custom\_variables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_form-check.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_form-select.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_form-switch.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_input-group.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_inputs.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\forms\_labels.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\mixins.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_colored-shadows.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_hover.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_social-buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\mixins\_vendor.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\free\plugins.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\free\_flatpickr.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\free\_nouislider.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\free\_perfect-scrollbar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\free\_prism.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\multi-step.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\plugins-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_carousel-slick.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_choices.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_datatable-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_datatable.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_dragula.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_dropzone.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_fullcalendar-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_fullcalendar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_glidejs.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_highlight.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_kanban.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_leaflet.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_list-check.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_photoswipe.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_quill.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_rating-widget.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_sweetalert2-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_sweetalert2.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\plugins\pro\_vector-map.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\theme-pro.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\theme.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_animations.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_avatars.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_breadcrumb.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_cards-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_cards.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_choices.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_dark-version.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_dropdowns.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_fixed-plugin.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_form-switch.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_full-calendar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_header.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_info-areas.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_misc-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_misc.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_navbar-vertical.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_navbar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_ripple.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_rtl.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_social-buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_table.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_timeline.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_utilities-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\variables\_virtual-reality.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_accordion.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_alert.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_avatars.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_backgrounds.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_badge.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_breadcrumbs.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_cards-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_cards.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_components.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_dark-version.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_dropdown-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_dropdown.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_dropup.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_fixed-plugin.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_floating-elements.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_footer.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_forms.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_gradients.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_header.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_icons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_info-areas.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_list-check.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_misc-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_misc.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_nav.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_navbar-vertical.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_navbar.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_pagination.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_popovers.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_progress.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_ripple.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_rtl-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_rtl.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_social-buttons.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_tables.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_tilt.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_timeline.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_tooltips.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_typography.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_utilities-extend.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_utilities.scss" />
+      <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_variables.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="MailKit" Version="4.11.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+      <PackageReference Include="PasswordHash" Version="1.1.0" />
+      <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+      <PackageReference Include="X.PagedList" Version="10.5.7" />
+      <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+</Project>

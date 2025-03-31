@@ -1,0 +1,90 @@
+<style>
+            .appointment-form {
+                width: 50%; /* Điều chỉnh chiều rộng form */
+                margin: 0 auto; /* Căn giữa theo chiều ngang */
+            }
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Căn giữa icon và input */
+                margin-bottom: 15px;
+            }
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .icon-box {
+                margin-bottom: 5px;
+            }
+            .message-btn {
+                text-align: center;
+            }
+        </style>
+
+        <!-- appointment-section -->
+        <section class="appointment-section pt_120 pb_120">
+            <div class="bg-layer" style="background-image: url(images/background/appointment-bg.jpg);"></div>
+            <span class="big-text">Appointment <br>Make an</span>
+            <div class="auto-container">
+                <div class="appointment-form">
+                    <form action="https://azim.hostlin.com/Flexibank/loans-1.html" method="post">
+                        <div class="row clearfix ">
+                            <div class="sec-title ">
+                                <span class="sub-title">Online Banking</span>
+                                <h2>REGISTER</h2>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-221.png" alt=""></div>
+                                    <label>Your Name</label>
+                                    <input type="text" name="name" placeholder="Enter name here" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-222.png" alt=""></div>
+                                    <label>Email</label>
+                                    <input type="email" name="email" placeholder="Email address" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-223.png" alt=""></div>
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" placeholder="Phone number" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-224.png" alt=""></div>
+                                    <label>Date</label>
+                                    <input type="text" name="date" placeholder="Date" id="datepicker">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-225.png" alt=""></div>
+                                    <label>Time</label>
+                                    <input type="text" name="time" placeholder="Time">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                                <div class="form-group">
+                                    <div class="icon-box"><img src="images/icons/icon-226.png" alt=""></div>
+                                    <label>Address</label>
+                                    <input type="text" name="name" placeholder="Your address" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                                <div class="message-btn pt_7">
+                                    <button type="submit" class="theme-btn"><span>Send Your Request</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- appointment-section end -->
