@@ -12,5 +12,9 @@ public class Vip
     public required bool NoPick { get; set; } = false;
 
     public int MoneyBack { get; set; }
+    
+    public List<Loans> Loans { get; set; } = new();
+
+    
 
 }

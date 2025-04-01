@@ -21,6 +21,10 @@ public class AppDataContext : DbContext
     public DbSet<SavingCategory> SavingCategories { get; set; }
     public DbSet<Savings> Savings { get; set; }
     public DbSet<Vip> Vips { get; set; }
+    public DbSet<Loans> Loans { get; set; }
+    public DbSet<LoanOption> LoanOptions { get; set; }
+    public DbSet<Slider> Sliders { get; set; }
+    public DbSet<FQA> FQAs { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -153,6 +157,25 @@ public class AppDataContext : DbContext
             .WithOne()
             .HasForeignKey<Account>(a => a.VipId)
             .OnDelete(DeleteBehavior.SetNull);
+        
+        // Quan hệ 1-n giữa Account và Loan (một Account có thể có nhiều Loan)
+        modelBuilder.Entity<Loans>()
+            .HasOne(l => l.Account)
+            .WithMany(a => a.Loans)
+            .HasForeignKey(l => l.AccountId)
+            .OnDelete(DeleteBehavior.Cascade); // Xóa tài khoản thì xóa luôn các khoản vay
 
+        // Quan hệ 1-n giữa LoanOption và Loan (một LoanOption có thể được chọn bởi nhiều Loan)
+        modelBuilder.Entity<Loans>()
+            .HasOne(l => l.LoanOption)
+            .WithMany(lo => lo.Loans)
+            .HasForeignKey(l => l.LoanOptionId)
+            .OnDelete(DeleteBehavior.Restrict); // Không cho xóa nếu còn khoản vay liên kết
+        
+        modelBuilder.Entity<Loans>()
+            .HasOne(l => l.Vip)
+            .WithMany(v => v.Loans)
+            .HasForeignKey(l => l.VipId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

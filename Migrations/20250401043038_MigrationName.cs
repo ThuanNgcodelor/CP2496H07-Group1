@@ -41,6 +41,21 @@ namespace CP2496H07Group1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FQAs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsConfirm = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FQAs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InsurancePackages",
                 columns: table => new
                 {
@@ -55,6 +70,20 @@ namespace CP2496H07Group1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InsurancePackages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoanOptions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LoanMonth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InterestRate = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoanOptions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +114,23 @@ namespace CP2496H07Group1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SavingCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -301,6 +347,44 @@ namespace CP2496H07Group1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Loans",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<long>(type: "bigint", nullable: false),
+                    AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
+                    MonthlyPayment = table.Column<int>(type: "int", nullable: false),
+                    VipId = table.Column<long>(type: "bigint", nullable: true),
+                    OweMoney = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loans_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "AccountId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Loans_LoanOptions_LoanOptionId",
+                        column: x => x.LoanOptionId,
+                        principalTable: "LoanOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Loans_Vips_VipId",
+                        column: x => x.VipId,
+                        principalTable: "Vips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Savings",
                 columns: table => new
                 {
@@ -447,6 +531,21 @@ namespace CP2496H07Group1.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Loans_AccountId",
+                table: "Loans",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loans_LoanOptionId",
+                table: "Loans",
+                column: "LoanOptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loans_VipId",
+                table: "Loans",
+                column: "VipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_News_CategoryId",
                 table: "News",
                 column: "CategoryId");
@@ -512,10 +611,19 @@ namespace CP2496H07Group1.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "FQAs");
+
+            migrationBuilder.DropTable(
+                name: "Loans");
+
+            migrationBuilder.DropTable(
                 name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "Savings");
+
+            migrationBuilder.DropTable(
+                name: "Sliders");
 
             migrationBuilder.DropTable(
                 name: "UserInsurances");
@@ -525,6 +633,9 @@ namespace CP2496H07Group1.Migrations
 
             migrationBuilder.DropTable(
                 name: "News");
+
+            migrationBuilder.DropTable(
+                name: "LoanOptions");
 
             migrationBuilder.DropTable(
                 name: "SavingCategories");

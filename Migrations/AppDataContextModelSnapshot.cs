@@ -181,6 +181,30 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("DiscountCodes");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.FQA", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FQAs");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.InsurancePackage", b =>
                 {
                     b.Property<long>("Id")
@@ -209,6 +233,68 @@ namespace CP2496H07Group1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InsurancePackages");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.LoanOption", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("LoanMonth")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoanOptions");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("AmountBorrowed")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("LoanOptionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MonthlyPayment")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OweMoney")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("VipId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("LoanOptionId");
+
+                    b.HasIndex("VipId");
+
+                    b.ToTable("Loans");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.News", b =>
@@ -363,6 +449,37 @@ namespace CP2496H07Group1.Migrations
                     b.HasIndex("SavingCategoryId");
 
                     b.ToTable("Savings");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.Slider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sliders");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.Transaction", b =>
@@ -618,6 +735,32 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Account", "Account")
+                        .WithMany("Loans")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CP2496H07Group1.Models.LoanOption", "LoanOption")
+                        .WithMany("Loans")
+                        .HasForeignKey("LoanOptionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CP2496H07Group1.Models.Vip", "Vip")
+                        .WithMany("Loans")
+                        .HasForeignKey("VipId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Account");
+
+                    b.Navigation("LoanOption");
+
+                    b.Navigation("Vip");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.News", b =>
                 {
                     b.HasOne("CP2496H07Group1.Models.Category", "Category")
@@ -729,6 +872,8 @@ namespace CP2496H07Group1.Migrations
                 {
                     b.Navigation("AccountDiscounts");
 
+                    b.Navigation("Loans");
+
                     b.Navigation("TransactionsFrom");
 
                     b.Navigation("TransactionsTo");
@@ -754,6 +899,11 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("UserInsurances");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.LoanOption", b =>
+                {
+                    b.Navigation("Loans");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.News", b =>
                 {
                     b.Navigation("Comments");
@@ -771,6 +921,11 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("Requests");
 
                     b.Navigation("UserInsurances");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.Vip", b =>
+                {
+                    b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618
         }
