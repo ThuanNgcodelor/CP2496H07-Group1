@@ -6,6 +6,8 @@ public class DiscountCode
     public required string DiscountCodes { get; set; }
     public required int Points { get; set; }
     public required int Percent { get; set; }
+    public required DateTime LongMonth {get; set;}
+    
     
     public List<AccountDiscounts> AccountDiscounts { get; set; } = new();
 }
