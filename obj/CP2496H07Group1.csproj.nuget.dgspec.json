@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/CP2496H07Group1.csproj": {}
+    "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj": {}
   },
   "projects": {
-    "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/CP2496H07Group1.csproj": {
+    "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/CP2496H07Group1.csproj",
+        "projectUniqueName": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
         "projectName": "CP2496H07Group1",
-        "projectPath": "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/CP2496H07Group1.csproj",
+        "projectPath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
         "packagesPath": "/home/davidnguyen/.nuget/packages/",
-        "outputPath": "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/obj/",
+        "outputPath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/davidnguyen/.nuget/NuGet/NuGet.Config"

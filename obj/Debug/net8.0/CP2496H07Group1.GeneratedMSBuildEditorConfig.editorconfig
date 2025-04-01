@@ -9,79 +9,79 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CP2496H07Group1
 build_property.RootNamespace = CP2496H07Group1
-build_property.ProjectDir = /home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/
+build_property.ProjectDir = /home/davidnguyen/Code/Asp/CP2496H07-Group1/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1
+build_property.MSBuildProjectDirectory = /home/davidnguyen/Code/Asp/CP2496H07-Group1
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/Shared/_Layout.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = 
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Pages/Dashboard/Index.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Pages/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vUGFnZXMvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/Dashboard/Index.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/Home/Index.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/_ViewImports.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Areas/Admin/Views/_ViewStart.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Auth/Login.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Auth/Register.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Auth/Users.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Vc2Vycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Home/Error.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Home/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9FcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Home/Index.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Shared/_Layout.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/_ViewImports.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/Views/_ViewStart.cshtml]
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
