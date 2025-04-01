@@ -1,6 +1,6 @@
 namespace CP2496H07Group1.Models;
 
-public class Faq
+public class Fqa
 {
     public required long Id { get; set; }
 
