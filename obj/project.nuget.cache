@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "avGt413BXu8=",
+  "dgSpecHash": "82bta0NJXH8=",
   "success": true,
-  "projectFilePath": "/home/davidnguyen/Code/Asp/CP2496H07Group1/CP2496H07Group1/CP2496H07Group1.csproj",
+  "projectFilePath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
   "expectedPackageFiles": [
     "/home/davidnguyen/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/home/davidnguyen/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
