@@ -4,6 +4,9 @@
     <projectFile profileName="http">CP2496H07Group1.csproj</projectFile>
     <projectFile profileName="https">CP2496H07Group1.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
@@ -36,6 +39,16 @@
     &quot;accountId&quot;: &quot;0a261145-0881-4ea7-bd49-6b677c717ed9&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Configs/Database/AppDataContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Configs/Database/AppDataContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Configs/Database/AppDataContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Configs/Database/AppDataContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Models/FQA.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Models/FQA.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Models/FQA.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/davidnguyen/Code/Asp/CP2496H07-Group1/Models/FQA.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -50,7 +63,6 @@
     &quot;.NET Launch Settings Profile.CP2496H07Group1: http.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/davidnguyen/Code/Asp&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
