@@ -41,6 +41,21 @@ namespace CP2496H07Group1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FQAs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsConfirm = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FQAs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InsurancePackages",
                 columns: table => new
                 {
@@ -99,6 +114,23 @@ namespace CP2496H07Group1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SavingCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -579,6 +611,9 @@ namespace CP2496H07Group1.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "FQAs");
+
+            migrationBuilder.DropTable(
                 name: "Loans");
 
             migrationBuilder.DropTable(
@@ -586,6 +621,9 @@ namespace CP2496H07Group1.Migrations
 
             migrationBuilder.DropTable(
                 name: "Savings");
+
+            migrationBuilder.DropTable(
+                name: "Sliders");
 
             migrationBuilder.DropTable(
                 name: "UserInsurances");
