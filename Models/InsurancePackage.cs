@@ -10,4 +10,6 @@ public class InsurancePackage
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     public required List<UserInsurance> UserInsurances { get; set; } = new List<UserInsurance>(); // 1 n with UserInsurance
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
 }

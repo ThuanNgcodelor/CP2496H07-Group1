@@ -9,6 +9,7 @@ public class Account
     public required string AccountType { get; set; }    
     public required DateTime CreatedAt { get; set; } = DateTime.Now;
     public long? VipId { get; set; } = null; // co the null
+    public long? Point { get; set; }
     
     public required User User { get; set; }               // n-1 with User
     public required List<Transaction> TransactionsFrom { get; set; } // Tu Tai khoan nay den tai khoan khac
