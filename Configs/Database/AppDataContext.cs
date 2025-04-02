@@ -107,6 +107,13 @@ public class AppDataContext : DbContext
             .HasForeignKey(c => c.NewsId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.InsurancePackage)  // Comment có một InsurancePackage
+            .WithMany(ip => ip.Comments)      // InsurancePackage có nhiều Comments
+            .HasForeignKey(c => c.PackageId)  // Khóa ngoại là PackageId trong Comment
+            .OnDelete(DeleteBehavior.Cascade); 
+        
+        
         // Quan hệ 1-N giữa User và Comment
         modelBuilder.Entity<Comment>()
             .HasOne(c => c.User)
@@ -178,5 +185,32 @@ public class AppDataContext : DbContext
             .WithMany(v => v.Loans)
             .HasForeignKey(l => l.VipId)
             .OnDelete(DeleteBehavior.SetNull);
+        
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.Vip) // Một Transaction có thể có một Vip
+            .WithMany(v => v.Transactions) // Một Vip có thể có nhiều Transaction
+            .HasForeignKey(t => t.VipId) // Khóa ngoại trong Transaction
+            .OnDelete(DeleteBehavior.SetNull); // Nếu Vip bị xóa, Transaction vẫn giữ nguyên
+
+        modelBuilder.Entity<Faq>()
+            .Property(f => f.IsConfirm)
+            .HasDefaultValue(true);
+
+        modelBuilder.Entity<News>() 
+            .Property(n => n.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");
+        modelBuilder.Entity<News>()
+            .Property(c => c.IsConfirm)
+            .HasDefaultValue(true);
+        modelBuilder.Entity<Comment>()
+            .Property(c => c.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");                                                                                                                                                      modelBuilder.Entity<Category>()
+            .Property(c => c.IsConfirm)
+            .HasDefaultValue(true); // Mặc định là true trong cơ sở dữ liệu
+        modelBuilder.Entity<Category>()
+            .HasMany(c => c.News)
+            .WithOne(n => n.Category)
+            .HasForeignKey(n => n.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
