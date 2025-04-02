@@ -87,6 +87,10 @@
               "target": "Package",
               "version": "[2.8.31, )"
             },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.9.1, )"
+            },
             "X.PagedList": {
               "target": "Package",
               "version": "[10.5.7, )"

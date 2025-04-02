@@ -213,7 +213,7 @@
                                                 <li><a href="cards-3.html">Debit Card</a></li>
                                             </ul>
                                         </li>  
-                                        <li><a href="contact.html">Get In Touch</a></li> 
+                                        <li><a asp-action="Login" asp-controller="Auth">Login</a></li> 
                                     </ul>
                                 </div>
                             </nav>
@@ -221,7 +221,7 @@
                         <div class="menu-right-content">
                             <div class="search-box search-toggler pr_30 mr_30"><span>Search</span> <img src="~/images/icons/icon-7.png" alt=""></div>
                             <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a href="index.html">Support</a></div>
-                            <div class="btn-box mr_10"><a href="index.html" class="theme-btn"><span>New Account</span></a></div>
+                            <div class="btn-box mr_10"><a asp-action="Register" asp-controller="Auth" class="theme-btn"><span>New Account</span></a></div>
                             <div class="nav-toggler">
                                 <button type="button" class="side-panel-btn nav-btn"><img src="~/images/icons/icon-10.png" alt=""></button>
                                 <div class="side-panel nav-content">

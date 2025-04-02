@@ -170,6 +170,9 @@ namespace CP2496H07Group1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("LongMonth")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Percent")
                         .HasColumnType("int");
 
@@ -181,7 +184,7 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("DiscountCodes");
                 });
 
-            modelBuilder.Entity("CP2496H07Group1.Models.FQA", b =>
+            modelBuilder.Entity("CP2496H07Group1.Models.Faq", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +205,7 @@ namespace CP2496H07Group1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FQAs");
+                    b.ToTable("Fqas");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.InsurancePackage", b =>
@@ -384,7 +387,7 @@ namespace CP2496H07Group1.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.SavingCategory", b =>
@@ -557,7 +560,8 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Identity")
                         .IsRequired()
@@ -568,7 +572,8 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()

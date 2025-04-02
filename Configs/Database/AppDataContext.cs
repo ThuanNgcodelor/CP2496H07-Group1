@@ -25,6 +25,7 @@ public class AppDataContext : DbContext
     public DbSet<LoanOption> LoanOptions { get; set; }
     public DbSet<Slider> Sliders { get; set; }
     public DbSet<Faq> Fqas { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -41,7 +41,7 @@
     <span class="big-text">LOGIN <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form id="loginForm" action="/Auth/Login" method="post">
+            <form id="loginForm" asp-action="Login" method="post">
                 @Html.AntiForgeryToken()
                 <div class="row clearfix">
                     <div class="sec-title">

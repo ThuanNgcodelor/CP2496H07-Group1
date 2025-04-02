@@ -312,3 +312,6 @@
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/CP2496H07Group1.pdb
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/CP2496H07Group1.genruntimeconfig.cache
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/ref/CP2496H07Group1.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.Bcl.Memory.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Twilio.dll

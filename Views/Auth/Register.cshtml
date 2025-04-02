@@ -1,3 +1,4 @@
+@model CP2496H07Group1.Models.User
 <style>
     .appointment-form {
         width: 80%;
@@ -21,8 +22,7 @@
     .message-btn {
         text-align: center;
     }
-    .form-group input[type='password']
-    {
+    .form-group input[type='password'] {
         position: relative;
         display: block;
         width: 100%;
@@ -34,71 +34,84 @@
         padding: 10px 20px;
         transition: all 500ms ease;
     }
-    
+    .validation-error {
+        color: red;
+        font-size: 14px;
+    }
 </style>
+
 <section class="appointment-section pt_120 pb_120">
     <div class="bg-layer" style="background-image: url(images/background/appointment-bg.jpg);"></div>
     <span class="big-text">REGISTER <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form action="https://azim.hostlin.com/Flexibank/loans-1.html" method="post">
-                <div class="row clearfix ">
-                    <div class="sec-title ">
+            <form asp-action="Register" method="post">
+                <div class="row clearfix">
+                    <div class="sec-title">
                         <span class="sub-title">Online Banking</span>
                         <h2>REGISTER</h2>
                     </div>
 
+                    <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                        @Html.ValidationSummary(true, "", new { @class = "validation-error" })
+                    </div>
+
                     <div class="col-lg-6 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-225.png" alt=""></div>
                             <label>First Name</label>
-                            <input type="text" name="FirstName" placeholder="First Name">
+                            <input type="text" name="FirstName" placeholder="First Name" value="@Model?.FirstName" />
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-225.png" alt=""></div>
                             <label>Last Name</label>
-                            <input type="text" name="LastName" placeholder="Last Name">
+                            <input type="text" name="LastName" placeholder="Last Name" value="@Model?.LastName" />
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-222.png" alt=""></div>
                             <label>Email</label>
-                            <input type="email" name="Email" placeholder="Email address" required>
+                            <input type="email" name="Email" placeholder="Email address" value="@Model?.Email" required />
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-223.png" alt=""></div>
                             <label>Phone</label>
-                            <input type="text" name="PhoneNumber" placeholder="Phone number" required>
+                            <input type="text" name="PhoneNumber" placeholder="Phone number" value="@Model?.PhoneNumber" required />
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-226.png" alt=""></div>
                             <label>Address</label>
-                            <input type="text" name="name" placeholder="Your address" required>
+                            <input type="text" name="Address" placeholder="Your address" value="@Model?.Address" required />
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "validation-error" })
                         </div>
                     </div>
-
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-223.png" alt=""></div>
+                            <label>Identity</label>
+                            <input type="text" name="Identity" placeholder="Your identity" value="@Model?.Identity" required />
+                            @Html.ValidationMessageFor(m => m.Identity, "", new { @class = "validation-error" })
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                        <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="PasswordHash" placeholder="Enter password" required>
+                            <input type="password" name="PasswordHash" placeholder="Enter password" required />
+                            @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
-                            <div class="icon-box"><img src="~/images/icons/icon-223.png" alt=""></div>
                             <label>Confirm Password</label>
-                            <input type="password" name="PasswordHash" placeholder="Confirm password" required>
+                            <input type="password" name="PasswordHash" placeholder="Confirm password" required />
+                            @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "validation-error" })
                         </div>
                     </div>
-
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="message-btn pt_7">
                             <button type="submit" class="theme-btn"><span>Register</span></button>
