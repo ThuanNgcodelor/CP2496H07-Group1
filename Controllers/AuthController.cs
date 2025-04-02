@@ -14,7 +14,8 @@ public class AuthController : Controller
     private readonly RedisService _redisService;
     private readonly AppDataContext _context;
 
-    public AuthController(IAuthService authService, JwtHandler jwtHandler, RedisService redisService, AppDataContext appDataContext)
+    public AuthController(IAuthService authService, JwtHandler jwtHandler, RedisService redisService,
+        AppDataContext appDataContext)
     {
         _authService = authService;
         _jwtHandler = jwtHandler;
@@ -26,12 +27,71 @@ public class AuthController : Controller
     {
         return View();
     }
-    
+
     public IActionResult Register()
     {
         return View();
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Register(User model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        try
+        {
+            var user = await _authService.RegisterOpt(model);
+            
+            TempData["Email"] = user.Email;
+            TempData["Message"] = "OTP code has been sent to your email";
+            
+            return RedirectToAction("VerifyOtp", "Auth");
+        }
+        catch (ArgumentException ex)
+        {
+            ModelState.AddModelError("PhoneNumber", ex.Message);
+            return View(model);
+        }
+    }
     
+    
+    [HttpGet]
+    public IActionResult VerifyOtp()
+    {
+        var email = TempData["Email"]?.ToString();
+        if (string.IsNullOrEmpty(email))
+        {
+            return RedirectToAction("Register", "Auth");
+        }
+        TempData.Keep("Email");
+        return View(new VerifyOtpModel { Email = email });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> VerifyOtp(VerifyOtpModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["Email"] = model.Email;
+            return View(model);
+        }
+
+        var user = await _authService.ConfirmEmail(model.Email, model.Otp);
+        if (user == null)
+        {
+            ModelState.AddModelError("Otp", "OTP code is incorrect. Please check and try again.");
+            TempData["Email"] = model.Email;
+            return View(model);
+        }
+
+        TempData["Message"] = "Xác nhận OTP thành công!";
+        return RedirectToAction("Login", "Auth");
+    }
+    
+
     [HttpGet]
     public IActionResult Users()
     {
@@ -51,52 +111,63 @@ public class AuthController : Controller
 
         return View(user);
     }
+
     [HttpPost]
     public async Task<IActionResult> Login(User model)
     {
-        var user = await _authService.Login(model);
-        if (user == null)
+        try
         {
-            return Json(new { success = false, message = "Invalid username or password" });
+            var user = await _authService.Login(model);
+            if (user == null) 
+            {
+                return Json(new { success = false, message = "An unknown error occurred" });
+            }
+
+            var accessToken = await _jwtHandler.GenerateToken(user);
+            var refreshToken = await _jwtHandler.GenerateRefreshToken(user);
+
+            Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddMinutes(30)
+            });
+
+            Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(30)
+            });
+
+            var cache = _redisService.GetDatabase();
+            await cache.StringSetAsync($"refreshToken:{user.Id}", refreshToken, TimeSpan.FromDays(7));
+
+            var roles = user.Roles.Select(r => r.RoleName).ToList();
+            string? redirectUrl = null;
+            if (roles.Contains("Admin"))
+            {
+                redirectUrl = Url.Action("Index", "Dashboard", new { area = "Admin" });
+            }
+            else if (roles.Contains("Client"))
+            {
+                redirectUrl = Url.Action("Users", "Auth");
+            }
+
+            return Json(new { success = true, redirectUrl });
         }
-        
-
-        var accessToken = await _jwtHandler.GenerateToken(user);
-        var refreshToken = await _jwtHandler.GenerateRefreshToken(user);
-        
-        Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
+        catch (ArgumentException ex)
         {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(30)
-        });
-
-        Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddDays(30)
-        });
-        
-        // Lưu RefreshToken vào Redis với key "refreshToken:{UserId}"
-        var cache = _redisService.GetDatabase();
-        await cache.StringSetAsync($"refreshToken:{user.Id}", refreshToken, TimeSpan.FromDays(7));
-
-        // Kiểm tra danh sách Roles của user
-        var roles = user.Roles.Select(r => r.RoleName).ToList();
-
-        string? redirectUrl = null;
-        if (roles.Contains("Admin"))
-        {
-            redirectUrl = Url.Action("Index", "Dashboard", new { area = "Admin" });
+            string message = ex.Message switch
+            {
+                "Phone number is invalid" => "Phone number is invalid",
+                "User has been locked" => "User has been locked",
+                "Password is invalid" => "Password is invalid",
+                _ => "An unknown error occurred"
+            };
+            return Json(new { success = false, message });
         }
-        else if (roles.Contains("Client"))
-        {
-            redirectUrl = Url.Action("Users", "Auth");
-        }
-
-        return Json(new { success = true, redirectUrl });
     }
 }

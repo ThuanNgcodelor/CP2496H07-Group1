@@ -1,0 +1,70 @@
+@model VerifyOtpModel
+
+
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-danger text-white text-center py-4">
+                        <h3 class="mt-3 mb-0">Confirm OTP</h3>
+                    </div>
+
+                    <div class="card-body p-4">
+                        @if (TempData["Message"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @TempData["Message"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ContainsKey("Otp"))
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                @Html.ValidationMessageFor(m => m.Otp)
+                                Plese re-enter OTP code.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+
+                        <p class="text-center mb-4">
+                            Plese enter text-white OTP code section to your email: <strong>@Model.Email</strong>
+                        </p>
+
+                        <form asp-action="VerifyOtp" method="post">
+                            <input asp-for="Email" type="hidden" />
+
+                            <div class="form-group">
+                                <label asp-for="Otp" class="text-danger">
+                                    <i class="fas fa-key mr-2"></i>OTP Code
+                                </label>
+                                <input asp-for="Otp" class="form-control" placeholder="Enter OTP code" />
+                                <small class="form-text text-danger">@Html.ValidationMessageFor(m => m.Otp)</small>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-check mr-2"></i>Confirm OTP
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer text-muted text-center bg-white">
+                        Time: @DateTime.Now.ToString("MMM dd, yyyy")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

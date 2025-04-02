@@ -14,7 +14,7 @@ public static class DependencyInjection
 
         // Đăng ký các dịch vụ
         services.AddScoped<IAuthService, AuthService>();
-        services.AddSingleton<RedisService>(); 
+        services.AddSingleton<RedisService>();
 
 
             
