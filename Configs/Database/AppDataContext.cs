@@ -25,6 +25,7 @@ public class AppDataContext : DbContext
     public DbSet<LoanOption> LoanOptions { get; set; }
     public DbSet<Slider> Sliders { get; set; }
     public DbSet<Faq> Fqas { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -106,6 +107,13 @@ public class AppDataContext : DbContext
             .HasForeignKey(c => c.NewsId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.InsurancePackage)  // Comment có một InsurancePackage
+            .WithMany(ip => ip.Comments)      // InsurancePackage có nhiều Comments
+            .HasForeignKey(c => c.PackageId)  // Khóa ngoại là PackageId trong Comment
+            .OnDelete(DeleteBehavior.Cascade); 
+        
+        
         // Quan hệ 1-N giữa User và Comment
         modelBuilder.Entity<Comment>()
             .HasOne(c => c.User)
@@ -158,11 +166,11 @@ public class AppDataContext : DbContext
             .HasForeignKey<Account>(a => a.VipId)
             .OnDelete(DeleteBehavior.SetNull);
         
-        // Quan hệ 1-n giữa Account và Loan (một Account có thể có nhiều Loan)
+        // Quan hệ 1-n giữa User và Loan (một Account có thể có nhiều Loan)
         modelBuilder.Entity<Loans>()
-            .HasOne(l => l.Account)
+            .HasOne(l => l.User)
             .WithMany(a => a.Loans)
-            .HasForeignKey(l => l.AccountId)
+            .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Cascade); // Xóa tài khoản thì xóa luôn các khoản vay
 
         // Quan hệ 1-n giữa LoanOption và Loan (một LoanOption có thể được chọn bởi nhiều Loan)
@@ -177,5 +185,32 @@ public class AppDataContext : DbContext
             .WithMany(v => v.Loans)
             .HasForeignKey(l => l.VipId)
             .OnDelete(DeleteBehavior.SetNull);
+        
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.Vip) // Một Transaction có thể có một Vip
+            .WithMany(v => v.Transactions) // Một Vip có thể có nhiều Transaction
+            .HasForeignKey(t => t.VipId) // Khóa ngoại trong Transaction
+            .OnDelete(DeleteBehavior.SetNull); // Nếu Vip bị xóa, Transaction vẫn giữ nguyên
+
+        modelBuilder.Entity<Faq>()
+            .Property(f => f.IsConfirm)
+            .HasDefaultValue(true);
+
+        modelBuilder.Entity<News>() 
+            .Property(n => n.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");
+        modelBuilder.Entity<News>()
+            .Property(c => c.IsConfirm)
+            .HasDefaultValue(true);
+        modelBuilder.Entity<Comment>()
+            .Property(c => c.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");                                                                                                                                                      modelBuilder.Entity<Category>()
+            .Property(c => c.IsConfirm)
+            .HasDefaultValue(true); // Mặc định là true trong cơ sở dữ liệu
+        modelBuilder.Entity<Category>()
+            .HasMany(c => c.News)
+            .WithOne(n => n.Category)
+            .HasForeignKey(n => n.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

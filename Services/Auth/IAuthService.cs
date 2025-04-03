@@ -8,4 +8,10 @@ public interface IAuthService
     Task<User> RegisterOpt(User model);
     Task<User?> ConfirmEmail(string email, string token);
     Task<User?> ConfirmSms(string phone, string token);
+    
+    Task<User> Register(User model);
+    Task<string> ForgotPassword(string phoneNumber);
+    Task ResetPassword(string? phoneNumber,string newPassword, string confirmPassword);
+
+    Task ValidateOtp(string? phoneNumber, string otp);
 }

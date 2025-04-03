@@ -19,6 +19,8 @@ public class News
     [Required(ErrorMessage = "Image cannot be blank.")]
     public required string ImageUrl { get; set; }
 
+    public bool IsConfirm { get; set; } = true;
+
     public  virtual required Category Category { get; set; }
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Configs\Email\" />
-      <Folder Include="Configs\Sms\" />
-      <Folder Include="Dtos\" />
-      <Folder Include="Views\Vip\" />
       <Folder Include="wwwroot\Admin\" />
     </ItemGroup>
 
@@ -333,6 +329,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
       <PackageReference Include="PasswordHash" Version="1.1.0" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+      <PackageReference Include="Twilio" Version="7.9.1" />
       <PackageReference Include="X.PagedList" Version="10.5.7" />
       <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
     </ItemGroup>
