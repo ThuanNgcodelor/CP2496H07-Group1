@@ -255,7 +255,7 @@ public class AuthController : Controller
                 "Phone number is invalid" => "Phone number is invalid",
                 "User has been locked" => "User has been locked",
                 "Password is invalid" => "Password is invalid",
-                _ => "An unknown error occurred"
+                _ => throw new ArgumentOutOfRangeException()
             };
             return Json(new { success = false, message });
         }
