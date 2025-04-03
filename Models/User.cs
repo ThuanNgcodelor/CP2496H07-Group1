@@ -30,6 +30,8 @@ public class User
     public required List<Account> Accounts { get; set; } = new List<Account>();
     public required List<Request> Requests { get; set; } = new List<Request>();
     public required List<UserInsurance> UserInsurances { get; set; } = new List<UserInsurance>();
+    public List<Loans> Loans { get; set; } = new();
+
 }
 
 public class PastDateAttribute : ValidationAttribute

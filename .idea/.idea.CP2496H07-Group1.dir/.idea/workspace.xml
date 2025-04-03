@@ -10,9 +10,10 @@
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Account.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Loans.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Loans.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
@@ -127,7 +128,7 @@
       <workItem from="1743612915901" duration="2000" />
       <workItem from="1743645750760" duration="10000" />
       <workItem from="1743645854769" duration="1412000" />
-      <workItem from="1743650226726" duration="5754000" />
+      <workItem from="1743650226726" duration="6250000" />
     </task>
     <servers />
   </component>

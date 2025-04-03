@@ -257,6 +257,7 @@ namespace CP2496H07Group1.Migrations
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Pin = table.Column<int>(type: "int", nullable: false),
                     AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VipId = table.Column<long>(type: "bigint", nullable: true),
@@ -273,6 +274,44 @@ namespace CP2496H07Group1.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Accounts_Vips_VipId",
+                        column: x => x.VipId,
+                        principalTable: "Vips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Loans",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
+                    MonthlyPayment = table.Column<int>(type: "int", nullable: false),
+                    VipId = table.Column<long>(type: "bigint", nullable: true),
+                    OweMoney = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loans_LoanOptions_LoanOptionId",
+                        column: x => x.LoanOptionId,
+                        principalTable: "LoanOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Loans_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Loans_Vips_VipId",
                         column: x => x.VipId,
                         principalTable: "Vips",
                         principalColumn: "Id",
@@ -347,44 +386,6 @@ namespace CP2496H07Group1.Migrations
                         principalTable: "DiscountCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Loans",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountId = table.Column<long>(type: "bigint", nullable: false),
-                    AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
-                    MonthlyPayment = table.Column<int>(type: "int", nullable: false),
-                    VipId = table.Column<long>(type: "bigint", nullable: true),
-                    OweMoney = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Loans", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Loans_Accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "Accounts",
-                        principalColumn: "AccountId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Loans_LoanOptions_LoanOptionId",
-                        column: x => x.LoanOptionId,
-                        principalTable: "LoanOptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Loans_Vips_VipId",
-                        column: x => x.VipId,
-                        principalTable: "Vips",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -541,14 +542,14 @@ namespace CP2496H07Group1.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Loans_AccountId",
-                table: "Loans",
-                column: "AccountId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Loans_LoanOptionId",
                 table: "Loans",
                 column: "LoanOptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loans_UserId",
+                table: "Loans",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Loans_VipId",
