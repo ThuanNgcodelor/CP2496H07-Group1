@@ -166,11 +166,11 @@ public class AppDataContext : DbContext
             .HasForeignKey<Account>(a => a.VipId)
             .OnDelete(DeleteBehavior.SetNull);
         
-        // Quan hệ 1-n giữa Account và Loan (một Account có thể có nhiều Loan)
+        // Quan hệ 1-n giữa User và Loan (một Account có thể có nhiều Loan)
         modelBuilder.Entity<Loans>()
-            .HasOne(l => l.Account)
+            .HasOne(l => l.User)
             .WithMany(a => a.Loans)
-            .HasForeignKey(l => l.AccountId)
+            .HasForeignKey(l => l.UserId)
             .OnDelete(DeleteBehavior.Cascade); // Xóa tài khoản thì xóa luôn các khoản vay
 
         // Quan hệ 1-n giữa LoanOption và Loan (một LoanOption có thể được chọn bởi nhiều Loan)

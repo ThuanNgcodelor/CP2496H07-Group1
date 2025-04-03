@@ -44,6 +44,9 @@ namespace CP2496H07Group1.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Pin")
+                        .HasColumnType("int");
+
                     b.Property<long?>("Point")
                         .HasColumnType("bigint");
 
@@ -274,9 +277,6 @@ namespace CP2496H07Group1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint");
-
                     b.Property<decimal>("AmountBorrowed")
                         .HasColumnType("decimal(18,2)");
 
@@ -295,14 +295,17 @@ namespace CP2496H07Group1.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("VipId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.HasIndex("LoanOptionId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("VipId");
 
@@ -763,16 +766,16 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
                 {
-                    b.HasOne("CP2496H07Group1.Models.Account", "Account")
-                        .WithMany("Loans")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CP2496H07Group1.Models.LoanOption", "LoanOption")
                         .WithMany("Loans")
                         .HasForeignKey("LoanOptionId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CP2496H07Group1.Models.User", "User")
+                        .WithMany("Loans")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CP2496H07Group1.Models.Vip", "Vip")
@@ -780,9 +783,9 @@ namespace CP2496H07Group1.Migrations
                         .HasForeignKey("VipId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("Account");
-
                     b.Navigation("LoanOption");
+
+                    b.Navigation("User");
 
                     b.Navigation("Vip");
                 });
@@ -905,8 +908,6 @@ namespace CP2496H07Group1.Migrations
                 {
                     b.Navigation("AccountDiscounts");
 
-                    b.Navigation("Loans");
-
                     b.Navigation("TransactionsFrom");
 
                     b.Navigation("TransactionsTo");
@@ -952,6 +953,8 @@ namespace CP2496H07Group1.Migrations
             modelBuilder.Entity("CP2496H07Group1.Models.User", b =>
                 {
                     b.Navigation("Accounts");
+
+                    b.Navigation("Loans");
 
                     b.Navigation("Requests");
 
