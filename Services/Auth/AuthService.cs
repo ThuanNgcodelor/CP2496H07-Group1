@@ -44,17 +44,17 @@ public class AuthService : IAuthService
         string redisKey = $"fails_login_{user.PhoneNumber}";
         int failedLoginAttempts = int.TryParse(_redis.Get(redisKey), out int attempts) ? attempts : 0;
 
-        if (failedLoginAttempts > 3)
+        if (failedLoginAttempts > 2)
         {
             user.Status = "Off";
             await _context.SaveChangesAsync();
-            return null;
+            throw new ArgumentException("User has been locked");;
         }
 
         if (!VerifyPassword(model.PasswordHash, user.PasswordHash))
         {
             failedLoginAttempts++;
-            _redis.Set(redisKey, failedLoginAttempts.ToString(), TimeSpan.FromDays(30));
+            _redis.Set(redisKey, failedLoginAttempts.ToString(), TimeSpan.FromMinutes(30));
             throw new ArgumentException("Password is invalid");
         }
 
@@ -153,6 +153,8 @@ public class AuthService : IAuthService
 
         user.PasswordHash = HashPassword(newPassword);
         await _context.SaveChangesAsync();
+        string redisKey = $"reset_password_{user.PhoneNumber}";
+        _redis.Remove(redisKey);
     }
 
 
