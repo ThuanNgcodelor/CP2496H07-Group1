@@ -66,11 +66,26 @@
                             <input type="password" id="password" name="PasswordHash" placeholder="Enter password" required>
                         </div>
                     </div>
+                    
                     <div class="col-12">
                         <div class="message-btn pt_7">
                             <button type="submit" class="theme-btn"><span>Login</span></button>
                         </div>
                     </div>
+                    <div class="col-12 text-center pt_10">
+                        <a asp-controller="Auth" asp-action="Forgot" class="forgot-password-link">Forgot Password?</a>
+                    </div>
+                    <style>
+                        .forgot-password-link {
+                            color: #007bff;
+                            text-decoration: none;
+                            font-size: 14px;
+                        }
+
+                        .forgot-password-link:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
                 </div>
             </form>
         </div>

@@ -33,6 +33,96 @@ public class AuthController : Controller
         return View();
     }
 
+    public IActionResult Forgot()
+    {
+        return View();
+    }
+    
+    [HttpGet]
+    public IActionResult EnterOtp()
+    {
+        return View();
+    }
+    [HttpGet]
+    public IActionResult NewPassword()
+    {
+        return View();
+    }
+    
+
+    [HttpPost]
+    public async Task<IActionResult> Forgot(string phoneNumber)
+    {
+        try
+        {
+            string result = await _authService.ForgotPassword(phoneNumber);
+            TempData["PhoneNumber"] = phoneNumber;  
+            TempData.Keep("PhoneNumber"); 
+            TempData["Message"] = result;
+            return RedirectToAction("EnterOtp");  
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return View();
+        }
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> EnterOtp(string? phoneNumber, string otp)
+    {
+        try
+        {
+            // Nếu phoneNumber null, lấy từ TempData
+            phoneNumber ??= TempData["PhoneNumber"]?.ToString();
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return RedirectToAction("Forgot");
+            }
+
+            TempData["PhoneNumber"] = phoneNumber; // Lưu lại phoneNumber để dùng tiếp
+            TempData.Keep("PhoneNumber");
+
+            await _authService.ValidateOtp(phoneNumber, otp);
+            return RedirectToAction("NewPassword");
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return View();
+        }
+    }
+
+
+
+    [HttpPost]
+    public async Task<IActionResult> NewPassword(string? phoneNumber,string newPassword, string confirmPassword)
+    {
+        phoneNumber ??= TempData["PhoneNumber"]?.ToString();
+        if (string.IsNullOrEmpty(phoneNumber))
+        {
+            return RedirectToAction("Forgot");
+        }
+
+        if (newPassword != confirmPassword)
+        {
+            ModelState.AddModelError(string.Empty, "Passwords do not match.");
+            return View();
+        }
+
+        try
+        {
+            await _authService.ResetPassword(phoneNumber, newPassword,confirmPassword);
+            return RedirectToAction("Login");
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return View();
+        }
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> Register(User model)
     {
