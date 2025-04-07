@@ -38,16 +38,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CreateAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DcmVhdGVBY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtp.cshtml]
@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/NewPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9OZXdQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/RecentTransactions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWNlbnRUcmFuc2FjdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Register.cshtml]
@@ -84,6 +88,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_Layout.cshtml]

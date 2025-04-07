@@ -310,6 +310,7 @@
       <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_utilities-extend.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_utilities.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_variables.scss" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Home\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

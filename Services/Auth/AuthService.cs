@@ -44,7 +44,7 @@ public class AuthService : IAuthService
         string redisKey = $"fails_login_{user.PhoneNumber}";
         int failedLoginAttempts = int.TryParse(_redis.Get(redisKey), out int attempts) ? attempts : 0;
 
-        if (failedLoginAttempts > 2)
+        if (failedLoginAttempts >= 3)
         {
             user.Status = "Off";
             await _context.SaveChangesAsync();

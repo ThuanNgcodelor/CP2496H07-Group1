@@ -1,8 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CP2496H07Group1.Models;
 
 public class Account
 {
-    public required long AccountId { get; set; }     
+    public  long AccountId { get; set; }     
     public required long UserId { get; set; }            
     public required string AccountNumber { get; set; } 
     public required decimal Balance { get; set; }       

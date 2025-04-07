@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public class Transaction
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
     public required long FromAccountId { get; set; }
     public required long? ToAccountId { get; set; }
     public required decimal Amount { get; set; } = 0;

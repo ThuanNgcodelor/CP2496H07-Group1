@@ -25,24 +25,21 @@ public class JwtHandler
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new List<Claim>
+        var claims = new[]
         {
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("hashed_id", user.Id.ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim("hashed_id",HashId(user.Id)), 
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
-        // Thêm tất cả các vai trò của user vào token
-        foreach (var role in user.Roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
-        }
+        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
+        var allClaims = claims.Concat(roleClaims);
 
         var token = new JwtSecurityToken(
             issuer: _jwtModel.Issuer,
             audience: _jwtModel.Audience,
-            claims: claims,
+            claims: allClaims,
             expires: DateTime.UtcNow.AddMinutes(30),
             signingCredentials: credentials
         );
@@ -50,31 +47,31 @@ public class JwtHandler
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         return Task.FromResult(tokenString);
     }
+
+
+   
     
     public Task<string> GenerateRefreshToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new List<Claim>
+        var claims = new[]
         {
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("hashed_id", user.Id.ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim("hashed_id",HashId(user.Id)), 
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
-        // Thêm tất cả các vai trò của user vào token
-        foreach (var role in user.Roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
-        }
+        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
+        var allClaims = claims.Concat(roleClaims); 
 
         var token = new JwtSecurityToken(
             issuer: _jwtModel.Issuer,
             audience: _jwtModel.Audience,
-            claims: claims,
-            expires: DateTime.UtcNow.AddDays(30),
+            claims: allClaims,
+            expires: DateTime.UtcNow.AddMinutes(30),
             signingCredentials: credentials
         );
 
