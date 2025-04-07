@@ -9,41 +9,82 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1f671f9-d6d5-4ca2-824a-f379a9a972bf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Account/AccountService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Account/IAccountService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Auth/CreateAccount.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Auth/RecentTransactions.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Insurance/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Home/Index.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CP2496H07Group1.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CP2496H07Group1.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/DependencyInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250403053637_MigrationName.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250403053637_MigrationName.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Account.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Transaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Login.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Users.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Users.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ThuanNgcodelor"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ThuanNgcodelor&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ThuanNgcodelor/CP2496H07-Group1.git",
-    "accountId": "0a261145-0881-4ea7-bd49-6b677c717ed9"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ThuanNgcodelor/CP2496H07-Group1.git&quot;,
+    &quot;accountId&quot;: &quot;0a261145-0881-4ea7-bd49-6b677c717ed9&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2vCq1d5z8TwPaL9YgUb3dE0M7FL" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.CP2496H07Group1: http.executor": "Run",
+    ".NET Launch Settings Profile.CP2496H07Group1: https.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -97,6 +138,17 @@
       <option name="presentableId" value="Default" />
       <updated>1743659190704</updated>
       <workItem from="1743659192025" duration="599000" />
+      <workItem from="1743822713263" duration="2665000" />
+      <workItem from="1743861951857" duration="1697000" />
+      <workItem from="1743863811418" duration="718000" />
+      <workItem from="1744003916749" duration="8000" />
+      <workItem from="1744006548249" duration="1870000" />
+      <workItem from="1744008509656" duration="4848000" />
+      <workItem from="1744013469166" duration="7975000" />
+      <workItem from="1744037903379" duration="975000" />
+      <workItem from="1744042028984" duration="44000" />
+      <workItem from="1744042152536" duration="236000" />
+      <workItem from="1744042476843" duration="2057000" />
     </task>
     <servers />
   </component>

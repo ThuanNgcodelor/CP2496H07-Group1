@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>Flexibank - HTML 5 Template Preview</title>
+<title>TeckBank</title>
 
 <!-- Fav Icon -->
 <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
@@ -32,7 +32,6 @@
 </head>
 
 
-<!-- page wrapper -->
 <body>
 
     <div class="boxed_wrapper">
@@ -109,43 +108,25 @@
                                                 <li><a href="index-3.html">Home Page 03</a></li>
                                                 <li><a href="index-4.html">Home Page 04</a></li>
                                             </ul>
-                                        </li> 
-                                        <li class="dropdown"><a href="#">Services</a>
-                                            <ul>
-                                                <li class="dropdown"><a href="#">Accounts</a>
-                                                    <ul>
-                                                        <li><a href="account.html">All Accounts</a></li>
-                                                        <li><a href="account-details.html">Savings Account</a></li>
-                                                        <li><a href="account-details-2.html">Current Account</a></li>
-                                                        <li><a href="account-details-3.html">Family 360º</a></li>
-                                                        <li><a href="account-details-4.html">Senior Citizen</a></li>
-                                                        <li><a href="account-details-5.html">Demat Account</a></li>
-                                                        <li><a href="account-details-6.html">Business Account</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown"><a href="#">Investments</a>
-                                                    <ul>
-                                                        <li><a href="investments-details.html">Trade FX</a></li>
-                                                        <li><a href="investments-details-2.html">Multi Currency a/c</a></li>
-                                                        <li><a href="investments-details-3.html">Mutual Funds</a></li>
-                                                        <li><a href="investments-details-4.html">Insurance</a></li>
-                                                        <li><a href="investments-details-5.html">Tax-Deferred Investment</a></li>
-                                                        <li><a href="investments-details-6.html">Investment Advisory</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown"><a href="#">Cards</a>
-                                                    <ul>
-                                                        <li><a href="cards.html">All Cards</a></li>
-                                                        <li><a href="card-details.html">Platinum Card</a></li>
-                                                        <li><a href="card-details-2.html">Millinnia Card</a></li>
-                                                        <li><a href="card-details-3.html">Money Back Card</a></li>
-                                                        <li><a href="card-details-4.html">Easy EMI Card</a></li>
-                                                        <li><a href="card-details-5.html">Dinners Club Privilege</a></li>
-                                                        <li><a href="card-details-6.html">Titanium Times</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li> 
+                                        </li>
+                                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                        {
+                                            <li class="dropdown"><a href="#">Chuc Nang</a>
+                                                <ul>
+                                                    <li class="dropdown"><a href="#">More</a>
+                                                        <ul>
+                                                            <li><a href=""></a></li>
+                                                            <li><a href="">Personal Loan</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="">Tai khoan cua toi</a></li>
+                                                    <li><a href="">Chuyen tien</a></li>
+                                                    <li><a href="">Danh sach the</a></li>
+                                                    <li><a href="">Nap Tien</a>
+                                                    <li><a href="">Dang xuat</a></li>
+                                                </ul>
+                                            </li>
+                                        }
                                         <li class="dropdown"><a href="#">About</a>
                                             <ul>
                                                 <li><a href="about.html">About Us</a></li>
@@ -175,21 +156,23 @@
                                                 <li><a href="blog-details.html">Single Post</a></li>
                                             </ul>
                                         </li> 
-                                        <li class="dropdown"><a href="#">Apply Now</a>
-                                            <ul>
-                                                <li class="dropdown"><a href="#">Loans</a>
-                                                    <ul>
-                                                        <li><a href="loans-1.html">Home Loan</a></li>
-                                                        <li><a href="loans-2.html">Personal Loan</a></li>
-                                                        <li><a href="loans-3.html">Vehicle Loan</a></li>
-                                                        <li><a href="loans-4.html">Education Loan</a></li>
-                                                        <li><a href="loans-5.html">Gold Loan</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="cards-2.html">Credit Card</a></li>
-                                                <li><a href="cards-3.html">Debit Card</a></li>
-                                            </ul>
-                                        </li>  
+                                        @* <li class="dropdown"><a href="#">Apply Now</a> *@
+                                        @*     <ul> *@
+                                        @*         <li class="dropdown"><a href="#">Loans</a> *@
+                                        @*             <ul> *@
+                                        @*                 <li><a href="loans-1.html">Home Loan</a></li> *@
+                                        @*                 <li><a href="loans-2.html">Personal Loan</a></li> *@
+                                        @*                 <li><a href="loans-3.html">Vehicle Loan</a></li> *@
+                                        @*                 <li><a href="loans-4.html">Education Loan</a></li> *@
+                                        @*                 <li><a href="loans-5.html">Gold Loan</a></li> *@
+                                        @*             </ul> *@
+                                        @*         </li> *@
+                                        @*         <li><a href="cards-2.html">Credit Card</a></li> *@
+                                        @*         <li><a href="cards-3.html">Debit Card</a></li> *@
+                                        @*     </ul> *@
+                                        @* </li>   *@
+
+                                        
                                         <li><a asp-action="Login" asp-controller="Auth">Login</a></li> 
                                     </ul>
                                 </div>
@@ -476,3 +459,59 @@
 </body><!-- End of .page_wrapper -->
 
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let refreshIntervalId = null;
+
+    function refreshAccessToken(callback) {
+        $.ajax({
+            url: "/Auth/RefreshToken",
+            type: "POST",
+            xhrFields: {
+                withCredentials: true,
+            },
+            success: function (response) {
+                console.log("Token refreshed:", response.token);
+                document.cookie = `AccessToken=${response.token}; path=/; secure; SameSite=Strict`;
+                if (callback) callback(true);
+            },
+            error: function (xhr, status, error) {
+                console.error("Refresh token failed:", xhr.responseText);
+            }
+        });
+    }
+
+    function checkLoginAndRefresh() {
+        $.ajax({
+            url: "/Auth/IsLoggedIn",
+            type: "GET",
+            xhrFields: {
+                withCredentials: true,
+            },
+            success: function () {
+                // Logged in => refresh access token
+                refreshAccessToken(function (success) {
+                    if (success) {
+                        console.log("Token refreshed successfully");
+                    }
+                });
+            },
+            error: function () {
+                // Not logged in => stop checking
+                console.log("User is not logged in. Stopping auto refresh.");
+                if (refreshIntervalId) {
+                    clearInterval(refreshIntervalId);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        // Gọi kiểm tra lần đầu tiên khi vào trang
+        checkLoginAndRefresh();
+
+        // Sau đó định kỳ nếu còn đăng nhập
+        refreshIntervalId = setInterval(checkLoginAndRefresh, 1750000); // ~29 phút
+    });
+</script>
