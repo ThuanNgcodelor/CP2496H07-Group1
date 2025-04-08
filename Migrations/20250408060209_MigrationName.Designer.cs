@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CP2496H07Group1.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20250403160522_MigrationName")]
+    [Migration("20250408060209_MigrationName")]
     partial class MigrationName
     {
         /// <inheritdoc />
@@ -27,11 +27,11 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Account", b =>
                 {
-                    b.Property<long>("AccountId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AccountId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
@@ -59,7 +59,7 @@ namespace CP2496H07Group1.Migrations
                     b.Property<long?>("VipId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 

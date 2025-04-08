@@ -24,11 +24,11 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Account", b =>
                 {
-                    b.Property<long>("AccountId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AccountId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
@@ -56,7 +56,7 @@ namespace CP2496H07Group1.Migrations
                     b.Property<long?>("VipId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
