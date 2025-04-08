@@ -38,6 +38,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL0FkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL1VwZGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

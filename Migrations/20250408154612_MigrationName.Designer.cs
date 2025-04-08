@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CP2496H07Group1.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20250408060209_MigrationName")]
+    [Migration("20250408154612_MigrationName")]
     partial class MigrationName
     {
         /// <inheritdoc />
@@ -247,6 +247,10 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

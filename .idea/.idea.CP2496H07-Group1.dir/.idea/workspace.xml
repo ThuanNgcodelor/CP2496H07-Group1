@@ -9,30 +9,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Views/Auth/EnterOtpCreateAccount.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Add.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Package/IPackageService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Package/IUserInsurance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Package/PackageService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Package/UserInsurance.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/DependencyInjection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250403160522_MigrationName.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250403160522_MigrationName.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250408060209_MigrationName.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250408060209_MigrationName.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Account.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Transaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Account/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/AccountService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Account/IAccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/IAccountService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Auth/CreateAccount.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/CreateAccount.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Auth/NewPassword.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/NewPassword.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/InsurancePackage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/InsurancePackage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" afterDir="false" />
@@ -68,6 +68,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/887cd4aa062a44a8a4937f673828ebd536800/aa/361a0fb1/RazorPage`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c40b6827f21841c89806245805c11473ad400/61/195caec8/HtmlHelperValidationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e358d67bcd5815a5083706ec88db8489a9872915d46156ba24277cd21bd662/AsyncTaskMethodBuilderT.cs" root0="FORCE_HIGHLIGHTING" />
@@ -76,14 +77,16 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2v8DqxhKUlet9Lu446N26RKiPUu" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.CP2496H07Group1: http.executor": "Debug",
+    ".NET Launch Settings Profile.CP2496H07Group1: http.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "dev",
@@ -147,7 +150,8 @@
       <workItem from="1743650226726" duration="6250000" />
       <workItem from="1744077653087" duration="5851000" />
       <workItem from="1744084618951" duration="2277000" />
-      <workItem from="1744087166253" duration="6742000" />
+      <workItem from="1744087166253" duration="10382000" />
+      <workItem from="1744123250176" duration="4986000" />
     </task>
     <servers />
   </component>
