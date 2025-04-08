@@ -64,11 +64,6 @@ public class AuthService : IAuthService
     }
 
 
-    public Task<User?> ConfirmSms(string phone, string token)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<User> Register(User model)
     {
         if (await _context.Users.AnyAsync(u => u.PhoneNumber == model.PhoneNumber))

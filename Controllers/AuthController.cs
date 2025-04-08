@@ -36,6 +36,7 @@ public class AuthController : Controller
         {
             return RedirectToAction("Users", "Auth");
         }
+
         return View();
     }
 
@@ -49,14 +50,29 @@ public class AuthController : Controller
         return View();
     }
 
-    // [HttpGet]
-    // public IActionResult Users()
-    // {
-    //     return View();
-    // }
-    
+    [HttpGet]
+    public IActionResult EnterOtpCreateAccount()
+    {
+        TempData["Message"] = "OTP code has been sent to your email";
+        return View();
+    }
+
     [HttpGet]
     public IActionResult RecentTransactions()
+    {
+        return View();
+    }
+
+
+    [HttpGet]
+    public IActionResult EnterOtp()
+    {
+        TempData["Message"] = "OTP code has been sent to your email";
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult NewPassword()
     {
         return View();
     }
@@ -73,26 +89,51 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAccount(Account account)
+    public async Task<IActionResult> CreateAccount(string accountType, int pin, int confirmPin)
     {
-        try
-        {
-            var hashedId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(hashedId) || !long.TryParse(hashedId, out long userId))
-            {
-                return RedirectToAction("Login", "Auth");
-            }
+        var pinStr = pin.ToString();
+        var confirmPinStr = confirmPin.ToString();
 
-            await _accountService.CreateAccount(userId, account.AccountType, account.Pin);
-            return RedirectToAction("Users", "Auth");
-        }
-        catch(Exception ex)
+        if (pinStr.Length != 6 || confirmPinStr.Length != 6 || pin != confirmPin)
         {
-            TempData["ErrorMessage"] = $"Account creation failed: {ex.Message}";
-            return View(account); 
+            ModelState.AddModelError("", "PIN must be 6 digits and match.");
+            return View();
         }
+
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (value != null)
+        {
+            var userId = long.Parse(value);
+            await _accountService.SendMailCreateAccount(userId, accountType, pin);
+            TempData["UserId"] = userId.ToString();
+        }
+
+        return RedirectToAction("EnterOtpCreateAccount");
     }
-    
+
+
+    [HttpPost]
+    public async Task<IActionResult> EnterOtpCreateAccount(long userId, string otp)
+    {
+        if (string.IsNullOrWhiteSpace(otp) || otp.Length != 6 || !otp.All(char.IsDigit))
+        {
+            ModelState.AddModelError("", "OTP must be 6 digits.");
+            return View();
+        }
+
+        var success = await _accountService.VerifyOtpAndCommitCreateAccount(userId, otp);
+        if (success == null)
+        {
+            ModelState.AddModelError("", "OTP incorrect or expired.");
+            return View();
+        }
+        
+
+        TempData["Success"] = "Create Card Success!";
+        return RedirectToAction("Users");
+    }
+
+
     [HttpGet]
     public IActionResult Account()
     {
@@ -101,9 +142,10 @@ public class AuthController : Controller
         {
             return RedirectToAction("Login", "Auth");
         }
+
         return View();
     }
-    
+
     [HttpGet]
     public IActionResult Users()
     {
@@ -116,7 +158,7 @@ public class AuthController : Controller
         var users = _context.Users.ToList();
 
         var user = users.FirstOrDefault(u => _jwtHandler.HashId(u.Id) == hashedId);
-    
+
         if (user == null)
         {
             return RedirectToAction("Login", "Auth");
@@ -125,18 +167,6 @@ public class AuthController : Controller
         return View(user);
     }
 
-    
-    [HttpGet]
-    public IActionResult EnterOtp()
-    {
-        return View();
-    }
-    [HttpGet]
-    public IActionResult NewPassword()
-    {
-        return View();
-    }
-    
 
     [HttpPost]
     public async Task<IActionResult> Forgot(string phoneNumber)
@@ -144,10 +174,10 @@ public class AuthController : Controller
         try
         {
             string result = await _authService.ForgotPassword(phoneNumber);
-            TempData["PhoneNumber"] = phoneNumber;  
-            TempData.Keep("PhoneNumber"); 
+            TempData["PhoneNumber"] = phoneNumber;
+            TempData.Keep("PhoneNumber");
             TempData["Message"] = result;
-            return RedirectToAction("EnterOtp");  
+            return RedirectToAction("EnterOtp");
         }
         catch (Exception ex)
         {
@@ -155,28 +185,29 @@ public class AuthController : Controller
             return View();
         }
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> EnterOtp(string? phoneNumber, string otp)
     {
         try
         {
-            // Nếu phoneNumber null, lấy từ TempData
             phoneNumber ??= TempData["PhoneNumber"]?.ToString();
             if (string.IsNullOrEmpty(phoneNumber))
             {
                 return RedirectToAction("Forgot");
             }
 
-            TempData["PhoneNumber"] = phoneNumber; // Lưu lại phoneNumber để dùng tiếp
+            TempData["PhoneNumber"] = phoneNumber;
             TempData.Keep("PhoneNumber");
 
             await _authService.ValidateOtp(phoneNumber, otp);
+
             return RedirectToAction("NewPassword");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ModelState.AddModelError(string.Empty, ex.Message);
+            // Gắn lỗi vào trường OTP để hiển thị ngay dưới input
+            ModelState.AddModelError("Otp", "OTP code is incorrect. Please check and try again.");
             return View();
         }
     }
@@ -184,9 +215,10 @@ public class AuthController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> NewPassword(string? phoneNumber,string newPassword, string confirmPassword)
+    public async Task<IActionResult> NewPassword(string? phoneNumber, string newPassword, string confirmPassword)
     {
         phoneNumber ??= TempData["PhoneNumber"]?.ToString();
+        ViewBag.PhoneNumber = phoneNumber;
         if (string.IsNullOrEmpty(phoneNumber))
         {
             return RedirectToAction("Forgot");
@@ -194,13 +226,13 @@ public class AuthController : Controller
 
         if (newPassword != confirmPassword)
         {
-            ModelState.AddModelError(string.Empty, "Passwords do not match.");
+            ViewBag.PhoneNumber = phoneNumber;
+            ModelState.AddModelError("confirmPassword", "Passwords do not match.");
             return View();
         }
-
         try
         {
-            await _authService.ResetPassword(phoneNumber, newPassword,confirmPassword);
+            await _authService.ResetPassword(phoneNumber, newPassword, confirmPassword);
             return RedirectToAction("Login");
         }
         catch (Exception ex)
@@ -209,6 +241,7 @@ public class AuthController : Controller
             return View();
         }
     }
+
 
 
     [HttpPost]
@@ -222,10 +255,10 @@ public class AuthController : Controller
         try
         {
             var user = await _authService.RegisterOpt(model);
-            
+
             TempData["Email"] = user.Email;
             TempData["Message"] = "OTP code has been sent to your email";
-            
+
             return RedirectToAction("VerifyOtp", "Auth");
         }
         catch (ArgumentException ex)
@@ -234,8 +267,8 @@ public class AuthController : Controller
             return View(model);
         }
     }
-    
-    
+
+
     [HttpGet]
     public IActionResult VerifyOtp()
     {
@@ -244,6 +277,8 @@ public class AuthController : Controller
         {
             return RedirectToAction("Register", "Auth");
         }
+        
+
         TempData.Keep("Email");
         return View(new VerifyOtpModel { Email = email });
     }
@@ -268,8 +303,6 @@ public class AuthController : Controller
         TempData["Message"] = "Xác nhận OTP thành công!";
         return RedirectToAction("Login", "Auth");
     }
-    
-
 
 
     [HttpPost]
@@ -278,7 +311,7 @@ public class AuthController : Controller
         try
         {
             var user = await _authService.Login(model);
-            if (user == null) 
+            if (user == null)
             {
                 return Json(new { success = false, message = "An unknown error occurred" });
             }
@@ -330,7 +363,7 @@ public class AuthController : Controller
             return Json(new { success = false, message });
         }
     }
- 
+
     //1: Get Id trong redis
     //2: Check Id xem no co phai hay ko
     //3: Neu co thi generate AccessToken
@@ -366,7 +399,7 @@ public class AuthController : Controller
 
         var user = await _context.Users
             .Include(u => u.Roles)
-            .FirstOrDefaultAsync(u=>u.Id.ToString() == userId);
+            .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
         if (user == null)
         {
@@ -385,7 +418,7 @@ public class AuthController : Controller
         Console.WriteLine($"AccessToken: {newAccessToken}");
         return Ok(new { token = newAccessToken });
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> IsLoggedIn()
     {
@@ -420,5 +453,4 @@ public class AuthController : Controller
         // Token hợp lệ
         return Ok(new { loggedIn = true });
     }
-
 }

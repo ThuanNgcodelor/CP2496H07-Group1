@@ -252,7 +252,7 @@ namespace CP2496H07Group1.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    AccountId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -265,7 +265,7 @@ namespace CP2496H07Group1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
+                    table.PrimaryKey("PK_Accounts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Accounts_Users_UserId",
                         column: x => x.UserId,
@@ -378,7 +378,7 @@ namespace CP2496H07Group1.Migrations
                         name: "FK_AccountDiscounts_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "AccountId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AccountDiscounts_DiscountCodes_DiscountId",
@@ -409,7 +409,7 @@ namespace CP2496H07Group1.Migrations
                         name: "FK_Savings_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "AccountId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Savings_SavingCategories_SavingCategoryId",
@@ -441,13 +441,13 @@ namespace CP2496H07Group1.Migrations
                         name: "FK_Transactions_Accounts_FromAccountId",
                         column: x => x.FromAccountId,
                         principalTable: "Accounts",
-                        principalColumn: "AccountId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Transactions_Accounts_ToAccountId",
                         column: x => x.ToAccountId,
                         principalTable: "Accounts",
-                        principalColumn: "AccountId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Transactions_DiscountCodes_DiscountCodeId",

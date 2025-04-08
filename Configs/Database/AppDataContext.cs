@@ -8,7 +8,7 @@ public class AppDataContext : DbContext
     public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }             
-    public DbSet<Account> Accounts { get; set; }        
+    public DbSet<Account?> Accounts { get; set; }        
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Request> Requests { get; set; }     
     public DbSet<InsurancePackage> InsurancePackages { get; set; } 

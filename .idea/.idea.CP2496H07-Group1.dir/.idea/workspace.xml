@@ -9,15 +9,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Views/Auth/EnterOtpCreateAccount.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250403160522_MigrationName.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250403160522_MigrationName.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Account.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Loans.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Loans.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Transaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Account/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/AccountService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Account/IAccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/IAccountService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/CreateAccount.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/CreateAccount.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/NewPassword.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/NewPassword.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" afterDir="false" />
@@ -55,6 +70,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c40b6827f21841c89806245805c11473ad400/61/195caec8/HtmlHelperValidationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e358d67bcd5815a5083706ec88db8489a9872915d46156ba24277cd21bd662/AsyncTaskMethodBuilderT.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -65,21 +81,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.CP2496H07Group1: http.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/davidnguyen/Code/Asp&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.CP2496H07Group1: http.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "/home/davidnguyen/Code/Asp",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.CP2496H07Group1: http">
     <configuration name="CP2496H07Group1: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/CP2496H07Group1.csproj" />
@@ -129,6 +145,9 @@
       <workItem from="1743645750760" duration="10000" />
       <workItem from="1743645854769" duration="1412000" />
       <workItem from="1743650226726" duration="6250000" />
+      <workItem from="1744077653087" duration="5851000" />
+      <workItem from="1744084618951" duration="2277000" />
+      <workItem from="1744087166253" duration="6742000" />
     </task>
     <servers />
   </component>
@@ -155,146 +174,29 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Controllers/AuthController.cs</url>
-          <line>100</line>
+          <line>218</line>
           <properties documentPath="$PROJECT_DIR$/Controllers/AuthController.cs" containingFunctionPresentation="Method 'NewPassword'">
             <startOffsets>
-              <option value="2624" />
+              <option value="5913" />
             </startOffsets>
             <endOffsets>
-              <option value="2676" />
+              <option value="5914" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>29</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
+          <line>142</line>
+          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'ResetPassword'">
             <startOffsets>
-              <option value="867" />
+              <option value="4420" />
             </startOffsets>
             <endOffsets>
-              <option value="1031" />
+              <option value="4507" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>33</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1041" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1058" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>38</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1156" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1181" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>43</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1276" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1328" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>44</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1337" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1431" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>46</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1441" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1469" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>53</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1645" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1704" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>55</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1727" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1749" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>56</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1762" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1841" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Services/Auth/AuthService.cs</url>
-          <line>57</line>
-          <properties documentPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="1854" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1905" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="16" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

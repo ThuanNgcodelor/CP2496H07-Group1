@@ -11,7 +11,7 @@ public class Transaction
     public required string? Description { get; set; }
     public long? VipId { get; set; }
     
-    public required Account FromAccount { get; set; } //n-1 với Account nguồn
+    public required Account? FromAccount { get; set; } //n-1 với Account nguồn
     public required Account ToAccount { get; set; } //n-1 với Account đích
 
     public long? DiscountCodeId { get; set; }  // Khóa ngoại có thể null

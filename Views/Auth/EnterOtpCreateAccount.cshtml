@@ -1,3 +1,5 @@
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 <style>
     .appointment-form {
         width: 80%;
@@ -38,21 +40,21 @@
         padding: 10px 20px;
         transition: all 500ms ease;
     }
-</style>
 
+</style>
 <section class="appointment-section pt_120 pb_120">
     <div class="bg-layer" style="background-image: url('images/background/appointment-bg.jpg');"></div>
-    <span class="big-text">ENTER OTP <br>TechBank</span>
+    <span class="big-text">ENTER OPT <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form asp-action="EnterOtp" asp-controller="Auth" method="post">
+            <form asp-action="EnterOtpCreateAccount" asp-controller="Auth" method="post">
+                <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value"/>
                 <div class="row clearfix">
                     <div class="sec-title">
-                        <span class="sub-title">TechBank</span>
+                        <span class="sub-title">Online Banking</span>
                         <h2>Enter OTP</h2>
                     </div>
 
-                    @* ✅ Thông báo thành công từ TempData *@
                     @if (TempData["Message"] != null)
                     {
                         <div class="col-12">
@@ -65,7 +67,6 @@
                         </div>
                     }
 
-                 
                     @if (!ViewData.ModelState.IsValid)
                     {
                         <div class="col-12">
@@ -77,8 +78,6 @@
                             </div>
                         </div>
                     }
-
-                    <input type="hidden" name="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
 
                     <div class="col-12">
                         <div class="form-group">
