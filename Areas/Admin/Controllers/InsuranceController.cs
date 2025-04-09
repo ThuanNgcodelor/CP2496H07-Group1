@@ -29,7 +29,7 @@ public class InsuranceController : Controller
     
     public Task<IActionResult> Index(int? page, string? keyword)
     {
-        int pageSize = 10;
+        int pageSize = 5;
         int pageNumber = page ?? 1;
         var product =  _packageService.GetAllInsurancePackages(pageNumber, pageSize, keyword);
         ViewBag.Keyword = keyword;

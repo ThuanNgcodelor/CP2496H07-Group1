@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Configs.Redis;
 using CP2496H07Group1.Models;
@@ -5,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using X.PagedList;
 using X.PagedList.Extensions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CP2496H07Group1.Services.Package;
 
@@ -23,14 +26,42 @@ public class PackageService : IPackageService
     {
         try
         {
+            string cacheKey = $"insurance:Page:{page}:size:{pageSize}:keyword:{keyword ?? ""}";
+            var cacheResult = _redis.Get(cacheKey);
+
+            if (!string.IsNullOrEmpty(cacheResult))
+            {
+                var insurancePackages = JsonSerializer.Deserialize<List<InsurancePackage>>(cacheResult, new JsonSerializerOptions
+                {
+                    ReferenceHandler = ReferenceHandler.Preserve
+                });
+                if (insurancePackages != null)
+                    return new StaticPagedList<InsurancePackage>(
+                        insurancePackages.Skip((page - 1) * pageSize).Take(pageSize),
+                        page,
+                        pageSize,
+                        insurancePackages.Count);
+            }
+            
             var query = _context.InsurancePackages.AsQueryable();
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                query = query.Where(p => p.Name.Contains(keyword));
+                query = query.Where(p => p.Name.Contains(keyword) || p.Type.Contains(keyword));
             }
 
-            return query.OrderByDescending(p => p.Name)
-                .ToPagedList(page, pageSize);
+            var allInsurancePackages = query.OrderByDescending(i => i.Id).ToList();
+            var result = new StaticPagedList<InsurancePackage>(
+                allInsurancePackages.Skip((page - 1) * pageSize).Take(pageSize),
+                page,
+                pageSize,
+                allInsurancePackages.Count);
+            
+            string json = JsonSerializer.Serialize(allInsurancePackages, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            _redis.Set(cacheKey, json, TimeSpan.FromDays(30));
+            return result;
         }
         catch (Exception ex)
         {
