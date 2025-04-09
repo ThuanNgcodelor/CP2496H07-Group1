@@ -171,6 +171,7 @@
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/MailKit.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.Bcl.Memory.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
@@ -202,6 +203,7 @@
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/MimeKit.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Mono.TextTemplating.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Newtonsoft.Json.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/PasswordHash.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/StackExchange.Redis.dll
@@ -221,6 +223,7 @@
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/System.Security.Permissions.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/System.Windows.Extensions.dll
+/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Twilio.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/X.PagedList.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/X.PagedList.Mvc.Core.dll
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
@@ -312,6 +315,3 @@
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/CP2496H07Group1.pdb
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/CP2496H07Group1.genruntimeconfig.cache
 /home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/Debug/net8.0/ref/CP2496H07Group1.dll
-/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Microsoft.Bcl.Memory.dll
-/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Newtonsoft.Json.dll
-/home/davidnguyen/Code/Asp/CP2496H07-Group1/bin/Debug/net8.0/Twilio.dll

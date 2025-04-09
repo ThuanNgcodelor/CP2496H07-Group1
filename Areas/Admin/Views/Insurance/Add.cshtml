@@ -1,0 +1,127 @@
+@model CP2496H07Group1.Models.InsurancePackage
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">InsurancePackage Management</h6>
+                <form asp-action="Add" enctype="multipart/form-data" method="post" id="productForm">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Name" id="productName">
+                            <div class="invalid-feedback">Name is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Type</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" name="Type" id="typeSelect" required>
+                                <option value="">-- Select Type --</option>
+                                <option value="Health">Health</option>
+                                <option value="Life">Life</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Loan">Loan</option>
+                            </select>
+                            <div class="invalid-feedback">Type is required.</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Price</label>
+                        <div class="col-sm-10">
+                            <input type="number" step="0.01" class="form-control" name="Price" id="productPrice">
+                            <div class="invalid-feedback">Price is required.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Duration Days</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="DurationDays" id="productQuantity">
+                            <div class="invalid-feedback">Duration Days is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="Description" id="productDescription"
+                                      placeholder="Description" style="height: 250px;"></textarea>
+                            <div class="invalid-feedback">Product Description is required.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- CKEditor 5 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    let editorInstance;
+
+    // Khởi tạo CKEditor 5
+    ClassicEditor
+            .create(document.querySelector('#productDescription'))
+            .then(editor => {
+                editorInstance = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+    $(document).ready(function () {
+        $('#productForm').on('submit', function (e) {
+            let isValid = true;
+            $('.form-control').removeClass('is-invalid');
+
+            if (!$('#productName').val().trim()) {
+                $('#productName').addClass('is-invalid');
+                isValid = false;
+            }
+
+            // Kiểm tra nội dung CKEditor 5
+            const description = editorInstance.getData().trim();
+            if (!description) {
+                $('#productDescription').addClass('is-invalid');
+                isValid = false;
+            } else {
+                // Gán nội dung vào textarea trước khi submit
+                $('#productDescription').val(description);
+            }
+
+            if (!$('#productPrice').val() || isNaN($('#productPrice').val())) {
+                $('#productPrice').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!$('#productQuantity').val() || isNaN($('#productQuantity').val())) {
+                $('#productQuantity').addClass('is-invalid');
+                isValid = false;
+            }
+            
+            if (!$('#typeSelect').val()) {
+                $('#typeSelect').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

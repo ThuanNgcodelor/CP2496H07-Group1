@@ -7,6 +7,8 @@ public class InsurancePackage
     public required string Description { get; set; }      
     public required decimal Price { get; set; }         
     public required int DurationDays { get; set; }      //Thoi han
+    public required string Type { get; set; } // Health Life Travel Property
+    
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     public required List<UserInsurance> UserInsurances { get; set; } = new List<UserInsurance>(); // 1 n with UserInsurance

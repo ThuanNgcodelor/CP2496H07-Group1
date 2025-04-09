@@ -3,6 +3,7 @@ using CP2496H07Group1.Configs.Redis;
 using CP2496H07Group1.Configs.Sms;
 using CP2496H07Group1.Services.Account;
 using CP2496H07Group1.Services.Auth;
+using CP2496H07Group1.Services.Package;
 using Microsoft.EntityFrameworkCore;
 
 namespace CP2496H07Group1.Configs;
@@ -16,6 +17,7 @@ public static class DependencyInjection
 
         // Đăng ký các dịch vụ
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IPackageService, PackageService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddSingleton<RedisService>();
         services.AddSingleton<SpeedSmsService>();
