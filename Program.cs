@@ -24,11 +24,18 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+app.UseStatusCodePages(context =>
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == 404 || response.StatusCode == 500 || response.StatusCode == 403)
+    {
+        response.Redirect("/Error");
+    }
+
+    return Task.CompletedTask;
+});
+
 app.UseAuthentication(); 
 app.UseAuthorization();
 app.UseStaticFiles();

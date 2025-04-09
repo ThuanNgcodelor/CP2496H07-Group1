@@ -1,299 +1,145 @@
+<!-- page-title -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Insurance Package</h1>
+            <ul class="bread-crumb clearfix">
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
 
-        <!-- page-title -->
-        <section class="page-title">
-            <div class="bg-layer" style="background-image: url(images/background/page-title.jpg);"></div>
-            <div class="pattern-layer" style="background-image: url(images/shape/shape-32.png);"></div>
-            <div class="auto-container">
-                <div class="content-box">
-                    <h1>Insurance Package</h1>
-                    <ul class="bread-crumb clearfix">
-                        <li><a href="index.html">Home</a></li>
-                        <li>insurance</li>
-                        <li><span>package</span></li>
-                    </ul>
+
+<section class="sidebar-page-container blog-list-two pt_120 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                <div class="blog-list-content">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="news-block-one style-two">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><a href=""><img
+                                                src="~/images/news/news-29.jpg" alt=""></a></figure>
+                                    <figure class="overlay-image"><a href=""><img
+                                                src="~/images/news/news-29.jpg" alt=""></a></figure>
+                                    <div class="view-btn"><a href="~/images/news/news-29.jpg"
+                                                             class="lightbox-image"
+                                                             data-fancybox="gallery"><img
+                                                src="~/images/icons/icon-87.png" alt=""></a></div>
+                                </div>
+
+                                <div class="content-box">
+                                    <div class="upper-box">
+                                        <div class="title-box">
+                                            <h6><img src="~/images/icons/icon-36.png" alt="">@item.Name</h6>
+
+                                            <h3 style="color: black;">
+                                                <a href="@Url.Action("Details", new { id = item.Id })"
+                                                   style="color: black;">
+                                                    @item.Price.ToString("N0") VND
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div class="post-date align-3">
+                                            <h5><span>By </span><a style="color: red;" href="">@item.Type</a></h5>
+                                            <h3>@item.CreatedAt.ToString("dd")</h3>
+                                            <h6>@item.CreatedAt.ToString("MMMM yyyy")</h6>
+                                        </div>
+                                    </div>
+                                    <div class="lower-box">
+                                        <button type="submit" class="theme-btn"><span>Buy Now</span></button>
+                                        <div class="link-box">
+                                            <ul class="post-info">
+                                                <li><h5><img src="~/images/icons/icon-37.png"
+                                                             alt="">@item.DurationDays (Days)</h5>
+                                                </li>
+                                                <li><h5><img src="~/images/icons/icon-211.png" alt="">26 Comments</h5>
+                                                </li>
+                                            </ul>
+                                            <a href="@Url.Action("Details", new { id = item.Id })"><i
+                                                    class="flaticon-right-arrow"></i></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                    <div class="pagination-wrapper pt_20">
+                        <ul class="pagination clearfix">
+                            @if (Model.PageNumber > 1)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", new { page = Model.PageNumber - 1, keyword = ViewBag.Keyword })"><i
+                                            class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
+                            }
+
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", new { page = i, keyword = ViewBag.Keyword })"
+                                       class="@(i == Model.PageNumber ? "current" : "")">@i</a>
+                                </li>
+                            }
+
+                            @if (Model.PageNumber < Model.PageCount)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", new { page = Model.PageNumber + 1, keyword = ViewBag.Keyword })"><i
+                                            class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- page-title end -->
 
 
-        <!-- news-section -->
-        <section class="news-section blog-grid-two pt_120 pb_120">
-            <div class="auto-container">
-                <div class="row clearfix">
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-15.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-15.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="assets/images/news/news-15.jpg" class="lightbox-image" data-fancybox="gallery"><img src="assets/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Financial Planning</h6>
-                                            <h5><span>By </span><a href="blog-details.html">D.Beckham</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>21</h3>
-                                            <h6>Jul, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">How to Improve Your Credit Score Tips and Tricks.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">6 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">15 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                <div class="blog-sidebar ml_20">
+                    <div class="sidebar-widget search-widget mb_40">
+                        <form method="get" asp-action="Index">
+                            <div class="form-group">
+                                <input type="search" name="keyword" placeholder="Search..." required>
+                                <button type="submit"><img src="~/images/icons/icon-7.png" alt=""></button>
                             </div>
+                        </form>
+                    </div>
+                    <div class="sidebar-widget category-widget mb_35">
+                        <div class="widget-title">
+                            <h3>Insurance Type</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="category-list clearfix">
+                                <li>
+                                    <a asp-route-keyword="Health"><span>Health</span>
+                                        <img
+                                            src="~/images/icons/icon-213.png" alt=""></a></li>
+                                <li>
+                                    <a asp-route-keyword="Life"><span>Life</span>
+                                        <img
+                                            src="~/images/icons/icon-213.png" alt=""></a></li>
+                                <li>
+                                    <a asp-route-keyword="Travel"><span>Travel</span>
+                                        <img
+                                            src="~/images/icons/icon-213.png" alt=""></a></li>
+                                <li>
+                                    <a asp-route-keyword="Property"><span>Property</span>
+                                        <img
+                                            src="~/images/icons/icon-213.png" alt=""></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-16.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-16.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-16.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Credit Card</h6>
-                                            <h5><span>By </span><a href="blog-details.html">Vk.Christopher</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>06</h3>
-                                            <h6>Jul, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Boost Gains: Best Practices for Credit Card Use.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">4 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">08 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-17.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-17.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-17.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Business Banking</h6>
-                                            <h5><span>By </span><a href="blog-details.html">Z.Benjamin</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>15</h3>
-                                            <h6>Jun, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Growth Strategies for Your Small Business.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">6 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">17 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-18.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-18.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-18.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Technology</h6>
-                                            <h5><span>By </span><a href="blog-details.html">L.Nathaniel</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>31</h3>
-                                            <h6>May, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Digital Payment Systems: The Future of Transactions.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">5 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">22 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-19.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-19.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-19.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Financial Planning</h6>
-                                            <h5><span>By </span><a href="blog-details.html">L.D.Beckham</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>21</h3>
-                                            <h6>Jul, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">How to Improve Your Credit Score Tips and Tricks.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">4 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">19 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-20.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-20.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-20.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Credit Card</h6>
-                                            <h5><span>By </span><a href="blog-details.html">Vk.Christopher</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>06</h3>
-                                            <h6>Jul, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Boost Gains: Best Practices for Credit Card Use.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">6 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">05 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-21.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-21.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-21.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Business Banking</h6>
-                                            <h5><span>By </span><a href="blog-details.html">Z.Benjamin</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>15</h3>
-                                            <h6>Jun, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Growth Strategies for Your Small Business.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">6 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">12 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 news-block">
-                        <div class="news-block-one">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image"><a href="blog-details.html"><img src="/images/news/news-22.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href="blog-details.html"><img src="/images/news/news-22.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="/images/news/news-22.jpg" class="lightbox-image" data-fancybox="gallery"><img src="/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
-                                <div class="content-box">
-                                    <div class="upper-box">
-                                        <div class="title-box">
-                                            <h6><img src="/images/icons/icon-36.png" alt="">Technology</h6>
-                                            <h5><span>By </span><a href="blog-details.html">L.Nathaniel</a></h5>
-                                        </div>
-                                        <div class="post-date align-3">
-                                            <h3>31</h3>
-                                            <h6>May, 2025</h6>
-                                        </div>
-                                    </div>
-                                    <div class="lower-box">
-                                        <h2><a href="blog-details.html">Digital Payment Systems: The Future of Transactions.</a></h2>
-                                        <div class="link-box">
-                                            <ul class="post-info">
-                                                <li><h5><img src="/images/icons/icon-37.png" alt="">5 Mins Read</h5></li>
-                                                <li><h5><img src="/images/icons/icon-211.png" alt="">26 Comments</h5></li>
-                                            </ul>
-                                            <a href="blog-details.html"><i class="flaticon-right-arrow"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pagination-wrapper centred pt_30">
-                    <ul class="pagination clearfix">
-                        <li><a href="blog-2.html"><i class="flaticon-next"></i></a></li>
-                        <li><a href="blog-2.html" class="current">01</a></li>
-                        <li><a href="blog-2.html">02</a></li>
-                        <li><a href="blog-2.html">03</a></li>
-                        <li><a href="blog-2.html"><i class="flaticon-next"></i></a></li>
-                    </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
