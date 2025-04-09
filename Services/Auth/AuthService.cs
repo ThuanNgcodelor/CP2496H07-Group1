@@ -46,14 +46,19 @@ public class AuthService : IAuthService
 
         if (failedLoginAttempts >= 3)
         {
-            user.Status = "Off";
-            await _context.SaveChangesAsync();
+       
             throw new ArgumentException("User has been locked");;
         }
 
         if (!VerifyPassword(model.PasswordHash, user.PasswordHash))
         {
             failedLoginAttempts++;
+            if (failedLoginAttempts >= 3)
+            {
+                user.FailedLoginAttempts = failedLoginAttempts;
+                user.Status = "Off";
+                await _context.SaveChangesAsync();
+            }
             _redis.Set(redisKey, failedLoginAttempts.ToString(), TimeSpan.FromMinutes(30));
             throw new ArgumentException("Password is invalid");
         }

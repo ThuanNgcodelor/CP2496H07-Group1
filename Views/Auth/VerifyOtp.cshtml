@@ -45,7 +45,7 @@
     <span class="big-text">ENTER OTP <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form asp-action="EnterOtpCreateAccount" asp-controller="Auth" method="post">
+            <form asp-action="VerifyOtp" asp-controller="Auth" method="post">
                 <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
                 <input type="hidden" name="phoneNumber" value="@TempData["PhoneNumber"]" />
                 <input asp-for="Email" type="hidden" />
