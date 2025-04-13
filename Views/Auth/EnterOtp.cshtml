@@ -41,7 +41,8 @@
 </style>
 
 <section class="appointment-section pt_120 pb_120">
-    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <span class="big-text">ENTER OTP <br>TechBank</span>
     <div class="auto-container">
@@ -66,31 +67,28 @@
                         </div>
                     }
 
-                 
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="col-12">
-                            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                                @Html.ValidationSummary()
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    }
 
-                    <input type="hidden" name="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
+                    
+
+                    <input type="hidden" name="UserId"
+                           value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value"/>
 
                     <div class="col-12">
                         <div class="form-group">
                             <div class="icon-box">
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
-                            <label for="otp">OTP</label>
-                            <input type="text" id="otp" name="otp" placeholder="Enter OTP" pattern="\d{6}" required
-                                   title="OTP must be 6 digits">
+                            <label for="Otp">OTP</label>
+                            <input type="text" id="otpInput" name="otp" placeholder="Enter OTP" pattern="\d{6}"
+                                   maxlength="6" required title="OTP must be 6 digits">
+
+                            <!-- Thông báo lỗi hiển thị ngay dưới input -->
+                            <span id="otpResult" class="text-danger">
+            @Html.ValidationMessage("otp", "", new { @class = "text-danger" })
+        </span>
                         </div>
                     </div>
+
 
                     <div class="col-12">
                         <div class="message-btn pt_7">
@@ -108,3 +106,33 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const otpInput = document.getElementById("otpInput");
+    const otpResult = document.getElementById("otpResult");
+
+    otpInput.addEventListener("input", function () {
+        let value = this.value.replace(/\D/g, '').slice(0, 6); 
+        this.value = value;
+
+        if (value.length < 6) {
+            otpResult.innerText = "OTP must be 6 digits.";
+            otpResult.classList.add("text-danger");
+        } else {
+            otpResult.innerText = "";
+        }
+    });
+
+    otpInput.addEventListener("keydown", function (e) {
+        if (
+            e.key === "Backspace" || e.key === "Tab" ||
+            e.key === "ArrowLeft" || e.key === "ArrowRight"
+        ) {
+            return;
+        }
+
+        // Ngăn nhập chữ
+        if (!/\d/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+</script>

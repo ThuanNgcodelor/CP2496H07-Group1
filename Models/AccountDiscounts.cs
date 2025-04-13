@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public class AccountDiscounts
 {
-    public required long Id { get; set; }
+    public long Id { get; set; }
     public required long AccountId { get; set; }
     public required long DiscountId { get; set; }
     public required DateTime SDateTime { get; set; } = DateTime.Now;

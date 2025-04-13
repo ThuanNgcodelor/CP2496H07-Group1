@@ -28,5 +28,4 @@ public class InsuranceController : Controller
         return Task.FromResult<IActionResult>(View(product));
     }
     
-    
 }

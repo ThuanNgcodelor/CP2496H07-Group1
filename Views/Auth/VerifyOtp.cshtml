@@ -93,8 +93,17 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label asp-for="Otp" class="text-danger">OTP</label>
-                            <input asp-for="Otp" class="form-control" placeholder="Enter OTP code" pattern="\d{6}" required title="OTP must be 6 digits" />
-                            <small class="form-text text-danger">@Html.ValidationMessageFor(m => m.Otp)</small>
+                            <input asp-for="Otp"
+                                   id="otpInput"
+                                   class="form-control"
+                                   placeholder="Enter OTP code"
+                                   maxlength="6"
+                                   pattern="\d{6}"
+                                   required
+                                   title="OTP must be 6 digits" />
+
+                            <small id="otpResult"></small>
+
                         </div>
                     </div>
 
@@ -117,3 +126,47 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const otpInput = document.getElementById("otpInput");
+    const otpResult = document.getElementById("otpResult");
+
+    // Ngăn người dùng nhập chữ hoặc quá 6 số
+    otpInput.addEventListener("input", function () {
+        let value = this.value;
+
+        // Xoá ký tự không phải số
+        value = value.replace(/\D/g, '');
+
+        // Giới hạn tối đa 6 số
+        if (value.length > 6) {
+            value = value.slice(0, 6);
+        }
+
+        this.value = value;
+
+        if (value.length < 6) {
+            otpResult.innerText = "OTP must be 6 digits.";
+            otpResult.classList.add("text-danger");
+            otpResult.classList.remove("text-success");
+        } else {
+            otpResult.innerText = "";
+        }
+    });
+
+    // Ngăn nhập chữ từ bàn phím (phòng trường hợp paste bằng ký tự đặc biệt)
+    otpInput.addEventListener("keydown", function (e) {
+        // Cho phép phím control như backspace, tab, arrows
+        if (
+            e.key === "Backspace" || e.key === "Tab" ||
+            e.key === "ArrowLeft" || e.key === "ArrowRight"
+        ) {
+            return;
+        }
+
+        // Nếu không phải số thì chặn
+        if (!/\d/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+
+</script>

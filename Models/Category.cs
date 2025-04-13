@@ -4,7 +4,7 @@ namespace CP2496H07Group1.Models;
 
 public class Category
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
 
     [Required(ErrorMessage = "Category name cannot be blank.")]
     public required string Name { get; set; }

@@ -26,12 +26,19 @@ public class AppDataContext : DbContext
     public DbSet<Slider> Sliders { get; set; }
     public DbSet<Faq> Fqas { get; set; }
     public DbSet<Role> Roles { get; set; }
+    public DbSet<CreditCard> CreditCards { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
         //Gpt cmt cho cac ban cung doc nhe !!
+        
+        modelBuilder.Entity<CreditCard>()
+            .HasOne(c => c.Account)
+            .WithOne(c => c.CreditCard)
+            .HasForeignKey<CreditCard>(c => c.AccountId)
+            .OnDelete(DeleteBehavior.Cascade);
         
         // Quan hệ nhiều-nhiều giữa User và Role (bảng trung gian UserRole)
         // Một User có nhiều Role, một Role có thể thuộc về nhiều User

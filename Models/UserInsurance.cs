@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public  class UserInsurance
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
     public required long UserId { get; set; }
     public required long PackageId { get; set; }
     public required long TransactionId { get; set; }

@@ -35,7 +35,7 @@ namespace CP2496H07Group1.Migrations
                     DiscountCodes = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Points = table.Column<int>(type: "int", nullable: false),
                     Percent = table.Column<int>(type: "int", nullable: false),
-                    LongMonth = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LongDate = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,7 +81,7 @@ namespace CP2496H07Group1.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LoanMonth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoanDate = table.Column<int>(type: "int", nullable: false),
                     InterestRate = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -289,6 +289,7 @@ namespace CP2496H07Group1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LoanName = table.Column<long>(type: "bigint", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
@@ -387,6 +388,32 @@ namespace CP2496H07Group1.Migrations
                         principalTable: "DiscountCodes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CreditCards",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<long>(type: "bigint", nullable: false),
+                    CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreditLimit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CurrentDebt = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    InterestRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StatementDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CreditCards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CreditCards_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -543,6 +570,12 @@ namespace CP2496H07Group1.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CreditCards_AccountId",
+                table: "CreditCards",
+                column: "AccountId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Loans_LoanOptionId",
                 table: "Loans",
                 column: "LoanOptionId");
@@ -626,6 +659,9 @@ namespace CP2496H07Group1.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "CreditCards");
 
             migrationBuilder.DropTable(
                 name: "Fqas");

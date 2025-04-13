@@ -5,7 +5,7 @@ namespace CP2496H07Group1.Models;
 public class Vip
 
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
 
     [Required(ErrorMessage = "Plese enter Type Vip")]
 

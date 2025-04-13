@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using System.Security.Claims;
 using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Configs.Jwt;
 using CP2496H07Group1.Configs.Redis;
+using CP2496H07Group1.Dtos;
 using CP2496H07Group1.Models;
 using CP2496H07Group1.Services.Account;
 using CP2496H07Group1.Services.Auth;
@@ -17,15 +19,47 @@ public class AuthController : Controller
     private readonly RedisService _redisService;
     private readonly AppDataContext _context;
     private readonly IAccountService _accountService;
+    private readonly ITransactionService _transactionService;
 
     public AuthController(IAuthService authService, JwtHandler jwtHandler, RedisService redisService,
-        AppDataContext appDataContext, IAccountService accountService)
+        AppDataContext appDataContext, IAccountService accountService, ITransactionService transactionService)
     {
         _authService = authService;
         _jwtHandler = jwtHandler;
         _redisService = redisService;
         _context = appDataContext;
         _accountService = accountService;
+        _transactionService = transactionService;
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> ChangeMail([FromBody] ChangeEmailRequest request)
+    {
+        try
+        {
+            string result = await _authService.SendOtpChangeEmail(request.OldEmail, request.NewEmail);
+            return Json(new { success = true, message = result });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = ex.Message });
+        }
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> ConfirmOtpChangeEmail([FromBody] ConfirmOtpRequest request)
+    {
+        try
+        {
+            var user = await _authService.ConfirmOtpChangeEmail(request.OldEmail, request.NewEmail, request.InputOtp);
+            return Json(new { success = true, message = "Email changed successfully!" });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = ex.Message });
+        }
     }
 
     [HttpGet]
@@ -51,16 +85,26 @@ public class AuthController : Controller
     }
 
     [HttpGet]
-    public IActionResult EnterOtpCreateAccount()
+    public IActionResult EnterOtpCreateCard()
     {
         TempData["Message"] = "OTP code has been sent to your email";
         return View();
     }
 
     [HttpGet]
-    public IActionResult RecentTransactions()
+    public IActionResult RecentTransactions(DateTime? fromDate, DateTime? toDate, int page = 1)
     {
-        return View();
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(value))
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        long userId = long.Parse(value);
+        var transaction = _transactionService.GetTransactions(userId, fromDate, toDate, page, 5);
+
+        return View(transaction);
     }
 
 
@@ -77,19 +121,55 @@ public class AuthController : Controller
         return View();
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CardDetails(long accountId)
+    {
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (value == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        long userId = long.Parse(value);
+
+        var account = await _accountService.GetAccountDetails(userId, accountId);
+        if (account == null)
+        {
+            return NotFound();
+        }
+
+        return View(account);
+    }
+
     [HttpGet]
-    public IActionResult CreateAccount()
+    public async Task<IActionResult> Card()
+    {
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (value == null)
+            throw new Exception("You are not logged in");
+
+        var userId = long.Parse(value);
+        var account = await _accountService.GetAccounts(userId);
+
+        return View(account);
+    }
+
+
+    [HttpGet]
+    public IActionResult CreateCard()
     {
         var hashedId = User.Claims.FirstOrDefault(c => c.Type == "hashed_id")?.Value;
         if (string.IsNullOrEmpty(hashedId))
         {
             return RedirectToAction("Login", "Auth");
         }
+
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAccount(string accountType, int pin, int confirmPin)
+    public async Task<IActionResult> CreateCard(string accountType, int pin, int confirmPin)
     {
         var pinStr = pin.ToString();
         var confirmPinStr = confirmPin.ToString();
@@ -108,43 +188,25 @@ public class AuthController : Controller
             TempData["UserId"] = userId.ToString();
         }
 
-        return RedirectToAction("EnterOtpCreateAccount");
+        return RedirectToAction("EnterOtpCreateCard");
     }
 
 
-    [HttpPost]
-    public async Task<IActionResult> EnterOtpCreateAccount(long userId, string otp)
+    public async Task<IActionResult> EnterOtpCreateCard(long userId, string otp)
     {
-        if (string.IsNullOrWhiteSpace(otp) || otp.Length != 6 || !otp.All(char.IsDigit))
+        var account = await _accountService.VerifyOtpAndCommitCreateAccount(userId, otp);
+
+        if (account == null)
         {
-            ModelState.AddModelError("", "OTP must be 6 digits.");
+            ModelState.AddModelError("Otp", "Invalid OTP. Please try again.");
+            ViewData["UserId"] = userId;
             return View();
         }
 
-        var success = await _accountService.VerifyOtpAndCommitCreateAccount(userId, otp);
-        if (success == null)
-        {
-            ModelState.AddModelError("", "OTP incorrect or expired.");
-            return View();
-        }
-        
-
-        TempData["Success"] = "Create Card Success!";
-        return RedirectToAction("Users");
+        TempData["Message"] = "Account successfully created!";
+        return RedirectToAction("Card");
     }
 
-
-    [HttpGet]
-    public IActionResult Account()
-    {
-        var hashedId = User.Claims.FirstOrDefault(c => c.Type == "hashed_id")?.Value;
-        if (string.IsNullOrEmpty(hashedId))
-        {
-            return RedirectToAction("Login", "Auth");
-        }
-
-        return View();
-    }
 
     [HttpGet]
     public IActionResult Users()
@@ -164,6 +226,17 @@ public class AuthController : Controller
             return RedirectToAction("Login", "Auth");
         }
 
+        var totalAmount = _context.Accounts
+            .Where(a => a != null && a.UserId == user.Id)
+            .Sum(a => a!.Balance);
+        var monthlyExpenses = _context.Users
+            .Where(u => u.Id == user.Id)
+            .SelectMany(u => u.Accounts)
+            .SelectMany(a => a.TransactionsFrom)
+            .Sum(t => t.Amount);
+        ViewBag.MonthlyExpenses = monthlyExpenses;
+        ViewBag.TotalAmount = totalAmount;
+
         return View(user);
     }
 
@@ -173,6 +246,11 @@ public class AuthController : Controller
     {
         try
         {
+            
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             string result = await _authService.ForgotPassword(phoneNumber);
             TempData["PhoneNumber"] = phoneNumber;
             TempData.Keep("PhoneNumber");
@@ -181,10 +259,12 @@ public class AuthController : Controller
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError(string.Empty, ex.Message);
+            ModelState.AddModelError("PhoneNumber", ex.Message);
             return View();
         }
+
     }
+
 
     [HttpPost]
     public async Task<IActionResult> EnterOtp(string? phoneNumber, string otp)
@@ -213,7 +293,6 @@ public class AuthController : Controller
     }
 
 
-
     [HttpPost]
     public async Task<IActionResult> NewPassword(string? phoneNumber, string newPassword, string confirmPassword)
     {
@@ -230,6 +309,7 @@ public class AuthController : Controller
             ModelState.AddModelError("confirmPassword", "Passwords do not match.");
             return View();
         }
+
         try
         {
             await _authService.ResetPassword(phoneNumber, newPassword, confirmPassword);
@@ -242,6 +322,33 @@ public class AuthController : Controller
         }
     }
 
+    [HttpPost]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
+    {
+        if (string.IsNullOrEmpty(model.PhoneNumber) ||
+            string.IsNullOrEmpty(model.OldPassword) ||
+            string.IsNullOrEmpty(model.NewPassword) ||
+            string.IsNullOrEmpty(model.ConfirmPassword))
+        {
+            return Json(new { success = false, message = "All fields are required." });
+        }
+
+        if (model.NewPassword != model.ConfirmPassword)
+        {
+            return Json(new { success = false, message = "Passwords do not match!" });
+        }
+
+        try
+        {
+            await _authService.ChangePassword(model.PhoneNumber, model.OldPassword, model.NewPassword,
+                model.ConfirmPassword);
+            return Json(new { success = true, message = "Password changed successfully!" });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = ex.Message });
+        }
+    }
 
 
     [HttpPost]
@@ -263,11 +370,19 @@ public class AuthController : Controller
         }
         catch (ArgumentException ex)
         {
-            ModelState.AddModelError("PhoneNumber", ex.Message);
+            if (ex.Message.Contains("phone"))
+            {
+                ModelState.AddModelError("PhoneNumber", ex.Message);  
+            }
+            else if (ex.Message.Contains("email"))
+            {
+                ModelState.AddModelError("Email", ex.Message);  
+            }
+
             return View(model);
         }
-    }
 
+    }
 
     [HttpGet]
     public IActionResult VerifyOtp()
@@ -277,7 +392,7 @@ public class AuthController : Controller
         {
             return RedirectToAction("Register", "Auth");
         }
-        
+
 
         TempData.Keep("Email");
         return View(new VerifyOtpModel { Email = email });
@@ -300,7 +415,7 @@ public class AuthController : Controller
             return View(model);
         }
 
-        TempData["Message"] = "Xác nhận OTP thành công!";
+        TempData["Message"] = "Confirm Otp success!";
         return RedirectToAction("Login", "Auth");
     }
 
@@ -355,13 +470,15 @@ public class AuthController : Controller
         {
             string message = ex.Message switch
             {
-                "Phone number is invalid" => "Phone number is invalid",
-                "User has been locked" => "User has been locked",
-                "Password is invalid" => "Password is invalid",
+                { } msg when msg.StartsWith("Password is invalid") => 
+                    "Invalid password. 3 incorrect attempts will lock your account. Number of errors: " + msg.Replace("Password is invalid", "").Trim(),
+                "Phone number is invalid" => "Phone number is invalid. Please try again.",
+                "User has been locked" => "User has been locked out for entering the wrong password more than 3 times",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return Json(new { success = false, message });
         }
+
     }
 
     //1: Get Id trong redis
@@ -378,10 +495,6 @@ public class AuthController : Controller
 
         // Giải mã RefreshToken để lấy UserId
         var principal = _jwtHandler.ValidateToken(refreshToken);
-        if (principal == null)
-        {
-            return Unauthorized("Invalid token");
-        }
 
         var userId = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId))
@@ -430,10 +543,7 @@ public class AuthController : Controller
 
         // Validate refresh token để lấy thông tin user
         var principal = _jwtHandler.ValidateToken(refreshToken);
-        if (principal == null)
-        {
-            return Unauthorized("Invalid refresh token");
-        }
+
 
         var userId = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId))

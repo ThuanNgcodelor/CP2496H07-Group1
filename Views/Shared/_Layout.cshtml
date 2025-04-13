@@ -87,7 +87,7 @@
                     <div class="outer-box">
                         <div class="menu-area">
                             <div class="logo-box mr_110">
-                                <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
+                                <figure class="logo"><a asp-action="Index" asp-controller="Home"><img src="~/images/logo.png" alt=""></a></figure>
                             </div>
                             <!--Mobile Navigation Toggler-->
                             <div class="mobile-nav-toggler">
@@ -98,17 +98,11 @@
                             <nav class="main-menu navbar-expand-md navbar-light clearfix">
                                 <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
-                                        <li class="current dropdown"><a href="#">Home</a>
-                                            <ul>
-                                                <li><a href="index.html">Home Page 01</a></li>
-                                                <li><a href="index-2.html">Home Page 02</a></li>
-                                                <li><a href="index-3.html">Home Page 03</a></li>
-                                                <li><a href="index-4.html">Home Page 04</a></li>
-                                            </ul>
+                                        <li><a asp-action="Index" asp-controller="Home">Home</a>
                                         </li>
                                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                                         {
-                                            <li class="dropdown"><a href="#">Chuc Nang</a>
+                                            <li class="dropdown"><a href="#">Function</a>
                                                 <ul>
                                                     <li class="dropdown"><a href="#">More</a>
                                                         <ul>
@@ -116,11 +110,11 @@
                                                             <li><a href="">Personal Loan</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li><a href="">Tai khoan cua toi</a></li>
-                                                    <li><a href="">Chuyen tien</a></li>
-                                                    <li><a href="">Danh sach the</a></li>
-                                                    <li><a href="">Nap Tien</a>
-                                                    <li><a href="">Dang xuat</a></li>
+                                                    <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
+                                                    <li><a asp-action="Account" asp-controller="Auth">My Account</a></li>
+                                                    <li><a href="">Transfer</a></li>
+                                                    <li><a asp-controller="Auth" asp-action="RecentTransactions">History transaction</a></li>
+                                                    <li><a >Logout</a></li>
                                                 </ul>
                                             </li>
                                         }
@@ -153,22 +147,6 @@
                                                 <li><a href="blog-details.html">Single Post</a></li>
                                             </ul>
                                         </li> 
-                                        @* <li class="dropdown"><a href="#">Apply Now</a> *@
-                                        @*     <ul> *@
-                                        @*         <li class="dropdown"><a href="#">Loans</a> *@
-                                        @*             <ul> *@
-                                        @*                 <li><a href="loans-1.html">Home Loan</a></li> *@
-                                        @*                 <li><a href="loans-2.html">Personal Loan</a></li> *@
-                                        @*                 <li><a href="loans-3.html">Vehicle Loan</a></li> *@
-                                        @*                 <li><a href="loans-4.html">Education Loan</a></li> *@
-                                        @*                 <li><a href="loans-5.html">Gold Loan</a></li> *@
-                                        @*             </ul> *@
-                                        @*         </li> *@
-                                        @*         <li><a href="cards-2.html">Credit Card</a></li> *@
-                                        @*         <li><a href="cards-3.html">Debit Card</a></li> *@
-                                        @*     </ul> *@
-                                        @* </li>   *@
-
                                         
                                         <li><a asp-action="Login" asp-controller="Auth">Login</a></li> 
                                     </ul>
@@ -466,7 +444,7 @@
                 withCredentials: true,
             },
             success: function (response) {
-                console.log("Token refreshed:", response.token);
+                console.log("Token refreshed:");
                 document.cookie = `AccessToken=${response.token}; path=/; secure; SameSite=Strict`;
                 if (callback) callback(true);
             },

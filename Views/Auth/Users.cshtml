@@ -1,23 +1,62 @@
-@using System.Security.Claims
+<section class="page-title">
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>TeckBank</h1>
+        </div>
+    </div>
+</section>
 
- 
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292; 
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+</style>
 
 <section class="calculator-section pt_120 pb_120">
-    <span class="big-text">Calculation <br />Instant</span>
+    <span class="big-text">Calculation <br/>Instant</span>
     <div class="auto-container">
         <div class="sec-title centred">
             <span class="sub-title">Welcome back!</span>
-            <h2>@Model.FirstName @Model.LastName</h2>
+            <h2>Home User</h2>
         </div>
         <div class="inner-container">
             <div class="tabs-box">
                 <div class="tab-btn-box">
                     <div class="tab-btns tab-buttons clearfix">
-                        <div class="tab-btn active-btn" data-tab="#tab-21"><h4>Home Loan</h4></div>
-                        <div class="tab-btn" data-tab="#tab-22"><h4>Vehicle Loan</h4></div>
+                        <div class="tab-btn active-btn" data-tab="#tab-21"><h4>Home User</h4></div>
+                        <div class="tab-btn" data-tab="#tab-22"><h4>Change password</h4></div>
+                        <div class="tab-btn" data-tab="#tab-23"><h4>Change Email</h4></div>
+                        <div class="tab-btn" data-tab="#tab-24"><h4>Change Phone</h4></div>
+                        <div class="tab-btn" onclick="window.location.href='/Auth/RecentTransactions'">
+                            <h4>View History</h4>
+                        </div>
                     </div>
                 </div>
                 <div class="tabs-content">
+
+
                     <div class="tab active-tab" id="tab-21">
                         <div class="row clearfix">
                             <div class="col-lg-8 col-md-12 col-sm-12 content-column">
@@ -25,14 +64,43 @@
                                     <div class="row clearfix">
                                         <div class="col-lg-6 col-md-6 col-sm-12 left-column">
                                             <div class="left-content mr_30">
-                                                <div class="sec-title">
-                                                    <span class="sub-title">Loan Calculator</span>
-                                                    <h2>Flexible <br/>Online Loan Calculator</h2>
-                                                    <p>Estimate your loan payments quickly & easily with our calculator.</p>
+                                                <div class="sec-title"><span class="sub-title">TECKBANK</span>
+                                                    <h2>@Model.LastName @Model.FirstName</h2>
+                                                    <p>
+                                                        Email :
+                                                        <span id="emailText"> **********</span>
+                                                        <button type="button" onclick="toggleEmail()"
+                                                                style="background: none; border: none; cursor: pointer;">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </p>
+                                                    <p>
+                                                        Phone:
+                                                        <span id="phoneText">**********</span>
+                                                        <button type="button" onclick="togglePhone()"
+                                                                style="background: none; border: none; cursor: pointer;">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </p>
+                                                    <p>
+                                                        Identity:
+                                                        <span id="identityText">**********</span>
+                                                        <button type="button" onclick="toggleIdentity()"
+                                                                style="background: none; border: none; cursor: pointer;">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                    </p>
+
+                                                    <p>
+                                                        Address: @Model.Address
+                                                    </p>
+
                                                 </div>
                                                 <div class="lower-text">
-                                                    <div class="icon-box"><img src="~/images/icons/icon-31.png" alt=""></div>
-                                                    <h5>Loan Questions? Check Our <a href="faq.html">Faq’s</a> Page.</h5>
+                                                    <div class="icon-box"><img src="~/images/icons/icon-31.png" alt="">
+                                                    </div>
+                                                    <h5>Faq Questions? Check Our <a href="">Faq’s</a> Page.
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +147,8 @@
                                                             <span>18%</span>
                                                         </div>
                                                         <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="33.333%"></div>
+                                                            <div class="bar-inner count-bar"
+                                                                 data-percent="33.333%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -93,352 +162,479 @@
                                     <div class="emi-box centred">
                                         <div class="icon-box"><img src="~/images/icons/icon-32.png" alt=""></div>
                                         <h5>Total asset value</h5>
-                                        <h3>4,340,000 VND</h3>
-                                        <div class="btn-box"><a href="index.html" class="theme-btn"><span>Source account</span></a></div>
+                                        <h3>@ViewBag.TotalAmount.ToString("C")</h3>
+                                        <div class="btn-box"><a asp-controller="Auth" asp-action="Card"
+                                                                class="theme-btn"><span>Source account</span></a></div>
                                     </div>
                                     <div class="interest-amount">
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Monthly Expenses</h5>
+                                            <span>@ViewBag.MonthlyExpenses.ToString("C")</span>
+                                        </div>
+
                                         <div class="single-amount">
                                             <div class="icon-box"><i class="flaticon-sparkle"></i></div>
                                             <h5>Interest Amount</h5>
                                             <span>$541,388</span>
                                         </div>
-                                        <div class="single-amount">
-                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
-                                            <h5>Interest Amount</h5>
-                                            <span>$541,388</span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="tab" id="tab-22">
                         <div class="row clearfix">
                             <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                                 <div class="content-box">
                                     <div class="row clearfix">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 left-column">
+                                        <div class="col-lg-12 col-md-6 col-sm-12 left-column">
                                             <div class="left-content mr_30">
                                                 <div class="sec-title">
-                                                    <span class="sub-title">Loan Calculator</span>
-                                                    <h2>Flexible <br/>Online Loan Calculator</h2>
-                                                    <p>Estimate your loan payments quickly & easily with our calculator.</p>
+                                                    <span class="sub-title">TeckBank</span>
+                                                    <h2>Change Password </h2>
+                                                    <p></p>
                                                 </div>
-                                                <div class="lower-text">
-                                                    <div class="icon-box"><img src="~/images/icons/icon-31.png" alt=""></div>
-                                                    <h5>Loan Questions? Check Our <a href="faq.html">Faq’s</a> Page.</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 right-column">
-                                            <div class="right-content">
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Loan Amount</h5>
-                                                        <h6>$500000</h6>
+                                                <form id="changePasswordForm">
+                                                    <input type="hidden" id="PhoneNumber" value="@Model.PhoneNumber">
+                                                    <div class="mt-3">
+                                                        <label>Old Password</label>
+                                                        <input type="password" id="OldPassword" name="oldPassword"
+                                                               class="form-control" required/>
                                                     </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>$50,000</span>
-                                                            <span>$2.5 million</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="20%"></div>
-                                                        </div>
+                                                    <div class="mt-3">
+                                                        <label>New Password</label>
+                                                        <input type="password" id="NewPassword" name="newPassword"
+                                                               class="form-control" required/>
                                                     </div>
-                                                </div>
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Loan Term (Years)</h5>
-                                                        <h6>20</h6>
+                                                    <div class="mt-3">
+                                                        <label>Confirm Password</label>
+                                                        <input type="password" id="ConfirmPassword"
+                                                               name="confirmPassword" class="form-control" required/>
                                                     </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>20 Years</span>
-                                                            <span>40 Years</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="50%"></div>
-                                                        </div>
+                                                    <div class="btn-box mt-3">
+                                                        <button id="confirm" type="submit" class="theme-btn"><span>Submit</span>
+                                                        </button>
                                                     </div>
-                                                </div>
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Interest Rate</h5>
-                                                        <h6>8.5%</h6>
-                                                    </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>6%</span>
-                                                            <span>18%</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="33.333%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row clearfix">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 left-column">
-                                            <div class="left-content mr_30">
-                                                <div class="sec-title">
-                                                    <span class="sub-title">Loan Calculator</span>
-                                                    <h2>Flexible <br/>Online Loan Calculator</h2>
-                                                    <p>Estimate your loan payments quickly & easily with our calculator.</p>
-                                                </div>
-                                                <div class="lower-text">
-                                                    <div class="icon-box"><img src="~/images/icons/icon-31.png" alt=""></div>
-                                                    <h5>Loan Questions? Check Our <a href="faq.html">Faq’s</a> Page.</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 right-column">
-                                            <div class="right-content">
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Loan Amount</h5>
-                                                        <h6>$500000</h6>
-                                                    </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>$50,000</span>
-                                                            <span>$2.5 million</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="20%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Loan Term (Years)</h5>
-                                                        <h6>20</h6>
-                                                    </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>20 Years</span>
-                                                            <span>40 Years</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="50%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="progress-block-one">
-                                                    <div class="title-box">
-                                                        <h5>Interest Rate</h5>
-                                                        <h6>8.5%</h6>
-                                                    </div>
-                                                    <div class="inner-box">
-                                                        <div class="text-box">
-                                                            <span>6%</span>
-                                                            <span>18%</span>
-                                                        </div>
-                                                        <div class="bar">
-                                                            <div class="bar-inner count-bar" data-percent="33.333%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
                                 </div>
                             </div>
+
                             <div class="col-lg-4 col-md-12 col-sm-12 amount-column">
                                 <div class="amount-box">
                                     <div class="emi-box centred">
                                         <div class="icon-box"><img src="~/images/icons/icon-32.png" alt=""></div>
-                                        <h5>Monthly EMI</h5>
-                                        <h3>$4,340.00</h3>
-                                        <div class="btn-box"><a href="index.html" class="theme-btn"><span>Apply Online</span></a></div>
+                                        <h5>Total asset value</h5>
+                                        <h3>@ViewBag.TotalAmount.ToString("C")</h3>
+                                        <div class="btn-box"><a asp-controller="Auth" asp-action="Card"
+                                                                class="theme-btn"><span>Source account</span></a></div>
                                     </div>
                                     <div class="interest-amount">
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Monthly Expenses</h5>
+                                            <span>@ViewBag.MonthlyExpenses.ToString("C")</span>
+                                        </div>
+
                                         <div class="single-amount">
                                             <div class="icon-box"><i class="flaticon-sparkle"></i></div>
                                             <h5>Interest Amount</h5>
                                             <span>$541,388</span>
                                         </div>
-                                        <div class="single-amount">
-                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
-                                            <h5>Interest Amount</h5>
-                                            <span>$541,388</span>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="tab" id="tab-23">
+                        <div class="row clearfix">
+                            <div class="col-lg-8 col-md-12 col-sm-12 content-column">
+                                <div class="content-box">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-6 col-sm-12 left-column">
+                                            <div class="left-content mr_30">
+                                                <div class="sec-title">
+                                                    <span class="sub-title">TeckBank</span>
+                                                    <h2>Change Email</h2>
+                                                    <p></p>
+                                                </div>
+                                                <form id="changeEmailForm">
+                                                    <div class="mt-3">
+                                                        <label>Email</label>
+                                                        <input type="email" id="OldMail" name="oldEmail"
+                                                               class="form-control" value="@Model.Email"
+                                                               placeholder="e.g. abc@example.com" required/>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <label>New Email</label>
+                                                        <input type="email" id="NewMail" name="newEmail"
+                                                               class="form-control" placeholder="you@example.com"
+                                                               required/>
+                                                    </div>
+
+                                                    <!-- OTP section -->
+                                                    <div id="otpSection" class="mt-3" style="display: none;">
+                                                        <label>Enter OTP</label>
+                                                        <input type="text" id="otpInput" class="form-control"
+                                                               placeholder="6-digit code" maxlength="6"/>
+                                                        <div id="otpResult" class="mt-2 text-danger"></div>
+                                                    </div>
+
+                                                    <!-- Submit button -->
+                                                    <div id="submitBox" class="btn-box mt-3">
+                                                        <button type="submit" class="theme-btn"><span>Submit</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Confirm OTP button -->
+                                                    <div id="confirmBox" class="mt-3" style="display: none;">
+                                                        <button id="confirmOtpBtn" type="submit" class="theme-btn">
+                                                            Confirm OTP
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 col-sm-12 amount-column">
+                                <div class="amount-box">
+                                    <div class="emi-box centred">
+                                        <div class="icon-box"><img src="~/images/icons/icon-32.png" alt=""></div>
+                                        <h5>Total asset value</h5>
+                                        <h3>@ViewBag.TotalAmount.ToString("C")</h3>
+                                        <div class="btn-box"><a asp-controller="Auth" asp-action="Card"
+                                                                class="theme-btn"><span>Source account</span></a></div>
+                                    </div>
+                                    <div class="interest-amount">
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Monthly Expenses</h5>
+                                            <span>@ViewBag.MonthlyExpenses.ToString("C")</span>
+                                        </div>
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Interest Amount</h5>
+                                            <span>$541,388</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab" id="tab-24">
+                        <div class="row clearfix">
+                            <div class="col-lg-8 col-md-12 col-sm-12 content-column">
+                                <div class="content-box">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-6 col-sm-12 left-column">
+                                            <div class="left-content mr_30">
+                                                <div class="sec-title">
+                                                    <span class="sub-title">TeckBank</span>
+                                                    <h2>Change Phone </h2>
+                                                    <p></p>
+                                                </div>
+                                                <form id="changePhoneForm">
+                                                    <div class="mt-3">
+                                                        <label>Email</label>
+                                                        <input type="email" id="" name="oldEmail" class="form-control"
+                                                               value="@Model.Email" placeholder="e.g. abc@example.com"
+                                                               required/>
+                                                    </div>
+                                                    <div class="mt-3">
+                                                        <label>New Email</label>
+                                                        <input type="email" id="" name="newEmail" class="form-control"
+                                                               placeholder="you@example.com" required/>
+                                                    </div>
+
+                                                    <!-- Submit button -->
+                                                    <div id="" class="btn-box mt-3">
+                                                        <button type="submit" class="theme-btn"><span>Submit</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Confirm OTP button -->
+                                                    <div id="" class="mt-3" style="display: none;">
+                                                        <button id="" type="submit" class="theme-btn">Confirm OTP
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 col-sm-12 amount-column">
+                                <div class="amount-box">
+                                    <div class="emi-box centred">
+                                        <div class="icon-box"><img src="~/images/icons/icon-32.png" alt=""></div>
+                                        <h5>Total asset value</h5>
+                                        <h3>@ViewBag.TotalAmount.ToString("C")</h3>
+                                        <div class="btn-box"><a asp-controller="Auth" asp-action="Card"
+                                                                class="theme-btn"><span>Source account</span></a></div>
+                                    </div>
+                                    <div class="interest-amount">
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Monthly Expenses</h5>
+                                            <span>@ViewBag.MonthlyExpenses.ToString("C")</span>
+                                        </div>
+
+                                        <div class="single-amount">
+                                            <div class="icon-box"><i class="flaticon-sparkle"></i></div>
+                                            <h5>Interest Amount</h5>
+                                            <span>$541,388</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script>
+    let isPhoneVisible = false;
+    let isEmailVisible = false;
+    let isIdentityVisible = false;
+
+    function togglePhone() {
+        const phoneSpan = document.getElementById("phoneText");
+        isPhoneVisible = !isPhoneVisible;
+        phoneSpan.textContent = isPhoneVisible ? "@Model.PhoneNumber" : "**********";
+    }
+
+    function toggleEmail() {
+        const emailSpan = document.getElementById("emailText");
+        isEmailVisible = !isEmailVisible;
+        emailSpan.textContent = isEmailVisible ? "@Model.Email" : "**********";
+    }
+
+    function toggleIdentity() {
+        const identitySpan = document.getElementById("identityText");
+        isIdentityVisible = !isIdentityVisible;
+        identitySpan.textContent = isIdentityVisible ? "@Model.Identity" : "**********";
+    }
+</script>
+@* Thong Tin User *@
 
 
-<section class="cards-style-two pb_120">
-    <div class="auto-container">
-        <div class="row clearfix">
-            <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
-                <div class="cards-sidebar">
-                    <div class="category-widget mb_30">
-                        <div class="widget-title">
-                            <h3>Card Types</h3>
-                        </div>
-                        <ul class="category-list clearfix">
-                            <li><a href="cards.html">Business</a></li>
-                            <li><a href="cards.html">Cashback</a></li>
-                            <li><a href="cards.html">Low Interest</a></li>
-                            <li><a href="cards.html">Rewards</a></li>
-                            <li><a href="cards.html">Secured</a></li>
-                            <li><a href="cards.html">Travel & Hotel</a></li>
-                        </ul>
-                    </div>
-                    <div class="contact-widget">
-                        <div class="inner-box" style="background-image: url(images/resource/sidebar-1.jpg);">
-                            <h3>Now, Get Your Credit Card Online</h3>
-                            <span class="text">Approve with in 24 Hrs.</span>
-                            <a href="contact.html" class="theme-btn"><span>Apply Here</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9 col-md-12 col-sm-12 content-side">
-                <div class="content-box">
-                    <div class="cards-block-one">
-                        <div class="inner-box">
-                            <div class="cards-column">
-                                <h3><a href="card-details.html">Platinum Credit Card</a></h3>
-                                <figure class="image-box"><img src="~/images/resource/cards-1.jpg" alt=""></figure>
-                                <div class="btn-box">
-                                    <a href="card-details.html">Apply Now</a>
-                                    <a href="card-details.html">Read More</a>
-                                </div>
-                            </div>
-                            <div class="content-column">
-                                <p>Explore a new world of rewards with the Platinum Credit Card.</p>
-                                <h4>Features & Benefits</h4>
-                                <ul class="list-item">
-                                    <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                    <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                    <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                    <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
-                                </ul>
-                                <div class="check-box-two">
-                                    <input class="check" type="checkbox" id="checkbox1">
-                                    <label for="checkbox1">Add to Compare</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cards-block-one">
-                        <div class="inner-box">
-                            <div class="cards-column">
-                                <h3><a href="card-details-2.html">Millinnia Credit Card</a></h3>
-                                <figure class="image-box"><img src="~/images/resource/cards-2.jpg" alt=""></figure>
-                                <div class="btn-box">
-                                    <a href="card-details-2.html">Apply Now</a>
-                                    <a href="card-details-2.html">Read More</a>
-                                </div>
-                            </div>
-                            <div class="content-column">
-                                <p>Business it will frequently occur that pleasures have to be repudiated.</p>
-                                <h4>Features & Benefits</h4>
-                                <ul class="list-item">
-                                    <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                    <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                    <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                    <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
-                                </ul>
-                                <div class="check-box-two">
-                                    <input class="check" type="checkbox" id="checkbox2">
-                                    <label for="checkbox2">Add to Compare</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cards-block-one">
-                        <div class="inner-box">
-                            <div class="cards-column">
-                                <h3><a href="card-details-3.html">Money Back Credit Card</a></h3>
-                                <figure class="image-box"><img src="~/images/resource/cards-3.jpg" alt=""></figure>
-                                <div class="btn-box">
-                                    <a href="card-details-3.html">Apply Now</a>
-                                    <a href="card-details-3.html">Read More</a>
-                                </div>
-                            </div>
-                            <div class="content-column">
-                                <p>Explore a new world of rewards with the Platinum Credit Card.</p>
-                                <h4>Features & Benefits</h4>
-                                <ul class="list-item">
-                                    <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                    <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                    <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                    <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
-                                </ul>
-                                <div class="check-box-two">
-                                    <input class="check" type="checkbox" id="checkbox3">
-                                    <label for="checkbox3">Add to Compare</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cards-block-one">
-                        <div class="inner-box">
-                            <div class="cards-column">
-                                <h3><a href="card-details-4.html">Easy EMI Credit Card</a></h3>
-                                <figure class="image-box"><img src="~/images/resource/cards-4.jpg" alt=""></figure>
-                                <div class="btn-box">
-                                    <a href="card-details-4.html">Apply Now</a>
-                                    <a href="card-details-4.html">Read More</a>
-                                </div>
-                            </div>
-                            <div class="content-column">
-                                <p>Business it will frequently occur that pleasures have to be repudiated.</p>
-                                <h4>Features & Benefits</h4>
-                                <ul class="list-item">
-                                    <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                    <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                    <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                    <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
-                                </ul>
-                                <div class="check-box-two">
-                                    <input class="check" type="checkbox" id="checkbox4">
-                                    <label for="checkbox4">Add to Compare</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cards-block-one">
-                        <div class="inner-box">
-                            <div class="cards-column">
-                                <h3><a href="card-details-5.html">Diners Club Privilege Card</a></h3>
-                                <figure class="image-box"><img src="~/images/resource/cards-5.jpg" alt=""></figure>
-                                <div class="btn-box">
-                                    <a href="card-details-5.html">Apply Now</a>
-                                    <a href="card-details-5.html">Read More</a>
-                                </div>
-                            </div>
-                            <div class="content-column">
-                                <p>Business it will frequently occur that pleasures have to be repudiated.</p>
-                                <h4>Features & Benefits</h4>
-                                <ul class="list-item">
-                                    <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                    <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                    <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                    <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
-                                </ul>
-                                <div class="check-box-two">
-                                    <input class="check" type="checkbox" id="checkbox5">
-                                    <label for="checkbox5">Add to Compare</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+
+@* Change Passsword *@
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const phoneNumber = document.getElementById("PhoneNumber").value;
+            const oldPassword = document.getElementById("OldPassword").value;
+            const newPassword = document.getElementById("NewPassword").value;
+            const confirmPassword = document.getElementById("ConfirmPassword").value;
+
+            if (newPassword !== confirmPassword) {
+                showCustomAlert("New password and confirmation do not match.");
+                return;
+            }
+  
+            fetch('/Auth/ChangePassword', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phoneNumber,
+                    oldPassword,
+                    newPassword,
+                    confirmPassword
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        showCustomAlert("Password changed successfully!");
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                        document.getElementById("changePasswordForm").reset();
+                    } else {
+                        showCustomAlert("Error: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Request failed:", error);
+                    showCustomAlert("An error occurred. Please try again.");
+                });
+        });
+    });
+</script>
+
+
+@* Change email  *@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const changeEmailForm = document.getElementById("changeEmailForm");
+        const otpSection = document.getElementById("otpSection");
+        const submitBox = document.getElementById("submitBox");
+        const confirmBox = document.getElementById("confirmBox");
+        const otpInput = document.getElementById("otpInput");
+        const otpResult = document.getElementById("otpResult");
+
+        changeEmailForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const oldEmail = document.getElementById("OldMail").value;
+            const newEmail = document.getElementById("NewMail").value;
+
+            const submitBtn = submitBox?.querySelector("button");
+            if (submitBtn) {
+                submitBtn.innerHTML = "<span>Processing...</span>";
+                submitBtn.disabled = true;
+            }
+            
+
+            fetch('/Auth/ChangeMail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                },
+                body: JSON.stringify({oldEmail, newEmail})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show OTP
+                        otpSection.style.display = "block";
+
+                        // HIDDEN SUBMIT
+                        if (submitBox) {
+                            submitBox.style.display = "none";
+                        }
+
+                        // SHOW CONFIRM OTP
+                        if (confirmBox) {
+                            confirmBox.style.display = "block";
+                        }
+
+                        otpResult.innerText = data.message;
+                        otpResult.classList.remove("text-danger");
+                        otpResult.classList.add("text-success");
+                    } else {
+                        otpResult.innerText = "Send OTP error: " + data.message;
+                        otpResult.classList.remove("text-success");
+                        otpResult.classList.add("text-danger");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    otpResult.innerText = "Send OTP error.";
+                    otpResult.classList.add("text-danger");
+                    
+                    if (submitBtn) {
+                        submitBtn.innerHTML = "<span>Submit</span>";
+                        submitBtn.disabled = false;
+                    }
+                });
+        });
+
+        document.getElementById("confirmOtpBtn").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const oldEmail = document.getElementById("OldMail").value;
+            const newEmail = document.getElementById("NewMail").value;
+            const otp = otpInput.value;
+
+            if (!/^\d{6}$/.test(otp)) {
+                otpResult.innerText = "Please enter exactly 6 digits.";
+                otpResult.classList.remove("text-success");
+                otpResult.classList.add("text-danger");
+                return;
+            }
+
+            fetch('/Auth/ConfirmOtpChangeEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({oldEmail, newEmail, inputOtp: otp})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        otpResult.innerText = data.message;
+                        otpResult.classList.remove("text-danger");
+                        otpResult.classList.add("text-success");
+                        showCustomAlert("Change email success")
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        otpResult.innerText = data.message;
+                        otpResult.classList.remove("text-success");
+                        otpResult.classList.add("text-danger");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    otpResult.innerText = "Error confirm OTP.";
+                    otpResult.classList.add("text-danger");
+                });
+        });
+
+        otpInput.addEventListener("input", function () {
+            const value = this.value;
+
+            if (!/^\d*$/.test(value)) {
+                otpResult.innerText = "OTP can only contain numbers.";
+                otpResult.classList.add("text-danger");
+                otpResult.classList.remove("text-success");
+            } else if (value.length > 6) {
+                otpResult.innerText = "Enter up to 6 digits only.";
+                otpResult.classList.add("text-danger");
+                otpResult.classList.remove("text-success");
+            } else {
+                otpResult.innerText = "";
+            }
+        });
+    });
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000); // 3 giây tự động ẩn
+    }
+
+</script>

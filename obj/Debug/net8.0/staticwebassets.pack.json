@@ -1837,6 +1837,22 @@
       "PackagePath": "staticwebassets/images/news/post-3.jpg"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/Card-card.png",
+      "PackagePath": "staticwebassets/images/resource/Card-card.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/Card-creditcreditC.png",
+      "PackagePath": "staticwebassets/images/resource/Card-creditcreditC.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/ChatGPT Image Apr 9, 2025, 07_59_21 PM.png",
+      "PackagePath": "staticwebassets/images/resource/ChatGPT Image Apr 9, 2025, 07_59_21 PM.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/SubmissionFormat (CP2496G06).pdf",
+      "PackagePath": "staticwebassets/images/resource/SubmissionFormat (CP2496G06).pdf"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/about-1.jpg",
       "PackagePath": "staticwebassets/images/resource/about-1.jpg"
     },
@@ -1969,8 +1985,16 @@
       "PackagePath": "staticwebassets/images/resource/clients-3.png"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/credit.png",
+      "PackagePath": "staticwebassets/images/resource/credit.png"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/doller-1.png",
       "PackagePath": "staticwebassets/images/resource/doller-1.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/eProject_Status_Report.xls",
+      "PackagePath": "staticwebassets/images/resource/eProject_Status_Report.xls"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/growth-1.jpg",
@@ -2023,6 +2047,10 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/men-3.png",
       "PackagePath": "staticwebassets/images/resource/men-3.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/normal.png",
+      "PackagePath": "staticwebassets/images/resource/normal.png"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/resource/online-1.jpg",
