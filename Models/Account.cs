@@ -19,4 +19,6 @@ public class Account
     public required List<Transaction> TransactionsTo { get; set; }   // Tu tai khoan khac den tai khoan nay
     public List<AccountDiscounts> AccountDiscounts { get; set; } = new();
     public Vip? Vip { get; set; }
+    public CreditCard? CreditCard { get; set; }
+
 }

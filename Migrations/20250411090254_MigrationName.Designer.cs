@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CP2496H07Group1.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20250408154612_MigrationName")]
+    [Migration("20250411090254_MigrationName")]
     partial class MigrationName
     {
         /// <inheritdoc />
@@ -171,6 +171,47 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.CreditCard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CreditLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CurrentDebt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("InterestRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StatementDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId")
+                        .IsUnique();
+
+                    b.ToTable("CreditCards");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.DiscountCode", b =>
                 {
                     b.Property<long>("Id")
@@ -183,8 +224,8 @@ namespace CP2496H07Group1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("LongMonth")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("LongDate")
+                        .HasColumnType("int");
 
                     b.Property<int>("Percent")
                         .HasColumnType("int");
@@ -268,8 +309,8 @@ namespace CP2496H07Group1.Migrations
                     b.Property<double>("InterestRate")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("LoanMonth")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("LoanDate")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -289,6 +330,9 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("LoanName")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("LoanOptionId")
                         .HasColumnType("bigint");
@@ -771,6 +815,17 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.CreditCard", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Account", "Account")
+                        .WithOne("CreditCard")
+                        .HasForeignKey("CP2496H07Group1.Models.CreditCard", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
                 {
                     b.HasOne("CP2496H07Group1.Models.LoanOption", "LoanOption")
@@ -914,6 +969,8 @@ namespace CP2496H07Group1.Migrations
             modelBuilder.Entity("CP2496H07Group1.Models.Account", b =>
                 {
                     b.Navigation("AccountDiscounts");
+
+                    b.Navigation("CreditCard");
 
                     b.Navigation("TransactionsFrom");
 

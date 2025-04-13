@@ -2,6 +2,7 @@ using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Configs.Email;
 using CP2496H07Group1.Configs.Redis;
 using CP2496H07Group1.Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace CP2496H07Group1.Services.Account;
@@ -19,8 +20,34 @@ public class AccountService : IAccountService
         _emailService = emailService;
         _redis = redis;
     }
-    
-    
+
+
+    public async Task<List<Models.Account>> GetAccounts(long userId)
+    {
+        try
+        {
+            return await _context.Accounts
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
+        }catch
+        {
+            throw new ArgumentException("Invalid or expired OTP.");
+        }
+    }
+
+    public Task<Models.Account?> GetAccountDetails(long userId, long accountId)
+    {
+        try
+        {
+            return Task.FromResult(_context.Accounts
+                .FirstOrDefault(a => a != null && a.UserId == userId && a.Id == accountId));
+        }
+        catch
+        {
+            throw new ArgumentException("Invalid or expired OTP.");
+        }
+    }
+
     public async Task<string> SendMailCreateAccount(long userId, string accountType, int pin)
     {
         var user = await _context.Users.FindAsync(userId);
@@ -57,21 +84,18 @@ public class AccountService : IAccountService
         string redisKey = $"create_account_otp_{userId}";
         var cacheValue = _redis.Get(redisKey);
 
-        if (cacheValue == null)
-            throw new ArgumentException("OTP expired or not found.");
-
         var data = JsonConvert.DeserializeObject<dynamic>(cacheValue.ToString());
         string otpStored = data.otp.ToString();
 
         if (otpStored != otpInput)
-            throw new ArgumentException("Invalid OTP.");
+            return null;
 
         int pin = (int)data.tempAccount.Pin;
         string accountType = (string)data.tempAccount.AccountType;
 
         var user = await _context.Users.FindAsync(userId);
         if (user == null)
-            throw new ArgumentException("User not found.");
+            return null;
 
         _redis.Remove(redisKey);
 
@@ -107,28 +131,43 @@ public class AccountService : IAccountService
         };
 
         await _context.Transactions.AddAsync(transaction);
+
+        if (accountType == "CreditCard")
+        {
+            var creditCard = new CreditCard
+            {
+                AccountId = account.Id,
+                CardNumber = GenerateCreditCardNumber(),
+                CreditLimit = 20000000, // hạn mức mặc định 20 triệu
+                CurrentDebt = 0,
+                InterestRate = 18, // 18%/năm
+                StatementDate = DateTime.Now, // ngày sao kê hôm nay
+                DueDate = DateTime.Now.AddDays(20), // hạn thanh toán sau 20 ngày
+                IsActive = true,
+                Account = account
+            };
+            await  _context.CreditCards.AddAsync(creditCard);
+        }
+        
         await _context.SaveChangesAsync();
 
         return account;
     }
     
-    public async Task<Models.Account?> GetAccount(long userId)
-    {
-        try
-        {
-            return await _context.Accounts.FindAsync(userId);
-        }catch
-        {
-            throw new ArgumentException("Invalid or expired OTP.");
-        }
-    }
-    
+
 
     private string GenerateAccountNumber()
     {
         var random = new Random();
         return string.Concat(Enumerable.Range(0, 12).Select(_ => random.Next(0, 10).ToString()));
     }
+    
+    private string GenerateCreditCardNumber()
+    {
+        Random rand = new();
+        return $"{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}";
+    }
+
     
     private static string CreateOtpEmailCreateAccount(string email, string otp)
     {

@@ -19,6 +19,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPackageService, PackageService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<ITransactionService, TransactionService>();
         services.AddSingleton<RedisService>();
         services.AddSingleton<SpeedSmsService>();
 

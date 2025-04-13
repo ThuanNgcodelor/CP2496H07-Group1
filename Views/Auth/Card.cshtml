@@ -1,0 +1,118 @@
+@model List<Account>
+
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>List Card</h1>
+            <ul class="bread-crumb clearfix">
+            </ul>
+        </div>
+    </div>
+</section>
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+<!-- cards-style-two -->
+<section class="cards-style-two pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
+                <div class="cards-sidebar">
+                    <div class="category-widget mb_30">
+                        <div class="widget-title">
+                            <h3>Card Types</h3>
+                        </div>
+                        <ul class="category-list clearfix">
+                            <li><a href="cards.html">Business</a></li>
+                            <li><a href="cards.html">Cashback</a></li>
+                            <li><a href="cards.html">Low Interest</a></li>
+                            <li><a href="cards.html">Rewards</a></li>
+                            <li><a href="cards.html">Secured</a></li>
+                            <li><a href="cards.html">Travel & Hotel</a></li>
+                        </ul>
+                    </div>
+                    <div class="contact-widget">
+                        <div class="inner-box" style="background-image: url(images/resource/sidebar-1.jpg);">
+                            <h3>Now, Get Your Credit Card Online</h3>
+                            <span class="text">Approve with in 24 Hrs.</span>
+                            <a href="contact.html" class="theme-btn"><span>Apply Here</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12 content-side">
+                <div class="content-box">
+                    @if (!Model.Any())
+                    {
+                        <p>You have no card.</p>
+                    }
+                    else
+                    {
+                        @foreach (var account in Model)
+                        {
+                            <div class="cards-block-one">
+                                <div class="inner-box">
+                                    <div class="cards-column">
+                                        <h3><a href="#">@account.AccountType</a></h3>
+                                        <figure class="image-box">
+                                            @if (account.AccountType == "CreditCard")
+                                            {
+                                                <img src="~/images/resource/credit.png" alt="Credit Card"/>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/images/resource/normal.png" alt="">
+                                            }
+                                        </figure>
+                            
+                                        <div class="btn-box">
+                                            <a href="#">Deposit Now</a>
+                                            <a href="" onclick="viewAccountDetails(@account.Id); return false;" >Read More</a>
+                                        </div>
+                                    </div>
+                                    <div class="content-column">
+                                        <p>Explore a new world of rewards with the Platinum Credit Card.</p>
+                                        <h4>Features & Benefits</h4>
+                                        <ul class="list-item">
+                                            <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
+                                            <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
+                                            <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
+                                            <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
+                                        </ul>
+                                        <div class="check-box-two">
+                                            <input class="check" type="checkbox" id="checkbox1">
+                                            <label for="checkbox1">Add to Compare</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function viewAccountDetails(accountId) {
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = "@Url.Action("CardDetails", "Auth")";
+
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "accountId";
+    input.value = accountId;
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>

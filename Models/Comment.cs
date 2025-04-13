@@ -4,7 +4,7 @@ namespace CP2496H07Group1.Models;
 
 public class Comment
 {
-    public required long Id { get; set; }
+    public long Id { get; set; }
     public long? NewsId { get; set; }
 
     public required long UserId { get; set; }

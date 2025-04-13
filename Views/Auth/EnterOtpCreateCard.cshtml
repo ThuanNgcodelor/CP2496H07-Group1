@@ -1,5 +1,6 @@
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CP2496H07Group1.Models.EnterOtpViewModel
 <style>
     .appointment-form {
         width: 80%;
@@ -48,8 +49,9 @@
     <span class="big-text">ENTER OPT <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form asp-action="EnterOtpCreateAccount" asp-controller="Auth" method="post">
-                <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value"/>
+            <form asp-action="EnterOtpCreateCard" asp-controller="Auth" method="post">
+                <input type="hidden" name="UserId" value="@(ViewData["UserId"] ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value)" />
+
                 <div class="row clearfix">
                     <div class="sec-title">
                         <span class="sub-title">Online Banking</span>
@@ -68,26 +70,27 @@
                         </div>
                     }
 
-                    @if (!ViewData.ModelState.IsValid)
-                    {
-                        <div class="col-12">
-                            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                                @Html.ValidationSummary()
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    }
-
                     <div class="col-12">
                         <div class="form-group">
                             <div class="icon-box">
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="otp">OTP</label>
-                            <input type="text" id="otp" name="otp" placeholder="Enter OTP" pattern="\d{6}" required
-                                   title="OTP must be 6 digits">
+                            <input
+                                type="text"
+                                id="otp"
+                                name="otp"
+                                placeholder="Enter OTP"
+                                pattern="\d{6}"
+                                maxlength="6"
+                                minlength="6"
+                                inputmode="numeric"
+                                required
+                                title="OTP must be 6 digits"
+                                class="form-control" />
+
+                            <!-- Hiển thị thông báo lỗi dưới input -->
+                            <span asp-validation-for="Otp" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -96,9 +99,9 @@
                             <button type="submit" class="theme-btn"><span>Submit OTP</span></button>
                         </div>
                     </div>
-
                 </div>
             </form>
+
         </div>
     </div>
 </section>
@@ -107,3 +110,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('otp').addEventListener('input', function (e) {
+        this.value = this.value.replace(/\D/g, ''); 
+    });
+</script>

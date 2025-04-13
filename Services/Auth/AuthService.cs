@@ -4,6 +4,7 @@ using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Configs.Email;
 using CP2496H07Group1.Configs.Redis;
 using CP2496H07Group1.Configs.Sms;
+using CP2496H07Group1.Dtos;
 using CP2496H07Group1.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,10 +61,9 @@ public class AuthService : IAuthService
                 await _context.SaveChangesAsync();
             }
             _redis.Set(redisKey, failedLoginAttempts.ToString(), TimeSpan.FromMinutes(30));
-            throw new ArgumentException("Password is invalid");
+            throw new ArgumentException("Password is invalid" + failedLoginAttempts);
         }
 
-        // test ok
         _redis.Remove(redisKey);
         return user;
     }
@@ -110,9 +110,9 @@ public class AuthService : IAuthService
         var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         if (user == null)
         {
-            throw new ArgumentException("This phone number is already.");
+            throw new ArgumentException("This phone number does not exist.");
         }
-
+     
         //Tao Opt sau do gui len Cache voi 30
         var otp = new Random().Next(100000, 999999).ToString();
         string redisKey = $"reset_password_{user.PhoneNumber}";
@@ -142,6 +142,65 @@ public class AuthService : IAuthService
         }
     }
 
+    public async Task<string> SendOtpChangeEmail(string oldMail, string newEmail)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u=>u.Email == oldMail);
+        if (user == null)
+        {
+            throw new ArgumentException("User does not exist.");
+        }
+        var opt = new Random().Next(100000, 999999).ToString();
+        string redisKey = $"change_email_{newEmail}";
+        _redis.Set(redisKey, opt, TimeSpan.FromMinutes(5));
+        
+        var sendMail = CreateOtpChangeEmail(user.Email, opt);
+        await _emailService.Send(user.Email, "Change email", sendMail);
+        return "OTP sent to your email. Please check your inbox.";
+    }
+
+    public async Task<User?> ConfirmOtpChangeEmail(string oldEmail,string newEmail, string inputOtp)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u=>u.Email == oldEmail);
+        if (user == null)
+        {
+            throw new ArgumentException("User does not exist.");
+        }
+        
+        string redisKey = $"change_email_{newEmail}";
+        var storedOtp = _redis.Get(redisKey);
+        
+        if (storedOtp == null)
+            throw new Exception("OTP is invalid.");
+
+        if (storedOtp != inputOtp)
+            throw new Exception("OTP entered wrong OTP.");
+        
+        user.Email = newEmail;
+        await _context.SaveChangesAsync();
+        _redis.Remove(redisKey);
+        return user;
+    }
+
+    public async Task ChangePassword(string? phoneNumber, string oldPassword, string newPassword, string confirmPassword)
+    {
+        if (string.IsNullOrEmpty(oldPassword) && string.IsNullOrEmpty(phoneNumber))
+        {
+            throw new ArgumentException("Old password is required.");
+        }
+
+        var oldPasswordHash = HashPassword(oldPassword);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber && u.PasswordHash == oldPasswordHash);
+    
+        if (user == null)
+        {
+            throw new ArgumentException("Incorrect phone number or old password.");
+        }
+
+        user.PasswordHash = HashPassword(newPassword);
+        await _context.SaveChangesAsync();
+    }
+
+
 
     public async Task ResetPassword(string? phoneNumber,string newPassword, string confirmPassword )
     {
@@ -163,6 +222,11 @@ public class AuthService : IAuthService
         if (await _context.Users.AnyAsync(u => u.PhoneNumber == model.PhoneNumber))
         {
             throw new ArgumentException("This phone number is already registered.");
+        }
+
+        if (await _context.Users.AnyAsync(u => u.Email == model.Email))
+        {
+            throw new ArgumentException("This email is already registered.");
         }
 
         var otp = new Random().Next(100000, 999999).ToString();
@@ -193,7 +257,6 @@ public class AuthService : IAuthService
 
         var emailBody = CreateOtpEmailForgot(model.Email, otp);
         await _emailService.Send(model.Email, "Confirm register", emailBody);
-        // await _smsService.SendOtpAsync(model.PhoneNumber, otp);
 
         return model;
     }
@@ -206,6 +269,22 @@ public class AuthService : IAuthService
                 <h2>Confirm registration</h2>
                 <p>Hello, I'm David</p>
                 <p>Below is the OTP code to confirm your account.</p>
+                <h3 style='color: #4CAF50;'>{otp}</h3>
+                <p>Plese enter this code on the confirmation page to complete your registrtion. This code is valid for 10 minutes</p>
+                <p>Best regards,<br/>David Nguyen/p>
+                <p>TeckBank</p>
+            </body>
+            </html>";
+    }
+    
+    private static string CreateOtpChangeEmail(string email, string otp)
+    {
+        return $@"
+            <html>
+            <body style='font-family: Arial, sans-serif;'>
+                <h2>Confirm Change Email.</h2>
+                <p>Hello, I'm David</p>
+                <p>Below is the OTP code to confirm your email.</p>
                 <h3 style='color: #4CAF50;'>{otp}</h3>
                 <p>Plese enter this code on the confirmation page to complete your registrtion. This code is valid for 10 minutes</p>
                 <p>Best regards,<br/>David Nguyen/p>

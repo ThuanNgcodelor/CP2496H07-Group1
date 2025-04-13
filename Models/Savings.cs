@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public class Savings
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
     public long? AccountId { get; set; } // Có thể null nếu chưa liên kết với tài khoản nào
     public DateTime DateStart { get; set; }
     public DateTime DateEnd { get; set; }

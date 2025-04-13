@@ -1,14 +1,13 @@
-    <section class="page-title">
-        <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
-        <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model X.PagedList.IPagedList<Transaction>
+
+<section class="page-title">
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <div class="auto-container">
         <div class="content-box">
-            <h1>About Us</h1>
-            <ul class="bread-crumb clearfix">
-                <li><a href="index.html">Home</a></li>
-                <li>About</li>
-                <li><span>About Us</span></li>
-            </ul>
+            <h1>My recent transactions</h1>
         </div>
     </div>
 </section>
@@ -19,69 +18,108 @@
             <span class="sub-title">TeckBank</span>
             <h2>My recent transactions</h2>
         </div>
+
+        <form method="get" asp-action="RecentTransactions" asp-controller="Auth" style="margin-bottom: 30px;">
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: center;">
+
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                    <label for="fromDate" style="margin-bottom: 5px;">From:</label>
+                    <input type="date" name="fromDate" id="fromDate" class="form-control"
+                           style="width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px;"/>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                    <label for="toDate" style="margin-bottom: 5px;">To:</label>
+                    <input type="date" name="toDate" id="toDate" class="form-control"
+                           style="width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px;"/>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                    <label style="visibility: hidden; margin-bottom: 5px;">Search</label>
+                    <button type="submit" class="theme-btn btn-style-one"
+                            style="width: 100%; padding: 8px 10px; border-radius: 5px;">
+                        Search
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+
         <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
-                <div class="corporate-block-one">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon"><img src="images/icons/icon-227.png" alt=""></div>
-                            <div class="overlay-icon"><img src="images/icons/icon-228.png" alt=""></div>
+
+
+            @foreach (var transaction in Model)
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
+                    <div class="corporate-block-one">
+                        <div class="inner-box">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="margin: 0;">Transaction
+                                    Date: @transaction.TransactionDate.ToString("dd/MM/yyyy HH:mm")</h4>
+                                <div>
+                                    <strong>Transaction Type:</strong>
+                                    <span>@transaction.TransactionType</span>
+                                </div>
+                            </div>
+
+
+                            <strong>Id:</strong> @transaction.Id <br/>
+                            <h5>
+                                <div style="display: flex; gap: 40px; margin-bottom: 5px;">
+                                    <div>
+                                        <strong>Amount:</strong>
+                                        <span>@transaction.Amount.ToString("C0")</span>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; gap: 40px;">
+                                    <div>
+                                        <strong>From Account:</strong>
+                                        <span>@transaction.FromAccount?.User?.LastName @transaction.FromAccount?.User?.FirstName</span>
+                                    </div>
+                                    <div>
+                                        <strong>To Account:</strong>
+                                        <span>@transaction.ToAccount?.User?.LastName @transaction.ToAccount?.User?.FirstName</span>
+                                    </div>
+                                </div>
+                            </h5>
+
+
                         </div>
-                        <h4>Dial Us</h4>
-                        <p>For Instant Help and Friendly Service.</p>
-                        <h5><a href="tel:080089612345678">0800 896 1234 & 5678</a></h5>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
-                <div class="corporate-block-one">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon"><img src="images/icons/icon-230.png" alt=""></div>
-                            <div class="overlay-icon"><img src="images/icons/icon-231.png" alt=""></div>
-                        </div>
-                        <h4>Mail Us</h4>
-                        <p>Questions? Mail us, and we’ll handle the rest.</p>
-                        <h5><a href="mailto:getsupport@example.com">getsupport@example.com</a></h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
-                <div class="corporate-block-one">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon"><img src="images/icons/icon-232.png" alt=""></div>
-                            <div class="overlay-icon"><img src="images/icons/icon-233.png" alt=""></div>
-                        </div>
-                        <h4>Address</h4>
-                        <p>Your Destination for banking Service.</p>
-                        <h5>14 Hackescher Markt, Mitte 10115, German.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
-                <div class="corporate-block-one">
-                    <div class="inner-box">
-                        <div class="icon-box">
-                            <div class="icon"><img src="images/icons/icon-234.png" alt=""></div>
-                            <div class="overlay-icon"><img src="images/icons/icon-235.png" alt=""></div>
-                        </div>
-                        <h4>Banking Hours</h4>
-                        <p>Flexible Banking Hours, Just for You.</p>
-                        <h5>Mon-Sat: 9am to 5pm <span>[2nd Sat Holiday]</span></h5>
-                    </div>
-                </div>
-            </div>
+            }
+
+
         </div>
+
+
         <div class="pagination-wrapper centred pt_30">
             <ul class="pagination clearfix">
-                <li><a href="blog.html"><i class="flaticon-next"></i></a></li>
-                <li><a href="blog.html" class="current">01</a></li>
-                <li><a href="blog.html">02</a></li>
-                <li><a href="blog.html">03</a></li>
-                <li><a href="blog.html"><i class="flaticon-next"></i></a></li>
+                @if (Model.PageNumber > 1)
+                {
+                    <li>
+                        <a href="@Url.Action("RecentTransactions", new { page = Model.PageNumber - 1 })"><i
+                                class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
+                }
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li>
+                        <a href="@Url.Action("RecentTransactions", new { page = i })"
+                           class="@(i == Model.PageNumber ? "current" : "")">@i</a>
+                    </li>
+                }
+                @if (Model.PageNumber < Model.PageCount)
+                {
+                    <li>
+                        <a href="@Url.Action("RecentTransactions", new { page = Model.PageNumber + 1 })"><i
+                                class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
+                }
             </ul>
         </div>
+
+
     </div>
-  
+
 </section>

@@ -3,26 +3,30 @@
         width: 80%;
         margin: 0 auto;
     }
+
     .form-group {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 15px;
     }
+
     .form-group input {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+
     .icon-box {
         margin-bottom: 5px;
     }
+
     .message-btn {
         text-align: center;
     }
-    .form-group input[type='password']
-    {
+
+    .form-group input[type='password'] {
         position: relative;
         display: block;
         width: 100%;
@@ -36,8 +40,16 @@
     }
 
 </style>
+
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
 <section class="appointment-section pt_120 pb_120">
-    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <span class="big-text">LOGIN <br>TechBank</span>
     <div class="auto-container">
@@ -64,13 +76,14 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="PasswordHash" placeholder="Enter password" required>
+                            <input type="password" id="password" name="PasswordHash" placeholder="Enter password"
+                                   required>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="message-btn pt_7">
-                            <button type="submit" class="theme-btn"><span>Login</span></button>
+                            <button type="submit" id="loginButton" class="theme-btn"><span>Login</span></button>
                         </div>
                     </div>
                     <div class="col-12 text-center pt_10">
@@ -105,11 +118,15 @@
 
             const form = $(this);
             const token = $('input[name="__RequestVerificationToken"]').val();
+            const loginButton = $('#loginButton');
 
             if (!token) {
-                alert('CSRF token missing. Please refresh the page.');
+                showCustomAlert('CSRF token missing. Please refresh the page.');
                 return;
             }
+
+            // Disable the login button
+            loginButton.prop('disabled', true).text('Logging in...');
 
             $.ajax({
                 url: form.attr('action'),
@@ -120,18 +137,54 @@
                 },
                 success: function (response) {
                     if (response.success) {
-                        alert('Login successful! Redirecting...');
+                        showCustomAlert('Login successful! Redirecting...');
                         setTimeout(() => {
                             window.location.href = response.redirectUrl || '/';
                         }, 1000);
                     } else {
-                        alert(response.message || 'Invalid login credentials');
+                        showCustomAlert(response.message || 'Invalid login credentials');
+                        loginButton.prop('disabled', false).text('Login');
                     }
                 },
                 error: function (xhr) {
                     alert(xhr.responseJSON?.message || 'An error occurred during login');
+                    // Re-enable login button on error
+                    loginButton.prop('disabled', false).text('Login');
                 }
             });
         });
     });
+
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000); // 3 giây tự động ẩn
+    }
+
 </script>
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292; /* Màu xanh thành công */
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+</style>

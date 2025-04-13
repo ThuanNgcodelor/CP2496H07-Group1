@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public class Faq
 {
-    public required long Id { get; set; }
+    public long Id { get; set; }
 
     public required string Question { get; set; }
 

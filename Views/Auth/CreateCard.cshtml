@@ -46,7 +46,7 @@
     <span class="big-text">Create Card <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
-            <form asp-action="CreateAccount" method="post">
+            <form asp-controller="Auth" asp-action="CreateCard" method="post">
                 <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
                 @Html.AntiForgeryToken()
                 <div class="row clearfix">
@@ -63,9 +63,9 @@
                             </div>
                             <label for="AccountType">Card Type</label>
                             <select id="AccountType" name="AccountType" required>
-                                <option value=""> Select Account Type </option>
-                                <option value="NormalCard">Normal Card</option>
-                                <option value="CreditCard">Credit Card</option>
+                                <option value="">Select</option>
+                                <option value="NormalCard">Normal</option>
+                                <option value="CreditCard">Credit</option>
                             </select>
                         </div>
                     </div>
@@ -76,7 +76,8 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="Pin">PIN</label>
-                            <input type="password" id="Pin" name="Pin" placeholder="Enter Pin" required>
+                            <input type="password" id="Pin" name="Pin" placeholder="Enter Pin" required
+                                   maxlength="6" inputmode="numeric" pattern="\d*">
                             <span id="pinError1" style="color: red; font-size: 14px; display: none;">PIN must be 6 digits.</span>
                         </div>
                     </div>
@@ -87,7 +88,8 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="ConfirmPin">Confirm PIN</label>
-                            <input type="password" id="ConfirmPin" name="ConfirmPin" placeholder="Confirm Pin" required>
+                            <input type="password" id="ConfirmPin" name="ConfirmPin" placeholder="Confirm Pin" required
+                                   maxlength="6" inputmode="numeric" pattern="\d*">
                             <span id="pinError2" style="color: red; font-size: 14px; display: none;">PIN and Confirm PIN do not match. Please re-enter.</span>
                         </div>
                     </div>
@@ -96,7 +98,7 @@
                     <!-- Submit Button -->
                     <div class="col-12">
                         <div class="message-btn pt_7">
-                            <button type="submit" class="theme-btn"><span>Create</span></button>
+                            <button type="submit" id="CreateBtn" class="theme-btn"><span>Create</span></button>
                         </div>
                     </div>
 
@@ -106,40 +108,48 @@
     </div>
 </section>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $(document).ready(function () {
-        $('form').on('submit', function (e) {
-            const pin = $('#Pin').val();
-            const confirmPin = $('#ConfirmPin').val();
+        const form = $('form');
+        const submitBtn = $('#CreateBtn');
+        const pinInput = $('#Pin');
+        const confirmPinInput = $('#ConfirmPin');
+        const pinError1 = $('#pinError1');
+        const pinError2 = $('#pinError2');
+
+        // Giới hạn chỉ nhập số và max 6 ký tự
+        pinInput.add(confirmPinInput).on('input', function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 6);
+            pinError1.hide();
+            pinError2.hide();
+        });
+
+        form.on('submit', function (e) {
             let isValid = true;
+            const pin = pinInput.val();
+            const confirmPin = confirmPinInput.val();
+            pinError1.hide();
+            pinError2.hide();
 
-            // Reset errors
-            $('#pinError1').hide();
-            $('#pinError2').hide();
-
-            // Kiểm tra PIN phải là 6 chữ số
             const pinRegex = /^\d{6}$/;
             if (!pinRegex.test(pin)) {
-                $('#pinError1').show();
+                pinError1.show();
                 isValid = false;
             }
 
-            // Kiểm tra trùng khớp Confirm PIN
             if (pin !== confirmPin) {
-                $('#pinError2').show();
+                pinError2.show();
                 isValid = false;
             }
 
             if (!isValid) {
-                e.preventDefault(); // Ngăn submit nếu có lỗi
+                e.preventDefault();
+                return;
             }
-        });
 
-        // Ẩn lỗi khi người dùng nhập lại
-        $('#Pin, #ConfirmPin').on('input', function () {
-            $('#pinError1').hide();
-            $('#pinError2').hide();
+            // Ngăn submit nhiều lần và hiển thị đang xử lý
+            submitBtn.prop('disabled', true);
+            submitBtn.html("<span>Processing...</span>");
         });
     });
 </script>

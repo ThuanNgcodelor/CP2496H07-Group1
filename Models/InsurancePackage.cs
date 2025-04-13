@@ -2,7 +2,7 @@ namespace CP2496H07Group1.Models;
 
 public class InsurancePackage
 {
-    public required long Id { get; set; }       
+    public  long Id { get; set; }       
     public required string Name { get; set; }             
     public required string Description { get; set; }      
     public required decimal Price { get; set; }         
@@ -13,5 +13,4 @@ public class InsurancePackage
     
     public required List<UserInsurance> UserInsurances { get; set; } = new List<UserInsurance>(); // 1 n with UserInsurance
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
-
 }

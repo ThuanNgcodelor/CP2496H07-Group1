@@ -4,7 +4,7 @@ namespace CP2496H07Group1.Models;
 
 public class News
 {
-    public required long Id { get; set; }
+    public  long Id { get; set; }
 
     [Required(ErrorMessage = "Title cannot be blank.")]
     public required string Title { get; set; }

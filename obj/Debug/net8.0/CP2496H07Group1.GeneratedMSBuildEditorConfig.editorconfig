@@ -58,16 +58,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CreateAccount.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DcmVhdGVBY2NvdW50LmNzaHRtbA==
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Card.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CardDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DYXJkRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CreateCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DcmVhdGVDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9FbnRlck90cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtpCreateAccount.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9FbnRlck90cENyZWF0ZUFjY291bnQuY3NodG1s
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtpCreateCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9FbnRlck90cENyZWF0ZUNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Forgot.cshtml]

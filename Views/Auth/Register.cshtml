@@ -95,27 +95,31 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Identity</label>
-                            <input type="text" name="Identity" placeholder="Your identity" value="@Model?.Identity" required />
+                            <input type="text" id="identity" name="Identity" placeholder="Your identity" value="@Model?.Identity" required />
+                            <span id="identityError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.Identity, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="PasswordHash" placeholder="Enter password" required />
+                            <input type="password" id="password" name="PasswordHash" placeholder="Enter password" required />
+                            <span id="passwordError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Confirm Password</label>
-                            <input type="password" name="PasswordHash" placeholder="Confirm password" required />
-                            @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "validation-error" })
+                            <input type="password" id="confirmPassword" name="ConfirmPassword" placeholder="Confirm password" required />
+                            <span id="passwordMatchError" class="validation-error"></span>
                         </div>
                     </div>
+
+
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="message-btn pt_7">
-                            <button type="submit" class="theme-btn"><span>Register</span></button>
+                            <button type="submit" id="submitBtn" class="theme-btn"><span>Register</span></button>
                         </div>
                     </div>
                 </div>
@@ -123,3 +127,69 @@
         </div>
     </div>
 </section>
+
+<script>
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const errorSpan = document.getElementById("passwordMatchError");
+    const passwordErrorSpan = document.getElementById("passwordError");
+    const identityInput = document.getElementById("identity");
+    const identityErrorSpan = document.getElementById("identityError");
+
+    function validatePasswordMatch() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            errorSpan.textContent = "Passwords and confirm password do not match.";
+        } else {
+            errorSpan.textContent = "";
+        }
+    }
+
+    function validatePassword() {
+        const password = passwordInput.value;
+
+        const passwordValid = password.length > 6 && /[A-Z]/.test(password);
+
+        if (!passwordValid) {
+            passwordErrorSpan.textContent = "Password must be at least 6 characters long and contain at least one uppercase letter.";
+        } else {
+            passwordErrorSpan.textContent = "";
+        }
+    }
+    function validateIdentity() {
+        const identity = identityInput.value;
+
+        const identityValid = /^\d{12}$/.test(identity); 
+
+        if (!identityValid) {
+            identityErrorSpan.textContent = "Identity must be exactly 12 digits and cannot contain letters.";
+        } else {
+            identityErrorSpan.textContent = "";
+        }
+    }
+
+    passwordInput.addEventListener("input", validatePassword);
+    confirmPasswordInput.addEventListener("input", validatePasswordMatch);
+    identityInput.addEventListener("input", validateIdentity);
+
+    const form = document.querySelector("form");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", function (e) {
+        // Ngăn submit nếu còn lỗi client
+        if (
+            passwordErrorSpan.textContent ||
+            errorSpan.textContent ||
+            identityErrorSpan.textContent
+        ) {
+            e.preventDefault();
+            return;
+        }
+
+        // Ngăn nhấn nhiều lần
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "<span>Processing...</span>";
+    });
+
+
+</script>
+
