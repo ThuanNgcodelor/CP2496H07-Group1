@@ -20,6 +20,62 @@ public class JwtHandler
         _redisService = redis;
     }
 
+    public Task<string> GenerateTokenAdmin(Admin admin)
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, admin.Username),
+            new Claim(ClaimTypes.Email, admin.Email),
+            new Claim("hashed_id", HashId(admin.Id)),
+            new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
+        };
+        var roleClaims = admin.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
+        var allClaims = claims.Concat(roleClaims);
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtModel.Issuer,
+            audience: _jwtModel.Audience,
+            claims: allClaims,
+            expires: DateTime.UtcNow.AddMinutes(30),
+            signingCredentials: credentials
+        );
+
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+        return Task.FromResult(tokenString);
+    }
+    
+    
+    public Task<string> GenerateRefreshTokenAdmin(Admin admin)
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, admin.Username),
+            new Claim(ClaimTypes.Email, admin.Email),
+            new Claim("hashed_id", HashId(admin.Id)),
+            new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
+        };
+        var roleClaims = admin.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
+        var allClaims = claims.Concat(roleClaims);
+
+        var token = new JwtSecurityToken(
+            issuer: _jwtModel.Issuer,
+            audience: _jwtModel.Audience,
+            claims: allClaims,
+            expires: DateTime.UtcNow.AddDays(1),
+            signingCredentials: credentials
+        );
+
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+        return Task.FromResult(tokenString);
+    }
+    
+    
     public Task<string> GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));

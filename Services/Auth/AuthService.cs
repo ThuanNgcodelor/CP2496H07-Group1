@@ -24,7 +24,25 @@ public class AuthService : IAuthService
         _emailService = emailService;
         _smsService = smsService;
     }
+    
+    public async Task<Admin?> LoginAdmin(Admin model)
+    {
+        var admin = await _context.Admins
+            .Include(a=>a.Roles)
+            .FirstOrDefaultAsync(a=>a.Email == model.Email);
 
+        if (admin == null)
+        {
+            throw new ApplicationException("Invalid Email or password");
+        }
+
+        if (!VerifyPassword(model.Password, admin.Password))
+        {
+            throw new ApplicationException("Invalid Email or password");
+        }
+        
+        return admin;
+    }
 
     public async Task<User?> Login(User model)
     {
@@ -67,6 +85,8 @@ public class AuthService : IAuthService
         _redis.Remove(redisKey);
         return user;
     }
+
+
 
 
     public async Task<User> Register(User model)

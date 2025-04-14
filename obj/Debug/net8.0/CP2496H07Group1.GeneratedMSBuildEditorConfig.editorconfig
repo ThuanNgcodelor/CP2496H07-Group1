@@ -50,6 +50,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL1VwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19MYXlvdXQxLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVGVja2JhbmtfYzlmMWQwZWE2NGEwNGE2OWE1YmRhM2IxMmY1ZTkyY2YvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
