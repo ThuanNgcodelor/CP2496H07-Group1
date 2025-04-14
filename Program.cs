@@ -21,6 +21,12 @@ builder.Services.AddSession(options =>
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailService, EmailService>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy =>
+        policy.RequireRole("Admin"));
+});
+
 
 var app = builder.Build();
 
@@ -36,16 +42,16 @@ app.UseStatusCodePages(context =>
     return Task.CompletedTask;
 });
 
-app.UseAuthentication(); 
-app.UseAuthorization();
-app.UseStaticFiles();
-app.UseCookiePolicy();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy();
 app.UseRouting();
+
+app.UseAuthentication(); 
+app.UseAuthorization();
+
 app.UseSession();
-
-
 
 app.MapControllerRoute(
     name: "areas",

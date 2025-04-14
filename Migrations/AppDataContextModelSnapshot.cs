@@ -22,6 +22,21 @@ namespace CP2496H07Group1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AdminRole", b =>
+                {
+                    b.Property<long>("AdminsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RolesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AdminsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("AdminRole", (string)null);
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Account", b =>
                 {
                     b.Property<long>("Id")
@@ -97,6 +112,35 @@ namespace CP2496H07Group1.Migrations
                     b.HasIndex("DiscountId");
 
                     b.ToTable("AccountDiscounts");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.Admin", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.Category", b =>
@@ -741,6 +785,21 @@ namespace CP2496H07Group1.Migrations
                     b.HasIndex("UsersId");
 
                     b.ToTable("UserRole", (string)null);
+                });
+
+            modelBuilder.Entity("AdminRole", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Admin", null)
+                        .WithMany()
+                        .HasForeignKey("AdminsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CP2496H07Group1.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.Account", b =>

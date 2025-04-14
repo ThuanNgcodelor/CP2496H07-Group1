@@ -1,0 +1,132 @@
+@{
+    Layout = "_Layout1";
+}
+
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
+
+
+<div class="container-xxl position-relative bg-white d-flex p-0">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="" class="">
+                            <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>TeckBank</h3>
+                        </a>
+                        <h3>Sign In</h3>
+                    </div>
+                    <form 
+                          asp-area="Admin"
+                          asp-controller="Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf"
+                          asp-action="Login">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" id="floatingInput" required>
+                            <label for="floatingInput">Email</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" name="password" id="floatingPassword" required>
+                            <label for="floatingPassword">Password</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#loginForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const form = $(this);
+            const token = $('input[name="__RequestVerificationToken"]').val();
+            const loginButton = $('#loginButton');
+
+            if (!token) {
+                showCustomAlert('CSRF token missing. Please refresh the page.');
+                return;
+            }
+
+            // Disable the login button
+            loginButton.prop('disabled', true).text('Logging in...');
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                success: function (response) {
+                    if (response.success) {
+                        showCustomAlert('Login successful! Redirecting...');
+                        setTimeout(() => {
+                            window.location.href = response.redirectUrl || '/';
+                        }, 1000);
+                    } else {
+                        showCustomAlert(response.message || 'Invalid login credentials');
+                        loginButton.prop('disabled', false).text('Login');
+                    }
+                },
+                error: function (xhr) {
+                    alert(xhr.responseJSON?.message || 'An error occurred during login');
+                    // Re-enable login button on error
+                    loginButton.prop('disabled', false).text('Login');
+                }
+            });
+        });
+    });
+
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000); // 3 giây tự động ẩn
+    }
+
+</script>
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292; /* Màu xanh thành công */
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+</style>

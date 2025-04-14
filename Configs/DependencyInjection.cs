@@ -3,6 +3,7 @@ using CP2496H07Group1.Configs.Redis;
 using CP2496H07Group1.Configs.Sms;
 using CP2496H07Group1.Services.Account;
 using CP2496H07Group1.Services.Auth;
+using CP2496H07Group1.Services.Hangfire;
 using CP2496H07Group1.Services.Package;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPackageService, PackageService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IHangFile, HangFile>();
         services.AddScoped<ITransactionService, TransactionService>();
         services.AddSingleton<RedisService>();
         services.AddSingleton<SpeedSmsService>();

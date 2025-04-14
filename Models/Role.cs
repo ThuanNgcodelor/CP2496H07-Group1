@@ -13,4 +13,6 @@ public class Role
     public required bool Status { get; set; }
     
     public virtual List<User> Users { get; set; } 
+    public virtual List<Admin> Admins { get; set; } 
+
 }

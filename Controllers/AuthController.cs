@@ -147,7 +147,7 @@ public class AuthController : Controller
         var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (value == null)
-            throw new Exception("You are not logged in");
+            return RedirectToAction("Login", "Auth");
 
         var userId = long.Parse(value);
         var account = await _accountService.GetAccounts(userId);
@@ -455,15 +455,10 @@ public class AuthController : Controller
 
             var roles = user.Roles.Select(r => r.RoleName).ToList();
             string? redirectUrl = null;
-            if (roles.Contains("Admin"))
-            {
-                redirectUrl = Url.Action("Index", "Dashboard", new { area = "Admin" });
-            }
-            else if (roles.Contains("Client"))
+            if (roles.Contains("Client"))
             {
                 redirectUrl = Url.Action("Users", "Auth");
             }
-
             return Json(new { success = true, redirectUrl });
         }
         catch (ArgumentException ex)
