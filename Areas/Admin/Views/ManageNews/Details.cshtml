@@ -1,0 +1,64 @@
+@model CP2496H07Group1.Models.News
+
+@{
+    ViewData["Title"] = "News Details";
+
+
+
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0 text-primary">News Details</h6>
+                </div>
+
+                <dl class="row">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Title)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Content)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Content)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Category)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.Name)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedAt)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedAt)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ImageUrl)</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+
+                        {
+                            <img src="@Model.ImageUrl" alt="News Image" class="img-thumbnail" style="max-width: 200px;" />
+                        }
+
+                        else
+
+                        {
+                            <span class="text-muted fst-italic">No image uploaded</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IsConfirm)</dt>
+                    <dd class="col-sm-9">@(Model.IsConfirm ? "Active" : "Inactive")</dd>
+                </dl>
+
+                <div class="mt-4">
+                    <div class="d-flex align-items-center" style="gap: 12px;">
+                        <a asp-action="NewsComments" asp-route-id="@Model.Id" class="btn btn-info">
+                            <i class="fas fa-comments me-1"></i> View Comments (@Model.Comments.Count)
+                        </a>
+                        <a asp-action="Index" class="btn btn-sm btn-secondary">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

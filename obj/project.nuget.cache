@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BzSctuq5MK4=",
+  "dgSpecHash": "dv2dM4xYHkY=",
   "success": true,
   "projectFilePath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
   "expectedPackageFiles": [
@@ -118,10 +118,7 @@
     "/home/davidnguyen/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
     "/home/davidnguyen/.nuget/packages/twilio/7.9.1/twilio.7.9.1.nupkg.sha512",
     "/home/davidnguyen/.nuget/packages/x.pagedlist/10.5.7/x.pagedlist.10.5.7.nupkg.sha512",
-    "/home/davidnguyen/.nuget/packages/x.pagedlist.mvc.core/10.5.7/x.pagedlist.mvc.core.10.5.7.nupkg.sha512",
-    "/home/davidnguyen/.nuget/packages/microsoft.netcore.app.ref/8.0.14/microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
-    "/home/davidnguyen/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.14/microsoft.aspnetcore.app.ref.8.0.14.nupkg.sha512",
-    "/home/davidnguyen/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.14/microsoft.netcore.app.host.linux-x64.8.0.14.nupkg.sha512"
+    "/home/davidnguyen/.nuget/packages/x.pagedlist.mvc.core/10.5.7/x.pagedlist.mvc.core.10.5.7.nupkg.sha512"
   ],
   "logs": [
     {

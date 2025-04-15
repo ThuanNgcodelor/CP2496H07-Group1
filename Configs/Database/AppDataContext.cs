@@ -122,11 +122,14 @@ public class AppDataContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Comment>()
-            .HasOne(c => c.InsurancePackage) // Comment có một InsurancePackage
-            .WithMany(ip => ip.Comments) // InsurancePackage có nhiều Comments
-            .HasForeignKey(c => c.PackageId) // Khóa ngoại là PackageId trong Comment
-            .OnDelete(DeleteBehavior.Cascade);
-
+            .HasOne(c => c.Admin)
+            .WithMany(a => a.Comments)
+            .HasForeignKey(c => c.AdminId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<Comment>()
+            .Property(c => c.IsAdminReply)
+            .HasDefaultValue(false);
 
         // Quan hệ 1-N giữa User và Comment
         modelBuilder.Entity<Comment>()
@@ -227,5 +230,11 @@ public class AppDataContext : DbContext
             .WithOne(n => n.Category)
             .HasForeignKey(n => n.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Accounts)
+            .WithOne(a => a.User)
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

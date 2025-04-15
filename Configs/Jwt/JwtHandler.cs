@@ -86,7 +86,9 @@ public class JwtHandler
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim("hashed_id",HashId(user.Id)), 
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim("FirstName", user.FirstName),
+            new Claim("LastName", user.LastName)
         };
 
         var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
@@ -117,7 +119,9 @@ public class JwtHandler
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim("hashed_id",HashId(user.Id)), 
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim("FirstName", user.FirstName),
+            new Claim("LastName", user.LastName)
         };
 
         var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));

@@ -1,0 +1,125 @@
+@model List<CP2496H07Group1.Models.News>
+
+@{
+    ViewData["Title"] = "Manage News";
+
+    Layout = "_Layout";
+
+
+
+
+    int pageNumber = (int)ViewBag.PageNumber;
+
+    int pageSize = (int)ViewBag.PageSize;
+
+    int totalItems = (int)ViewBag.TotalItems;
+
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0">News List</h6>
+                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+                </div>
+
+                <!-- Search Form -->
+                <form asp-action="Index" method="get" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search..." />
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary ms-2">Clear</a>
+                    </div>
+                </form>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Created At</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                                    <td>@(item.IsConfirm ? "Active" : "Inactive")</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-2" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-2" title="Details">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        @if (pageNumber > 1)
+
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = pageNumber - 1, searchString = ViewData["CurrentFilter"] })" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                        }
+
+                        else
+
+                        {
+                            <li class="page-item disabled"><span class="page-link">«</span></li>
+                        }
+
+                        @for (int i = 1; i <= totalPages; i++)
+
+                        {
+                            <li class="page-item @(i == pageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, searchString = ViewData["CurrentFilter"] })">@i</a>
+                            </li>
+                        }
+
+                        @if (pageNumber < totalPages)
+
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = pageNumber + 1, searchString = ViewData["CurrentFilter"] })" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        }
+
+                        else
+
+                        {
+                            <li class="page-item disabled"><span class="page-link">»</span></li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

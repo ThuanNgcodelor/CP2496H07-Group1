@@ -1,0 +1,70 @@
+﻿@model CP2496H07Group1.Models.Slider
+
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <h2 class="mb-4">Update Slider</h2>
+
+    <form asp-action="Update" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Slider Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Detail" class="form-label">Description</label>
+            <textarea asp-for="Detail" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Detail" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Current Image</label>
+            <div>
+                <img src="@Model.Image" alt="@Model.Name" class="img-thumbnail" style="max-height: 200px;" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select New Image (Optional)</label>
+            <input type="file" name="ImageFile" class="form-control" id="ImageInput" accept="image/*" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+
+            <!-- Image Preview -->
+            <img id="previewImage" src="#" alt="Image Preview" class="img-thumbnail mt-3 d-none" style="max-height: 200px;" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Date" class="form-label">Created Date</label>
+            <input asp-for="Date" class="form-control" type="date" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+    </form>
+</div>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Image preview script
+        document.getElementById('ImageInput').addEventListener('change', function (event) {
+            const [file] = event.target.files;
+            if (file) {
+                const preview = document.getElementById('previewImage');
+                preview.src = URL.createObjectURL(file);
+                preview.classList.remove('d-none');
+            }
+        });
+    </script>

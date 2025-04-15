@@ -1,0 +1,82 @@
+﻿@model CP2496H07Group1.Models.Transaction
+
+<style>
+    .appointment-form {
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .icon-box {
+        margin-bottom: 5px;
+    }
+
+    .message-btn {
+        text-align: center;
+    }
+</style>
+
+<!-- appointment-section -->
+<section class="appointment-section pt_120 pb_120">
+    <div class="bg-layer" style="background-image: url(images/background/appointment-bg.jpg);"></div>
+    <span class="big-text">Appointment <br>Make an</span>
+    <div class="auto-container">
+        <div class="appointment-form">
+            <div class="row clearfix">
+                <div class="sec-title">
+                    <span class="sub-title">Online Banking</span>
+                    <h2>TRANSFER</h2>
+                </div>
+
+                <div class="container mt-5">
+                    <div class="alert alert-success text-center shadow-lg p-4 rounded">
+                        <h2 class="mb-3">🎉 Chuyển khoản thành công!</h2>
+                        <p class="lead">Giao dịch của bạn đã được thực hiện thành công.</p>
+                    </div>
+
+                    <div class="card mt-4 shadow">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">Thông tin giao dịch</h4>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <span>You have successfully transferred money to </span>
+
+                                <dt class="col-sm-4">NumberCard:</dt>
+                                <dd class="col-sm-8">@Model.ToAccount.AccountNumber</dd>
+
+                                <dt class="col-sm-4">Monney:</dt>
+                                <dd class="col-sm-8 text-danger fw-bold">@Model.Amount.ToString("N0") VND</dd>
+
+                                <dt class="col-sm-4">Time:</dt>
+                                <dd class="col-sm-8">@Model.TransactionDate.ToString("dd/MM/yyyy HH:mm:ss")</dd>
+
+                                <dt class="col-sm-4">Description:</dt>
+                                <dd class="col-sm-8">@Model.Description</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary px-4">🏠 Về trang chủ</a>
+                        <a href="@Url.Action("Index", "Transfer")" class="btn btn-primary px-4">other transactions</a>
+                    </div>
+                </div> <!-- Kết thúc container -->
+            </div> <!-- Kết thúc row -->
+        </div> <!-- Kết thúc appointment-form -->
+    </div> <!-- Kết thúc auto-container -->
+</section>
+<!-- appointment-section end -->

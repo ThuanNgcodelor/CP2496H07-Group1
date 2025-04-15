@@ -1,0 +1,146 @@
+﻿@using System.Security.Claims
+@using System.Text
+@using CP2496H07Group1.Configs.Jwt
+@model IEnumerable<CP2496H07Group1.Models.Loans>
+
+<style>
+    .appointment-form {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .icon-box {
+        margin-bottom: 5px;
+    }
+
+    .message-btn {
+        text-align: center;
+    }
+
+    .form-group input[type='password'] {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 56px;
+        background: #f5f4f4;
+        border: 1px solid #f5f4f4;
+        font-size: 17px;
+        color: #a8a7a7;
+        padding: 10px 20px;
+        transition: all 500ms ease;
+    }
+
+    .validation-error {
+        color: red;
+        font-size: 14px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin: 10px auto;
+        width: 80%;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .text-end {
+        text-align: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mt-3 {
+        margin-top: 1rem;
+    }
+</style>
+
+<!-- appointment-section -->
+<section class="corporate-section sec-pad-2">
+    <div class="auto-container">
+        @if (TempData["LoanSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["LoanSuccess"]
+            </div>
+        }
+
+        @if (TempData["LoanError"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["LoanError"]
+            </div>
+        }
+
+        @if (!Model.Any())
+        {
+            <div class="sec-title centred">
+                <span class="sub-title">Corporate Office</span>
+                <h2>No Loans Currently Available</h2>
+            </div>
+        }
+
+        <div class="row clearfix">
+            @foreach (var loan in Model)
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12 corporate-block mb-4">
+                    <div class="corporate-block-one p-4 border rounded shadow-sm bg-light">
+                        <div class="inner-box">
+                            <p>
+                                <strong>User Name:</strong> @User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value &nbsp;&nbsp;
+                                <strong>Loan Name:</strong> @loan.LoanName
+                            </p>
+
+                            <p><strong>Amount Borrowed:</strong> @loan.AmountBorrowed.ToString("N0").Replace(",", ".")</p>
+                            <p><strong>Monthly Payment:</strong> @loan.MonthlyPayment.ToString("N0").Replace(",", ".")</p>
+                            <p><strong>Owe Money:</strong> @loan.OweMoney.ToString("N0").Replace(",", ".")</p>
+                            <p><strong>Loan Duration:</strong> @loan.StartDate.ToString("M/d/yyyy") - @loan.EndDate.ToString("M/d/yyyy")</p>
+
+                            <div class="message-btn pt_7 text-end">
+                                <a href="@Url.Action("Pay", "Loans", new { id = loan.Id })" class="theme-btn">
+                                    <span>Pay Now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="message-btn pt_7 text-center">
+                <button type="button" class="theme-btn" onclick="location.href='@Url.Action("Create", "Loans")'">
+                    <span>Create New</span>
+                </button>
+            </div>
+        }
+    </div>
+</section>

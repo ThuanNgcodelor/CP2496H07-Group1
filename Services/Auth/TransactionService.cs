@@ -26,7 +26,7 @@ public class TransactionService : ITransactionService
                 (userAccounts.Contains(t.FromAccountId) || userAccounts.Contains((long)t.ToAccountId!)) &&
                 (!fromDate.HasValue || t.TransactionDate >= fromDate.Value) &&
                 (!toDate.HasValue || t.TransactionDate <= toDate.Value)
-            && t.TransactionType == "Transfer")
+            && t.TransactionType == "Transfer" || t.TransactionType == "CreditCardAutoPayment")
             .Include(t => t.FromAccount)
             .ThenInclude(a=>a!.User)
             .Include(t => t.ToAccount)

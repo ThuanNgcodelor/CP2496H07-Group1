@@ -2,193 +2,188 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>TeckBank</title>
+    <title>TeckBank</title>
 
-<!-- Fav Icon -->
-<link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <!-- Fav Icon -->
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap"
+        rel="stylesheet">
 
-<!-- Stylesheets -->
-<link href="~/css/font-awesome-all.css" rel="stylesheet">
-<link href="~/css/flaticon_flexibank.css" rel="stylesheet">
-<link href="~/css/owl.css" rel="stylesheet">
-<link href="~/css/bootstrap.css" rel="stylesheet">
-<link href="~/css/jquery.fancybox.min.css" rel="stylesheet">
-<link href="~/css/animate.css" rel="stylesheet">
-<link href="~/css/nice-select.css" rel="stylesheet">
-<link href="~/css/elpath.css" rel="stylesheet">
-<link href="~/css/color1.css" id="jssDefault" rel="stylesheet">
-<link href="~/css/odometer.css" rel="stylesheet">
-<link href="~/css/style.css" rel="stylesheet">
-<link href="~/css/responsive.css" rel="stylesheet">
-
+    <!-- Stylesheets -->
+    <link href="~/css/font-awesome-all.css" rel="stylesheet">
+    <link href="~/css/flaticon_flexibank.css" rel="stylesheet">
+    <link href="~/css/owl.css" rel="stylesheet">
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="~/css/animate.css" rel="stylesheet">
+    <link href="~/css/nice-select.css" rel="stylesheet">
+    <link href="~/css/elpath.css" rel="stylesheet">
+    <link href="~/css/color1.css" id="jssDefault" rel="stylesheet">
+    <link href="~/css/odometer.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/responsive.css" rel="stylesheet">
+    <script src="~/js/script.js"></script>
 </head>
 
 
 <body>
 
-    <div class="boxed_wrapper">
+<div class="boxed_wrapper">
 
 
-        <!-- preloader -->
-        <div class="loader-wrap">
-            <div class="preloader">
-                <div class="preloader-close"><i class="fas fa-times"></i></div>
-                <div id="handle-preloader" class="handle-preloader">
-                    <div class="animation-preloader">
-                        <div class="spinner"></div>
-                        <div class="txt-loading">
+    <!-- preloader -->
+    <div class="loader-wrap">
+        <div class="preloader">
+            <div class="preloader-close"><i class="fas fa-times"></i></div>
+            <div id="handle-preloader" class="handle-preloader">
+                <div class="animation-preloader">
+                    <div class="spinner"></div>
+                    <div class="txt-loading">
                             <span data-text-preloader="t" class="letters-loading">
                                 t
                             </span>
-                            <span data-text-preloader="e" class="letters-loading">
+                        <span data-text-preloader="e" class="letters-loading">
                                 e
                             </span>
-                            <span data-text-preloader="c" class="letters-loading">
+                        <span data-text-preloader="c" class="letters-loading">
                                 c
                             </span>
-                            <span data-text-preloader="k" class="letters-loading">
+                        <span data-text-preloader="k" class="letters-loading">
                                 k
                             </span>
-                            <span data-text-preloader="b" class="letters-loading">
+                        <span data-text-preloader="b" class="letters-loading">
                                 b
                             </span>
-                            <span data-text-preloader="a" class="letters-loading">
+                        <span data-text-preloader="a" class="letters-loading">
                                 a
                             </span>
-                            <span data-text-preloader="n" class="letters-loading">
+                        <span data-text-preloader="n" class="letters-loading">
                                 n
                             </span>
-                            <span data-text-preloader="k" class="letters-loading">
+                        <span data-text-preloader="k" class="letters-loading">
                                 k
                             </span>
-                        </div>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- preloader end -->
+    </div>
+    <!-- preloader end -->
 
 
 
-        <!-- main header -->
-        <header class="main-header">
-            <div class="header-lower">
-                <div class="outer-container">
-                    <div class="outer-box">
-                        <div class="menu-area">
-                            <div class="logo-box mr_110">
-                                <figure class="logo"><a asp-action="Index" asp-controller="Home"><img src="~/images/logo.png" alt=""></a></figure>
-                            </div>
-                            <!--Mobile Navigation Toggler-->
-                            <div class="mobile-nav-toggler">
-                                <i class="icon-bar"></i>
-                                <i class="icon-bar"></i>
-                                <i class="icon-bar"></i>
-                            </div>
-                            <nav class="main-menu navbar-expand-md navbar-light clearfix">
-                                <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
-                                    <ul class="navigation clearfix">
-                                        <li><a asp-action="Index" asp-controller="Home">Home</a>
+    <!-- main header -->
+    <header class="main-header">
+        <div class="header-lower">
+            <div class="outer-container">
+                <div class="outer-box">
+                    <div class="menu-area">
+                        <div class="logo-box mr_110">
+                            <figure class="logo"><a asp-action="Index" asp-controller="Home"><img
+                                        src="~/images/logo.png" alt=""></a></figure>
+                        </div>
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler">
+                            <i class="icon-bar"></i>
+                            <i class="icon-bar"></i>
+                            <i class="icon-bar"></i>
+                        </div>
+                        <nav class="main-menu navbar-expand-md navbar-light clearfix">
+                            <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li><a asp-action="Index" asp-controller="Home">Home</a>
+                                    </li>
+                                    <li class="dropdown"><a href="#">About</a>
+                                    <li class="dropdown">
+                                        <a asp-controller="News" asp-action="Index">News</a>
+                                        <ul>
+                                            @await Component.InvokeAsync("CategoryMenu")
+                                        </ul>
+                                    </li>
+
+                                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-action="Index" asp-controller="Insurance">Insurance</a></li>
+                                        <li class="dropdown"><a href="#">Function</a>
+                                            <ul>
+                                                <li class="dropdown"><a href="#">More</a>
+                                                    <ul>
+                                                        <li><a asp-controller="Loans" asp-action="Index">Personal Loans</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
+                                                <li><a asp-action="Card" asp-controller="Auth">My Account</a></li>
+                                                <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
+                                                <li><a asp-controller="Auth" asp-action="RecentTransactions">History
+                                                    transaction</a></li>
+                                                <li><a>Logout</a></li>
+                                            </ul>
                                         </li>
-                                        @if (User.Identity != null && User.Identity.IsAuthenticated)
-                                        {
-                                            <li class="dropdown"><a href="#">Function</a>
-                                                <ul>
-                                                    <li class="dropdown"><a href="#">More</a>
-                                                        <ul>
-                                                            <li><a href=""></a></li>
-                                                            <li><a href="">Personal Loan</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
-                                                    <li><a asp-action="Account" asp-controller="Auth">My Account</a></li>
-                                                    <li><a href="">Transfer</a></li>
-                                                    <li><a asp-controller="Auth" asp-action="RecentTransactions">History transaction</a></li>
-                                                    <li><a >Logout</a></li>
-                                                </ul>
-                                            </li>
-                                        }
-                                        <li class="dropdown"><a href="#">About</a>
-                                            <ul>
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li class="dropdown"><a href="#">Leadership</a>
-                                                    <ul>
-                                                        <li><a href="team.html">Leadership</a></li>
-                                                        <li><a href="team-details.html">Leadership Details</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown"><a href="#">Careers</a>
-                                                    <ul>
-                                                        <li><a href="careers.html">Careers</a></li>
-                                                        <li><a href="career-details.html">Career Details</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="faq.html">Faq’s</a></li>
-                                                <li><a href="testimonial.html">Testimonials</a></li>
-                                                <li><a href="error.html">404</a></li>
-                                            </ul>
-                                        </li> 
-                                        <li class="dropdown"><a href="#">News</a>
-                                            <ul>
-                                                <li><a href="blog.html">Grid View 01</a></li>
-                                                <li><a href="blog-2.html">Grid View 02</a></li>
-                                                <li><a href="blog-3.html">List View 01</a></li>
-                                                <li><a href="blog-4.html">List View 02</a></li>
-                                                <li><a href="blog-details.html">Single Post</a></li>
-                                            </ul>
-                                        </li> 
-                                        
-                                        <li><a asp-action="Login" asp-controller="Auth">Login</a></li> 
-                                    </ul>
-                                </div>
-                            </nav>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-action="Login" asp-controller="Auth">Login</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="menu-right-content">
+                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a asp-controller="Faq" asp-action="Index">Support</a>
                         </div>
-                        <div class="menu-right-content">
-                            <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a href="index.html">Support</a></div>
-                            <div class="btn-box mr_10"><a asp-action="Register" asp-controller="Auth" class="theme-btn"><span>New Account</span></a></div>
-                            <div class="nav-toggler">
-                                <button type="button" class="side-panel-btn nav-btn"><img src="~/images/icons/icon-10.png" alt=""></button>
-                                <div class="side-panel nav-content">
-                                    <div class="close-icon"><i class="fas fa-times"></i></div>
-                                    <div class="tabs-box">
-                                        <div class="tab-btns tab-buttons mb_25">
-                                            <div class="tab-btn active-btn" data-tab="#branches-btn"><h5>Branches</h5></div>
-                                            <div class="tab-btn" data-tab="#atm-btn"><h5>ATM’s</h5></div>
-                                        </div>
-                                        <div class="tabs-content">
-                                            <div class="tab active-tab" id="branches-btn">
-                                                <div class="inner-box">
-                                                    <div class="form-group">
-                                                        <div class="icon-box"><img src="~/images/icons/icon-86.png" alt=""></div>
-                                                        <input type="text" name="location" placeholder="Current Location">
+                        <div class="btn-box mr_10"><a asp-action="Register" asp-controller="Auth"
+                                                      class="theme-btn"><span>New Account</span></a></div>
+                        <div class="nav-toggler">
+                            <button type="button" class="side-panel-btn nav-btn"><img src="~/images/icons/icon-10.png"
+                                                                                      alt=""></button>
+                            <div class="side-panel nav-content">
+                                <div class="close-icon"><i class="fas fa-times"></i></div>
+                                <div class="tabs-box">
+                                    <div class="tab-btns tab-buttons mb_25">
+                                        <div class="tab-btn active-btn" data-tab="#branches-btn"><h5>Branches</h5></div>
+                                        <div class="tab-btn" data-tab="#atm-btn"><h5>ATM’s</h5></div>
+                                    </div>
+                                    <div class="tabs-content">
+                                        <div class="tab active-tab" id="branches-btn">
+                                            <div class="inner-box">
+                                                <div class="form-group">
+                                                    <div class="icon-box"><img src="~/images/icons/icon-86.png" alt="">
                                                     </div>
-                                                    <div class="text">[or]</div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="city" placeholder="City name: Hamburg">
-                                                    </div>
-                                                    <div class="link-box"><a href="https://www.google.com/maps" target="_blank"><i class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                    <input type="text" name="location" placeholder="Current Location">
                                                 </div>
+                                                <div class="text">[or]</div>
+                                                <div class="form-group">
+                                                    <input type="text" name="city" placeholder="City name: Hamburg">
+                                                </div>
+                                                <div class="link-box"><a href="https://www.google.com/maps"
+                                                                         target="_blank"><i
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
-                                            <div class="tab" id="atm-btn">
-                                                <div class="inner-box">
-                                                    <div class="form-group">
-                                                        <div class="icon-box"><img src="~/images/icons/icon-86.png" alt=""></div>
-                                                        <input type="text" name="location" placeholder="Current Location">
+                                        </div>
+                                        <div class="tab" id="atm-btn">
+                                            <div class="inner-box">
+                                                <div class="form-group">
+                                                    <div class="icon-box"><img src="~/images/icons/icon-86.png" alt="">
                                                     </div>
-                                                    <div class="text">[or]</div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="city" placeholder="City name: Hamburg">
-                                                    </div>
-                                                    <div class="link-box"><a href="https://www.google.com/maps" target="_blank"><i class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                    <input type="text" name="location" placeholder="Current Location">
                                                 </div>
+                                                <div class="text">[or]</div>
+                                                <div class="form-group">
+                                                    <input type="text" name="city" placeholder="City name: Hamburg">
+                                                </div>
+                                                <div class="link-box"><a href="https://www.google.com/maps"
+                                                                         target="_blank"><i
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,233 +193,258 @@
                     </div>
                 </div>
             </div>
-
-            <!--sticky Header-->
-            <div class="sticky-header">
-                <div class="outer-container">
-                    <div class="outer-box">
-                        <div class="menu-area">
-                            <div class="logo-box mr_110">
-                                <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
-                            </div>
-                            <nav class="main-menu clearfix">
-                            </nav>
-                        </div>
-                        <div class="menu-right-content">
-                            <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a href="index.html">Support</a></div>
-                            <div class="btn-box mr_10"><a href="index.html" class="theme-btn"><span>New Account</span></a></div>
-                            <div class="nav-toggler">
-                                <button type="button" class="side-panel-btn nav-btn-2"><img src="~/images/icons/icon-10.png" alt=""></button>
-                                <div class="side-panel nav-content-2">
-                                    <div class="close-icon"><i class="fas fa-times"></i></div>
-                                    <div class="tabs-box">
-                                        <div class="tab-btns tab-buttons mb_25">
-                                            <div class="tab-btn active-btn" data-tab="#branches-btn2"><h5>Branches</h5></div>
-                                            <div class="tab-btn" data-tab="#atm-btn2"><h5>ATM’s</h5></div>
-                                        </div>
-                                        <div class="tabs-content">
-                                            <div class="tab active-tab" id="branches-btn2">
-                                                <div class="inner-box">
-                                                    <div class="form-group">
-                                                        <div class="icon-box"><img src="~/images/icons/icon-86.png" alt=""></div>
-                                                        <input type="text" name="location" placeholder="Current Location">
-                                                    </div>
-                                                    <div class="text">[or]</div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="city" placeholder="City name: Hamburg">
-                                                    </div>
-                                                    <div class="link-box"><a href="https://www.google.com/maps" target="_blank"><i class="flaticon-right-arrow"></i>Find On Map</a></div>
-                                                </div>
-                                            </div>
-                                            <div class="tab" id="atm-btn2">
-                                                <div class="inner-box">
-                                                    <div class="form-group">
-                                                        <div class="icon-box"><img src="~/images/icons/icon-86.png" alt=""></div>
-                                                        <input type="text" name="location" placeholder="Current Location">
-                                                    </div>
-                                                    <div class="text">[or]</div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="city" placeholder="City name: Hamburg">
-                                                    </div>
-                                                    <div class="link-box"><a href="https://www.google.com/maps" target="_blank"><i class="flaticon-right-arrow"></i>Find On Map</a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- main-header end -->
-
-
-        
-        
-        @RenderBody()
- 
-
-
-        <!-- main-footer -->
-        <footer class="main-footer">
-            <div class="widget-section">
-                <div class="auto-container">
-                    <div class="row clearfix">
-                        <div class="col-lg-6 col-md-12 col-sm-12 footer-column">
-                            <div class="footer-widget contact-widget mr_100">
-                                <div class="certified-box">
-                                    <div class="image-box"><img src="~/images/icons/certified-1.png" alt=""></div>
-                                    <h4>Certified for Quality Management Excellence.</h4>
-                                    <span>2000-2001</span>
-                                </div>
-                                <div class="widget-content">
-                                    <div class="schedule-inner">
-                                        <div class="contact-info">
-                                            <h3>Enquiry</h3>
-                                            <ul class="list-item clearfix">
-                                                <li><a href="tel:08008961234">0800 896 1234</a> <span>(Toll Free) <br />Personal</span></li>
-                                                <li><a href="tel:496912345678">+49 69 1234 5678</a> <br /><span>Corporate</span></li>
-                                            </ul>
-                                        </div>
-                                        <div class="opening-hour">
-                                            <h3>Banking Hours</h3>
-                                            <ul class="list-item clearfix">
-                                                <li>9.00am to 5.00pm <br /><span>Mon - Friday</span></li>
-                                                <li>9.00am to 2.00pm <br /><span>Satday</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="support-box">
-                                        <div class="icon-box"><img src="~/images/icons/icon-35.png" alt=""></div>
-                                        <h4><a href="mailto:getsupport@flexibank.com">getsupport@flexibank.com</a></h4>
-                                        <p>Send your queries.</p>
-                                        <div class="link-box"><a href="contact.html"><i class="flaticon-right-arrow"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget links-widget ml_75">
-                                <div class="widget-title">
-                                    <h3>Our Bank</h3>
-                                </div>
-                                <div class="widget-content mb_25">
-                                    <ul class="links-list clearfix">
-                                        <li><a href="about.html">About Us<i class="flaticon-next"></i></a></li>
-                                        <li><a href="index.html">Awards & Recognition<i class="flaticon-next"></i></a></li>
-                                        <li><a href="team.html">Leadership<i class="flaticon-next"></i></a></li>
-                                        <li><a href="blog.html">News & Media<i class="flaticon-next"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="widget-title">
-                                    <h3>Support</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="links-list clearfix">
-                                        <li><a href="contact.html">Branches<i class="flaticon-next"></i></a></li>
-                                        <li><a href="cards.html">ATM’s<i class="flaticon-next"></i></a></li>
-                                        <li><a href="contact.html">Customer Care<i class="flaticon-next"></i></a></li>
-                                        <li><a href="faq.html">Faq’s<i class="flaticon-next"></i></a></li>
-                                        <li><a href="contact.html">Contact Us<i class="flaticon-next"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
-                            <div class="footer-widget links-widget ml_90">
-                                <div class="widget-title">
-                                    <h3>Products</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="links-list clearfix">
-                                        <li><a href="account.html">Accounts<i class="flaticon-next"></i></a></li>
-                                        <li><a href="index.html">Fixed Deposits<i class="flaticon-next"></i></a></li>
-                                        <li><a href="cards.html">Credit Cards<i class="flaticon-next"></i></a></li>
-                                        <li><a href="loans-1.html">Loans<i class="flaticon-next"></i></a></li>
-                                        <li><a href="index.html">Locker<i class="flaticon-next"></i></a></li>
-                                        <li><a href="cards.html">Money Transfer<i class="flaticon-next"></i></a></li>
-                                        <li><a href="investments-details-6.html">Investments<i class="flaticon-next"></i></a></li>
-                                        <li><a href="investments-details-4.html">Insurance<i class="flaticon-next"></i></a></li>
-                                        <li><a href="cards.html">Payments<i class="flaticon-next"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="auto-container">
-                    <div class="bottom-top">
-                        <ul class="list-item">
-                            <li>
-                                <div class="icon-box"><img src="~/images/icons/icon-38.png" alt=""></div>
-                                <h4><a href="index.html">Branches & ATMs</a></h4>
-                            </li>
-                            <li>
-                                <div class="icon-box"><img src="~/images/icons/icon-39.png" alt=""></div>
-                                <h4><a href="index.html">Complaint Registration</a></h4>
-                            </li>
-                            <li>
-                                <div class="icon-box"><img src="~/images/icons/icon-40.png" alt=""></div>
-                                <h4><button type="button">Download Forms</button></h4>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bottom-inner">
-                        <div class="social-box">
-                            <span>Follow Us On</span>
-                            <ul class="social-links">
-                                <li><a href="index.html"><i class="flaticon-facebook"></i></a></li>
-                                <li><a href="index.html"><i class="flaticon-twitter"></i></a></li>
-                                <li><a href="index.html"><i class="flaticon-instagram-logo"></i></a></li>
-                                <li><a href="index.html"><i class="flaticon-youtube"></i></a></li>
-                                <li><a href="index.html"><i class="flaticon-vimeo"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-logo">
-                            <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
-                            <div class="copyright"><p>copyrights <a href="index.html">&copy; 2025 Flexibank.</a> All Rights Reserved.</p></div>
-                        </div>
-                        <ul class="footer-nav clearfix">
-                            <li><a href="index.html">Privacy Policy</a></li>
-                            <li><a href="index.html">Terms & Conditions</a></li>
-                            <li><a href="index.html">Disclaimer.</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-
-
-        <!--Scroll to top-->
-        <div class="scroll-to-top">
-            <svg class="scroll-top-inner" viewBox="-1 -1 102 102">
-                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-            </svg>
         </div>
-        
+
+        <!--sticky Header-->
+        <div class="sticky-header">
+            <div class="outer-container">
+                <div class="outer-box">
+                    <div class="menu-area">
+                        <div class="logo-box mr_110">
+                            <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
+                        </div>
+                        <nav class="main-menu clearfix">
+                        </nav>
+                    </div>
+                    <div class="menu-right-content">
+                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a href="index.html">Support</a>
+                        </div>
+                        <div class="btn-box mr_10"><a href="index.html" class="theme-btn"><span>New Account</span></a>
+                        </div>
+                        <div class="nav-toggler">
+                            <button type="button" class="side-panel-btn nav-btn-2"><img src="~/images/icons/icon-10.png"
+                                                                                        alt=""></button>
+                            <div class="side-panel nav-content-2">
+                                <div class="close-icon"><i class="fas fa-times"></i></div>
+                                <div class="tabs-box">
+                                    <div class="tab-btns tab-buttons mb_25">
+                                        <div class="tab-btn active-btn" data-tab="#branches-btn2"><h5>Branches</h5>
+                                        </div>
+                                        <div class="tab-btn" data-tab="#atm-btn2"><h5>ATM’s</h5></div>
+                                    </div>
+                                    <div class="tabs-content">
+                                        <div class="tab active-tab" id="branches-btn2">
+                                            <div class="inner-box">
+                                                <div class="form-group">
+                                                    <div class="icon-box"><img src="~/images/icons/icon-86.png" alt="">
+                                                    </div>
+                                                    <input type="text" name="location" placeholder="Current Location">
+                                                </div>
+                                                <div class="text">[or]</div>
+                                                <div class="form-group">
+                                                    <input type="text" name="city" placeholder="City name: Hamburg">
+                                                </div>
+                                                <div class="link-box"><a href="https://www.google.com/maps"
+                                                                         target="_blank"><i
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="tab" id="atm-btn2">
+                                            <div class="inner-box">
+                                                <div class="form-group">
+                                                    <div class="icon-box"><img src="~/images/icons/icon-86.png" alt="">
+                                                    </div>
+                                                    <input type="text" name="location" placeholder="Current Location">
+                                                </div>
+                                                <div class="text">[or]</div>
+                                                <div class="form-group">
+                                                    <input type="text" name="city" placeholder="City name: Hamburg">
+                                                </div>
+                                                <div class="link-box"><a href="https://www.google.com/maps"
+                                                                         target="_blank"><i
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- main-header end -->
+
+
+
+
+    @RenderBody()
+
+
+
+    <!-- main-footer -->
+    <footer class="main-footer">
+        <div class="widget-section">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-12 col-sm-12 footer-column">
+                        <div class="footer-widget contact-widget mr_100">
+                            <div class="certified-box">
+                                <div class="image-box"><img src="~/images/icons/certified-1.png" alt=""></div>
+                                <h4>Certified for Quality Management Excellence.</h4>
+                                <span>2000-2001</span>
+                            </div>
+                            <div class="widget-content">
+                                <div class="schedule-inner">
+                                    <div class="contact-info">
+                                        <h3>Enquiry</h3>
+                                        <ul class="list-item clearfix">
+                                            <li><a href="tel:08008961234">0800 896 1234</a> <span>(Toll Free) <br/>Personal</span>
+                                            </li>
+                                            <li><a href="tel:496912345678">+49 69 1234 5678</a>
+                                                <br/><span>Corporate</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="opening-hour">
+                                        <h3>Banking Hours</h3>
+                                        <ul class="list-item clearfix">
+                                            <li>9.00am to 5.00pm <br/><span>Mon - Friday</span></li>
+                                            <li>9.00am to 2.00pm <br/><span>Satday</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="support-box">
+                                    <div class="icon-box"><img src="~/images/icons/icon-35.png" alt=""></div>
+                                    <h4><a href="mailto:getsupport@flexibank.com">getsupport@flexibank.com</a></h4>
+                                    <p>Send your queries.</p>
+                                    <div class="link-box"><a href="contact.html"><i
+                                                class="flaticon-right-arrow"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                        <div class="footer-widget links-widget ml_75">
+                            <div class="widget-title">
+                                <h3>Our Bank</h3>
+                            </div>
+                            <div class="widget-content mb_25">
+                                <ul class="links-list clearfix">
+                                    <li><a href="about.html">About Us<i class="flaticon-next"></i></a></li>
+                                    <li><a href="index.html">Awards & Recognition<i class="flaticon-next"></i></a></li>
+                                    <li><a href="team.html">Leadership<i class="flaticon-next"></i></a></li>
+                                    <li><a href="blog.html">News & Media<i class="flaticon-next"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="widget-title">
+                                <h3>Support</h3>
+                            </div>
+                            <div class="widget-content">
+                                <ul class="links-list clearfix">
+                                    <li><a href="contact.html">Branches<i class="flaticon-next"></i></a></li>
+                                    <li><a href="cards.html">ATM’s<i class="flaticon-next"></i></a></li>
+                                    <li><a href="contact.html">Customer Care<i class="flaticon-next"></i></a></li>
+                                    <li><a href="faq.html">Faq’s<i class="flaticon-next"></i></a></li>
+                                    <li><a href="contact.html">Contact Us<i class="flaticon-next"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
+                        <div class="footer-widget links-widget ml_90">
+                            <div class="widget-title">
+                                <h3>Products</h3>
+                            </div>
+                            <div class="widget-content">
+                                <ul class="links-list clearfix">
+                                    <li><a href="account.html">Accounts<i class="flaticon-next"></i></a></li>
+                                    <li><a href="index.html">Fixed Deposits<i class="flaticon-next"></i></a></li>
+                                    <li><a href="cards.html">Credit Cards<i class="flaticon-next"></i></a></li>
+                                    <li><a href="loans-1.html">Loans<i class="flaticon-next"></i></a></li>
+                                    <li><a href="index.html">Locker<i class="flaticon-next"></i></a></li>
+                                    <li><a href="cards.html">Money Transfer<i class="flaticon-next"></i></a></li>
+                                    <li><a href="investments-details-6.html">Investments<i
+                                                class="flaticon-next"></i></a></li>
+                                    <li><a href="investments-details-4.html">Insurance<i class="flaticon-next"></i></a>
+                                    </li>
+                                    <li><a href="cards.html">Payments<i class="flaticon-next"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="auto-container">
+                <div class="bottom-top">
+                    <ul class="list-item">
+                        <li>
+                            <div class="icon-box"><img src="~/images/icons/icon-38.png" alt=""></div>
+                            <h4><a href="index.html">Branches & ATMs</a></h4>
+                        </li>
+                        <li>
+                            <div class="icon-box"><img src="~/images/icons/icon-39.png" alt=""></div>
+                            <h4><a href="index.html">Complaint Registration</a></h4>
+                        </li>
+                        <li>
+                            <div class="icon-box"><img src="~/images/icons/icon-40.png" alt=""></div>
+                            <h4>
+                                <button type="button">Download Forms</button>
+                            </h4>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bottom-inner">
+                    <div class="social-box">
+                        <span>Follow Us On</span>
+                        <ul class="social-links">
+                            <li><a href="index.html"><i class="flaticon-facebook"></i></a></li>
+                            <li><a href="index.html"><i class="flaticon-twitter"></i></a></li>
+                            <li><a href="index.html"><i class="flaticon-instagram-logo"></i></a></li>
+                            <li><a href="index.html"><i class="flaticon-youtube"></i></a></li>
+                            <li><a href="index.html"><i class="flaticon-vimeo"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-logo">
+                        <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
+                        <div class="copyright"><p>copyrights <a href="index.html">&copy; 2025 Flexibank.</a> All Rights
+                                Reserved.</p></div>
+                    </div>
+                    <ul class="footer-nav clearfix">
+                        <li><a href="index.html">Privacy Policy</a></li>
+                        <li><a href="index.html">Terms & Conditions</a></li>
+                        <li><a href="index.html">Disclaimer.</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: false)
+    }
+
+    @RenderSection("Styles", required: false)
+
+    <!--Scroll to top-->
+    <div class="scroll-to-top">
+        <svg class="scroll-top-inner" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+        </svg>
     </div>
 
+</div>
 
-    <script src="~/js/jquery.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/owl.js"></script>
-    <script src="~/js/wow.js"></script>
-    <script src="~/js/validation.js"></script>
-    <script src="~/js/jquery.fancybox.js"></script>
-    <script src="~/js/appear.js"></script>
-    <script src="~/js/isotope.js"></script>
-    <script src="~/js/parallax-scroll.js"></script>
-    <script src="~/js/jquery.nice-select.min.js"></script>
-    <script src="~/js/scrolltop.min.js"></script>
-    <script src="~/js/odometer.js"></script>
-    <script src="~/js/nav-tool.js"></script>
 
-    <script src="~/js/script.js"></script>
+<script src="~/js/jquery.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/owl.js"></script>
+<script src="~/js/wow.js"></script>
+<script src="~/js/validation.js"></script>
+<script src="~/js/jquery.fancybox.js"></script>
+<script src="~/js/appear.js"></script>
+<script src="~/js/isotope.js"></script>
+<script src="~/js/parallax-scroll.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/scrolltop.min.js"></script>
+<script src="~/js/odometer.js"></script>
+<script src="~/js/nav-tool.js"></script>
+
+<script src="~/js/script.js"></script>
 
 </body><!-- End of .page_wrapper -->
 

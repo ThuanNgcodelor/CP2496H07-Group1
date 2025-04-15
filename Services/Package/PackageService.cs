@@ -101,6 +101,7 @@ public class PackageService : IPackageService
         {
             await _context.InsurancePackages.AddAsync(model);
             await _context.SaveChangesAsync();
+            _redis.Clear();
             return model;
         }
         catch (Exception ex)
@@ -124,6 +125,7 @@ public class PackageService : IPackageService
             existingInsurancePackage.Description = model.Description;
             existingInsurancePackage.Price = model.Price;
             await _context.SaveChangesAsync();
+            _redis.Clear();
             return existingInsurancePackage;
         }
         catch (Exception ex)
@@ -136,6 +138,26 @@ public class PackageService : IPackageService
     {
         var insurancePackage = _context.InsurancePackages.Find(id);
         if (insurancePackage != null) _context.InsurancePackages.Remove(insurancePackage);
+        _redis.Clear();
         return _context.SaveChangesAsync();
     }
+
+    public async Task<InsurancePackage?> PaymentByCard(long insuranceId, long userId)
+    {
+        try
+        {
+            var insurance = await FindInsurancePackageById(insuranceId);
+            var key = $"PaymentCardInsurance:{userId}";
+            var insuranceJson = JsonConvert.SerializeObject(insurance);
+
+            _redis.Set(key, insuranceJson, TimeSpan.FromMinutes(30));
+            return insurance;
+
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error during payment by card: {ex.Message}");
+        }
+    }
+
 }

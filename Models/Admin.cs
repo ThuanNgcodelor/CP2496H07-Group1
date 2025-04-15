@@ -8,4 +8,6 @@ public class Admin
     public required string Password { get; set; }
     public required string Description { get; set; }
     public required ICollection<Role> Roles { get; set; } = new List<Role>();
+    
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
