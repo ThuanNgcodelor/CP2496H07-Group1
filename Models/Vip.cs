@@ -1,26 +1,29 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CP2496H07Group1.Models;
-
-public class Vip
-
+namespace CP2496H07Group1.Models
 {
-    public  long Id { get; set; }
+    public class Vip
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public required long Id { get; set; }
 
-    [Required(ErrorMessage = "Plese enter Type Vip")]
+        [Required(ErrorMessage = "Vui lòng nhập loại VIP")]
+        [Range(1, int.MaxValue, ErrorMessage = "Loại VIP phải lớn hơn 0")]
+        public int TypeVip { get; set; }
 
-    public  int TypeVip { get; set; }
-    [Required(ErrorMessage = "Plese enter price")]
-    public decimal Price { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập giá")]
+        [Range(0, double.MaxValue, ErrorMessage = "Giá phải lớn hơn hoặc bằng 0")]
+        public decimal Price { get; set; }
 
-    public required bool NoPick { get; set; } = false;
+        [Required(ErrorMessage = "Vui lòng chọn trạng thái NoPick")]
+        public bool NoPick { get; set; } = false;
 
-    public int MoneyBack { get; set; }
-    
-    public List<Loans> Loans { get; set; } = new();
-    
-    // Thêm danh sách Transaction liên kết với Vip
-    public List<Transaction> Transactions { get; set; } = new();
-    
+        [Range(0, int.MaxValue, ErrorMessage = "Số tiền hoàn lại phải lớn hơn hoặc bằng 0")]
+        public int MoneyBack { get; set; }
 
+        public List<Loans> Loans { get; set; } = new(); // Liên kết 1-n với Loans
+        public List<Transaction> Transactions { get; set; } = new(); // Liên kết 1-n với Transactions
+    }
 }

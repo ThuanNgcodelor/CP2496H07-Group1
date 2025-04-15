@@ -177,6 +177,9 @@ namespace CP2496H07Group1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AdminId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -187,23 +190,25 @@ namespace CP2496H07Group1.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<long?>("NewsId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsAdminReply")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
-                    b.Property<long?>("PackageId")
+                    b.Property<long?>("NewsId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NewsId");
+                    b.HasIndex("AdminId");
 
-                    b.HasIndex("PackageId");
+                    b.HasIndex("NewsId");
 
                     b.HasIndex("ParentId");
 
@@ -366,6 +371,9 @@ namespace CP2496H07Group1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AccountId")
+                        .HasColumnType("bigint");
+
                     b.Property<decimal>("AmountBorrowed")
                         .HasColumnType("decimal(18,2)");
 
@@ -394,6 +402,8 @@ namespace CP2496H07Group1.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("LoanOptionId");
 
@@ -512,12 +522,21 @@ namespace CP2496H07Group1.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<decimal>("Money")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
                     b.Property<string>("TypeTk")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -841,14 +860,14 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Comment", b =>
                 {
+                    b.HasOne("CP2496H07Group1.Models.Admin", "Admin")
+                        .WithMany("Comments")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("CP2496H07Group1.Models.News", "News")
                         .WithMany("Comments")
                         .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CP2496H07Group1.Models.InsurancePackage", "InsurancePackage")
-                        .WithMany("Comments")
-                        .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CP2496H07Group1.Models.Comment", "Parent")
@@ -859,10 +878,9 @@ namespace CP2496H07Group1.Migrations
                     b.HasOne("CP2496H07Group1.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("InsurancePackage");
+                    b.Navigation("Admin");
 
                     b.Navigation("News");
 
@@ -884,6 +902,10 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
                 {
+                    b.HasOne("CP2496H07Group1.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("CP2496H07Group1.Models.LoanOption", "LoanOption")
                         .WithMany("Loans")
                         .HasForeignKey("LoanOptionId")
@@ -900,6 +922,8 @@ namespace CP2496H07Group1.Migrations
                         .WithMany("Loans")
                         .HasForeignKey("VipId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Account");
 
                     b.Navigation("LoanOption");
 
@@ -1033,6 +1057,11 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("TransactionsTo");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.Admin", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Category", b =>
                 {
                     b.Navigation("News");
@@ -1050,8 +1079,6 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.InsurancePackage", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("UserInsurances");
                 });
 

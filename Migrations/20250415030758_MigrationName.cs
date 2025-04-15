@@ -12,6 +12,22 @@ namespace CP2496H07Group1.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -112,7 +128,9 @@ namespace CP2496H07Group1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Money = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TypeTk = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TypeTk = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -203,6 +221,30 @@ namespace CP2496H07Group1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AdminRole",
+                columns: table => new
+                {
+                    AdminsId = table.Column<long>(type: "bigint", nullable: false),
+                    RolesId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminRole", x => new { x.AdminsId, x.RolesId });
+                    table.ForeignKey(
+                        name: "FK_AdminRole_Admins_AdminsId",
+                        column: x => x.AdminsId,
+                        principalTable: "Admins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AdminRole_Roles_RolesId",
+                        column: x => x.RolesId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Requests",
                 columns: table => new
                 {
@@ -282,71 +324,33 @@ namespace CP2496H07Group1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Loans",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LoanName = table.Column<long>(type: "bigint", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
-                    MonthlyPayment = table.Column<int>(type: "int", nullable: false),
-                    VipId = table.Column<long>(type: "bigint", nullable: true),
-                    OweMoney = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Loans", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Loans_LoanOptions_LoanOptionId",
-                        column: x => x.LoanOptionId,
-                        principalTable: "LoanOptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Loans_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Loans_Vips_VipId",
-                        column: x => x.VipId,
-                        principalTable: "Vips",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NewsId = table.Column<long>(type: "bigint", nullable: true),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    IsAdminReply = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    AdminId = table.Column<long>(type: "bigint", nullable: true),
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
-                    PackageId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Comments_Admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Admins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Comments_Comments_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Comments",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Comments_InsurancePackages_PackageId",
-                        column: x => x.PackageId,
-                        principalTable: "InsurancePackages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_News_NewsId",
                         column: x => x.NewsId,
@@ -414,6 +418,51 @@ namespace CP2496H07Group1.Migrations
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Loans",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    AmountBorrowed = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LoanName = table.Column<long>(type: "bigint", nullable: false),
+                    AccountId = table.Column<long>(type: "bigint", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoanOptionId = table.Column<long>(type: "bigint", nullable: false),
+                    MonthlyPayment = table.Column<int>(type: "int", nullable: false),
+                    VipId = table.Column<long>(type: "bigint", nullable: true),
+                    OweMoney = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loans", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Loans_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Loans_LoanOptions_LoanOptionId",
+                        column: x => x.LoanOptionId,
+                        principalTable: "LoanOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Loans_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Loans_Vips_VipId",
+                        column: x => x.VipId,
+                        principalTable: "Vips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -550,14 +599,19 @@ namespace CP2496H07Group1.Migrations
                 filter: "[VipId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AdminRole_RolesId",
+                table: "AdminRole",
+                column: "RolesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_AdminId",
+                table: "Comments",
+                column: "AdminId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_NewsId",
                 table: "Comments",
                 column: "NewsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_PackageId",
-                table: "Comments",
-                column: "PackageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ParentId",
@@ -574,6 +628,11 @@ namespace CP2496H07Group1.Migrations
                 table: "CreditCards",
                 column: "AccountId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Loans_AccountId",
+                table: "Loans",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Loans_LoanOptionId",
@@ -658,6 +717,9 @@ namespace CP2496H07Group1.Migrations
                 name: "AccountDiscounts");
 
             migrationBuilder.DropTable(
+                name: "AdminRole");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -683,6 +745,9 @@ namespace CP2496H07Group1.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "News");

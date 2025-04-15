@@ -54,7 +54,8 @@
                                         </div>
                                     </div>
                                     <div class="lower-box">
-                                        <button type="submit" class="theme-btn"><span>Buy Now</span></button>
+
+
                                         <div class="link-box">
                                             <ul class="post-info">
                                                 <li><h5><img src="~/images/icons/icon-37.png"
@@ -66,6 +67,11 @@
                                             <a href="@Url.Action("Details", new { id = item.Id })"><i
                                                     class="flaticon-right-arrow"></i></a>
                                         </div>
+                                        <br/>
+                                        <button type="button" class="theme-btn buy-now-btn" data-id="@item.Id">
+                                            <span>Buy Now</span>
+                                        </button>
+
 
                                     </div>
                                 </div>
@@ -143,3 +149,167 @@
         </div>
     </div>
 </section>
+
+
+<!-- Buy Now Modal -->
+<div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: none;">
+            <div class="modal-header"
+                 style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                <h5 class="modal-title" id="buyNowModalLabel" style="color: #000; font-weight: 600;">Buy Insurance
+                    Package</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="buyForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Package Name</label>
+                        <input type="text" class="form-control" id="insuranceName" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Price</label>
+                        <input type="text" class="form-control" id="insurancePrice" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Type</label>
+                        <input type="text" class="form-control" id="insuranceType" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Duration (Days)</label>
+                        <input type="text" class="form-control" id="insuranceDuration" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-control w-50"  id="paymentType" style="min-width: 100%;">
+                            <option value="" disabled selected> -- Payment Type -- </option>
+                            <option value="sec">Sec</option>
+                            <option value="card">Card</option>
+                        </select>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger" style="padding: 10px 25px;">Proceed to Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+
+                fetch(`/Insurance/BuyNow?id=${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Gán dữ liệu vào modal
+                        document.getElementById('insuranceName').value = data.name;
+                        document.getElementById('insurancePrice').value = data.price.toLocaleString() + " VND";
+                        document.getElementById('insuranceType').value = data.type;
+                        document.getElementById('insuranceDuration').value = data.durationDays;
+
+                        // Hiển thị modal
+                        const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
+                        modal.show();
+
+                        // Lấy lại nút Proceed bên trong modal mỗi lần mở
+                        const proceedButton = document.querySelector('#buyNowModal .btn-danger');
+
+                        // Xoá sự kiện cũ để tránh bị lặp
+                        const newButton = proceedButton.cloneNode(true);
+                        proceedButton.parentNode.replaceChild(newButton, proceedButton);
+
+                        newButton.addEventListener('click', async function () {
+                            const paymentType = document.getElementById('paymentType').value;
+
+                            if (!paymentType) {
+                                showCustomAlert("Please select a payment type.");
+                                return;
+                            }
+
+                            if (paymentType === "card") {
+                                try {
+                                    const response = await fetch(`/Insurance/PaymentCard?id=${id}`, {
+                                        method: 'POST'
+                                    });
+
+                                    const result = await response.json();
+
+                                    if (response.ok && result.success) {
+                                        showCustomAlert("Payment successful!");
+
+                                        setTimeout(() => {
+                                            window.location.href = "/Insurance/PaymentCard";
+                                        }, 1500);
+                                    } else {
+                                        showCustomAlert(result.message || "Payment failed.");
+                                    }
+                                } catch (err) {
+                                    console.error("Error:", err);
+                                    showCustomAlert("An error occurred during payment.");
+                                }
+                            } else {
+                                showCustomAlert("Proceeding with other payment methods (not implemented).");
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        showCustomAlert("Failed to load package data.");
+                    });
+            });
+        });
+    });
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+        alertBox.style.opacity = 1;
+
+        setTimeout(() => {
+            alertBox.style.opacity = 0;
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 500);
+        }, 3000);
+    }
+</script>
+
+
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+</style>

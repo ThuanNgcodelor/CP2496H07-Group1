@@ -1,0 +1,80 @@
+﻿@model CP2496H07Group1.Models.News
+
+@{
+    ViewData["Title"] = "Create News";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Add News</h6>
+
+                <form asp-action="Create" enctype="multipart/form-data" method="post" id="newsForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row mb-3">
+                        <label asp-for="Title" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Title" class="form-control" id="newsTitle" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Image</label>
+                        <div class="col-sm-10">
+                            <input type="file" name="imageFile" class="form-control" required />
+                            <span class="text-danger">@ViewBag.ImageError</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label asp-for="CategoryId" class="col-sm-2 col-form-label">News Category</label>
+                        <div class="col-sm-10">
+                            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label asp-for="Content" class="col-sm-2 col-form-label">Content</label>
+                        <div class="col-sm-10">
+                            <textarea asp-for="Content" class="form-control" id="newsContent" rows="6"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back to list</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CKEditor 5 Classic CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    let newsEditor;
+
+    ClassicEditor
+        .create(document.querySelector('#newsContent'))
+        .then(editor => {
+            newsEditor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    document.getElementById('newsForm').addEventListener('submit', function (e) {
+        const content = newsEditor.getData().trim();
+        if (!content) {
+            document.querySelector('#newsContent').classList.add('is-invalid');
+            e.preventDefault();
+        } else {
+            document.querySelector('#newsContent').value = content;
+        }
+    });
+</script>

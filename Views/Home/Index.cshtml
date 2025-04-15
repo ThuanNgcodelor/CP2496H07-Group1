@@ -1,0 +1,55 @@
+@model List<CP2496H07Group1.Models.Slider>
+
+    <section class="banner-section p_relative">
+        <div class="banner-carousel owl-theme owl-carousel">
+            @foreach (var slider in Model)
+        {
+            <div class="slide-item p_relative" style="width: 100%; height: 100vh; overflow: hidden; position: relative;">
+                <div class="bg-layer"
+                     style="background-image: url('@slider.Image');
+                            background-size: cover;
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;">
+                </div>
+                <div class="pattern-layer"
+                     style="
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            top: 0;
+                            left: 0;">
+                </div>
+                <div class="outer-container" style="position: relative; z-index: 2;">
+                    <div class="content-box">
+                        <h5><span>@slider.Name</span></h5>
+                        <h2 style="-webkit-text-stroke: 1px black; /* chỉ viền đen */ ">@slider.Detail</h2>
+                        <div class="btn-box">
+                            <a href="#" class="theme-btn"><span>Learn More</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </section>
+
+
+    <script>
+        $(document).ready(function () {
+            $(".banner-carousel").owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 6000, // thoi gian
+                autoplayHoverPause: true,
+                animateOut: 'fadeOut'
+            });
+        });
+    </script>

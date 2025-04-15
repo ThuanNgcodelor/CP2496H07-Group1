@@ -1,0 +1,127 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Faq>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+    <div class="menu-backdrop"></div>
+    <div class="close-btn"><i class="fas fa-times"></i></div>
+
+    <nav class="menu-box">
+        <div class="nav-logo"><a href="@Url.Action("Index", "Home")"><img src="/assets/images/logo-2.png" alt="" title=""></a></div>
+        <div class="menu-outer"></div>
+        <div class="contact-info">
+            <h4>Contact Info</h4>
+            <ul>
+                <li>Chicago 12, Melborne City, USA</li>
+                <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                <li><a href="mailto:info@example.com">info@example.com</a></li>
+            </ul>
+        </div>
+        <div class="social-links">
+            <ul class="clearfix">
+                <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- End Mobile Menu -->
+
+<!-- page-title -->
+<section class="page-title">
+    <div class="pattern-layer" style="background-image: url(images/shape/shape-32.png);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Faq’s</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li>About</li>
+                <li><span>Faq’s</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
+
+<!-- faq-section -->
+<section class="faq-section sec-pad">
+    <div class="pattern-layer" style="background-image: url(images/shape/shape-46.png);"></div>
+    <div class="auto-container">
+        <div class="sec-title centred">
+            <span class="sub-title">Faq’s</span>
+            <h2>Read Questions & Answers</h2>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 col-sm-12 accordion-column">
+                <ul class="accordion-box">
+                    @{
+                        int index = 1; // Biến đếm để hiển thị số thứ tự
+                    }
+                    @foreach (var faq in Model)
+                    {
+                        <li class="accordion block @(index == 1 ? "active-block" : "")">
+                            <div class="acc-btn @(index == 1 ? "active" : "")">
+                                <div class="icon-box"><i class="fas fa-chevron-down"></i></div>
+                                <h4><span>@(index.ToString("D2"))</span>@faq.Question</h4>
+                            </div>
+                            <div class="acc-content @(index == 1 ? "current" : "")">
+                                <div class="content">
+                                    <p>@faq.Answer</p>
+                                </div>
+                            </div>
+                        </li>
+                        index++;
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- faq-section end -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Kiểm tra jQuery có hoạt động không
+            if (typeof jQuery === 'undefined') {
+                console.error('jQuery is not loaded!');
+                return;
+            }
+
+            // Đảm bảo tất cả acc-content ban đầu được ẩn, trừ cái có class current
+            $('.accordion-box .acc-content').not('.current').hide();
+
+            $('.accordion-box .acc-btn').on('click', function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định nếu có
+
+                var $this = $(this);
+                var $parent = $this.closest('.accordion');
+                var $content = $this.next('.acc-content');
+
+                // Nếu accordion đang mở, đóng nó; nếu đang đóng, mở nó
+                if ($this.hasClass('active')) {
+                    // Đóng accordion
+                    $parent.removeClass('active-block');
+                    $this.removeClass('active');
+                    $content.removeClass('current').slideUp(300, function () {
+                        $content.hide(); // Đảm bảo ẩn hoàn toàn sau khi slideUp
+                    });
+                } else {
+                    // Đóng tất cả các accordion khác
+                    $('.accordion-box .accordion').not($parent).removeClass('active-block');
+                    $('.accordion-box .acc-btn').not($this).removeClass('active');
+                    $('.accordion-box .acc-content').not($content).removeClass('current').slideUp(300, function () {
+                        $(this).hide(); // Đảm bảo ẩn hoàn toàn sau khi slideUp
+                    });
+
+                    // Mở accordion hiện tại
+                    $parent.addClass('active-block');
+                    $this.addClass('active');
+                    $content.addClass('current').slideDown(300);
+                }
+            });
+        });
+    </script>
+}

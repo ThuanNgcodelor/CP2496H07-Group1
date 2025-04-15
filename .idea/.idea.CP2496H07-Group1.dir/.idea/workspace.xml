@@ -9,42 +9,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout1.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controllers/Test.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/Admin.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Hangfire/HangFile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/Hangfire/IHangFile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/LoansController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/TransferController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/CreateLoanViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/TransferViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pages/Shared/Components/Account/Default.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Insurance/PaymentCard.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/DashboardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/DashboardController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Configs/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/DependencyInjection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FORM" beforeDir="false" afterPath="$PROJECT_DIR$/FORM" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/InsuranceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/CreaditCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/CreaditCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250411090254_MigrationName.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250411090254_MigrationName.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250414014549_UpdateModel.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250414014549_UpdateModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Admin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Admin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Comment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/InsurancePackage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/InsurancePackage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Loans.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Loans.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/SavingCategory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/SavingCategory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Savings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Savings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Slider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Slider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Vip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Vip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/TransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/TransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Package/IPackageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Package/IPackageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Package/PackageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Package/PackageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Insurance/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Insurance/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.pack.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.pack.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets/msbuild.CP2496H07Group1.Microsoft.AspNetCore.StaticWebAssets.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets/msbuild.CP2496H07Group1.Microsoft.AspNetCore.StaticWebAssets.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
@@ -79,13 +98,20 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0c62d318f59a47d3b6ff125a5e3be617c2ea00/42/d624d1b2/ArgumentNullException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/67cad72163994822b2fade9c9199ae971dea00/3e/f3cef736/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/72777d0da81f4179b9174d9caf6977b113800/df/b84b8dec/ClaimsPrincipal.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/887cd4aa062a44a8a4937f673828ebd536800/aa/361a0fb1/RazorPage`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c21239f5e9ae48ed9ffa1ea518f50aefad400/f1/6623fdc7/ViewComponentHelperExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c40b6827f21841c89806245805c11473ad400/61/195caec8/HtmlHelperValidationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db6d0a696c6644f2bb3d26257f6f731b4000/b3/debdc0b3/IPagedList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ccd5471bcfa956aa7e0c547d6795895a1919119dc282d9d4fec3766fd8df/AuthorizeAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e358d67bcd5815a5083706ec88db8489a9872915d46156ba24277cd21bd662/AsyncTaskMethodBuilderT.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/InsuranceController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/Test.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/Account.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Views/Insurance/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Views/Insurance/PaymentCard.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -108,13 +134,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/davidnguyen/Code/Asp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/davidnguyen/Code/Asp/Anime&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;SolutionBuilderGeneralOptionsPage&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -228,7 +254,16 @@
       <workItem from="1744556084262" duration="662000" />
       <workItem from="1744556882035" duration="46000" />
       <workItem from="1744556938543" duration="7294000" />
-      <workItem from="1744594892964" duration="4108000" />
+      <workItem from="1744594892964" duration="13285000" />
+      <workItem from="1744614070419" duration="13000" />
+      <workItem from="1744614096587" duration="14000" />
+      <workItem from="1744614123268" duration="1054000" />
+      <workItem from="1744615196404" duration="1474000" />
+      <workItem from="1744616689878" duration="6530000" />
+      <workItem from="1744641734992" duration="2319000" />
+      <workItem from="1744649195788" duration="295000" />
+      <workItem from="1744682582727" duration="4886000" />
+      <workItem from="1744687512049" duration="2660000" />
     </task>
     <servers />
   </component>

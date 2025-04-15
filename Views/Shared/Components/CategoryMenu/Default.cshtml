@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Category>
+
+@foreach (var category in Model)
+{
+    <li>
+        <a asp-controller="News" asp-action="Index" asp-route-categoryId="@category.Id">
+            @category.Name
+        </a>
+    </li>
+}

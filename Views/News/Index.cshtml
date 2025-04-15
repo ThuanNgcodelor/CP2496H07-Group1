@@ -1,0 +1,122 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.News>
+
+<!-- page-title -->
+<section class="page-title">
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>News</h1>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
+<!-- news-section -->
+<section class="news-section pt_120 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+            @foreach (var news in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                    <div class="news-block-one">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <a asp-action="NewsDetail" asp-route-id="@news.Id">
+                                        <img src="@news.ImageUrl" alt="@news.Title">
+                                    </a>
+                                </figure>
+                                <figure class="overlay-image">
+                                    <a asp-action="NewsDetail" asp-route-id="@news.Id">
+                                        <img src="@news.ImageUrl" alt="@news.Title">
+                                    </a>
+                                </figure>
+                            </div>
+                            <div class="content-box">
+                                <div class="upper-box">
+                                    <div class="title-box">
+                                        <h6>
+                                            <img src="assets/images/icons/icon-36.png" alt="">
+                                            @news.Category?.Name
+                                        </h6>
+                                        <h5><span>By </span>Admin</h5>
+                                    </div>
+                                    <div class="post-date align-3">
+                                        <h3>@news.CreatedAt.Day</h3>
+                                        <h6>@news.CreatedAt.ToString("MMM, yyyy")</h6>
+                                    </div>
+                                </div>
+                                <div class="lower-box">
+                                    <h3>
+                                        <a asp-action="NewsDetail" asp-route-id="@news.Id">@news.Title</a>
+                                    </h3>
+                                    <div class="link-box">
+                                        <h5> 5 Mins Read</h5>
+                                        <a asp-action="NewsDetail" asp-route-id="@news.Id"><i class="flaticon-right-arrow"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="pagination-wrapper centred pt_30">
+            <ul class="pagination clearfix">
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li><a asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage - 1)"><i class="flaticon-next"></i></a></li>
+                }
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li><a asp-action="Index" asp-route-pageNumber="@i" class="@(i == ViewBag.CurrentPage ? "current" : "")">@i</a></li>
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li><a asp-action="Index" asp-route-pageNumber="@(ViewBag.CurrentPage + 1)"><i class="flaticon-next"></i></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@section Styles {
+    <style>
+
+        .news-block .image-box figure.image,
+        .news-block .image-box figure.overlay-image {
+            width: 100%;
+            height: 230px; /* Bạn có thể tùy chỉnh theo thiết kế */
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .news-block .image-box figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-block-one {
+            height: 100%;
+        }
+
+        .news-block-one .inner-box {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-block-one .content-box {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .news-block .lower-box h3 {
+            min-height: 70px; /* tùy vào độ dài tiêu đề để không bị nhảy */
+        }
+    </style>
+}

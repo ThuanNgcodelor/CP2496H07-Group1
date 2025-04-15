@@ -10,4 +10,6 @@ public interface IPackageService
     Task<InsurancePackage?> AddInsurancePackage(InsurancePackage model);
     Task<InsurancePackage?> UpdateInsurancePackage(InsurancePackage model,long id);
     Task DeleteInsurancePackage(long id);
+    
+    Task<InsurancePackage?> PaymentByCard(long id,long userId);
 }

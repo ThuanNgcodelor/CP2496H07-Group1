@@ -1,0 +1,91 @@
+﻿@model CP2496H07Group1.Models.News
+@{
+    ViewData["Title"] = "News Comments";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <h2>Comments for: @Model.Title</h2>
+
+    <div class="comment-section mt-4">
+        @foreach (var comment in Model.Comments.Where(c => c.ParentId == null))
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="comment-header d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            @if (comment.IsAdminReply)
+                            {
+                                <span class="badge bg-danger me-2">ADMIN</span>
+                                <strong>@comment.Admin?.Username</strong>
+                            }
+                            else
+                            {
+                                <span class="user-comment">@comment.User?.FirstName</span>
+                            }
+                            <small class="text-muted ms-2">@comment.CreatedAt.ToString("g")</small>
+                        </div>
+                    </div>
+                    <p class="comment-content">@comment.Content</p>
+
+                    <!-- Admin Reply Form -->
+                    <form asp-area="Admin" asp-controller="Comment" asp-action="Reply" method="post" class="mt-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="commentId" value="@comment.Id" />
+                        <div class="input-group">
+                            <textarea name="content" class="form-control" placeholder="Write admin reply..." required></textarea>
+                            <button type="submit" class="btn btn-primary">Reply as Admin</button>
+                        </div>
+                    </form>
+
+                    <!-- Replies Section -->
+                    <div class="replies mt-3 ms-4">
+                        @foreach (var reply in comment.Replies.OrderBy(r => r.CreatedAt))
+                        {
+                            <div class="reply-item card mb-2 @(reply.IsAdminReply ? "admin-reply" : "user-reply")">
+                                <div class="card-body p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            @if (reply.IsAdminReply)
+                                            {
+                                                <span class="badge bg-danger me-2">ADMIN</span>
+                                                <strong>@reply.Admin?.Username</strong>
+                                            }
+                                            else
+                                            {
+                                                <span>@reply.User?.FirstName</span>
+                                            }
+                                        </div>
+                                        <small class="text-muted">@reply.CreatedAt.ToString("g")</small>
+                                    </div>
+                                    <p class="mb-0 mt-2">@reply.Content</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .admin-reply {
+        border-left: 3px solid #dc3545;
+        background-color: rgba(220, 53, 69, 0.05);
+    }
+
+    .user-reply {
+        border-left: 2px solid #6c757d;
+        background-color: #f8f9fa;
+    }
+
+    .replies {
+        border-left: 1px solid #dee2e6;
+        padding-left: 1rem;
+    }
+
+    .comment-content {
+        white-space: pre-wrap;
+    }
+</style>
