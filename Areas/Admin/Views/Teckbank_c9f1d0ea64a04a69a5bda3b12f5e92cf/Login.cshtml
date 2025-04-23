@@ -1,12 +1,7 @@
 @{
     Layout = "_Layout1";
 }
-
-<div id="customAlert" class="custom-alert">
-    <div class="custom-alert-content">
-        <span id="customAlertMessage">Success!</span>
-    </div>
-</div>
+@model CP2496H07Group1.Dtos.LoginViewModel
 
 
 
@@ -29,104 +24,41 @@
                         </a>
                         <h3>Sign In</h3>
                     </div>
-                    <form 
-                          asp-area="Admin"
+                    <form asp-area="Admin"
                           asp-controller="Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf"
-                          asp-action="Login">
+                          asp-action="Login"
+                          method="post">
                         @Html.AntiForgeryToken()
 
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" name="email" id="floatingInput" placeholder="Name@example.com" required>
+                            <input asp-for="Email" class="form-control" id="floatingInput"
+                                   placeholder="Name@example.com"
+                                   required/>
                             <label for="floatingInput">Email</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password" required>
+                            <input asp-for="Password" type="password" class="form-control" id="floatingPassword"
+                                   placeholder="Password"
+                                   required/>
                             <label for="floatingPassword">Password</label>
                         </div>
 
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <div>@error.ErrorMessage</div>
+                                }
+                            </div>
+                        }
+
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
                     </form>
+
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('#loginForm').on('submit', function (e) {
-            e.preventDefault();
-
-            const form = $(this);
-            const token = $('input[name="__RequestVerificationToken"]').val();
-            const loginButton = $('#loginButton');
-
-            if (!token) {
-                showCustomAlert('CSRF token missing. Please refresh the page.');
-                return;
-            }
-
-            // Disable the login button
-            loginButton.prop('disabled', true).text('Logging in...');
-
-            $.ajax({
-                url: form.attr('action'),
-                method: 'POST',
-                data: form.serialize(),
-                headers: {
-                    'RequestVerificationToken': token
-                },
-                success: function (response) {
-                    if (response.success) {
-                        showCustomAlert('Login successful! Redirecting...');
-                        setTimeout(() => {
-                            window.location.href = response.redirectUrl || '/';
-                        }, 1000);
-                    } else {
-                        showCustomAlert(response.message || 'Invalid login credentials');
-                        loginButton.prop('disabled', false).text('Login');
-                    }
-                },
-                error: function (xhr) {
-                    alert(xhr.responseJSON?.message || 'An error occurred during login');
-                    // Re-enable login button on error
-                    loginButton.prop('disabled', false).text('Login');
-                }
-            });
-        });
-    });
-
-
-    function showCustomAlert(message) {
-        const alertBox = document.getElementById("customAlert");
-        const messageBox = document.getElementById("customAlertMessage");
-
-        messageBox.textContent = message;
-        alertBox.style.display = "block";
-
-        setTimeout(() => {
-            alertBox.style.display = "none";
-        }, 3000); // 3 giây tự động ẩn
-    }
-
-</script>
-<style>
-    .custom-alert {
-        text-align: center;
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #00c292; /* Màu xanh thành công */
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        display: none;
-        z-index: 9999;
-        font-size: 16px;
-        animation: slideIn 0.5s ease forwards;
-    }
-
-</style>

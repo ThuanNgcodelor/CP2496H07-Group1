@@ -1,4 +1,4 @@
-using CP2496H07Group1.Models;
+﻿using CP2496H07Group1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CP2496H07Group1.Configs.Database;
@@ -54,12 +54,35 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+               
+                bool isNameDuplicate = await _context.Categories
+                    .AnyAsync(c => c.Name == category.Name);
+                if (isNameDuplicate)
+                {
+                    ModelState.AddModelError("Name", "Category name already exists in the system.");
+                }
+
+              
+                bool isDescriptionDuplicate = await _context.Categories
+                    .AnyAsync(c => c.Description == category.Description);
+                if (isDescriptionDuplicate)
+                {
+                    ModelState.AddModelError("Description", "Description already exists in the system.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(category);
+                }
+
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(category);
         }
+
 
         // GET: Admin/ManageCategoryNews/Edit/5
         public async Task<IActionResult> Edit(long? id)
@@ -89,6 +112,27 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra trùng Name (trừ chính nó)
+                bool isNameDuplicate = await _context.Categories
+                    .AnyAsync(c => c.Id != category.Id && c.Name == category.Name);
+                if (isNameDuplicate)
+                {
+                    ModelState.AddModelError("Name", "Category name already exists in the system.");
+                }
+
+                // Kiểm tra trùng Description (trừ chính nó)
+                bool isDescriptionDuplicate = await _context.Categories
+                    .AnyAsync(c => c.Id != category.Id && c.Description == category.Description);
+                if (isDescriptionDuplicate)
+                {
+                    ModelState.AddModelError("Description", "Description already exists in the system.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(category);
+                }
+
                 try
                 {
                     _context.Update(category);
@@ -107,6 +151,7 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(category);
         }
 
@@ -134,12 +179,18 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var category = await _context.Categories.FindAsync(id);
-            if (category != null)
+            if (category == null)
             {
-                category.IsConfirm = false;
-                _context.Categories.Update(category);
+                return NotFound();
             }
-
+            // Kiểm tra có tin nào thuộc category này không
+            bool hasNews = await _context.News.AnyAsync(n => n.CategoryId == id);
+            if (hasNews)
+            {
+                ViewBag.ErrorMessage = "Cannot delete category because it contains news.";
+                return View("Delete", category); // Trả lại View Delete với thông báo
+            }
+            _context.Categories.Remove(category); // Xóa luôn khỏi DB
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

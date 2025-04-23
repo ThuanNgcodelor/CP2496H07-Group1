@@ -34,8 +34,8 @@ public class CommentController : Controller
             NewsId = parentComment.NewsId,
             ParentId = commentId,
             AdminId = adminId,
-            Admin = admin, // Include admin object
-            IsAdminReply = true, // Explicitly mark as admin reply
+            Admin = admin, 
+            IsAdminReply = true, 
             CreatedAt = DateTime.Now
         };
 

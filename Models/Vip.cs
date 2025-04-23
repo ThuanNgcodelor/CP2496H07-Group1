@@ -21,7 +21,7 @@ namespace CP2496H07Group1.Models
         public bool NoPick { get; set; } = false;
 
         [Range(0, int.MaxValue, ErrorMessage = "Số tiền hoàn lại phải lớn hơn hoặc bằng 0")]
-        public int MoneyBack { get; set; }
+        public int? MoneyBack { get; set; }
 
         public List<Loans> Loans { get; set; } = new(); // Liên kết 1-n với Loans
         public List<Transaction> Transactions { get; set; } = new(); // Liên kết 1-n với Transactions

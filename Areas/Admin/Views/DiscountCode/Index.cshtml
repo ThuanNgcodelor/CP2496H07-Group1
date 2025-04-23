@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.DiscountCode>
+
+@{
+    ViewData["Title"] = "Discount Codes";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0">Discount Code List</h6>
+                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+                </div>
+                <div class="mb-4">
+                    <form method="get" asp-action="Index">
+                        <div class="input-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search loan options..." />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+                        </div>
+                    </form>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th class="text-center" >Discount Code</th>
+                            <th>Points</th>
+                            <th>Percent</th>
+                            <th>LongMonth</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td class ="text-center">@item.DiscountCodes</td>
+                                <td>@item.Points</td>
+                                <td>@item.Percent</td>
+                                <td>@item.LongDate</td>
+                               
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-2" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,44 +11,48 @@
         </div>
     </div>
 </section>
-
 <section class="corporate-section sec-pad-2">
     <div class="auto-container">
         <div class="sec-title centred">
             <span class="sub-title">TeckBank</span>
-            <h2>My recent transactions</h2>
         </div>
-
         <form method="get" asp-action="RecentTransactions" asp-controller="Auth" style="margin-bottom: 30px;">
             <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: center;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 250px;">
+                    <label for="types" style="margin-bottom: 5px;">Type:</label>
+                    <select name="types" id="types" class="form-control w-100"
+                            style="width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px;">
+                        <option value="">All Types</option>
+                        @foreach (var type in ViewBag.TransactionTypes ?? new List<string>())
+                        {
+                            <option value="@type" style="padding: 5px;">@type</option>
+                        }
+                    </select>
+                </div>
 
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 250px;">
                     <label for="fromDate" style="margin-bottom: 5px;">From:</label>
                     <input type="date" name="fromDate" id="fromDate" class="form-control"
                            style="width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px;"/>
                 </div>
 
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 250px;">
                     <label for="toDate" style="margin-bottom: 5px;">To:</label>
                     <input type="date" name="toDate" id="toDate" class="form-control"
                            style="width: 100%; padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px;"/>
                 </div>
 
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 200px;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 250px;">
                     <label style="visibility: hidden; margin-bottom: 5px;">Search</label>
                     <button type="submit" class="theme-btn btn-style-one"
                             style="width: 100%; padding: 8px 10px; border-radius: 5px;">
                         Search
                     </button>
                 </div>
-
             </div>
         </form>
 
-
         <div class="row clearfix">
-
-
             @foreach (var transaction in Model)
             {
                 <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
@@ -70,6 +74,12 @@
                                     <div>
                                         <strong>Amount:</strong>
                                         <span>@transaction.Amount.ToString("C0")</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 40px; margin-bottom: 5px;">
+                                    <div>
+                                        <strong>Description:</strong>
+                                        <span>@transaction.Description</span>
                                     </div>
                                 </div>
 

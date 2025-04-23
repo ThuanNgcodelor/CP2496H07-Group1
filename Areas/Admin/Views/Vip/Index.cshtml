@@ -8,11 +8,11 @@
         <div class="row g-4">
             <div class="col-12">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4">Bảng Quản lý VIP</h6>
+                    <h6 class="mb-4">Vip</h6>
 
-                    <div class="mb-4">
-                        <a asp-action="Add" class="btn btn-success">
-                            <i class="bi bi-plus"></i> Thêm VIP Mới
+                    <div class="mb-4"  style="text-align:right">
+                        <a asp-action="Add" class="btn btn-primary" >
+                            <i class="bi bi-plus"></i> Create new
                         </a>
                     </div>
 
@@ -20,9 +20,9 @@
                         <form method="get" asp-action="Index">
                             <div class="input-group">
                                 <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control"
-                                       placeholder="Tìm kiếm VIP..." aria-label="Tìm kiếm VIP">
+                                       placeholder="Search VIP..." aria-label="Tìm kiếm VIP">
                                 <button class="btn btn-primary" type="submit">
-                                    <i class="bi bi-search"></i> Tìm kiếm
+                                    <i class="bi bi-search"></i> Seacrh
                                 </button>
                             </div>
                         </form>
@@ -32,12 +32,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Loại VIP</th>
-                                    <th>Giá</th>
-                                    <th>Không Chọn</th>
-                                    <th>Tiền Hoàn Lại</th>
-                                    <th>Hành động</th>
+                                    <th>ID</th>
+                                    <th>Type VIP</th>
+                                    <th>Price</th>
+                                    <th>Transfer fee</th>
+                                    <th>Monney back</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,14 +50,14 @@
                                     <td>@index</td>
                                     <td>@Html.DisplayFor(modelItem => item.TypeVip)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                                    <td>@(item.NoPick ? "Có" : "Không")</td>
+                                    <td>@(item.NoPick ? "Yes" : "No")</td>
                                     <td>@Html.DisplayFor(modelItem => item.MoneyBack)</td>
                                     <td>
                                         <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-2" title="Cập nhật">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
-                                              onsubmit="return confirm('Bạn có chắc muốn xóa VIP này?');">
+                                              onsubmit="return confirm('Are you sure you want to delete this VIP?');">
                                             <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -70,7 +70,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="6" class="text-center">Không tìm thấy VIP nào.</td>
+                                    <td colspan="6" class="text-center">No VIPs found!!!.</td>
                                 </tr>
                             }
                             </tbody>

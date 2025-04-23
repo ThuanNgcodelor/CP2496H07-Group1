@@ -1,0 +1,144 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Transaction>
+    @{
+    Layout = "_Layout";
+    }
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="bg-light rounded h-100 p-4">
+                    <h6 class="mb-4">History Transactions</h6>
+
+                    <!-- Form Lọc và Tìm Kiếm -->
+                    <div class="mb-4">
+                        <form method="get" asp-action="Index">
+                            <div class="row g-3">
+                                <!-- Dropdown Loại Giao Dịch -->
+                                <div class="col-md-3">
+                                    <select name="transactionType" class="form-select" asp-items="@ViewBag.TransactionTypes">
+                                        <option value="">Type Transaction</option>
+                                    </select>
+                                </div>
+                                <!-- Dropdown Khoảng Thời Gian -->
+                                <div class="col-md-3">
+                                    <select name="timeRange" class="form-select">
+                                        <option value="">Time </option>
+                                        <option value="1day">1 day</option>
+                                        <option value="3days">3 day</option>
+                                        <option value="7days">7 day</option>
+                                        <option value="1week">1 week</option>
+                                        <option value="2weeks">2 week</option>
+                                        <option value="1month">1 month</option>
+                                        <option value="3months">3 month</option>
+                                        <option value="6months">6 month</option>
+                                        <option value="1year">1 year</option>
+                                    </select>
+                                </div>
+                                <!-- Thanh Tìm Kiếm -->
+                                <div class="col-md-4" style="width: 50%">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control"
+                                               placeholder="Search transactions..." aria-label="Tìm kiếm giao dịch">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="bi bi-search"></i> Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Bảng Giao Dịch -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Type Transaction</th>
+                                    <th>Sender</th>
+                                    <th>Amount</th>
+                                    <th>Receiver</th>
+                                    <th>Transfer content</th>
+                                    <th>Date</th>
+                                    <th>Discount code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
+                            {
+                                var index = (ViewBag.CurrentPage - 1) * 10 + 1; // Giả sử 10 giao dịch mỗi trang
+                                foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TransactionType)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.FromAccountId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                                    <td>@(item.ToAccountId.HasValue ? item.ToAccountId.ToString() : "")</td>
+                                    <td>@(item.Description ?? "")</td>
+                                    <td>@item.TransactionDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@(item.DiscountCodeId.HasValue ? item.DiscountCodeId.ToString() : "")</td>
+                                </tr>
+                                    index++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center">No transactions found!!!.</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Phân Trang -->
+                    <nav aria-label="Phân trang" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)"
+                                   asp-route-keyword="@ViewBag.Keyword" asp-route-transactionType="@ViewBag.TransactionType"
+                                   asp-route-timeRange="@ViewBag.TimeRange" aria-label="Trước">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">«</span>
+                            </li>
+                        }
+
+                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-action="Index" asp-route-page="@i"
+                                   asp-route-keyword="@ViewBag.Keyword" asp-route-transactionType="@ViewBag.TransactionType"
+                                   asp-route-timeRange="@ViewBag.TimeRange">@i</a>
+                            </li>
+                        }
+
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)"
+                                   asp-route-keyword="@ViewBag.Keyword" asp-route-transactionType="@ViewBag.TransactionType"
+                                   asp-route-timeRange="@ViewBag.TimeRange" aria-label="Tiếp">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">»</span>
+                            </li>
+                        }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>

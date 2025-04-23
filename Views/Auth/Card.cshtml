@@ -12,10 +12,10 @@
     </div>
 </section>
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
+<br/>
+<br/>
+<br/>
+<br/>
 
 <!-- cards-style-two -->
 <section class="cards-style-two pb_120">
@@ -28,21 +28,15 @@
                             <h3>Card Types</h3>
                         </div>
                         <ul class="category-list clearfix">
-                            <li><a href="cards.html">Business</a></li>
-                            <li><a href="cards.html">Cashback</a></li>
-                            <li><a href="cards.html">Low Interest</a></li>
-                            <li><a href="cards.html">Rewards</a></li>
-                            <li><a href="cards.html">Secured</a></li>
-                            <li><a href="cards.html">Travel & Hotel</a></li>
+                            <li><a asp-action="Users" asp-controller="Auth" >User Setting</a></li>
+                            <li><a asp-controller="Auth" asp-action="Card" class="current">My Card</a></li>
+                            <li><a asp-controller="Loans" asp-action="Index">My Loans</a></li>
+                            <li><a asp-controller="Insurance" asp-action="UserInsurance">My Insurance</a></li>
+                            <li><a asp-controller="Transfer" asp-action="Index">Transfer</a></li>
+                            <li><a asp-controller="Auth" asp-action="RecentTransactions">History Transaction</a></li>
                         </ul>
                     </div>
-                    <div class="contact-widget">
-                        <div class="inner-box" style="background-image: url(images/resource/sidebar-1.jpg);">
-                            <h3>Now, Get Your Credit Card Online</h3>
-                            <span class="text">Approve with in 24 Hrs.</span>
-                            <a href="contact.html" class="theme-btn"><span>Apply Here</span></a>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 content-side">
@@ -60,7 +54,7 @@
                                     <div class="cards-column">
                                         <h3><a href="#">@account.AccountType</a></h3>
                                         <figure class="image-box">
-                                            @if (account.AccountType == "CreditCard")
+                                            @if (account.AccountType == "Credit Card")
                                             {
                                                 <img src="~/images/resource/credit.png" alt="Credit Card"/>
                                             }
@@ -69,20 +63,25 @@
                                                 <img src="~/images/resource/normal.png" alt="">
                                             }
                                         </figure>
-                            
+
                                         <div class="btn-box">
                                             <a href="#">Deposit Now</a>
-                                            <a href="" onclick="viewAccountDetails(@account.Id); return false;" >Read More</a>
+                                            <a href="#" data-bs-toggle="modal"
+                                               data-bs-target="#readMoreModal-@account.Id">Read More</a>
                                         </div>
                                     </div>
                                     <div class="content-column">
-                                        <p>Explore a new world of rewards with the Platinum Credit Card.</p>
+                                        <p>Explore the world with TeckBank Regular and Charge Cards.</p>
                                         <h4>Features & Benefits</h4>
                                         <ul class="list-item">
-                                            <li><img src="~/images/icons/icon-191.png" alt="">Zero Joining and Annual Fees</li>
-                                            <li><img src="~/images/icons/icon-192.png" alt="">2% Fuel Surcharge waiver HPCL Petrol Pumps</li>
-                                            <li><img src="~/images/icons/icon-193.png" alt="">Multi Rewards & Lifestyle Benefits</li>
-                                            <li><img src="~/images/icons/icon-194.png" alt="">5X TAT Miles on Travel</li>
+                                            <li><img src="~/images/icons/icon-191.png" alt="">No joining fee and annual
+                                                fee
+                                            </li>
+                                            <li><img src="~/images/icons/icon-192.png" alt="">No transfer fee</li>
+                                            <li><img src="~/images/icons/icon-193.png" alt="">Lots of rewards &
+                                                lifestyle benefits
+                                            </li>
+                                            <li>&nbsp;</li>
                                         </ul>
                                         <div class="check-box-two">
                                             <input class="check" type="checkbox" id="checkbox1">
@@ -92,6 +91,34 @@
                                 </div>
                             </div>
                             
+
+                            <div class="modal fade" id="readMoreModal-@account.Id" tabindex="-1" aria-labelledby="readMoreLabel-"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="border: none;">
+                                        <div class="modal-header"
+                                             style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                            <h5 class="modal-title" id="readMoreLabel-" style="color: #000; font-weight: 600;">
+                                                Enter PIN to read more
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                    style="filter: invert(1);"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <form method="post" action="@Url.Action("CardDetails", "Auth")">
+                                                <input type="hidden" name="accountId" value="@account.Id"/>
+                                                <div class="mb-3">
+                                                    <label class="form-label text-dark">PIN</label>
+                                                    <input type="password" name="pin" class="form-control" placeholder="Enter your PIN" required>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-danger" style="padding: 10px 25px;">Confirm</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
                 </div>
@@ -100,19 +127,22 @@
     </div>
 </section>
 
+
+
 <script>
-function viewAccountDetails(accountId) {
-    var form = document.createElement("form");
-    form.method = "POST";
-    form.action = "@Url.Action("CardDetails", "Auth")";
+    function viewAccountDetails(accountId) {
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = "@Url.Action("CardDetails", "Auth")";
 
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "accountId";
-    input.value = accountId;
-    form.appendChild(input);
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "accountId";
+        input.pin = "pin";
+        input.value = accountId;
+        form.appendChild(input);
 
-    document.body.appendChild(form);
-    form.submit();
-}
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>

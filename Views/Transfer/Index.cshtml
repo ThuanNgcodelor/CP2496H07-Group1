@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <div class="icon-box"><img src="" alt=""></div>
                             <label>Monney</label>
-                            <input type="text" id="monney" name="Monney" placeholder="0.0 VND">
+                            <input type="text" id="monney" name="Monney" placeholder="0.0$">
                         </div>
                     </div>
 
@@ -107,6 +107,25 @@
 <!-- Script xử lý AJAX -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    // nhan nut gui 1 lan
+    document.addEventListener("DOMContentLoaded", function () {
+        const btn = document.getElementById("submitTransfer");
+
+        btn.addEventListener("click", function () {
+            btn.disabled = true; // Vô hiệu hóa nút
+            btn.innerHTML = "<span>processing...</span>"; // Đổi nội dung nút
+
+            setTimeout(function () {
+                btn.disabled = false; // Kích hoạt lại nút
+                btn.innerHTML = "Submit"; // Khôi phục nội dung nút
+            }, 3000); // 3000ms = 3 giây
+        });
+    });
+
+  
+
+
     $(document).ready(function () {
         // Kiểm tra số tài khoản khi rời khỏi ô nhập liệu
         $('#accountNumber').on('blur', function () {
@@ -118,7 +137,7 @@
                     data: { accountNumber: accountNumber },
                     success: function (response) {
                         if (!response.exists) {
-                            $('#accountNumberError').text('Không tìm thấy tài khoản người nhận.');
+                            $('#accountNumberError').text('Recipient account not found.');
                         } else {
                             $('#accountNumberError').text('');
                         }
@@ -136,6 +155,8 @@
                 TransferContent: $('#transferContent').val(),
                 Pin: $('#pin').val()
             };
+
+
 
             $.ajax({
                 url: '@Url.Action("Transfer", "Transfer")',
@@ -155,7 +176,7 @@
                     }
                 },
                 error: function () {
-                    $('#errorMessage').text('Đã xảy ra lỗi. Vui lòng thử lại.');
+                    $('#errorMessage').text('An error occurred. Please try again..');
                 }
             });
         });

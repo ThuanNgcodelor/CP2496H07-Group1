@@ -4,6 +4,8 @@ public  class UserInsurance
 {
     public  long Id { get; set; }
     public required long UserId { get; set; }
+    
+    public required string InsuranceNumber { get; set; }
     public required long PackageId { get; set; }
     public required long TransactionId { get; set; }
     public required DateTime StartDate { get; set; } 

@@ -11,6 +11,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Security.Claims;
 using CP2496H07Group1.Dtos;
+using CP2496H07Group1.Configs.Email;
+using CP2496H07Group1.Configs.Sms;
+using Twilio.TwiML.Voice;
 
 namespace CP2496H07Group1.Controllers
 {
@@ -21,16 +24,18 @@ namespace CP2496H07Group1.Controllers
         private readonly JwtHandler _jwtHandler;
         private readonly RedisService _redisService;
         private readonly AppDataContext _context;
+    
 
         public long LoanName { get; private set; }
 
-        public LoansController(IAuthService authService, JwtHandler jwtHandler, RedisService redisService,
+        public LoansController(IAuthService authService, JwtHandler jwtHandler, RedisService redisService, 
             AppDataContext appDataContext)
         {
             _authService = authService;
             _jwtHandler = jwtHandler;
             _redisService = redisService;
             _context = appDataContext;
+         
         }
 
         public async Task<IActionResult> Index()
@@ -58,6 +63,7 @@ namespace CP2496H07Group1.Controllers
                 .Include(l => l.User)
                 .Include(l => l.LoanOption)
                 .Include(l => l.Vip)
+                .Include(l => l.PaymentSchedules)
                 .ToListAsync();
 
             return View(loans); // truyền vào view
@@ -83,39 +89,47 @@ namespace CP2496H07Group1.Controllers
                 return RedirectToAction("Index", "Auth");
             }
 
+
             // Retrieve loan options
             var loanOptions = _context.LoanOptions
-                .Select(lo => new LoanOption.LoanOptionViewModel
-                {
-                    LoanOptionId = lo.Id,
-                    DisplayText = $"{lo.LoanDate} months at {lo.InterestRate * 100}%",
-                    LoanDate = lo.LoanDate,
-                    InterestRate = (decimal)lo.InterestRate
-                })
-                .ToList();
-
-            ViewBag.LoanOptions = loanOptions;
+               .Select(lo => new LoanOptionViewModel
+               {
+                   LoanOptionId = lo.Id,
+                   DisplayText = $"{lo.LoanDate} months at {lo.InterestRate * 100}%",
+                   LoanDate = lo.LoanDate,
+                   InterestRate = (decimal)lo.InterestRate
+               })
+               .ToList();
+            var accounts = (from a in _context.Accounts
+                            where a.UserId == userId
+                            join v in _context.Vips on a.VipId equals v.Id into accountVips
+                            from av in accountVips.DefaultIfEmpty()
+                            select new AccountViewModel
+                            {
+                                AccountId = a.Id,
+                                AccountNumber = a.AccountNumber,
+                                Balance = a.Balance,
+                                DisplayText = $"Card: {a.AccountNumber} | Balance: ${a.Balance.ToString("F2")}",
+                                TypeVip = av != null ? (int?)av.TypeVip : null
+                            })
+                            .ToList();
 
 
             var viewModel = new CreateLoanViewModel
             {
-                Accounts = (from a in _context.Accounts
-                    where a.UserId == userId
-                    join v in _context.Vips on a.VipId equals v.Id into accountVips
-                    from av in accountVips.DefaultIfEmpty()
-                    select new AccountViewModel
-                    {
-                        AccountId = a.Id,
-                        AccountNumber = a.AccountNumber,
-                        Balance = a.Balance,
-                        DisplayText = $" Card: {a.AccountNumber} | Balance: ${a.Balance:N0}",
-                        TypeVip = av != null ? (int?)av.TypeVip : null
-                    }).ToList()
+                LoanOptions = loanOptions,
+                Accounts = accounts
             };
 
             return View(viewModel);
-        }
 
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendReminders()
+        {
+            await _authService.SendMonthlyRemindersAsync();
+            return Ok("Reminders sent!");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,7 +146,7 @@ namespace CP2496H07Group1.Controllers
             }
 
 
-            // Tìm user theo ID gốc
+            // tìm user theo iD
             var user = await _context.Users.FindAsync(userId);
 
             if (user == null)
@@ -141,7 +155,7 @@ namespace CP2496H07Group1.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kiểm tra mật khẩu
+            // ktra pass
             if (!VerifyPassword(pass, user.PasswordHash))
             {
                 TempData["LoanError"] = "Password is incorrect.";
@@ -149,7 +163,7 @@ namespace CP2496H07Group1.Controllers
             }
 
 
-            // Lấy gói vay
+            // lấy option
             var loanOption = await _context.LoanOptions.FindAsync(LoanOptionId);
             if (loanOption == null)
             {
@@ -158,6 +172,8 @@ namespace CP2496H07Group1.Controllers
             }
 
             // Tạo khoản vay
+            var interestRateDecimal = (decimal)loanOption.InterestRate;      
+            var totalOweMoney = AmountBorrowed + (AmountBorrowed * interestRateDecimal);
             var loan = new Loans
             {
                 UserId = user.Id,
@@ -169,23 +185,41 @@ namespace CP2496H07Group1.Controllers
                 MonthlyPayment = MonthlyPayment,
                 StartDate = StartDate,
                 EndDate = EndDate,
-                OweMoney = (int)AmountBorrowed,
+                OweMoney = (int)totalOweMoney,
                 User = user,
-                LoanOption = loanOption
+                LoanOption = loanOption,    
+                Status = "Unpaid"
             };
+
 
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
+           
 
+
+            for (int i = 1; i <= loanOption.LoanDate; i++)
+            {
+                var dueDate = loan.StartDate.AddMonths(i);
+                _context.LoanPaymentSchedules.Add(new LoanPaymentSchedule
+                {
+                    LoanId = loan.Id,
+                    PaymentDueDate = dueDate
+                });
+            }
+
+
+            await _context.SaveChangesAsync();
+            await _authService.SendLoanConfirmationEmail(user, loan);
+            
             if (!ModelState.IsValid)
             {
                 TempData["LoanError"] = "Invalid information. Please check again.";
                 return RedirectToAction("Index");
             }
-
+            
             try
             {
-                // Giả sử bạn đã lưu khoản vay thành công
+          
                 TempData["LoanSuccess"] = "Loan created successfully!";
                 return RedirectToAction("Index");
             }
@@ -195,6 +229,100 @@ namespace CP2496H07Group1.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> Pay(long id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !long.TryParse(userIdClaim, out long userId))
+            {
+                TempData["LoanError"] = "Invalid user.";
+                return RedirectToAction("Index");
+            }
+
+            var loan = await _context.Loans
+                .Include(l => l.PaymentSchedules)
+                .Include(l => l.Account)
+                .FirstOrDefaultAsync(l => l.Id == id && l.UserId == userId);
+
+            if (loan == null)
+            {
+                TempData["LoanError"] = "Loan not found.";
+                return RedirectToAction("Index");
+            }
+
+            var firstUnpaid = loan.PaymentSchedules
+                .Where(ps => !ps.Paymentstatus)
+                .OrderBy(ps => ps.PaymentDueDate)
+                .FirstOrDefault();
+
+            if (firstUnpaid == null)
+            {
+                TempData["LoanError"] = "All payments are already completed.";
+                return RedirectToAction("Index");
+            }
+
+            var account = loan.Account;
+
+            if (account.Balance < loan.MonthlyPayment)
+            {
+                TempData["LoanError"] = "Insufficient balance.";
+                return RedirectToAction("Index");
+            }
+
+          
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+               
+                account.Balance -= loan.MonthlyPayment;             
+                loan.OweMoney -= loan.MonthlyPayment;              
+                loan.OweMoney = Math.Max(0, loan.OweMoney);
+                firstUnpaid.Paymentstatus = true;
+                firstUnpaid.IsReminderSent = true;
+
+                var paymentTransaction = new Transaction
+                {
+                    FromAccountId = account.Id,
+                    ToAccountId = null,
+                    Amount = loan.MonthlyPayment,
+                    TransactionDate = DateTime.Now,
+                    TransactionType = "LoanPayment",
+                    Description = $"Loan is paid monthly { loan.PaymentSchedules}",
+                    FromAccount = account,
+                    ToAccount = null
+                };
+                _context.Transactions.Add(paymentTransaction);
+
+           
+
+                // Lưu thay đổi
+                await _context.SaveChangesAsync();
+
+                // Commit transaction
+                await transaction.CommitAsync();
+                if (loan.OweMoney == 0)
+                {
+                    _context.LoanPaymentSchedules.RemoveRange(loan.PaymentSchedules);
+                    _context.Loans.Remove(loan);
+                }
+
+
+                TempData["LoanSuccess"] = loan.OweMoney == 0
+                    ? "You have fully paid off your loan. Loan closed!"
+                    : "Monthly payment successful!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                TempData["LoanError"] = "An error occurred while processing the payment.";
+                // Có thể log lỗi: _logger.LogError(ex, "Error processing loan payment.");
+                return RedirectToAction("Index");
+            }
+        }
+
+
 
         private static string HashPassword(string password)
         {
@@ -207,5 +335,47 @@ namespace CP2496H07Group1.Controllers
         {
             return HashPassword(inputPassword) == storedHash;
         }
-    }
+        /*public async Task<IActionResult> CreateLoan(Loans model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add the loan to the database
+                _context.Loans.Add(model);
+                await _context.SaveChangesAsync();
+
+                // Get the user associated with the loan to send the email
+                var user = await _context.Users.FindAsync(model.UserId);
+                if (user != null && !string.IsNullOrEmpty(user.Email))
+                {
+                    // Create the email subject and body
+                    var subject = "Loan Created Successfully";
+                    var body = $"Dear {user.FirstName} {user.LastName},\n\n" +
+                               $"Your loan has been successfully created. Here are the details:\n\n" +
+                               $"Loan ID: {model.Id}\n" +
+
+                               $"Thank you for choosing our service!\n\nBest regards,\nYour Loan Team";
+
+                    try
+                    {
+                        // Send the email using the email service
+                        await _emailService.Send(user.Email, subject, body);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Failed to send loan creation email to {user.Email}.");
+                    }
+                }
+
+                // Redirect to Loan Index view or any page after successful creation
+                return RedirectToAction("Index");
+            }
+
+            // If the ModelState is invalid, return the current view with validation errors
+            return View(model);
+        }
+
+    }*/
 }
+}
+
+

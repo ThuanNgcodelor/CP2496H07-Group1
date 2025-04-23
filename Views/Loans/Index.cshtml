@@ -1,7 +1,21 @@
-﻿@using System.Security.Claims
+﻿
+@using System.Security.Claims
 @using System.Text
 @using CP2496H07Group1.Configs.Jwt
 @model IEnumerable<CP2496H07Group1.Models.Loans>
+    <!-- page-title -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Loans</h1>
+            <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+            <ul class="bread-crumb clearfix">
+            </ul>
+        </div>
+    </div>
+</section>
 
 <style>
     .appointment-form {
@@ -16,12 +30,12 @@
         margin-bottom: 15px;
     }
 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
     .icon-box {
         margin-bottom: 5px;
@@ -87,60 +101,113 @@
     <div class="auto-container">
         @if (TempData["LoanSuccess"] != null)
         {
-            <div class="alert alert-success">
-                @TempData["LoanSuccess"]
-            </div>
+        <div class="alert alert-success">
+            @TempData["LoanSuccess"]
+        </div>
         }
 
         @if (TempData["LoanError"] != null)
         {
-            <div class="alert alert-danger">
-                @TempData["LoanError"]
-            </div>
+        <div class="alert alert-danger">
+            @TempData["LoanError"]
+        </div>
         }
 
         @if (!Model.Any())
         {
-            <div class="sec-title centred">
-                <span class="sub-title">Corporate Office</span>
-                <h2>No Loans Currently Available</h2>
-            </div>
+        <div class="sec-title centred">
+            <span class="sub-title">Loans</span>
+            <h2>No Loans Currently Available</h2>
+        </div>
         }
+
 
         <div class="row clearfix">
             @foreach (var loan in Model)
             {
-                <div class="col-lg-12 col-md-12 col-sm-12 corporate-block mb-4">
-                    <div class="corporate-block-one p-4 border rounded shadow-sm bg-light">
-                        <div class="inner-box">
-                            <p>
-                                <strong>User Name:</strong> @User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value &nbsp;&nbsp;
-                                <strong>Loan Name:</strong> @loan.LoanName
-                            </p>
+            <div class="col-lg-12 col-md-12 col-sm-12 corporate-block mb-4">
+                <div class="corporate-block-one p-4 border rounded shadow-sm bg-light">
+                    <div class="inner-box">
+                        <p>
+                            <strong>FullName:</strong> @User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value &nbsp;&nbsp;
+                            <strong>LoanNumber:</strong> @loan.LoanName
+                        </p>
 
-                            <p><strong>Amount Borrowed:</strong> @loan.AmountBorrowed.ToString("N0").Replace(",", ".")</p>
-                            <p><strong>Monthly Payment:</strong> @loan.MonthlyPayment.ToString("N0").Replace(",", ".")</p>
-                            <p><strong>Owe Money:</strong> @loan.OweMoney.ToString("N0").Replace(",", ".")</p>
-                            <p><strong>Loan Duration:</strong> @loan.StartDate.ToString("M/d/yyyy") - @loan.EndDate.ToString("M/d/yyyy")</p>
+                        <p><strong>Amount Borrowed:</strong> @loan.AmountBorrowed.ToString("F2")</p>
+                        <p><strong>Monthly Payment:</strong> @loan.MonthlyPayment.ToString("F2")</p>
+                        <p><strong>Owe Money:</strong> @Math.Max(0, loan.OweMoney).ToString("F2")</p>
+                        <p><strong>Duration:</strong> @loan.StartDate.ToString("M/d/yyyy") - @loan.EndDate.ToString("M/d/yyyy")</p>
 
-                            <div class="message-btn pt_7 text-end">
-                                <a href="@Url.Action("Pay", "Loans", new { id = loan.Id })" class="theme-btn">
-                                    <span>Pay Now</span>
-                                </a>
-                            </div>
-                        </div>
+                        <a href="javascript:void(0);"
+                           class="theme-btn open-modal-btn"
+                           data-loan-id="@loan.Id"
+                           data-loan-name="@loan.LoanName"
+                           data-amount="@loan.AmountBorrowed.ToString("F2")"
+                           data-monthly="@loan.MonthlyPayment.ToString("F2")"
+                           data-firstdue="@(loan.PaymentSchedules != null && loan.PaymentSchedules.Any() ? loan.PaymentSchedules.OrderBy(s => s.PaymentDueDate).FirstOrDefault()?.PaymentDueDate.ToString("dd/MM/yyyy") : "N/A")">
+                            <span>Pay Now</span>
+                        </a>
+
                     </div>
                 </div>
+            </div>
             }
+
         </div>
 
         @if (!Model.Any())
         {
-            <div class="message-btn pt_7 text-center">
-                <button type="button" class="theme-btn" onclick="location.href='@Url.Action("Create", "Loans")'">
-                    <span>Create New</span>
-                </button>
-            </div>
+        <div class="message-btn pt_7 text-center">
+            <button type="button" class="theme-btn" onclick="location.href='@Url.Action("Create", "Loans")'">
+                <span>Create New</span>
+            </button>
+        </div>
         }
     </div>
 </section>
+<div class="modal fade" id="loanModal" tabindex="-1" role="dialog" aria-labelledby="loanModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loanModalLabel">Loan Payment Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Loan Name:</strong> <span id="modal-loan-name"></span></p>
+                <p><strong>Amount Borrowed:</strong> <span id="modal-amount"></span> $<p>
+                <p><strong>Monthly Payment:</strong> <span id="modal-monthly"></span> $</p>
+                <p><strong>First Due Date:</strong> <span id="modal-firstdue"></span></p>
+            </div>
+            <div class="modal-footer">
+                <a id="modal-pay-link" href="#" class="btn btn-primary">Proceed to Pay</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = new bootstrap.Modal(document.getElementById('loanModal'));
+        const buttons = document.querySelectorAll('.open-modal-btn');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const loanId = btn.dataset.loanId;
+                const loanName = btn.dataset.loanName;
+                const amount = btn.dataset.amount;
+                const monthly = btn.dataset.monthly;
+                const firstDue = btn.dataset.firstdue;
+
+                document.getElementById('modal-loan-name').innerText = loanName;
+                document.getElementById('modal-amount').innerText = amount;
+                document.getElementById('modal-monthly').innerText = monthly;
+                document.getElementById('modal-firstdue').innerText = firstDue;
+
+                document.getElementById('modal-pay-link').href = `/Loans/Pay/${loanId}`;
+
+                modal.show();
+            });
+        });
+    });
+</script>
+  

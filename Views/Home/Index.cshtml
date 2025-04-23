@@ -1,23 +1,23 @@
-@model List<CP2496H07Group1.Models.Slider>
+﻿@model List<CP2496H07Group1.Models.Slider>
 
     <section class="banner-section p_relative">
         <div class="banner-carousel owl-theme owl-carousel">
             @foreach (var slider in Model)
-        {
+            {
             <div class="slide-item p_relative" style="width: 100%; height: 100vh; overflow: hidden; position: relative;">
                 <div class="bg-layer"
                      style="background-image: url('@slider.Image');
-                            background-size: cover;
-                            background-position: center center;
-                            background-repeat: no-repeat;
-                            width: 100%;
-                            height: 100%;
-                            position: absolute;
-                            top: 0;
-                            left: 0;">
+                         background-size: cover;
+                         background-position: center center;
+                         background-repeat: no-repeat;
+                         width: 100%;
+                         height: 100%;
+                         position: absolute;
+                         top: 0;
+                         left: 0;">
                 </div>
                 <div class="pattern-layer"
-                     style="
+                     style="background-image: url(assets/images/shape/shape-1.png);
                             background-size: contain;
                             background-repeat: no-repeat;
                             position: absolute;
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-        }
+            }
         </div>
     </section>
 
@@ -47,7 +47,7 @@
                 items: 1,
                 loop: true,
                 autoplay: true,
-                autoplayTimeout: 6000, // thoi gian
+                autoplayTimeout: 4000, // thoi gian
                 autoplayHoverPause: true,
                 animateOut: 'fadeOut'
             });

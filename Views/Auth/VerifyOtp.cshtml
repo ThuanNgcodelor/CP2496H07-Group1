@@ -1,6 +1,5 @@
 @model VerifyOtpModel
 @using System.Security.Claims
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 <style>
     .appointment-form {
@@ -48,7 +47,7 @@
             <form asp-action="VerifyOtp" asp-controller="Auth" method="post">
                 <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
                 <input type="hidden" name="phoneNumber" value="@TempData["PhoneNumber"]" />
-                <input asp-for="Email" type="hidden" />
+                <input asp-for="Email" name="email" type="hidden" id="email" />
 
                 <div class="row clearfix">
                     <div class="sec-title">
@@ -112,6 +111,16 @@
                             <button type="submit" class="theme-btn"><span><i class="fas fa-check mr-2"></i>Submit OTP</span></button>
                         </div>
                     </div>
+                    
+                    <div class="col-12 text-center mt-2">
+                        <span id="countdown" class="text-muted">Resend OTP in <strong>30</strong> seconds</span>
+                        <button id="resendBtn" type="button" class="btn btn-link" style="display:none;"
+                                onclick="resendOtp()">Resend OTP</button>
+                        
+                        <span id="resendLimitMessage" class="text-danger" style="display:none;">
+                            You have reached the maximum number of OTP resend attempts. Please try again in 15 minute.
+                        </span>
+                    </div>
 
                     <div class="col-12 text-center mt-4 text-muted">
                         Time: @DateTime.Now.ToString("MMM dd, yyyy")
@@ -122,10 +131,17 @@
     </div>
 </section>
 
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     const otpInput = document.getElementById("otpInput");
     const otpResult = document.getElementById("otpResult");
@@ -170,3 +186,143 @@
     });
 
 </script>
+
+<script>
+    let resendData = JSON.parse(localStorage.getItem('otpResendDataRegister')) || {
+        attempts: 0,
+        timestamp: Date.now()
+    };
+    let resendAttempts = resendData.attempts;
+    const maxResendAttempts = 3;
+    const ttl = 15 * 60  * 1000; // 1h
+
+    let countdownTime = 15;
+    const countdownDisplay = document.getElementById("countdown");
+    const resendBtn = document.getElementById("resendBtn");
+    const resendLimitMessage = document.getElementById("resendLimitMessage");
+
+    // Check if resend data expired
+    if (Date.now() - resendData.timestamp > ttl) {
+        resendAttempts = 0;
+        localStorage.setItem('otpResendDataRegister', JSON.stringify({
+            attempts: 0,
+            timestamp: Date.now()
+        }));
+    }
+
+    // chinh lai the a
+    if (resendAttempts >= maxResendAttempts) {
+        countdownDisplay.style.display = "none";
+        resendBtn.style.display = "none";
+        resendLimitMessage.style.display = "inline";
+    }
+
+    // Thoi gian tru di trong 30s
+    const countdownInterval = setInterval(() => {
+        countdownTime--;
+        countdownDisplay.innerHTML = `Resend OTP in <strong>${countdownTime}</strong> seconds`;
+
+        if (countdownTime <= 0) {
+            clearInterval(countdownInterval);
+            countdownDisplay.style.display = "none";
+            if (resendAttempts < maxResendAttempts) {
+                resendBtn.style.display = "inline-block";
+            } else {
+                resendLimitMessage.style.display = "inline";
+            }
+        }
+    }, 1000);
+
+    // Warn before reload
+    // window.addEventListener('beforeunload', function (e) {
+    //     if (resendAttempts < maxResendAttempts) {
+    //         const confirmationMessage = 'Reloading the page may reset your OTP progress. Are you sure?';
+    //         (e || window.event).returnValue = confirmationMessage;
+    //         return confirmationMessage;
+    //     }
+    // });
+
+
+    async function resendOtp() {
+        resendBtn.disabled = true;
+
+        try {
+            const email = document.getElementById("email").value;
+            const response = await fetch('/Auth/ResendOtp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `email=${encodeURIComponent(email)}`
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                resendAttempts++;
+                localStorage.setItem('otpResendDataRegister', JSON.stringify({
+                    attempts: resendAttempts,
+                    timestamp: Date.now()
+                }));
+
+                // Reset countdown
+                countdownTime = 15;
+                countdownDisplay.style.display = "inline-block";
+                resendBtn.style.display = "none";
+                resendLimitMessage.style.display = "none";
+
+                const interval = setInterval(() => {
+                    countdownTime--;
+                    countdownDisplay.innerHTML = `Resend OTP in <strong>${countdownTime}</strong> seconds`;
+                    if (countdownTime <= 0) {
+                        clearInterval(interval);
+                        countdownDisplay.style.display = "none";
+                        if (resendAttempts < maxResendAttempts) {
+                            resendBtn.style.display = "inline-block";
+                        } else {
+                            resendLimitMessage.style.display = "inline";
+                        }
+                    }
+                }, 1000);
+                showCustomAlert("OTP resent successfully.");
+            } else {
+                showCustomAlert("Failed to resend OTP. Please try again later.");
+            }
+        } catch (error) {
+            alert("An error occurred while resending OTP.");
+        } finally {
+            resendBtn.disabled = false;
+        }
+    }
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+
+</script>
+
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292; 
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+</style>

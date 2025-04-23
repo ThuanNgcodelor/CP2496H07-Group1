@@ -54,21 +54,17 @@
                         <h2>Enter OTP</h2>
                     </div>
 
-                    @* ✅ Thông báo thành công từ TempData *@
                     @if (TempData["Message"] != null)
                     {
                         <div class="col-12">
                             <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                                 @TempData["Message"]
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                         </div>
                     }
-
-
-                    
 
                     <input type="hidden" name="UserId"
                            value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value"/>
@@ -82,36 +78,50 @@
                             <input type="text" id="otpInput" name="otp" placeholder="Enter OTP" pattern="\d{6}"
                                    maxlength="6" required title="OTP must be 6 digits">
 
-                            <!-- Thông báo lỗi hiển thị ngay dưới input -->
                             <span id="otpResult" class="text-danger">
-            @Html.ValidationMessage("otp", "", new { @class = "text-danger" })
-        </span>
+                                @Html.ValidationMessage("otp", "", new { @class = "text-danger" })
+                            </span>
                         </div>
                     </div>
-
+                    <input type="hidden" name="phoneNumber" id="phoneNumber" value="@ViewBag.phoneNumber">
 
                     <div class="col-12">
                         <div class="message-btn pt_7">
                             <button type="submit" class="theme-btn"><span>Submit OTP</span></button>
                         </div>
                     </div>
-
+                    <div class="col-12 text-center mt-2">
+                        <span id="countdown" class="text-muted">Resend OTP in <strong>30</strong> seconds</span>
+                        <button id="resendBtn" type="button" class="btn btn-link" style="display:none;"
+                                onclick="resendOtp()">Resend OTP
+                        </button>
+                        <span id="resendLimitMessage" class="text-danger" style="display:none;">
+                            You have reached the maximum number of OTP resend attempts. Please try again in 15 minute.
+                        </span>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
     const otpInput = document.getElementById("otpInput");
     const otpResult = document.getElementById("otpResult");
 
     otpInput.addEventListener("input", function () {
-        let value = this.value.replace(/\D/g, '').slice(0, 6); 
+        let value = this.value.replace(/\D/g, '').slice(0, 6);
         this.value = value;
 
         if (value.length < 6) {
@@ -130,9 +140,147 @@
             return;
         }
 
-        // Ngăn nhập chữ
         if (!/\d/.test(e.key)) {
             e.preventDefault();
         }
     });
 </script>
+
+<script>
+    let resendData = JSON.parse(localStorage.getItem('otpResendData')) || {
+        attempts: 0,
+        timestamp: Date.now()
+    };
+    let resendAttempts = resendData.attempts;
+    const maxResendAttempts = 3;
+    const ttl = 15 * 60 * 1000; // 15 phút
+
+    let countdownTime = 15;
+    const countdownDisplay = document.getElementById("countdown");
+    const resendBtn = document.getElementById("resendBtn");
+    const resendLimitMessage = document.getElementById("resendLimitMessage");
+
+    // Check if resend data expired
+    if (Date.now() - resendData.timestamp > ttl) {
+        resendAttempts = 0;
+        localStorage.setItem('otpResendData', JSON.stringify({
+            attempts: 0,
+            timestamp: Date.now()
+        }));
+    }
+
+    // chinh lai the a
+    if (resendAttempts >= maxResendAttempts) {
+        countdownDisplay.style.display = "none";
+        resendBtn.style.display = "none";
+        resendLimitMessage.style.display = "inline";
+    }
+
+    // Countdown logic
+    const countdownInterval = setInterval(() => {
+        countdownTime--;
+        countdownDisplay.innerHTML = `Resend OTP in <strong>${countdownTime}</strong> seconds`;
+
+        if (countdownTime <= 0) {
+            clearInterval(countdownInterval);
+            countdownDisplay.style.display = "none";
+            if (resendAttempts < maxResendAttempts) {
+                resendBtn.style.display = "inline-block";
+            } else {
+                resendLimitMessage.style.display = "inline";
+            }
+        }
+    }, 1000);
+
+    // Warn before reload
+    // window.addEventListener('beforeunload', function (e) {
+    //     if (resendAttempts < maxResendAttempts) {
+    //         const confirmationMessage = 'Reloading the page may reset your OTP progress. Are you sure?';
+    //         (e || window.event).returnValue = confirmationMessage;
+    //         return confirmationMessage;
+    //     }
+    // });
+
+    function resendOtp() {
+        if (resendAttempts >= maxResendAttempts) {
+            resendLimitMessage.style.display = "inline";
+            resendBtn.style.display = "none";
+            return;
+        }
+
+        const phoneNumber = document.getElementById("phoneNumber").value;
+
+        $.ajax({
+            url: '/Auth/RefreshSendOtpForgotPassword',
+            method: 'POST',
+            data: {phoneNumber: phoneNumber},
+            success: function (res) {
+                if (res.success) {
+                    resendAttempts++;
+                    localStorage.setItem('otpResendData', JSON.stringify({
+                        attempts: resendAttempts,
+                        timestamp: Date.now()
+                    }));
+                    countdownTime = 15;
+                    resendBtn.style.display = "none";
+                    countdownDisplay.style.display = "inline";
+                    countdownDisplay.innerHTML = `Resend OTP in <strong>${countdownTime}</strong> seconds`;
+
+                    const interval = setInterval(() => {
+                        countdownTime--;
+                        countdownDisplay.innerHTML = `Resend OTP in <strong>${countdownTime}</strong> seconds`;
+                        if (countdownTime <= 0) {
+                            clearInterval(interval);
+                            countdownDisplay.style.display = "none";
+                            if (resendAttempts < maxResendAttempts) {
+                                resendBtn.style.display = "inline-block";
+                            } else {
+                                resendLimitMessage.style.display = "inline";
+                                resendBtn.style.display = "none";
+                            }
+                        }
+                    }, 1000);
+                    showCustomAlert("OTP has been resent to your phone number. Please check your phone for the OTP.")
+                } else {
+                    alert("Có lỗi xảy ra khi gửi lại OTP.");
+                }
+            },
+            error: function () {
+                alert("Không thể kết nối đến máy chủ. Vui lòng thử lại.");
+            }
+        });
+    }
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+
+
+</script>
+
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+</style>

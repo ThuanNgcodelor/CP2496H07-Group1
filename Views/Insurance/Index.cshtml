@@ -15,23 +15,30 @@
 
 <section class="sidebar-page-container blog-list-two pt_120 pb_120">
     <div class="auto-container">
+        <div class="sec-title centred">
+            <span class="sub-title">TeckBank</span>
+        </div>
         <div class="row clearfix">
-
             <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                 <div class="blog-list-content">
-
                     @foreach (var item in Model)
                     {
                         <div class="news-block-one style-two">
                             <div class="inner-box">
                                 <div class="image-box">
-                                    <figure class="image"><a href=""><img
+                                    <figure class="image">
+                                        <a href="">
+                                            <img
                                                 src="~/images/news/news-29.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image"><a href=""><img
+                                    <figure class="overlay-image">
+                                        <a href="">
+                                            <img
                                                 src="~/images/news/news-29.jpg" alt=""></a></figure>
-                                    <div class="view-btn"><a href="~/images/news/news-29.jpg"
-                                                             class="lightbox-image"
-                                                             data-fancybox="gallery"><img
+                                    <div class="view-btn">
+                                        <a href="~/images/news/news-29.jpg"
+                                           class="lightbox-image"
+                                           data-fancybox="gallery">
+                                            <img
                                                 src="~/images/icons/icon-87.png" alt=""></a></div>
                                 </div>
 
@@ -43,7 +50,7 @@
                                             <h3 style="color: black;">
                                                 <a href="@Url.Action("Details", new { id = item.Id })"
                                                    style="color: black;">
-                                                    @item.Price.ToString("N0") VND
+                                                    @item.Price.ToString("C")
                                                 </a>
                                             </h3>
                                         </div>
@@ -58,20 +65,22 @@
 
                                         <div class="link-box">
                                             <ul class="post-info">
-                                                <li><h5><img src="~/images/icons/icon-37.png"
+                                                <li>
+                                                    <h5>
+                                                        <img src="~/images/icons/icon-37.png"
                                                              alt="">@item.DurationDays (Days)</h5>
                                                 </li>
                                                 <li><h5><img src="~/images/icons/icon-211.png" alt="">26 Comments</h5>
                                                 </li>
                                             </ul>
-                                            <a href="@Url.Action("Details", new { id = item.Id })"><i
+                                            <a href="@Url.Action("Details", new { id = item.Id })">
+                                                <i
                                                     class="flaticon-right-arrow"></i></a>
                                         </div>
                                         <br/>
                                         <button type="button" class="theme-btn buy-now-btn" data-id="@item.Id">
                                             <span>Buy Now</span>
                                         </button>
-
 
                                     </div>
                                 </div>
@@ -85,7 +94,8 @@
                             @if (Model.PageNumber > 1)
                             {
                                 <li>
-                                    <a href="@Url.Action("Index", new { page = Model.PageNumber - 1, keyword = ViewBag.Keyword })"><i
+                                    <a href="@Url.Action("Index", new { page = Model.PageNumber - 1, keyword = ViewBag.Keyword })">
+                                        <i
                                             class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
                             }
 
@@ -100,7 +110,8 @@
                             @if (Model.PageNumber < Model.PageCount)
                             {
                                 <li>
-                                    <a href="@Url.Action("Index", new { page = Model.PageNumber + 1, keyword = ViewBag.Keyword })"><i
+                                    <a href="@Url.Action("Index", new { page = Model.PageNumber + 1, keyword = ViewBag.Keyword })">
+                                        <i
                                             class="flaticon-next"></i><span aria-hidden="true"></span></a></li>
                             }
                         </ul>
@@ -163,7 +174,7 @@
                         style="filter: invert(1);"></button>
             </div>
             <div class="modal-body p-4">
-                <form id="buyForm">
+                <form id="buyForm" asp-controller="Insurance" asp-action="PaymentCard">
                     <div class="mb-3">
                         <label class="form-label text-dark">Package Name</label>
                         <input type="text" class="form-control" id="insuranceName" readonly>
@@ -181,8 +192,8 @@
                         <input type="text" class="form-control" id="insuranceDuration" readonly>
                     </div>
                     <div class="mb-3">
-                        <select class="form-control w-50"  id="paymentType" style="min-width: 100%;">
-                            <option value="" disabled selected> -- Payment Type -- </option>
+                        <select class="form-control w-50" id="paymentType" style="min-width: 100%;">
+                            <option value="" disabled selected> -- Payment Type --</option>
                             <option value="sec">Sec</option>
                             <option value="card">Card</option>
                         </select>
@@ -205,7 +216,6 @@
 </div>
 
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const buyNowButtons = document.querySelectorAll('.buy-now-btn');
@@ -224,13 +234,14 @@
                         document.getElementById('insuranceDuration').value = data.durationDays;
 
                         // Hiển thị modal
-                        const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
+                        const modalElement = document.getElementById('buyNowModal');
+                        const modal = new bootstrap.Modal(modalElement);
                         modal.show();
 
-                        // Lấy lại nút Proceed bên trong modal mỗi lần mở
-                        const proceedButton = document.querySelector('#buyNowModal .btn-danger');
+                        // Gán lại sự kiện cho nút Proceed
+                        const proceedButton = modalElement.querySelector('.btn-danger');
 
-                        // Xoá sự kiện cũ để tránh bị lặp
+                        // Loại bỏ sự kiện cũ
                         const newButton = proceedButton.cloneNode(true);
                         proceedButton.parentNode.replaceChild(newButton, proceedButton);
 
@@ -251,10 +262,30 @@
                                     const result = await response.json();
 
                                     if (response.ok && result.success) {
-                                        showCustomAlert("Payment successful!");
+                                        showCustomAlert("Processing...!");
 
                                         setTimeout(() => {
-                                            window.location.href = "/Insurance/PaymentCard";
+                                            window.location.href = `/Insurance/PaymentByCard?id=${id}`;
+                                        }, 2000);
+                                    } else {
+                                        showCustomAlert(result.message || "Payment failed.");
+                                    }
+                                } catch (err) {
+                                    console.error("Error:", err);
+                                    showCustomAlert("An error occurred during payment.");
+                                }
+                            } else if (paymentType === "sec") {
+                                try {
+                                    const response = await fetch(`/Insurance/PaymentSec?id=${id}`, {
+                                        method: 'POST'
+                                    });
+
+                                    const result = await response.json();
+
+                                    if (response.ok && result.success) {
+                                        showCustomAlert("Processing...!");
+                                        setTimeout(() => {
+                                            window.location.href = `/Insurance/PaymentBySec?id=${id}`;
                                         }, 1500);
                                     } else {
                                         showCustomAlert(result.message || "Payment failed.");
@@ -264,7 +295,7 @@
                                     showCustomAlert("An error occurred during payment.");
                                 }
                             } else {
-                                showCustomAlert("Proceeding with other payment methods (not implemented).");
+                                showCustomAlert("Unknown payment type selected.");
                             }
                         });
                     })
@@ -277,19 +308,19 @@
     });
 
     function showCustomAlert(message) {
-        const alertBox = document.getElementById("customAlert");
-        const messageBox = document.getElementById("customAlertMessage");
+        const alertBox = document.getElementById('customAlert');
+        const alertMessage = document.getElementById('customAlertMessage');
+        alertMessage.innerText = message;
 
-        messageBox.textContent = message;
-        alertBox.style.display = "block";
-        alertBox.style.opacity = 1;
+        alertBox.style.display = 'block';
+        alertBox.style.opacity = '1';
 
         setTimeout(() => {
-            alertBox.style.opacity = 0;
+            alertBox.style.opacity = '0';
             setTimeout(() => {
-                alertBox.style.display = "none";
+                alertBox.style.display = 'none';
             }, 500);
-        }, 3000);
+        }, 2000);
     }
 </script>
 

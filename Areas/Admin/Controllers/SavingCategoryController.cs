@@ -53,6 +53,15 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SavingCategory category)
         {
+            if (category.Month <= 0)
+            {
+                ModelState.AddModelError("Month", "Month must be greater than 0.");
+            }
+            if (category.Month > 120)
+            {
+                ModelState.AddModelError("Month", "Month cannot exceed 120.");
+            }
+
             if (ModelState.IsValid)
             {
                 category.Date = DateTime.Now; // Gán Date từ ứng dụng
@@ -98,6 +107,15 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
             {
                 _logger.LogWarning("Không tìm thấy danh mục tiết kiệm với ID: {Id}", id);
                 return NotFound();
+            }
+
+            if (category.Month <= 0)
+            {
+                ModelState.AddModelError("Month", "Month must be greater than 0.");
+            }
+            if (category.Month > 120)
+            {
+                ModelState.AddModelError("Month", "Month cannot exceed 120.");
             }
 
             if (ModelState.IsValid)

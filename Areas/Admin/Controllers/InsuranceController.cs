@@ -51,4 +51,10 @@ public class InsuranceController : Controller
         await _packageService.UpdateInsurancePackage(model,id);
         return RedirectToAction("Index", "Insurance");
     }
+
+    public async Task<IActionResult> Delete(long id)
+    {
+        await _packageService.DeleteInsurancePackage(id);
+        return RedirectToAction("Index", "Insurance");
+    }
 }

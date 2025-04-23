@@ -1,0 +1,240 @@
+
+@model CP2496H07Group1.Dtos.TopupInputModel
+
+
+<style>
+    .appointment-form {
+        width: 50%; 
+        margin: 0 auto; 
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        margin-bottom: 15px;
+    }
+
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .icon-box {
+        margin-bottom: 5px;
+    }
+
+    .message-btn {
+        text-align: center;
+    }
+
+    .form-group label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+        font-weight: 500;
+        padding-left: 5px; /* Slight indent for label */
+    }
+
+    .tab-buttons {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .tab-buttons h4 {
+            margin-bottom: 10px;
+        }
+
+    .tab-line {
+        width: 100%;
+        height: 3px;
+        background-color: red;
+    }
+    /* Adjust the right column to better fit the message section */
+    .right-column .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%; /* Ensure it takes full height */
+    }
+
+    .right-column .icon-box img {
+        width: 100%; /* Reduce QR code size to fit better */
+        height: auto;
+        object-fit: contain;
+    }
+
+    .right-column label {
+        text-align: center; /* Center the "Message" label */
+    }
+
+
+
+</style>
+
+<!-- appointment-section -->
+<section class="contact-section sec-pad">
+    <div class="pattern-layer" style="background-image: url(images/shape/shape-49.png);"></div>
+    <div class="auto-container">
+        @if (TempData["TopupSuccess"] != null)
+        {
+            <div class="alert alert-success">@TempData["TopupSuccess"]</div>
+        }
+        <div class="sec-title centred">
+            <span class="sub-title">Top up</span>
+            <h2>TopUp money into account</h2>
+        </div>
+        <div class="message-btn pt_7 text-center">
+            <button type="button" class="theme-btn" onclick="location.href='@Url.Action("HistoryTopup", "Topup")'">
+                <span>View history topup</span>
+            </button>
+        </div>
+
+ 
+        <div class="tabs-box">
+           
+            <div class="tabs-content">
+                <div class="tab active-tab" id="tab-3">
+                    <div class="form-inner">
+                        
+                            <form method="post" asp-action="Index" enctype="multipart/form-data" id="contact-form">
+
+                            <div class="row clearfix">
+                                <!-- Left Column -->
+                                <div class="col-lg-6 col-md-12 col-sm-12 left-column">
+                                    <div class="form-group">
+                                        <div class="icon-box"><img src="assets/images/icons/icon-222.png" alt=""></div>
+                                        <label >FullName</label>  
+                                        <h4>@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</h4>
+                                    </div>
+                                    <div class="form-group">                                    
+                                        <label asp-for="AccountId">Select Account</label>
+                                        <select asp-for="AccountId" class="form-control" required>
+                                            <option value="">------------------Select Account ------------------</option>
+                                            @foreach (var acc in Model.Accounts)
+
+                                            {
+                                                <option value="@acc.AccountId">@acc.DisplayText</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="AccountId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                  
+                                        <label asp-for="AmountTopup">Top-up Amount</label>
+                                        @* <input asp-for="AmountTopup" class="form-control" placeholder="Enter amount" autocomplete="off" /> *@
+                                        <input type="text" id="amountDisplay" class="form-control" placeholder="Enter amount" autocomplete="off" required />
+                                        <input type="hidden" asp-for="AmountTopup" />
+                                        <span asp-validation-for="AmountTopup" class="text-danger"></span>
+                                      
+                                    </div>
+                                    <div class="form-group">
+                                        
+                                        <label for="imageUpload">Image</label>
+                                        <input id="imageUpload" name="imageUpload" type="file" accept="image/*" class="form-control" />
+                                        <span asp-validation-for="ImageUpload" class="text-danger"></span>
+
+                                       
+                                      
+                                    </div>
+
+                                    <div class="form-group">
+                                     
+                                        <label asp-for="Description">Description</label>
+                                        <input asp-for="Description" class="form-control" placeholder="Enter Description" required />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                
+
+                                    <div class="form-group">
+                                        <button type="submit" class="theme-btn" name="submit-form"><span>Top Up Now</span></button>
+                                    </div>
+                                </div>
+                                
+                               
+                                <div class="col-lg-6 col-md-12 col-sm-12 right-column">
+
+                                    <div class="form-group">
+
+                                        <div class="icon-box">
+                                            <label><h1>Scan Qr code to top up</h1></label>
+                                            <img src="~/images/team/Qr.jpg" alt="Fixed Image" />
+                                    
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- form-inner -->
+                </div> <!-- tab -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const displayInput = document.getElementById('amountDisplay');
+    const hiddenInput = document.querySelector('input[name="AmountTopup"]');
+
+    displayInput.addEventListener('input', function () {
+        let raw = this.value.replace(/\D/g, '');
+        if (raw.length > 1 && raw.startsWith('0')) raw = raw.replace(/^0+/, '');
+        let formatted = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        this.value = formatted;
+        hiddenInput.value = raw;
+    });
+
+    displayInput.addEventListener('blur', function () {
+        let numericValue = this.value.replace(/\D/g, ''); // Lấy các chữ số
+
+        if (numericValue === '' || parseInt(numericValue) === 0) {
+            this.value = '';
+            hiddenInput.value = '';
+        } else {
+            let number = parseFloat(numericValue);
+            let formatted = number.toFixed(2); // Chuyển thành chuỗi dạng 1000.00
+            this.value = formatted;
+            hiddenInput.value = formatted;
+        }
+    });
+
+
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+        let isValid = true;
+        const accountId = document.querySelector('select[name="AccountId"]').value;
+        const amount = hiddenInput.value;
+        const image = document.getElementById('imageUpload').value;
+        const description = document.querySelector('input[name="Description"]').value;
+
+        let errorMessages = [];
+
+        if (!accountId) {
+            errorMessages.push("Please select an account.");
+            isValid = false;
+        }
+        if (!amount || parseFloat(amount) <= 0) {
+            errorMessages.push("Please enter a valid top-up amount.");
+            isValid = false;
+        }
+        if (!image) {
+            errorMessages.push("Please upload a photo.");
+            isValid = false;
+        }
+        if (!description.trim()) {
+            errorMessages.push("Please enter a description.");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            e.preventDefault();
+            alert(errorMessages.join("\n")); // You can style this with a modal if needed
+        }
+    });
+</script>

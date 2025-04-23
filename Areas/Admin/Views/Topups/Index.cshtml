@@ -1,0 +1,231 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Topup>
+
+@{
+    ViewData["Title"] = "Top-up List";
+    Layout = "_Layout";
+}
+
+<style>
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">             
+                <div class="mb-4">
+                    <form method="get" asp-action="Index">
+                        <div class="input-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search top-ups..." />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+                        </div>
+                    </form>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Account</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int index = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@item.Account?.AccountNumber</td>
+                                    <td>@item.AmountTopup.ToString("N0")</td>
+                                    <td  style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;"s>@item.Description</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.Image))
+                                        {
+                                            <img src="@item.Image" alt="Top-up Image" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;" />
+                                        }
+                                    </td>
+
+                                    <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@(item.Status ? "Active" : "Inactive")</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary view-topup-btn" data-id="@item.Id"
+                                                data-account="@item.Account?.AccountNumber"
+                                                data-amount="@item.AmountTopup.ToString("N0")"
+                                                data-description="@item.Description"
+                                                data-created="@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")"
+                                                data-status="@(item.Status ? "Active" : "Inactive")"
+                                                data-image="@item.Image">
+                                            <i class="bi bi-eye"></i> View Detail
+                                        </button>
+                                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
+                                              onsubmit="return confirm('Are you sure you want to delete this Topup?');">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="topupModal" tabindex="-1" aria-labelledby="topupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topupModalLabel">Top-up Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="topupDetails">
+                    <p><strong>Account Number:</strong> <span id="modalAccountNumber"></span></p>
+                    <p><strong>Amount:</strong> <span id="modalAmount"></span></p>
+                    <p><strong>Description:</strong></p>
+                    <textarea id="modalDescriptionInput" class="form-control" rows="3"></textarea>
+                    <p><strong>Created At:</strong> <span id="modalCreatedAt"></span></p>
+                    <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                    <p><strong>Image:</strong><br /><img id="modalImage" src="" alt="Top-up Image" width="100" /></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="modalTopupId" />
+                <button type="button" class="btn btn-success" id="confirmTopupBtn">
+                    <i class="bi bi-check-circle"></i> Confirm Top-up
+                </button>
+                <button type="button" class="btn btn-warning" id="sendReminderBtn">
+                    <i class="bi bi-bell"></i> Send
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".view-topup-btn");
+
+        // Xử lý sự kiện khi bấm nút xem chi tiết top-up
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function () {
+                try {
+                    // Gán dữ liệu vào modal
+                    document.getElementById("modalTopupId").value = btn.dataset.id || "";
+                    document.getElementById("modalAccountNumber").textContent = btn.dataset.account || "N/A";
+                    document.getElementById("modalAmount").textContent = btn.dataset.amount || "N/A";
+                    document.getElementById("modalDescriptionInput").value = btn.dataset.description || "";
+                    document.getElementById("modalCreatedAt").textContent = btn.dataset.created || "N/A";
+                    document.getElementById("modalStatus").textContent = btn.dataset.status || "N/A";
+
+                    const img = document.getElementById("modalImage");
+                    if (btn.dataset.image) {
+                        img.src = btn.dataset.image;
+                        img.style.display = "inline";
+                    } else {
+                        img.src = "";
+                        img.style.display = "none";
+                    }
+
+                    // Hiển thị modal
+                    const modal = new bootstrap.Modal(document.getElementById("topupModal"));
+                    modal.show();
+                } catch (error) {
+                    console.error("Error opening modal:", error);
+                    alert("Đã xảy ra lỗi khi mở modal. Vui lòng kiểm tra console.");
+                }
+            });
+        });
+
+        // Xử lý sự kiện gửi lời nhắc (gửi email xác nhận top-up)
+        document.getElementById("sendReminderBtn").addEventListener("click", function () {
+            const topupId = document.getElementById("modalTopupId").value;
+            const newDescription = document.getElementById("modalDescriptionInput").value;
+
+            if (!newDescription) {
+                alert("Please enter a description before sending the reminder..");
+                return;
+            }
+
+            // Change button text to "Processing..." and disable it
+            const sendBtn = document.getElementById("sendReminderBtn");
+            sendBtn.textContent = "Processing...";
+            sendBtn.disabled = true;
+
+            fetch(`/Admin/Topups/UpdateDescription/${topupId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newDescription)
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Confirmation reminder sent successfully!");
+                        location.reload();
+                    } else {
+                        return res.text().then(text => {
+                            console.error("Server response:", text);
+                            alert("Unable to update description: " + text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending reminder:", error);
+                    alert("An error occurred while sending the reminder.");
+                })
+                .finally(() => {
+                    // Re-enable the button and restore its original text
+                    sendBtn.textContent = "Send";
+                    sendBtn.disabled = false;
+                });
+        });
+
+        // Xử lý sự kiện xác nhận top-up (chuyển sang Active)
+        document.getElementById("confirmTopupBtn").addEventListener("click", function () {
+            const topupId = document.getElementById("modalTopupId").value;
+
+            if (!topupId) {
+                alert("Top-up ID not found.");
+                return;
+            }
+
+            fetch(`/Admin/Topups/ConfirmTopup/${topupId}`, {
+                method: "POST"
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Top-up has been confirmed successfully!");
+                        location.reload();
+                    } else {
+                        return res.text().then(text => {
+                            console.error("Top-up confirmation error:", text);
+                            alert("Confirmation failed: " + text);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error while confirming:", error);
+                    alert("An error occurred while confirming top-up..");
+                });
+        });
+    });
+
+</script>
+

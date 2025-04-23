@@ -1,0 +1,119 @@
+﻿@model List<CP2496H07Group1.Models.Comment>
+@{
+    ViewData["Title"] = "All Comments";
+    var topLevelComments = Model.Where(c => c.ParentId == null).ToList();
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h6 class="mb-0">All Comments</h6>
+            <a class="btn btn-sm btn-primary" href="@Url.Action("Index", "Dashboard")">Back to Dashboard</a>
+        </div>
+
+        @if (topLevelComments.Any())
+        {
+            foreach (var comment in topLevelComments)
+            {
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex mb-3">
+                            <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -15 : comment.UserId)"
+                                 class="rounded-circle me-3"
+                                 alt="avatar"
+                                 style="width:60px; height:60px; object-fit:cover;" />
+                            <div class="flex-grow-1">
+                                <div class="comment-header d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        @if (comment.IsAdminReply)
+                                        {
+                                            <span class="badge bg-danger me-2">ADMIN</span>
+                                            <strong>@comment.Admin?.Username</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong>@comment.User?.FirstName @comment.User?.LastName</strong>
+                                        }
+                                        <small class="text-muted ms-2">@comment.CreatedAt.ToString("g")</small>
+                                    </div>
+                                </div>
+                                <p class="comment-content">@comment.Content</p>
+
+                                <!-- Admin Reply Form -->
+                                <form asp-area="Admin" asp-controller="Comment" asp-action="Reply" method="post" class="mt-3">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="commentId" value="@comment.Id" />
+                                    <div class="input-group">
+                                        <textarea name="content" class="form-control" placeholder="Write admin reply..." required></textarea>
+                                        <button type="submit" class="btn btn-primary">Reply as Admin</button>
+                                    </div>
+                                </form>
+
+                                <!-- Replies Section -->
+                                <div class="replies mt-4">
+                                    @foreach (var reply in comment.Replies.OrderBy(r => r.CreatedAt))
+                                    {
+                                        <div class="reply-item card mb-2 @(reply.IsAdminReply ? "admin-reply" : "user-reply")">
+                                            <div class="card-body d-flex p-3">
+                                                <img src="https://i.pravatar.cc/50?u=@(reply.IsAdminReply ? -15 : reply.UserId)"
+                                                     class="rounded-circle me-3 mt-1"
+                                                     alt="avatar"
+                                                     style="width:50px; height:50px; object-fit:cover;" />
+                                                <div class="flex-grow-1">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            @if (reply.IsAdminReply)
+                                                            {
+                                                                <span class="badge bg-danger me-2">ADMIN</span>
+                                                                <strong>@reply.Admin?.Username</strong>
+                                                            }
+                                                            else
+                                                            {
+                                                                <strong>@reply.User?.FirstName @reply.User?.LastName</strong>
+                                                            }
+                                                        </div>
+                                                        <small class="text-muted">@reply.CreatedAt.ToString("g")</small>
+                                                    </div>
+                                                    <p class="mb-0 mt-2">@reply.Content</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center text-muted">No comments found.</div>
+        }
+    </div>
+</div>
+
+<style>
+    .admin-reply {
+        border-left: 3px solid #dc3545;
+        background-color: rgba(220, 53, 69, 0.05);
+    }
+
+    .user-reply {
+        border-left: 2px solid #6c757d;
+        background-color: #f8f9fa;
+    }
+
+    .replies {
+        border-left: 1px solid #dee2e6;
+        padding-left: 1rem;
+    }
+
+    .comment-content {
+        white-space: pre-wrap;
+    }
+
+    .rounded-circle {
+        border: 1px solid #dee2e6;
+    }
+</style>

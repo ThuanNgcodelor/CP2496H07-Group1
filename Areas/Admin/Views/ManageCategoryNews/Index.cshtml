@@ -78,7 +78,7 @@
                         {
                             <li class="page-item">
                                 <a class="page-link" href="@Url.Action("Index", new { page = pageNumber - 1, searchString = ViewData["CurrentFilter"] })" aria-label="Previous">
-                                    <span aria-hidden="true">�</span>
+                                    <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                         }
@@ -87,7 +87,7 @@
 
                         {
                             <li class="page-item disabled">
-                                <span class="page-link">�</span>
+                                <span class="page-link">&laquo;</span>
                             </li>
                         }
 
@@ -104,7 +104,7 @@
                         {
                             <li class="page-item">
                                 <a class="page-link" href="@Url.Action("Index", new { page = pageNumber + 1, searchString = ViewData["CurrentFilter"] })" aria-label="Next">
-                                    <span aria-hidden="true">�</span>
+                                    <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         }
@@ -113,7 +113,7 @@
 
                         {
                             <li class="page-item disabled">
-                                <span class="page-link">�</span>
+                                <span class="page-link">&raquo;</span>
                             </li>
                         }
                     </ul>

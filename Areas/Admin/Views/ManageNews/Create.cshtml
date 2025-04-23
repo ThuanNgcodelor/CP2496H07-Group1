@@ -10,10 +10,8 @@
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Add News</h6>
-
-                <form asp-action="Create" enctype="multipart/form-data" method="post" id="newsForm">
+                <form asp-action="Create" asp-controller="ManageNews" enctype="multipart/form-data" method="post" id="newsForm">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
                     <div class="row mb-3">
                         <label asp-for="Title" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
@@ -25,7 +23,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
-                            <input type="file" name="imageFile" class="form-control" required />
+                            <input type="file" class="form-control" name="imageFile"/>
                             <span class="text-danger">@ViewBag.ImageError</span>
                         </div>
                     </div>
@@ -33,26 +31,29 @@
                     <div class="row mb-3">
                         <label asp-for="CategoryId" class="col-sm-2 col-form-label">News Category</label>
                         <div class="col-sm-10">
-                            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
+                                <option value="">-- Select --</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label asp-for="Content" class="col-sm-2 col-form-label">Content</label>
-                        <div class="col-sm-10">
+        <label asp-for="Content" class="col-sm-2 col-form-label">Content</label>
+        <div class="col-sm-10">
                             <textarea asp-for="Content" class="form-control" id="newsContent" rows="6"></textarea>
                             <span asp-validation-for="Content" class="text-danger"></span>
-                        </div>
-                    </div>
 
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a asp-action="Index" class="btn btn-secondary ms-2">Back to list</a>
-                </form>
-            </div>
         </div>
-    </div>
 </div>
 
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Back to list</a>
+</form>
+</div>
+</div>
+    </div>
+</div>
 <!-- CKEditor 5 Classic CDN -->
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
@@ -70,11 +71,29 @@
 
     document.getElementById('newsForm').addEventListener('submit', function (e) {
         const content = newsEditor.getData().trim();
-        if (!content) {
+        document.querySelector('#newsContent').value = content;
+
+        if (content.length < 20) {
+            e.preventDefault(); // Ngăn submit
             document.querySelector('#newsContent').classList.add('is-invalid');
-            e.preventDefault();
+
+            // Nếu chưa có span để báo lỗi, thêm thủ công
+            let errorSpan = document.querySelector('#content-error');
+            if (!errorSpan) {
+                errorSpan = document.createElement('span');
+                errorSpan.id = "content-error";
+                errorSpan.className = "text-danger";
+                document.querySelector('#newsContent').parentNode.appendChild(errorSpan);
+            }
+            errorSpan.innerText = "Content must be at least 20 characters";
         } else {
-            document.querySelector('#newsContent').value = content;
+            document.querySelector('#newsContent').classList.remove('is-invalid');
+            const errorSpan = document.querySelector('#content-error');
+            if (errorSpan) errorSpan.innerText = "";
         }
     });
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>

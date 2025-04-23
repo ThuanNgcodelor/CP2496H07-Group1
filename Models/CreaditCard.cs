@@ -8,6 +8,10 @@ public class CreditCard
     public required decimal CreditLimit { get; set; }      // Hạn mức
     public required decimal CurrentDebt { get; set; }      // Số tiền đã tiêu
     public required decimal InterestRate { get; set; }     // Lãi suất (%)
+
+    public decimal NewDebt { get; set; } = 0;
+    
+    public required DateTime BillingCycleStart { get; set; }
     public required DateTime StatementDate { get; set; }   // Ngày sao kê
     public required DateTime DueDate { get; set; }         // Ngày thanh toán tra truoc ngay nay thi ko bi tinh lai
     public bool IsActive { get; set; } = true;             // Trạng thái thẻ

@@ -28,16 +28,19 @@ public class NewsController : Controller
         }
 
         var totalItems = await newsQuery.CountAsync();
+ 
+        
         var newsItems = await newsQuery
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+        
 
         ViewBag.TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
         ViewBag.CurrentPage = pageNumber;
         ViewBag.CategoryId = categoryId;
 
-        if (newsItems == null || !newsItems.Any())
+        if (!newsItems.Any())
         {
             return View(new List<News>());
         }
