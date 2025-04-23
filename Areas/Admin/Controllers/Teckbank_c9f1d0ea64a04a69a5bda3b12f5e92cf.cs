@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using CP2496H07Group1.Configs.Jwt;
 using CP2496H07Group1.Configs.Redis;
+using CP2496H07Group1.Dtos;
 using CP2496H07Group1.Services.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +14,8 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
     private readonly JwtHandler _jwtHandler;
     private readonly RedisService _redisService;
 
-    public Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf(IAuthService authService, JwtHandler jwtHandler, RedisService redisService)
+    public Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf(IAuthService authService, JwtHandler jwtHandler,
+        RedisService redisService)
     {
         _authService = authService;
         _jwtHandler = jwtHandler;
@@ -22,23 +25,34 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
     [HttpGet]
     public IActionResult Login()
     {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId != null)
+        {
+            return RedirectToAction("Users", "Auth");
+        }
         return View();
     }
-    
-    
+
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("AccessToken");
+        return RedirectToAction("Login" , "Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf" , new { area = "Admin" });
+    }
+
+
     [HttpPost]
-    public async Task<IActionResult> Login(Models.Admin model)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
         try
         {
             var admin = await _authService.LoginAdmin(model);
             if (admin == null)
             {
-                return Json(new { success = false, message = "Login Failed" });
+                ModelState.AddModelError("", "Email or password is incorrect. Please try again.");
+                return View(model); 
             }
 
             var accessToken = await _jwtHandler.GenerateTokenAdmin(admin);
-            var refreshToken = await _jwtHandler.GenerateRefreshTokenAdmin(admin);
 
             Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
             {
@@ -47,29 +61,13 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTime.UtcNow.AddMinutes(30)
             });
-
-            Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddDays(30)
-            });
-
-            var cache = _redisService.GetDatabase();
-            await cache.StringSetAsync($"refreshToken:{admin.Id}", refreshToken, TimeSpan.FromDays(7));
-
-            var roles = admin.Roles.Select(r => r.RoleName).ToList();
-            if (roles.Contains("Admin"))
-            {
-                Url.Action("Index", "Dashboard", new { area = "Admin" });
-            }
+  
             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
         }
         catch (Exception ex)
         {
-            return Json(new { success = false, message = ex.Message });
+            ModelState.AddModelError("", "Password and Email error");
+            return View(model);
         }
-        
     }
 }

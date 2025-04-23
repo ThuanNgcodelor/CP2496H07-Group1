@@ -65,6 +65,10 @@ namespace CP2496H07Group1.Migrations
                     b.Property<long?>("Point")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
@@ -169,6 +173,31 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.ChatMessage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AdminId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Comment", b =>
                 {
                     b.Property<long>("Id")
@@ -228,6 +257,9 @@ namespace CP2496H07Group1.Migrations
                     b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("BillingCycleStart")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CardNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -246,6 +278,9 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("NewDebt")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StatementDate")
                         .HasColumnType("datetime2");
@@ -303,7 +338,8 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<string>("Question")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -363,6 +399,33 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("LoanOptions");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.LoanPaymentSchedule", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsReminderSent")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("LoanId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("PaymentDueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Paymentstatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoanId");
+
+                    b.ToTable("LoanPaymentSchedules");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
                 {
                     b.Property<long>("Id")
@@ -380,7 +443,7 @@ namespace CP2496H07Group1.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("LoanName")
+                    b.Property<long?>("LoanName")
                         .HasColumnType("bigint");
 
                     b.Property<long>("LoanOptionId")
@@ -394,6 +457,10 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -445,7 +512,8 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -617,6 +685,40 @@ namespace CP2496H07Group1.Migrations
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.Topup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("AmountTopup")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Topups");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Transaction", b =>
                 {
                     b.Property<long>("Id")
@@ -636,6 +738,9 @@ namespace CP2496H07Group1.Migrations
 
                     b.Property<long>("FromAccountId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ToAccountId")
                         .HasColumnType("bigint");
@@ -739,6 +844,10 @@ namespace CP2496H07Group1.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("InsuranceNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("PackageId")
                         .HasColumnType("bigint");
 
@@ -774,7 +883,7 @@ namespace CP2496H07Group1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("MoneyBack")
+                    b.Property<int?>("MoneyBack")
                         .HasColumnType("int");
 
                     b.Property<bool>("NoPick")
@@ -858,12 +967,23 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("DiscountCode");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.ChatMessage", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Admin", "Admin")
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Comment", b =>
                 {
                     b.HasOne("CP2496H07Group1.Models.Admin", "Admin")
                         .WithMany("Comments")
                         .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CP2496H07Group1.Models.News", "News")
                         .WithMany("Comments")
@@ -878,7 +998,7 @@ namespace CP2496H07Group1.Migrations
                     b.HasOne("CP2496H07Group1.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Admin");
 
@@ -898,6 +1018,17 @@ namespace CP2496H07Group1.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.LoanPaymentSchedule", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Loans", "Loan")
+                        .WithMany("PaymentSchedules")
+                        .HasForeignKey("LoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loan");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
@@ -972,6 +1103,17 @@ namespace CP2496H07Group1.Migrations
                     b.Navigation("SavingCategory");
                 });
 
+            modelBuilder.Entity("CP2496H07Group1.Models.Topup", b =>
+                {
+                    b.HasOne("CP2496H07Group1.Models.Account", "Account")
+                        .WithMany("Topups")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("CP2496H07Group1.Models.Transaction", b =>
                 {
                     b.HasOne("CP2496H07Group1.Models.DiscountCode", "DiscountCode")
@@ -1009,19 +1151,19 @@ namespace CP2496H07Group1.Migrations
                     b.HasOne("CP2496H07Group1.Models.InsurancePackage", "Package")
                         .WithMany("UserInsurances")
                         .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CP2496H07Group1.Models.Transaction", "Transaction")
                         .WithMany()
                         .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CP2496H07Group1.Models.User", "User")
                         .WithMany("UserInsurances")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Package");
@@ -1052,6 +1194,8 @@ namespace CP2496H07Group1.Migrations
 
                     b.Navigation("CreditCard");
 
+                    b.Navigation("Topups");
+
                     b.Navigation("TransactionsFrom");
 
                     b.Navigation("TransactionsTo");
@@ -1059,6 +1203,8 @@ namespace CP2496H07Group1.Migrations
 
             modelBuilder.Entity("CP2496H07Group1.Models.Admin", b =>
                 {
+                    b.Navigation("ChatMessages");
+
                     b.Navigation("Comments");
                 });
 
@@ -1085,6 +1231,11 @@ namespace CP2496H07Group1.Migrations
             modelBuilder.Entity("CP2496H07Group1.Models.LoanOption", b =>
                 {
                     b.Navigation("Loans");
+                });
+
+            modelBuilder.Entity("CP2496H07Group1.Models.Loans", b =>
+                {
+                    b.Navigation("PaymentSchedules");
                 });
 
             modelBuilder.Entity("CP2496H07Group1.Models.News", b =>

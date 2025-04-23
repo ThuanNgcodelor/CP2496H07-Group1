@@ -1,0 +1,154 @@
+@model CP2496H07Group1.Models.User
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Add New User</h6>
+                <form asp-action="Add" method="post" id="userForm">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">First Name</label>
+                        <div class="col-sm-10">
+                            <input asp-for="FirstName" class="form-control" id="FirstName" />
+                            <div class="invalid-feedback">Cannot be left blank.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Last Name</label>
+                        <div class="col-sm-10">
+                            <input asp-for="LastName" class="form-control" id="LastName" />
+                            <div class="invalid-feedback">Cannot be left blank.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Email" class="form-control" id="Email" />
+                            <div class="invalid-feedback">Invalid email. Must contain @@</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Identity</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Identity" class="form-control" id="Identity" />
+                            <div class="invalid-feedback">ID card/CCCD must have exactly 12 digits.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Phone Number</label>
+                        <div class="col-sm-10">
+                            <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber" />
+                            <div class="invalid-feedback">Phone number must be exactly 10 digits.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Address" class="form-control" id="Address" />
+                            <div class="invalid-feedback">Cannot be left blank.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input asp-for="PasswordHash" type="password" class="form-control" id="Password" />
+                            <div class="invalid-feedback">Password must contain at least 1 uppercase letter and at least 6 characters.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Birthday</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Birthday" type="date" class="form-control" id="Birthday" />
+                            <div class="invalid-feedback">Must be 16 years of age and no older than current date.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#userForm').on('submit', function (e) {
+            let isValid = true;
+            $('.form-control').removeClass('is-invalid');
+
+            function checkEmpty(id) {
+                const value = $(id).val().trim();
+                if (!value) {
+                    $(id).addClass('is-invalid');
+                    return false;
+                }
+                return true;
+            }
+
+            // Required fields
+            isValid &= checkEmpty('#FirstName');
+            isValid &= checkEmpty('#LastName');
+            isValid &= checkEmpty('#Address');
+
+            // Email validation
+            const email = $('#Email').val().trim();
+            if (!email || !email.includes('@@')) {
+                $('#Email').addClass('is-invalid');
+                isValid = false;
+            }
+
+            // Identity - must be 12 digits
+            const identity = $('#Identity').val().trim();
+            if (!/^\d{12}$/.test(identity)) {
+                $('#Identity').addClass('is-invalid');
+                isValid = false;
+            }
+
+            // Phone - must be 10 digits
+            const phone = $('#PhoneNumber').val().trim();
+            if (!/^\d{10}$/.test(phone)) {
+                $('#PhoneNumber').addClass('is-invalid');
+                isValid = false;
+            }
+
+            // Password - at least 6 characters, 1 uppercase
+            const password = $('#Password').val();
+            if (password.length < 6 || !/[A-Z]/.test(password)) {
+                $('#Password').addClass('is-invalid');
+                isValid = false;
+            }
+
+            // Birthday validation
+            const birthdayStr = $('#Birthday').val();
+            const birthday = new Date(birthdayStr);
+            const today = new Date();
+            const age = today.getFullYear() - birthday.getFullYear();
+            const monthDiff = today.getMonth() - birthday.getMonth();
+            const dayDiff = today.getDate() - birthday.getDate();
+
+            if (!birthdayStr || birthday > today || (age < 16 || (age === 16 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0))))) {
+                $('#Birthday').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

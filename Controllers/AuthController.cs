@@ -7,6 +7,7 @@ using CP2496H07Group1.Dtos;
 using CP2496H07Group1.Models;
 using CP2496H07Group1.Services.Account;
 using CP2496H07Group1.Services.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +35,94 @@ public class AuthController : Controller
 
 
     [HttpPost]
+    public async Task<IActionResult> Pay(string type, decimal? amount)
+    {
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(value))
+        {
+            return Json(new { success = false, message = "User not authenticated!" });
+        }
+
+        long userId = long.Parse(value);
+        var account = _context.Accounts
+            .Include(a => a.CreditCard)
+            .FirstOrDefault(a => a.UserId == userId && a.AccountType == "Credit Card");
+
+        if (account == null || account.CreditCard == null || !account.CreditCard.IsActive)
+            return Json(new { success = false, message = "No active credit card found!" });
+
+        var now = DateTime.Now.Date;
+        var statementDate = account.CreditCard.StatementDate.Date;
+        var dueDate = account.CreditCard.DueDate.Date;
+
+        if (now < statementDate || now > dueDate)
+        {
+            return Json(new
+            {
+                success = false,
+                message = $"Payment allowed only from {statementDate:yyyy-MM-dd} to {dueDate:yyyy-MM-dd}."
+            });
+        }
+
+
+        bool success = false;
+        if (type == "Full")
+        {
+            success = await _accountService.PayFullDebtAsync(userId);
+        }
+        else if (type == "Partial" && amount.HasValue)
+        {
+            success = await _accountService.PayPartialDebtAsync(userId, amount.Value);
+        }
+
+        if (success)
+        {
+            return Json(new { success = true, message = "Payment successful!" });
+        }
+
+        return Json(new { success = false, message = "Payment failed! Please check balance or debt." });
+    }
+
+
+    [HttpGet]
+    public IActionResult Users()
+    {
+        var role = User.FindFirst(ClaimTypes.Role)?.Value;
+        if (role == "Admin")
+        {
+            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+        }
+
+        var hashedId = User.Claims.FirstOrDefault(c => c.Type == "hashed_id")?.Value;
+        if (string.IsNullOrEmpty(hashedId))
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        var users = _context.Users.ToList();
+
+        var user = users.FirstOrDefault(u => _jwtHandler.HashId(u.Id) == hashedId);
+
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Auth");
+        }
+
+        var totalAmount = _context.Accounts
+            .Where(a => a != null && a.UserId == user.Id)
+            .Sum(a => a!.Balance);
+        var monthlyExpenses = _context.Users
+            .Where(u => u.Id == user.Id)
+            .SelectMany(u => u.Accounts)
+            .SelectMany(a => a.TransactionsFrom)
+            .Sum(t => t.Amount);
+        ViewBag.MonthlyExpenses = monthlyExpenses;
+        ViewBag.TotalAmount = totalAmount;
+
+        return View(user);
+    }
+
+    [HttpPost]
     public async Task<IActionResult> ChangeMail([FromBody] ChangeEmailRequest request)
     {
         try
@@ -46,7 +135,6 @@ public class AuthController : Controller
             return Json(new { success = false, message = ex.Message });
         }
     }
-
 
     [HttpPost]
     public async Task<IActionResult> ConfirmOtpChangeEmail([FromBody] ConfirmOtpRequest request)
@@ -92,7 +180,7 @@ public class AuthController : Controller
     }
 
     [HttpGet]
-    public IActionResult RecentTransactions(DateTime? fromDate, DateTime? toDate, int page = 1)
+    public IActionResult RecentTransactions(DateTime? fromDate, DateTime? toDate, string types, int page = 1)
     {
         var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -101,8 +189,16 @@ public class AuthController : Controller
             return RedirectToAction("Login", "Auth");
         }
 
+        var transactionTypes = _context.Transactions
+            .Select(t => t.TransactionType)
+            .Distinct()
+            .ToList();
+
+        ViewBag.TransactionTypes = transactionTypes;
+
         long userId = long.Parse(value);
-        var transaction = _transactionService.GetTransactions(userId, fromDate, toDate, page, 5);
+        List<string> typesList = string.IsNullOrEmpty(types) ? new List<string>() : new List<string> { types };
+        var transaction = _transactionService.GetTransactions(userId, fromDate, toDate, typesList, page, 5);
 
         return View(transaction);
     }
@@ -111,7 +207,14 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult EnterOtp()
     {
-        TempData["Message"] = "OTP code has been sent to your email";
+        TempData.Keep("PhoneNumber");
+
+        string? phone = TempData["PhoneNumber"] as string;
+        string? message = TempData["Message"] as string;
+
+        ViewBag.PhoneNumber = phone;
+        ViewBag.Message = message ?? "OTP code has been sent to your email";
+
         return View();
     }
 
@@ -122,7 +225,7 @@ public class AuthController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CardDetails(long accountId)
+    public async Task<IActionResult> CardDetails(long accountId, string pin)
     {
         var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (value == null)
@@ -132,14 +235,20 @@ public class AuthController : Controller
 
         long userId = long.Parse(value);
 
-        var account = await _accountService.GetAccountDetails(userId, accountId);
+        var account = await _accountService.GetAccountDetails(userId, accountId, pin);
         if (account == null)
         {
-            return NotFound();
+            ModelState.AddModelError("", "Invalid PIN.");
+            return RedirectToAction("Card", "Auth");
         }
+
+        // Lưu dấu xác thực 1 lần
+        TempData["AccessGranted"] = "true";
+        TempData.Keep("AccessGranted");
 
         return View(account);
     }
+
 
     [HttpGet]
     public async Task<IActionResult> Card()
@@ -168,6 +277,7 @@ public class AuthController : Controller
         return View();
     }
 
+
     [HttpPost]
     public async Task<IActionResult> CreateCard(string accountType, int pin, int confirmPin)
     {
@@ -192,6 +302,23 @@ public class AuthController : Controller
     }
 
 
+    [HttpPost]
+    [Route("Auth/ResendOtpCreateCard")]
+    public async Task<IActionResult> ResendOtpCreateCard()
+    {
+        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (value == null)
+        {
+            return Json(new { success = false, message = "User not found." });
+        }
+
+        var userId = long.Parse(value);
+
+        await _accountService.SendMailResendCreateOtp(userId);
+        return Json(new { success = true, message = "OTP has been resent to your email." });
+    }
+
+
     public async Task<IActionResult> EnterOtpCreateCard(long userId, string otp)
     {
         var account = await _accountService.VerifyOtpAndCommitCreateAccount(userId, otp);
@@ -207,50 +334,16 @@ public class AuthController : Controller
         return RedirectToAction("Card");
     }
 
-
-    [HttpGet]
-    public IActionResult Users()
-    {
-        var hashedId = User.Claims.FirstOrDefault(c => c.Type == "hashed_id")?.Value;
-        if (string.IsNullOrEmpty(hashedId))
-        {
-            return RedirectToAction("Login", "Auth");
-        }
-
-        var users = _context.Users.ToList();
-
-        var user = users.FirstOrDefault(u => _jwtHandler.HashId(u.Id) == hashedId);
-
-        if (user == null)
-        {
-            return RedirectToAction("Login", "Auth");
-        }
-
-        var totalAmount = _context.Accounts
-            .Where(a => a != null && a.UserId == user.Id)
-            .Sum(a => a!.Balance);
-        var monthlyExpenses = _context.Users
-            .Where(u => u.Id == user.Id)
-            .SelectMany(u => u.Accounts)
-            .SelectMany(a => a.TransactionsFrom)
-            .Sum(t => t.Amount);
-        ViewBag.MonthlyExpenses = monthlyExpenses;
-        ViewBag.TotalAmount = totalAmount;
-
-        return View(user);
-    }
-
-
     [HttpPost]
     public async Task<IActionResult> Forgot(string phoneNumber)
     {
         try
         {
-            
             if (!ModelState.IsValid)
             {
                 return View();
             }
+
             string result = await _authService.ForgotPassword(phoneNumber);
             TempData["PhoneNumber"] = phoneNumber;
             TempData.Keep("PhoneNumber");
@@ -262,9 +355,7 @@ public class AuthController : Controller
             ModelState.AddModelError("PhoneNumber", ex.Message);
             return View();
         }
-
     }
-
 
     [HttpPost]
     public async Task<IActionResult> EnterOtp(string? phoneNumber, string otp)
@@ -279,19 +370,15 @@ public class AuthController : Controller
 
             TempData["PhoneNumber"] = phoneNumber;
             TempData.Keep("PhoneNumber");
-
             await _authService.ValidateOtp(phoneNumber, otp);
-
             return RedirectToAction("NewPassword");
         }
         catch (Exception)
         {
-            // Gắn lỗi vào trường OTP để hiển thị ngay dưới input
             ModelState.AddModelError("Otp", "OTP code is incorrect. Please check and try again.");
             return View();
         }
     }
-
 
     [HttpPost]
     public async Task<IActionResult> NewPassword(string? phoneNumber, string newPassword, string confirmPassword)
@@ -350,7 +437,6 @@ public class AuthController : Controller
         }
     }
 
-
     [HttpPost]
     public async Task<IActionResult> Register(User model)
     {
@@ -370,18 +456,22 @@ public class AuthController : Controller
         }
         catch (ArgumentException ex)
         {
-            if (ex.Message.Contains("phone"))
+            if (ex.Message.Contains("phone") && ex.Message.Contains("email"))
             {
-                ModelState.AddModelError("PhoneNumber", ex.Message);  
+                ModelState.AddModelError("PhoneNumber", ex.Message);
+                ModelState.AddModelError("Email", ex.Message);
+            }
+            else if (ex.Message.Contains("phone"))
+            {
+                ModelState.AddModelError("PhoneNumber", ex.Message);
             }
             else if (ex.Message.Contains("email"))
             {
-                ModelState.AddModelError("Email", ex.Message);  
+                ModelState.AddModelError("Email", ex.Message);
             }
 
             return View(model);
         }
-
     }
 
     [HttpGet]
@@ -393,9 +483,24 @@ public class AuthController : Controller
             return RedirectToAction("Register", "Auth");
         }
 
-
         TempData.Keep("Email");
         return View(new VerifyOtpModel { Email = email });
+    }
+
+    [HttpPost]
+    [Route("Auth/ResendOtp")]
+    public async Task<IActionResult> ResendOtp(string email)
+    {
+        await _authService.ResendOtp(email);
+        return Json(new { success = true, message = "OTP code has been sent to your email" });
+    }
+
+    [HttpPost]
+    [Route("Auth/RefreshSendOtpForgotPassword")]
+    public async Task<IActionResult> RefreshSendOtpForgotPassword(string phoneNumber)
+    {
+        await _authService.ForgotPassword(phoneNumber);
+        return Json(new { success = true, message = "OTP code has been sent to your email" });
     }
 
     [HttpPost]
@@ -433,7 +538,6 @@ public class AuthController : Controller
 
             var accessToken = await _jwtHandler.GenerateToken(user);
             var refreshToken = await _jwtHandler.GenerateRefreshToken(user);
-
             Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
             {
                 HttpOnly = true,
@@ -441,7 +545,6 @@ public class AuthController : Controller
                 SameSite = SameSiteMode.Strict,
                 Expires = DateTime.UtcNow.AddMinutes(30)
             });
-
             Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
@@ -459,21 +562,22 @@ public class AuthController : Controller
             {
                 redirectUrl = Url.Action("Users", "Auth");
             }
+
             return Json(new { success = true, redirectUrl });
         }
         catch (ArgumentException ex)
         {
             string message = ex.Message switch
             {
-                { } msg when msg.StartsWith("Password is invalid") => 
-                    "Invalid password. 3 incorrect attempts will lock your account. Number of errors: " + msg.Replace("Password is invalid", "").Trim(),
+                { } msg when msg.StartsWith("Password is invalid") =>
+                    "Invalid password. 3 incorrect attempts will lock your account. Number of errors: " +
+                    msg.Replace("Password is invalid", "").Trim(),
                 "Phone number is invalid" => "Phone number is invalid. Please try again.",
                 "User has been locked" => "User has been locked out for entering the wrong password more than 3 times",
                 _ => throw new ArgumentOutOfRangeException()
             };
             return Json(new { success = false, message });
         }
-
     }
 
     //1: Get Id trong redis
@@ -488,9 +592,7 @@ public class AuthController : Controller
             return Unauthorized("Refresh token not found");
         }
 
-        // Giải mã RefreshToken để lấy UserId
         var principal = _jwtHandler.ValidateToken(refreshToken);
-
         var userId = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId))
         {
@@ -499,7 +601,6 @@ public class AuthController : Controller
 
         var cache = _redisService.GetDatabase();
         var storedToken = await cache.StringGetAsync($"refreshToken:{userId}");
-
         if (storedToken.IsNullOrEmpty || storedToken != refreshToken)
         {
             return Unauthorized("Invalid or expired refresh token");
@@ -508,7 +609,6 @@ public class AuthController : Controller
         var user = await _context.Users
             .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
         if (user == null)
         {
             return Unauthorized("User not found");
@@ -522,40 +622,63 @@ public class AuthController : Controller
             SameSite = SameSiteMode.Strict,
             Expires = DateTime.UtcNow.AddMinutes(30)
         });
-
         Console.WriteLine($"AccessToken: {newAccessToken}");
         return Ok(new { token = newAccessToken });
     }
 
+    public async Task<IActionResult> Logout()
+    {
+        try
+        {
+            if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
+            {
+                return BadRequest("No refresh token found");
+            }
+
+            var principal = _jwtHandler.ValidateToken(refreshToken);
+            var userId = principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User ID not found");
+            }
+
+            var cache = _redisService.GetDatabase();
+            await cache.KeyDeleteAsync($"refreshToken:{userId}");
+            Response.Cookies.Delete("RefreshToken");
+            Response.Cookies.Delete("AccessToken");
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+        return Unauthorized();
+    }
+
+
     [HttpGet]
     public async Task<IActionResult> IsLoggedIn()
     {
-        // Lấy refresh token từ cookie
         if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
         {
             return Unauthorized("Refresh token not found");
         }
 
-        // Validate refresh token để lấy thông tin user
         var principal = _jwtHandler.ValidateToken(refreshToken);
-
-
         var userId = principal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized("User ID not found in token");
         }
 
-        // Kiểm tra token có còn hợp lệ trong Redis không
         var cache = _redisService.GetDatabase();
         var storedToken = await cache.StringGetAsync($"refreshToken:{userId}");
-
         if (storedToken.IsNullOrEmpty || storedToken != refreshToken)
         {
             return Unauthorized("Token expired or mismatch");
         }
 
-        // Token hợp lệ
         return Ok(new { loggedIn = true });
     }
 }

@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets/Admin/img/3b727184-480a-4db5-82c8-8791fcea9788.jpg"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/Admin/img/57590db4-406d-4120-80ce-c57d6b977841.png",
+      "PackagePath": "staticwebassets/Admin/img/57590db4-406d-4120-80ce-c57d6b977841.png"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/Admin/img/946c391e-25e8-4058-aae1-36a6abc7230b.jpg",
       "PackagePath": "staticwebassets/Admin/img/946c391e-25e8-4058-aae1-36a6abc7230b.jpg"
     },
@@ -673,12 +677,20 @@
       "PackagePath": "staticwebassets/images/favicon.ico"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/icons/HuynhGiaLinh.pptx",
+      "PackagePath": "staticwebassets/images/icons/HuynhGiaLinh.pptx"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/icons/award-1.png",
       "PackagePath": "staticwebassets/images/icons/award-1.png"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/icons/award-2.png",
       "PackagePath": "staticwebassets/images/icons/award-2.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/icons/block.svg",
+      "PackagePath": "staticwebassets/images/icons/block.svg"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/icons/card-1.png",
@@ -1681,8 +1693,12 @@
       "PackagePath": "staticwebassets/images/logo-8.png"
     },
     {
-      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/logo.png",
-      "PackagePath": "staticwebassets/images/logo.png"
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/logo.jpg",
+      "PackagePath": "staticwebassets/images/logo.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/logo1.png",
+      "PackagePath": "staticwebassets/images/logo1.png"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/news/author-1.jpg",
@@ -2329,6 +2345,10 @@
       "PackagePath": "staticwebassets/images/shape/shape-9.png"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/team/Qr.jpg",
+      "PackagePath": "staticwebassets/images/team/Qr.jpg"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/team/team-1.jpg",
       "PackagePath": "staticwebassets/images/team/team-1.jpg"
     },
@@ -2363,6 +2383,10 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/team/team-9.jpg",
       "PackagePath": "staticwebassets/images/team/team-9.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/e4540af1-ba45-4c7f-842b-de1313b96281.jpg",
+      "PackagePath": "staticwebassets/images/topups/e4540af1-ba45-4c7f-842b-de1313b96281.jpg"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/js/appear.js",
@@ -2435,6 +2459,14 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/js/wow.js",
       "PackagePath": "staticwebassets/js/wow.js"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/1563c5a3-21a0-4c8e-b28a-a1201d765923.jpg",
+      "PackagePath": "staticwebassets/uploads/1563c5a3-21a0-4c8e-b28a-a1201d765923.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/2a6a2216-b544-4dfc-8354-d901632720fb.jpg",
+      "PackagePath": "staticwebassets/uploads/2a6a2216-b544-4dfc-8354-d901632720fb.jpg"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/acbecae8-2124-4f46-80ef-ea8d1216ea58.png",

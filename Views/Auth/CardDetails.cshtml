@@ -20,23 +20,16 @@
                 <div class="cards-sidebar pt_110 pb_120">
                     <div class="category-widget mb_30">
                         <div class="widget-title">
-                            <h3>Card Types</h3>
+                            <h3>Function</h3>
                         </div>
                         <ul class="category-list clearfix">
-                            <li><a href="card-details.html" class="current">Platinum Card</a></li>
-                            <li><a href="card-details-2.html">Millinnia Card</a></li>
-                            <li><a href="card-details-3.html">Money Back Card</a></li>
-                            <li><a href="card-details-4.html">Easy EMI Card</a></li>
-                            <li><a href="card-details-5.html">Dinners Club Privilege</a></li>
-                            <li><a href="card-details-6.html">Titanium Times</a></li>
+                            <li><a asp-action="Users" asp-controller="Auth">User Setting</a></li>
+                            <li><a asp-controller="Auth" asp-action="Card" class="current">My Card</a></li>
+                            <li><a asp-controller="Loans" asp-action="Index">My Loans</a></li>
+                            <li><a asp-controller="Insurance" asp-action="UserInsurance">My Insurance</a></li>
+                            <li><a asp-controller="Transfer" asp-action="Index">Transfer</a></li>
+                            <li><a asp-controller="Auth" asp-action="RecentTransactions">History Transaction</a></li>
                         </ul>
-                    </div>
-                    <div class="contact-widget">
-                        <div class="inner-box" style="background-image: url(images/resource/sidebar-1.jpg);">
-                            <h3>Now, Get Your Credit Card Online</h3>
-                            <span class="text">Approve with in 24 Hrs.</span>
-                            <a href="contact.html" class="theme-btn"><span>Apply Here</span></a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -44,188 +37,286 @@
                 <div class="card-details-content pt_110 pb_120">
                     <div class="content-one">
                         <div class="text-box mb_45">
-                            <h6>Details</h6>
-                            <h2>@Model.AccountType</h2>
-                            <p>Fail in their duty through weakness of will which is the same as saying through shrinking
-                                from toil and pain cases are perfectly simple and easy to distinguish. In a free hour,
-                                when our power of the claims off duty or the obligations business.</p>
-                            <p>Through weakness of will which is the same as saying through shrinking from toil and pain
-                                cases are perfectly simple and easy to distinguish in a free hour.</p>
+                            <h6>Know My Card</h6>
                         </div>
                         <div class="image-box">
                             <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-12 image-column">
-                                    <figure class="image"><img src="~/images/resource/card-6.jpg" alt=""></figure>
-                                </div>
+                                @if (@Model.AccountType == "Credit Card")
+                                {
+                                    <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                                        <figure class="image"><img src="~/images/resource/credit.png" alt=""></figure>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                                        <figure class="image"><img src="~/images/resource/normal.png" alt=""></figure>
+                                    </div>
+                                }
+
                                 <div class="col-lg-6 col-md-6 col-sm-12 image-column">
                                     <figure class="image"><img src="~/images/resource/card-7.jpg" alt=""></figure>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                    @if (@Model.AccountType == "Credit Card")
+                    {
+                        <div class="content-two mb_10">
+                            <div class="text-box mb_35">
+                                @if (@Model.Status == "Deleted")
+                                {
+                                    <h2><img width="30rem" src="~/images/icons/block.svg" alt=""> Credit Card Details
+                                    </h2>
+                                }
+                                else
+                                {
+                                    <h2><img src="~/images/icons/icon-195.png" alt=""> Credit Card Details</h2>
+                                }
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Card Number</h3>
+                                        <p>@Model.CreditCard?.CardNumber</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Limit</h3>
+                                        <p>@Model.CreditCard?.CreditLimit.ToString("C")</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Interest Rate</h3>
+                                        <p>@Model.CreditCard?.InterestRate %</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Used</h3>
+                                        <p>@Model.CreditCard?.CurrentDebt.ToString("C")</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Start Date</h3>
+                                        <p>@Model.CreditCard?.BillingCycleStart.ToString("MM/dd/yyyy").</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Statement date</h3>
+                                        <p>@Model.CreditCard?.StatementDate.ToString("MM/dd/yyyy").</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Due date</h3>
+                                        <p>@Model.CreditCard?.DueDate.ToString("MM/dd/yyyy").</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <br/> <br/>
+                    <br/>
+
                     <div class="content-two mb_10">
                         <div class="text-box mb_35">
-                            <h2>Features</h2>
-                            <p>Through weakness of will which is the same as saying through shrinking from to and pain
-                                cases are perfectly simple and easy to distinguish in a free hour.</p>
+                            @if (@Model.CreditCard?.IsActive == false)
+                            {
+                                <h2><img width="30rem" src="~/images/icons/block.svg" alt=""> Source Card Information
+                                </h2>
+                            }
+                            else
+                            {
+                                <h2><img src="~/images/icons/icon-195.png" alt=""> Source Card Information</h2>
+                            }
                         </div>
                         <div class="row clearfix">
                             <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                 <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>Welcome Bonus</h3>
-                                    <p>Holds these matters principles selection right some rejects.</p>
+                                    <div class="icon-box"></div>
+                                    <h3>Card Number</h3>
+                                    <p>@Model.AccountNumber</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                 <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>Accelerated Rewards</h3>
-                                    <p>Business will frequently occur that pleasure have to be repudiated.</p>
+                                    <div class="icon-box"></div>
+                                    <h3>Balance</h3>
+                                    <p>@Model.Balance.ToString("C")</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                 <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>Fuel Surcharge Waiver</h3>
-                                    <p>The wise man therefore always holds these principle of selection.</p>
+                                    <div class="icon-box"></div>
+                                    <h3>Card Type</h3>
+                                    <p>@Model.AccountType.</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                 <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>Low Interest Rates</h3>
-                                    <p>Holds these matters principles selection right some rejects.</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 single-column">
-                                <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>Cashback Offers</h3>
-                                    <p>Business will frequently occur that pleasure have to be repudiated.</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 single-column">
-                                <div class="single-item">
-                                    <div class="icon-box"><img src="~/images/icons/icon-195.png" alt=""></div>
-                                    <h3>24/7 Support</h3>
-                                    <p>The wise man therefore always holds these principle of selection.</p>
+                                    <div class="icon-box"></div>
+                                    <h3>Card creation date</h3>
+                                    <p>@Model.CreatedAt.ToString("MM/dd/yyyy")</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="content-three mb_30">
-                        <div class="text-box mb_30">
-                            <h2>Exciting Offers for You</h2>
-                            <p>Toil and pain cases are perfectly simple and easy to distinguish a free hour.</p>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-6 col-md-6 col-sm-12 deals-block">
-                                <div class="deals-block-one">
-                                    <div class="inner-box">
-                                        <div class="title-box">
-                                            <div class="icon-box"><img src="~/images/icons/icon-74.png" alt="">
-                                            </div>
-                                            <span class="category">Medical</span>
-                                            <p>Expire On: 25th Oct’24</p>
+
+
+                    @{
+                        bool canPayCredit =
+                            Model.CreditCard?.IsActive == true &&
+                            Model.AccountType == "Credit Card" &&
+                            DateTime.Now.Date >= Model.CreditCard?.StatementDate.Date &&
+                            DateTime.Now.Date <= Model.CreditCard?.DueDate.Date;
+                    }
+
+                    @if (Model.AccountType == "Credit Card" && Model.CreditCard?.IsActive == true && canPayCredit)
+                    {
+                        <div class="content-three mb_30">
+                            <div class="content-four">
+                                <ul class="accordion-box">
+                                    <li class="accordion block active-block">
+                                        <div class="acc-btn active">
+                                            <div class="icon-box"><i class="flaticon-chevron"></i></div>
+                                            <h4>Pay off credit card debt</h4>
                                         </div>
-                                        <h3>Get 10% cashback on trust care medical.</h3>
-                                        <div class="lower-box">
-                                            <div class="link-box"><a href="index-2.html"><i
-                                                        class="flaticon-right-arrow"></i>Read More</a></div>
-                                            <div class="share-box">
-                                                <div class="share-text"><img src="~/images/icons/icon-79.png"
-                                                                             alt=""><span>Share</span></div>
-                                                <ul class="social-links">
-                                                    <li><a href="index-2.html"><i class="flaticon-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="index-2.html"><i
-                                                                class="flaticon-instagram-logo"></i></a></li>
-                                                    <li><a href="index-2.html"><i class="flaticon-youtube"></i></a></li>
-                                                    <li><a href="index-2.html"><i class="flaticon-vimeo"></i></a></li>
+                                        <div class="acc-content current">
+                                            <div class="content">
+                                                <h5>Payment Credit Card</h5>
+                                                <ul class="list-item mb_35">
+                                                    <li>Interest Rate: @Model.CreditCard?.InterestRate %</li>
+                                                    <li>Amount
+                                                        payable: @Model.CreditCard?.CurrentDebt.ToString("C")</li>
+                                                    <li>Start
+                                                        Date: @Model.CreditCard?.BillingCycleStart.ToString("yyyy-MM-dd")</li>
+                                                    <li>Statement
+                                                        Date: @Model.CreditCard?.StatementDate.ToString("yyyy-MM-dd")</li>
+                                                    <li>Due Date: @Model.CreditCard?.DueDate.ToString("yyyy-MM-dd")</li>
                                                 </ul>
+                                                <div class="payment-row">
+                                                    <select id="paymentType" class="form-control w-25" name="type"
+                                                            required>
+                                                        <option disabled selected>Payment Type</option>
+                                                        <option value="Full">Full payment</option>
+                                                        <option value="Partial">Partial payment</option>
+                                                    </select>
+                                                    <input type="number" id="paymentAmount" step="0.01" min="1"
+                                                           name="amount" placeholder="Nhập số tiền (nếu chọn partial)"
+                                                           class="form-control"/>
+                                                </div>
+                                                <br/>
+                                                <button 
+                                                    id="paymentBtn" 
+                                                    type="button" 
+                                                    class="theme-btn" 
+                                                    onclick="makePayment(this); return false;">
+                                                    <span>Payment</span>
+                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 deals-block">
-                                <div class="deals-block-one">
-                                    <div class="inner-box">
-                                        <div class="title-box">
-                                            <div class="icon-box"><img src="~/images/icons/icon-75.png" alt="">
-                                            </div>
-                                            <span class="category">Restaurant</span>
-                                            <p>Expire On: 31st Oct’24</p>
-                                        </div>
-                                        <h3>Get 15% discount on classic cuisine restaurant.</h3>
-                                        <div class="lower-box">
-                                            <div class="link-box"><a href="index-2.html"><i
-                                                        class="flaticon-right-arrow"></i>Read More</a></div>
-                                            <div class="share-box">
-                                                <div class="share-text"><img src="~/images/icons/icon-79.png"
-                                                                             alt=""><span>Share</span></div>
-                                                <ul class="social-links">
-                                                    <li><a href="index-2.html"><i class="flaticon-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="index-2.html"><i
-                                                                class="flaticon-instagram-logo"></i></a></li>
-                                                    <li><a href="index-2.html"><i class="flaticon-youtube"></i></a></li>
-                                                    <li><a href="index-2.html"><i class="flaticon-vimeo"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="content-four">
-                        <ul class="accordion-box">
-                            <li class="accordion block active-block">
-                                <div class="acc-btn active">
-                                    <div class="icon-box"><i class="flaticon-chevron"></i></div>
-                                    <h4>Eligibility to Apply</h4>
-                                </div>
-                                <div class="acc-content current">
-                                    <div class="content">
-                                        <h5>To apply for a Credit Card,</h5>
-                                        <ul class="list-item mb_35">
-                                            <li>You will need to be minimum 18 years of age</li>
-                                            <li>For salary person net annual income of Rs 4.5 lakh or more</li>
-                                            <li>Consider a credit score between 750 and 900 to be adequate for a Credit
-                                                Card.
-                                            </li>
-                                            <li>Location is also another factor</li>
-                                        </ul>
-                                        <a href="card-details.html" class="theme-btn"><span>Check Eligibility</span></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="accordion block">
-                                <div class="acc-btn">
-                                    <div class="icon-box"><i class="flaticon-chevron"></i></div>
-                                    <h4>Fees & Charges</h4>
-                                </div>
-                                <div class="acc-content">
-                                    <div class="content">
-                                        <h5>To apply for a Credit Card,</h5>
-                                        <ul class="list-item mb_35">
-                                            <li>You will need to be minimum 18 years of age</li>
-                                            <li>For salary person net annual income of Rs 4.5 lakh or more</li>
-                                            <li>Consider a credit score between 750 and 900 to be adequate for a Credit
-                                                Card.
-                                            </li>
-                                            <li>Location is also another factor</li>
-                                        </ul>
-                                        <a href="card-details.html" class="theme-btn"><span>Check Eligibility</span></a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    }
+
+
                 </div>
             </div>
         </div>
     </div>
 </section>
+<style>
+    .payment-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .payment-row select,
+    .payment-row input {
+        flex: 1;
+        min-width: 0;
+    }
+</style>
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+    function makePayment(btn) {
+        const $btn = $(btn);
+        $btn.prop('disabled', true).html('Loading...');
+
+        const type = $('#paymentType').val();
+        const amount = (type === "Partial") ? $('#paymentAmount').val() : null;
+
+        $.ajax({
+            url: '/Auth/Pay',
+            method: 'POST',
+            data: { type, amount },
+            success: function (response) {
+                if (response.success) {
+                    showCustomAlert(response.message);
+                    setTimeout(() => location.reload(), 1500);
+                }
+            },
+            error: function () {
+                showCustomAlert("An error occurred while processing payment.");
+                $btn.prop('disabled', false).html('<span>Payment</span>');
+            }
+        });
+    }
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+</script>
+
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+</style>

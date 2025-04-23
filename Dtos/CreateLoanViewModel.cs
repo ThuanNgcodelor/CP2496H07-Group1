@@ -1,3 +1,6 @@
+using System.Collections;
+using System.ComponentModel.DataAnnotations;
+
 namespace CP2496H07Group1.Dtos
 {
     public class CreateLoanViewModel
@@ -24,6 +27,7 @@ namespace CP2496H07Group1.Dtos
         public decimal Balance { get; set; }
         public string DisplayText { get; set; }
         public int? TypeVip { get; set; }
+        public List<AccountViewModel> Accounts { get; set; }
     }
 
     public class LoanOptionViewModel
@@ -32,5 +36,22 @@ namespace CP2496H07Group1.Dtos
         public string DisplayText { get; set; }
         public int LoanDate { get; set; }
         public decimal InterestRate { get; set; }
+
+        public List<LoanOptionViewModel> LoanOptions { get; set; }
     }
+
+    public class TopupInputModel
+    {
+        [Required]
+        public long AccountId { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue)]
+        public decimal AmountTopup { get; set; }
+        public IFormFile ImageUpload { get; set; }
+        [Required]
+        public string? Description { get; set; }
+        public List<AccountViewModel> Accounts { get; set; } = new();
+    }
+
 }

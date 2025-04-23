@@ -39,6 +39,7 @@ public static class JwtAuthenticationExtensions
                         return Task.CompletedTask;
                     }
                 };
+                
             });
 
         return services;

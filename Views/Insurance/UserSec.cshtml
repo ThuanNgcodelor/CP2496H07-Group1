@@ -1,0 +1,218 @@
+@model List<UserInsurance>
+
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>My Sec</h1>
+            <ul class="bread-crumb clearfix">
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="corporate-section sec-pad-2">
+
+    <div class="auto-container">
+        <div class="sec-title centred">
+            <span class="sub-title">TeckBank</span>
+        </div>
+
+        <div class="row clearfix">
+            @if (!Model.Any())
+            {
+                <p>You have no Sec.</p>
+            }
+            else
+            {
+                foreach (var sec in Model)
+                {
+                    <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
+                        <div class="corporate-block-one">
+                            <div class="inner-box">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h4 style="margin: 0;">
+                                        @sec.Package.Name</h4>
+                                    <div>
+                                        <strong>Status:</strong>
+                                        <span>@sec.Status</span>
+                                    </div>
+                                </div>
+
+
+                                <strong>Price:</strong> @sec.Package.Price.ToString("C")<br/>
+                                <strong>Duration:</strong> @sec.Package.DurationDays Days <br/>
+                                <h5>
+                                    <div style="display: flex; gap: 40px; margin-bottom: 5px;">
+                                        <div>
+                                            <strong>Type:</strong>
+                                            <span>@sec.Package.Type</span>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div style="display: flex; gap: 40px;">
+                                        <div>
+                                            <strong>From Date:</strong>
+                                            <span>@sec.StartDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div>
+                                            <strong>To Date:</strong>
+                                            <span>@sec.EndDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                    
+                                </h5>
+                                <div class="message-btn pt_7 text-end">
+                                    <a href="javascript:void(0);" class="theme-btn open-update-modal"
+                                       data-id="@sec.Id"
+                                       data-name="@sec.Package.Name"
+                                       data-price="@sec.Package.Price.ToString("C")"
+                                       data-type="@sec.Package.Type"
+                                       data-duration="@sec.Package.DurationDays">
+                                        <span>Update</span>
+                                    </a>
+
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</section>
+
+
+<div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: none;">
+            <div class="modal-header"
+                 style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                <h5 class="modal-title" id="buyNowModalLabel" style="color: #000; font-weight: 600;">Update Status
+                    Sec</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="filter: invert(1);"></button>
+            </div>
+            <input type="hidden" id="hiddenUserId" name="UserId"
+                   value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value"/>
+            <div class="modal-body p-4">
+                <form id="buyForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Package Name</label>
+                        <input type="text" class="form-control" id="insuranceName" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Price</label>
+                        <input type="text" class="form-control" id="insurancePrice" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Type</label>
+                        <input type="text" class="form-control" id="insuranceType" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Status (Days)</label>
+                        <input type="text" class="form-control" id="insuranceDuration" readonly>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger" id="confirmCancelBtn" style="padding: 10px 25px;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+<script>
+    let selectedInsuranceId = null;
+
+    $(document).ready(function () {
+        $('.open-update-modal').on('click', function () {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var price = $(this).data('price');
+            var type = $(this).data('type');
+            var duration = $(this).data('duration');
+
+            $('#insuranceName').val(name);
+            $('#insurancePrice').val(price);
+            $('#insuranceType').val(type);
+            $('#insuranceDuration').val(duration);
+
+            selectedInsuranceId = id;
+
+            $('#buyNowModal').modal('show');
+        });
+
+        $('#confirmCancelBtn').on('click', function () {
+            if (!selectedInsuranceId) {
+                showCustomAlert("No insurance selected.");
+                return;
+            }
+
+            const userId = $('#hiddenUserId').val();
+
+            $.ajax({
+                type: "POST",
+                url: `/Insurance/UserSec/UpdateSec/${selectedInsuranceId}`,
+                data: { userId: userId }, 
+                success: function (response) {
+                    if (response.success) {
+                        showCustomAlert("Update Sec Success!");
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        showCustomAlert("Error");
+                    }
+                },
+                error: function () {
+                    showCustomAlert("Error while updating Sec.");
+                }
+            });
+        });
+
+    });
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+    
+</script>
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292; 
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+</style>

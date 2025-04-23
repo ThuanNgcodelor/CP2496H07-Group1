@@ -1,0 +1,79 @@
+@model CP2496H07Group1.Models.Admin
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Update Admin</h6>
+                <form asp-action="Update" method="post" id="updateAdminForm">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" id="Username" />
+                        <div class="invalid-feedback">Please enter username.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" id="Email" />
+                        <div class="invalid-feedback">Invalid email. Must contain @@ character.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+                        <div class="invalid-feedback">Please enter password</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input name="NewPassword" type="password" class="form-control" id="NewPassword" />
+                        <small class="text-muted">Leave blank if you do not want to change your password</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#updateAdminForm').on('submit', function (e) {
+            let isValid = true;
+            $('.form-control').removeClass('is-invalid');
+
+            const username = $('#Username').val().trim();
+            const email = $('#Email').val().trim();
+            const description = $('#Description').val().trim();
+
+            if (!username) {
+                $('#Username').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!email || !email.includes('@@')) {
+                $('#Email').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!description) {
+                $('#Description').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Loans>
+
+
+@{
+    ViewData["Title"] = "Top-up List";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0">Top-up List</h6>
+                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+                </div>
+
+                <div class="mb-4">
+                    <form method="get" asp-action="Index">
+                        <div class="input-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search top-ups..." />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+                        </div>
+                    </form>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Account</th>
+                            <th>Amount Borrowed</th>
+                            <th>Loan Option</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Monthly Payment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int index = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@item.Account?.AccountNumber</td>
+                                    <td>@item.AmountBorrowed.ToString("N0")</td>
+                                    <td>@item.LoanOption?.LoanDate</td>
+                                    <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.MonthlyPayment.ToString("N0")</td>
+                                    <td>@item.Status</td>
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+@model CP2496H07Group1.Models.Admin
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Add Admin</h6>
+                <form asp-action="Add" method="post" id="adminForm">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" id="Username" />
+                        <div class="invalid-feedback">Please enter username.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" id="Email" />
+                        <div class="invalid-feedback">Invalid email. Must contain @@ character.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" id="Password" />
+                        <div class="invalid-feedback">Please enter password.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" id="Description"></textarea>
+                        <div class="invalid-feedback">Please enter description.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- CKEditor 5 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#Description'))
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    $(document).ready(function () {
+        $('#adminForm').on('submit', function (e) {
+            let isValid = true;
+            $('.form-control').removeClass('is-invalid');
+
+            if (!$('#Username').val().trim()) {
+                $('#Username').addClass('is-invalid');
+                isValid = false;
+            }
+
+            const email = $('#Email').val().trim();
+            if (!email || !email.includes('@@')) {
+                $('#Email').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!$('#Password').val().trim()) {
+                $('#Password').addClass('is-invalid');
+                isValid = false;
+            }
+
+            const description = editorInstance.getData().trim();
+            if (!description) {
+                $('#Description').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#Description').val(description); // Gán dữ liệu cho textarea thật
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

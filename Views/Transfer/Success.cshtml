@@ -43,13 +43,13 @@
 
                 <div class="container mt-5">
                     <div class="alert alert-success text-center shadow-lg p-4 rounded">
-                        <h2 class="mb-3">🎉 Chuyển khoản thành công!</h2>
-                        <p class="lead">Giao dịch của bạn đã được thực hiện thành công.</p>
+                        <h2 class="mb-3">🎉 Transfer successful!</h2>
+                        <p class="lead">Your transaction has been successfully completed.</p>
                     </div>
 
                     <div class="card mt-4 shadow">
                         <div class="card-header bg-success text-white">
-                            <h4 class="mb-0">Thông tin giao dịch</h4>
+                            <h4 class="mb-0">Transaction information</h4>
                         </div>
                         <div class="card-body">
                             <dl class="row">
@@ -59,7 +59,7 @@
                                 <dd class="col-sm-8">@Model.ToAccount.AccountNumber</dd>
 
                                 <dt class="col-sm-4">Monney:</dt>
-                                <dd class="col-sm-8 text-danger fw-bold">@Model.Amount.ToString("N0") VND</dd>
+                                <dd class="col-sm-8 text-danger fw-bold">@Model.Amount.ToString("N0") $</dd>
 
                                 <dt class="col-sm-4">Time:</dt>
                                 <dd class="col-sm-8">@Model.TransactionDate.ToString("dd/MM/yyyy HH:mm:ss")</dd>
@@ -71,8 +71,8 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary px-4">🏠 Về trang chủ</a>
-                        <a href="@Url.Action("Index", "Transfer")" class="btn btn-primary px-4">other transactions</a>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary px-4" style="background-color: red ">🏠 Home Page</a> &nbsp;&nbsp;&nbsp;
+                        <a href="@Url.Action("Index", "Transfer")" class="btn btn-primary px-4" style="background-color : red">$ Other Transfer</a>
                     </div>
                 </div> <!-- Kết thúc container -->
             </div> <!-- Kết thúc row -->

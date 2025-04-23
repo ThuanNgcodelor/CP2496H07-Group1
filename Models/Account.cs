@@ -13,6 +13,7 @@ public class Account
     public required DateTime CreatedAt { get; set; } = DateTime.Now;
     public long? VipId { get; set; } = null; // co the null
     public long? Point { get; set; }
+    public required string Status { get; set; } = "Active";
     
     public required User User { get; set; }               // n-1 with User
     public required List<Transaction> TransactionsFrom { get; set; } // Tu Tai khoan nay den tai khoan khac
@@ -20,5 +21,7 @@ public class Account
     public List<AccountDiscounts> AccountDiscounts { get; set; } = new();
     public Vip? Vip { get; set; }
     public CreditCard? CreditCard { get; set; }
+    
+    public List<Topup> Topups { get; set; } = new(); 
 
 }

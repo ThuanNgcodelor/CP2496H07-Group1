@@ -1,0 +1,445 @@
+﻿@model CP2496H07Group1.Models.VipViewModel
+
+<!-- page-title -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>VIP Packages</h1>
+            <ul class="bread-crumb clearfix"></ul>
+        </div>
+    </div>
+</section>
+<!-- page-title end -->
+
+<section class="sidebar-page-container blog-list-two pt_120 pb_120">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                <div class="blog-list-content">
+                    @if (!Model.Vips.Any())
+                    {
+                    <p>There are no VIP packages to display. Please check your data in the system.</p>
+                    }
+                    else
+                    {
+                    @foreach (var item in Model.Vips)
+                        {
+                    <div class="news-block-one style-two">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <a href="#"><img src="~/images/news/iconiconvipvip.png" alt="" style="max-width:35%;"></a>
+                                </figure>
+                                <div class="view-btn">
+                                    <a href="~/images/news/news-29.jpg" class="lightbox-image" data-fancybox="gallery">
+                                        <img src="~/images/icons/icon-87.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="content-box">
+                                <div class="upper-box">
+                                    <div class="title-box">
+                                        <h6><img src="~/images/icons/icon-36.png" alt="">VIP Type @item.TypeVip</h6>
+                                        <h3 style="color: black;">
+                                            <a href="@Url.Action("Details", new { id = item.Id })" style="color: black;">
+                                                @item.Price.ToString("C") $
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="post-date align-3">
+                                        <h5><span>Money Back: </span> @item.MoneyBack %</h5>
+                                        <h6>Transfer fee: @(item.NoPick ? "Yes" : "No")</h6>
+                                    </div>
+                                </div>
+                                <div class="lower-box">
+                                    <div class="link-box">
+                                        <ul class="post-info">
+                                            <li><h5><img src="~/images/icons/icon-37.png" alt="">Type @item.TypeVip</h5></li>
+                                        </ul>
+                                        <a href="@Url.Action("Details", new { id = item.Id })">
+                                            <i class="flaticon-right-arrow"></i>
+                                        </a>
+                                    </div>
+                                    <br />
+                                    <button type="button" class="theme-btn buy-now-btn" data-id="@item.Id">
+                                        <span>Buy Now</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    }
+
+                    <div class="pagination-wrapper pt_20">
+                        <ul class="pagination clearfix">
+                            @if (Model.PageNumber > 1)
+                            {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = Model.PageNumber - 1, keyword = ViewBag.Keyword })">
+                                    <i class="flaticon-next"></i>
+                                </a>
+                            </li>
+                            }
+
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = i, keyword = ViewBag.Keyword })"
+                                   class="@(i == Model.PageNumber ? "current" : "")">@i</a>
+                            </li>
+                            }
+
+                            @if (Model.PageNumber < Model.PageCount)
+                            {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = Model.PageNumber + 1, keyword = ViewBag.Keyword })">
+                                    <i class="flaticon-next"></i>
+                                </a>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                <div class="blog-sidebar ml_20">
+                    <div class="sidebar-widget search-widget mb_40">
+                        <form method="get" asp-action="Index">
+                            <div class="form-group">
+                                <input type="search" name="keyword" placeholder="Search VIP Type..." required>
+                                <button type="submit"><img src="~/images/icons/icon-7.png" alt=""></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar-widget category-widget mb_35">
+                        <div class="widget-title">
+                            <h3>VIP Types</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="category-list clearfix">
+                                <li><a asp-route-keyword="1"><span>Type 1</span><img src="~/images/icons/icon-213.png" alt=""></a></li>
+                                <li><a asp-route-keyword="2"><span>Type 2</span><img src="~/images/icons/icon-213.png" alt=""></a></li>
+                                <li><a asp-route-keyword="3"><span>Type 3</span><img src="~/images/icons/icon-213.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Buy Now Modal -->
+<div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: none;">
+            <div class="modal-header" style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                <h5 class="modal-title" id="buyNowModalLabel" style="color: #000; font-weight: 600;">Buy VIP Package</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="buyForm" class="appointment-form">
+
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">VIP Type</label>
+                        <input type="text" class="form-control" id="vipType" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">Price</label>
+                        <input type="text" class="form-control" id="vipPrice" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">Money Back</label>
+                        <input type="text" class="form-control" id="vipMoneyBack" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">Fransfer fee</label>
+                        <input type="text" class="form-control" id="vipNoPick" readonly>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">Account</label>
+                        <select id="accountId" class="form-control" name="AccountId" required>
+                           
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label text-dark">PIN</label>
+                        <input type="password" class="form-control" id="pin" placeholder="Enter your PIN" required>
+                    </div>
+                    <input type="hidden" id="vipId">
+                    <div class="text-end">
+                        <button type="button" class="btn btn-danger" id="proceedBuy" style="padding: 10px 25px;">Proceed to Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Alert -->
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buyNowButtons = document.querySelectorAll('.buy-now-btn');
+        let isProcessing = false;
+
+        buyNowButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const id = parseInt(this.getAttribute('data-id'));
+                console.log("BuyNow clicked with id:", id);
+
+                if (!id || id <= 0) {
+                    console.error("Invalid data-id on button:", this);
+                    showCustomAlert("Invalid VIP package ID. Please check data..");
+                    return;
+                }
+
+                fetch(`/Vip/BuyNow?id=${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        console.log("Response status:", response.status);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Full BuyNow response:", data);
+                        if (!data.success) {
+                            console.warn("Unsuccessful response:", data.message);
+                            showCustomAlert(data.message);
+                            return;
+                        }
+
+                        // Điền dữ liệu vào modal
+                        document.getElementById('vipType').value = data.typeVip ?? '';
+                        document.getElementById('vipPrice').value = data.price ? data.price.toLocaleString() + " $" : '';
+                        document.getElementById('vipMoneyBack').value = data.moneyBack ? data.moneyBack.toLocaleString() + " %" : '';
+                        document.getElementById('vipNoPick').value = data.noPick ? "Yes" : "No";
+                        document.getElementById('vipId').value = data.id ?? '';
+                        document.getElementById('pin').value = '';
+
+                        // Điền danh sách tài khoản vào dropdown
+                        const accountSelect = document.getElementById('accountId');
+                        if (!accountSelect) {
+                            console.error("Account select element not found in DOM!");
+                            showCustomAlert("Interface error: Account dropdown not found.");
+                            return;
+                        }
+
+                        accountSelect.innerHTML = '<option value="" disabled selected>Select Account</option>';
+                        if (data.accounts && Array.isArray(data.accounts) && data.accounts.length > 0) {
+                            console.log("Accounts received:", data.accounts);
+                            data.accounts.forEach((account, index) => {
+                                console.log(`Processing account ${index}:`, account);
+                                // Handle case-insensitive property names
+                                const accountId = account.id || account.Id;
+                                const accountNumber = account.accountNumber || account.AccountNumber;
+                                const balance = account.balance || account.Balance;
+
+                                if (accountId && accountNumber && balance) {
+                                    const option = document.createElement('option');
+                                    option.value = accountId;
+                                    option.textContent = `Account: ${accountNumber} | ${balance}`;
+                                    accountSelect.appendChild(option);
+                                    console.log(`Added account ${accountId} to dropdown`);
+                                } else {
+                                    console.warn(`Invalid account data at index ${index}:`, account);
+                                }
+                            });
+
+                            // Log final dropdown state
+                            console.log("Dropdown options after population:", accountSelect.options.length, Array.from(accountSelect.options).map(opt => opt.textContent));
+                            if (accountSelect.options.length <= 1) {
+                                console.warn("No valid accounts added to dropdown");
+                                showCustomAlert("There is no valid account for payment.");
+                                return;
+                            }
+                        } else {
+                            console.warn("No accounts received or invalid data:", data.accounts);
+                            showCustomAlert("No account found for payment.");
+                            return;
+                        }
+
+                        // Kiểm tra vipId
+                        const vipIdAfterFetch = parseInt(document.getElementById('vipId').value);
+                        console.log("vipId set in modal:", vipIdAfterFetch);
+                        if (!vipIdAfterFetch || vipIdAfterFetch <= 0) {
+                            showCustomAlert("Unable to get valid VIP package ID from server.");
+                            return;
+                        }
+
+                        // Hiển thị modal
+                        const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error("Error in BuyNow:", error);
+                        showCustomAlert("Unable to load VIP package data: " + error.message);
+                    });
+            });
+        });
+
+        // Xử lý nút Proceed to Buy
+        document.getElementById('proceedBuy').addEventListener('click', function () {
+            if (isProcessing) {
+                console.log("Request already in progress, ignoring click.");
+                return;
+            }
+
+            isProcessing = true;
+            this.disabled = true;
+            this.textContent = "Processing...";
+
+            const vipIdInput = document.getElementById('vipId').value;
+            const accountIdInput = document.getElementById('accountId').value;
+            const pinInput = document.getElementById('pin').value;
+
+            const vipId = parseInt(vipIdInput);
+            const accountId = parseInt(accountIdInput);
+            const pin = parseInt(pinInput);
+
+            console.log("Raw inputs:", { vipIdInput, accountIdInput, pinInput });
+            console.log("Parsed values:", { vipId, accountId, pin });
+
+            if (!vipId || isNaN(vipId) || vipId <= 0) {
+                console.error("Invalid vipId in modal:", vipId);
+                showCustomAlert("VIP Package is invalid. Please try again..");
+                resetButton();
+                return;
+            }
+
+            if (!accountId || isNaN(accountId) || accountId <= 0) {
+                console.error("Invalid accountId in modal:", accountId);
+                showCustomAlert("Please select payment account.");
+                resetButton();
+                return;
+            }
+
+            if (!pin || isNaN(pin)) {
+                console.error("Invalid PIN:", pin);
+                showCustomAlert("Please enter a valid PIN.");
+                resetButton();
+                return;
+            }
+
+            const requestBody = { vipId: vipId, accountId: accountId, pin: pin };
+            console.log("Sending PurchaseVip request with body:", JSON.stringify(requestBody));
+
+            fetch(`/Vip/PurchaseVip`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    console.log("PurchaseVip response:", result);
+                    showCustomAlert(result.message);
+                    if (result.success) {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error in PurchaseVip:", error);
+                    showCustomAlert("An error occurred while purchasing the VIP package: " + error.message);
+                })
+                .finally(() => {
+                    resetButton();
+                });
+
+            function resetButton() {
+                isProcessing = false;
+                document.getElementById('proceedBuy').disabled = false;
+                document.getElementById('proceedBuy').textContent = "Proceed to Buy";
+            }
+        });
+
+        function showCustomAlert(message) {
+            const alertBox = document.getElementById("customAlert");
+            const messageBox = document.getElementById("customAlertMessage");
+
+            messageBox.textContent = message;
+            alertBox.style.display = "block";
+            alertBox.style.opacity = 1;
+
+            setTimeout(() => {
+                alertBox.style.opacity = 0;
+                setTimeout(() => {
+                    alertBox.style.display = "none";
+                }, 500);
+            }, 3000);
+        }
+    });
+</script>
+
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    .appointment-form {
+        width: 100%;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    select#accountId {
+        display: block !important;
+        visibility: visible !important;
+        height: auto !important;
+        min-height: 40px; /* Đảm bảo dropdown có chiều cao đủ */
+    }
+</style>

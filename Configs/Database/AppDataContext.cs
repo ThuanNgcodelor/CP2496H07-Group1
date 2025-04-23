@@ -10,7 +10,7 @@ public class AppDataContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Account?> Accounts { get; set; }
+    public DbSet<Account> Accounts { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Request> Requests { get; set; }
     public DbSet<InsurancePackage> InsurancePackages { get; set; }
@@ -30,16 +30,44 @@ public class AppDataContext : DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<CreditCard> CreditCards { get; set; }
     public DbSet<Admin> Admins { get; set; }
+    
+    public DbSet<ChatMessage> ChatMessages { get; set; }
+    
+    public DbSet<Topup> Topups { get; set; }
+    public DbSet<LoanPaymentSchedule> LoanPaymentSchedules { get; set; }
+
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //Gpt cmt cho cac ban cung doc nhe !!
-
+        modelBuilder.Entity<Loans>()
+            .HasOne(l => l.Vip)
+            .WithMany(v => v.Loans)
+            .HasForeignKey(l => l.VipId)
+            .OnDelete(DeleteBehavior.SetNull);
+        modelBuilder.Entity<Topup>()
+            .HasOne(t => t.Account)
+            .WithMany(a => a.Topups)
+            .HasForeignKey(t => t.AccountId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<LoanPaymentSchedule>()
+            .HasOne(static s => s.Loan)        // LoanPaymentSchedule liên kết với Loans
+            .WithMany(l => l.PaymentSchedules)  // Một Loan có thể có nhiều LoanPaymentSchedules
+            .HasForeignKey(s => s.LoanId)  // LoanId là khóa ngoại
+            .OnDelete(DeleteBehavior.Cascade);
+        
         modelBuilder.Entity<CreditCard>()
             .HasOne(c => c.Account)
             .WithOne(c => c.CreditCard)
             .HasForeignKey<CreditCard>(c => c.AccountId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ChatMessage>()
+            .HasOne(c => c.Admin)
+            .WithMany(a => a.ChatMessages)
+            .HasForeignKey(c => c.AdminId)
             .OnDelete(DeleteBehavior.Cascade);
 
         // Quan hệ nhiều-nhiều giữa User và Role (bảng trung gian UserRole)
@@ -59,7 +87,8 @@ public class AppDataContext : DbContext
         modelBuilder.Entity<Account>()
             .HasOne(a => a.User) // Account có một User
             .WithMany(u => u.Accounts) // User có nhiều Account
-            .HasForeignKey(a => a.UserId); // Khóa ngoại là UserId trong Account
+            .HasForeignKey(a => a.UserId) // Khóa ngoại là UserId trong Account
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Quan hệ 1-n giữa Account và Transaction (tài khoản nguồn)
         // Một Account có nhiều Transaction xuất phát từ nó
@@ -91,21 +120,21 @@ public class AppDataContext : DbContext
             .HasOne(ui => ui.User) // UserInsurance có một User
             .WithMany(u => u.UserInsurances) // User có nhiều UserInsurance
             .HasForeignKey(ui => ui.UserId) // Khóa ngoại là UserId trong UserInsurance
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
         // Quan hệ 1-n giữa InsurancePackage và UserInsurance
         // Một InsurancePackage có nhiều UserInsurance, một UserInsurance thuộc về một Package
         modelBuilder.Entity<UserInsurance>()
             .HasOne(ui => ui.Package) // UserInsurance có một InsurancePackage
             .WithMany(ip => ip.UserInsurances) // InsurancePackage có nhiều UserInsurance
             .HasForeignKey(ui => ui.PackageId) // Khóa ngoại là PackageId trong UserInsurance
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
         // Quan hệ 1-1 hoặc 1-n giữa UserInsurance và Transaction
         // Một UserInsurance liên kết với một Transaction (giao dịch mua bảo hiểm)
         modelBuilder.Entity<UserInsurance>()
             .HasOne(ui => ui.Transaction) // UserInsurance có một Transaction
             .WithMany() // Transaction không cần danh sách UserInsurance ngược lại
             .HasForeignKey(ui => ui.TransactionId) // Khóa ngoại là TransactionId trong UserInsurance
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Quan hệ 1-N giữa Category và News
         modelBuilder.Entity<News>()
@@ -125,7 +154,7 @@ public class AppDataContext : DbContext
             .HasOne(c => c.Admin)
             .WithMany(a => a.Comments)
             .HasForeignKey(c => c.AdminId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
         
         modelBuilder.Entity<Comment>()
             .Property(c => c.IsAdminReply)
@@ -136,7 +165,7 @@ public class AppDataContext : DbContext
             .HasOne(c => c.User)
             .WithMany()
             .HasForeignKey(c => c.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Quan hệ 1-N giữa Comment và Comment (replies)
         modelBuilder.Entity<Comment>()

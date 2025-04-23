@@ -1,0 +1,215 @@
+@using System.Security.Claims
+<style>
+    .appointment-form {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .icon-box {
+        margin-bottom: 5px;
+    }
+
+    .message-btn {
+        text-align: center;
+    }
+
+    .form-group input[type='password'] {
+        background: #f5f4f4;
+        border: 1px solid #f5f4f4;
+        font-size: 17px;
+        color: #333;
+        padding: 10px 20px;
+    }
+
+    #pinError {
+        color: red;
+        font-size: 14px;
+        display: none;
+        margin-top: 5px;
+        text-align: left;
+        width: 100%;
+    }
+</style>
+
+<section class="appointment-section pt_120 pb_120">
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <span class="big-text">Payment By Card <br>TechBank</span>
+    <div class="auto-container">
+        <div class="appointment-form">
+            <form asp-controller="Insurance" asp-action="PaymentByCardInsurancePackage" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value"/>
+                <input type="hidden" name="InsuranceId" value="@ViewBag.InsuranceId"/>
+                <div class="sec-title">
+                    <span class="sub-title">TeckBank</span>
+                    <h2>Payment By Card</h2>
+                </div>
+                <div class="form-group w-100">
+                    <label for="AccountId">Card</label>
+                    <select id="AccountId" class="w-100" name="AccountId" required>
+                        <option value="" disabled selected>Select</option>
+                        @foreach (var acc in Model)
+                        {
+                            if (acc.AccountType == "Credit Card" && acc.CreditCard != null)
+                            {
+                                <option value="@acc.Id">
+                                    Credit Card: @acc.CreditCard.CardNumber |
+                                    Balance: @( (acc.CreditCard.CreditLimit - acc.CreditCard.CurrentDebt).ToString("C") )
+                                </option>
+
+                            }
+                            else
+                            {
+                                <option value="@acc.Id">Normal Card: @acc.AccountNumber | Balance: @acc.Balance.ToString("C")</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+                <br/>
+
+                <div class="form-group">
+                    <label for="Pin">PIN</label>
+                    <input type="password" id="Pin" name="Pin" placeholder="Enter PIN" required maxlength="6"
+                           pattern="\d*">
+                    <span id="pinError1">PIN must be 6 digits.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ConfirmPin">Confirm PIN</label>
+                    <input type="password" id="ConfirmPin" placeholder="Confirm PIN" required maxlength="6"
+                           pattern="\d*">
+                    <span id="pinError2" style="color: red">PINs do not match.</span>
+                </div>
+
+                <div class="form-group message-btn">
+                    <button type="submit" id="CreateBtn" class="theme-btn"><span>Pay</span></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+
+<div id="customAlert" class="custom-alert">
+    <div class="custom-alert-content">
+        <span id="customAlertMessage">Success!</span>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const pinInput = $('#Pin');
+        const confirmPinInput = $('#ConfirmPin');
+        const pinError1 = $('#pinError1').hide();
+        const pinError2 = $('#pinError2').hide();
+        const form = $('form');
+        const submitBtn = $('#CreateBtn');
+
+        pinInput.add(confirmPinInput).on('input', function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 6);
+            pinError1.hide();
+            pinError2.hide();
+        });
+
+        form.on('submit', function (e) {
+            e.preventDefault(); 
+
+            let isValid = true;
+            const pin = pinInput.val();
+            const confirmPin = confirmPinInput.val();
+            const pinRegex = /^\d{6}$/;
+
+            pinError1.hide();
+            pinError2.hide();
+
+            if (!pinRegex.test(pin)) {
+                pinError1.show();
+                isValid = false;
+            }
+
+            if (pin !== confirmPin) {
+                pinError2.show();
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            submitBtn.prop('disabled', true).html("<span>Processing...</span>");
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (response) {
+                    if (response.success) {
+                        showCustomAlert(response.message);
+                        setTimeout(() => {
+                            window.location.href = '/Insurance';
+                        }, 3000);
+                    } else {
+                        showCustomAlert(response.message);
+                        submitBtn.prop('disabled', false).html("<span>Pay</span>");
+                    }
+                },
+                error: function () {
+                    showCustomAlert('An unexpected error occurred during payment.');
+                    submitBtn.prop('disabled', false).html("<span>Pay</span>");
+                }
+            });
+        });
+    });
+
+    function showCustomAlert(message) {
+        const alertBox = document.getElementById("customAlert");
+        const messageBox = document.getElementById("customAlertMessage");
+
+        messageBox.textContent = message;
+        alertBox.style.display = "block";
+
+        setTimeout(() => {
+            alertBox.style.display = "none";
+        }, 3000);
+    }
+</script>
+<style>
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+</style>

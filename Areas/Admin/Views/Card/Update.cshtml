@@ -1,0 +1,77 @@
+@model CP2496H07Group1.Models.Account
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Update Card</h6>
+                <form asp-action="Update" method="post" id="cardForm">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Card Number</label>
+                        <input asp-for="AccountNumber" class="form-control" id="AccountNumber" />
+                        <div class="invalid-feedback">Account number must be exactly 12 digits and contain only numbers.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Balance</label>
+                        <input asp-for="Balance" class="form-control" />
+                        <span asp-validation-for="Balance" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Pin</label>
+                        <input asp-for="Pin" class="form-control" id="Pin" />
+                        <div class="invalid-feedback">Pin must be exactly 6 digits and contain only numbers.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select asp-for="Status" class="form-select">
+                            <option value="Active">Active</option>
+                            <option value="Deleted">Deleted</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#cardForm').on('submit', function (e) {
+            let isValid = true;
+            $('.form-control').removeClass('is-invalid');
+
+            const accountNumber = $('#AccountNumber').val().trim();
+            if (!/^\d{12}$/.test(accountNumber)) {
+                $('#AccountNumber').addClass('is-invalid');
+                isValid = false;
+            }
+
+            const pin = $('#Pin').val().trim();
+            if (!/^\d{6}$/.test(pin)) {
+                $('#Pin').addClass('is-invalid');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

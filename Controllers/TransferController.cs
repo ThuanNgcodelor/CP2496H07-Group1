@@ -42,48 +42,72 @@ namespace CP2496H07Group1.Controllers
         [HttpPost]
         public async Task<IActionResult> Transfer([FromBody] TransferViewModel model)
         {
-            // Lấy ID người dùng đang đăng nhập
             var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            // Kiểm tra tài khoản người gửi dựa trên AccountType từ form
-            var sender = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == model.AccountType);
+            var sender = await _context.Accounts
+                .Include(a => a.Vip) // Include Vip để truy xuất các thuộc tính vip
+                .FirstOrDefaultAsync(a => a.Id == model.AccountType);
+
             if (sender == null)
-            {
-                return Json(new { success = false, message = "Tài khoản người chuyển không tồn tại." });
-            }
+                return Json(new { success = false, message = "The sender account does not exist.." });
 
-            // Kiểm tra tài khoản thuộc về người dùng đăng nhập
             if (sender.UserId != userId)
-            {
-                return Json(new { success = false, message = "Bạn không có quyền sử dụng tài khoản này." });
-            }
+                return Json(new { success = false, message = "You do not have permission to use this account." });
 
-            // Kiểm tra mã PIN
             if (sender.Pin != model.Pin)
-            {
-                return Json(new { success = false, message = "Mã PIN không đúng." });
-            }
+                return Json(new { success = false, message = "Incorrect PIN." });
 
-            // Tìm tài khoản người nhận
             var receiver = await _context.Accounts.FirstOrDefaultAsync(a => a.AccountNumber == model.AccountNumber);
             if (receiver == null)
-            {
-                return Json(new { success = false, message = "Không tìm thấy tài khoản người nhận." });
-            }
+                return Json(new { success = false, message = "Recipient account not found." });
+
+            if (sender.AccountNumber == receiver.AccountNumber)
+                return Json(new { success = false, message = "Do not transfer money to yourself." });
 
             // Kiểm tra số dư
             if (sender.Balance < model.Monney)
+                return Json(new { success = false, message = "Insufficient balance." });
+
+            if (model.Monney < 0 )
+                return Json(new { success = false, message = "No negative money transfer." });
+
+            // ---------------------------
+            // Áp dụng VIP
+            decimal moneyBack = 0;
+            bool isNopick = false;
+
+            if (sender.Vip != null)
             {
-                return Json(new { success = false, message = "Số dư không đủ." });
+                // Kiểm tra nếu Vip.Name là "Nopick" thì không trừ 0.1
+                if (sender.Vip.NoPick)
+                {
+                    isNopick = true;
+                }
+
+
+                // Nếu có moneyback → tính hoàn tiền
+                if (sender.Vip.MoneyBack.HasValue)
+                {
+                    moneyBack = model.Monney * (sender.Vip.MoneyBack.Value / 100m);
+                }
             }
 
-            // Cập nhật số dư
+            // Trừ tiền (có trừ phí 0.1 nếu không phải Nopick)
             sender.Balance -= model.Monney;
+            if (!isNopick)
+            {
+                sender.Balance -= 0.1m;
+            }
+
+            // Cộng tiền cho người nhận
             receiver.Balance += model.Monney;
 
-            // Cộng điểm cho người gửi (1% số tiền chuyển)
+            // Cộng điểm 1% tổng tiền chuyển
             decimal pointEarned = model.Monney * 0.01m;
             sender.Point = (sender.Point ?? 0) + (long)pointEarned;
+
+            // Cộng lại tiền hoàn nếu có
+            sender.Balance += moneyBack;
 
             // Tạo giao dịch
             var transaction = new Transaction
@@ -100,8 +124,9 @@ namespace CP2496H07Group1.Controllers
             _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true, message = "Chuyển khoản thành công!", transactionId = transaction.Id });
+            return Json(new { success = true, message = "Transfer successful!", transactionId = transaction.Id });
         }
+
 
         [HttpGet]
         public async Task<IActionResult> CheckAccountNumber(string accountNumber)
@@ -123,7 +148,7 @@ namespace CP2496H07Group1.Controllers
 
             if (transaction == null)
             {
-                TempData["Error"] = "Không tìm thấy thông tin giao dịch.";
+                TempData["Error"] = "No transaction information found.";
                 return RedirectToAction("Index", "Home");
             }
 

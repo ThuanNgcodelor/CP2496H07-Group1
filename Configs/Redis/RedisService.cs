@@ -45,6 +45,29 @@ public class RedisService
         _database.StringSet(key, value);
     }
 
+    public async Task RemoveByPatternAsync(string pattern)
+    {
+        var server = _connection.GetServer(_connection.GetEndPoints().First());
+        var keys = new List<RedisKey>();
+        var cursor = 0L;
+
+        do
+        {
+            var result = server.Keys(_database.Database, pattern: $"{pattern}");
+            foreach (var key in result)
+            {
+                keys.Add(key);
+            }
+            cursor = 0;
+        }
+        while (cursor != 0);
+
+        foreach (var key in keys)
+        {
+            await _database.KeyDeleteAsync(key);
+        }
+    }
+    
     public void Clear()
     {
         var server =  _connection.GetServer(_connection.GetEndPoints().First());

@@ -1,0 +1,81 @@
+@model List<UserInsurance>
+
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>My Insurance</h1>
+            <ul class="bread-crumb clearfix">
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="corporate-section sec-pad-2">
+
+    <div class="auto-container">
+        <div class="sec-title centred">
+            <span class="sub-title">TeckBank</span>
+        </div>
+
+        <div class="row clearfix">
+            @if (!Model.Any())
+            {
+                <p>You have no insurance.</p>
+            }
+            else
+            {
+                foreach (var userInsurance in Model)
+                {
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 corporate-block">
+                        <div class="corporate-block-one">
+                           
+                            <div class="inner-box">
+                                <div style="display: flex; gap: 40px; margin-bottom: 5px;">
+                                    <h4 style="margin: 0;">Status: @userInsurance.Status</h4>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    
+                                    <div>
+                                        <strong>Insurance Name: </strong>
+                                        <span>@userInsurance.Package.Name</span>
+                                    </div>
+                                    <div>
+                                        <strong>Insurance Number: </strong>
+                                        <span>@userInsurance.InsuranceNumber</span>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <strong>Full Name:</strong> @userInsurance.User.FirstName @userInsurance.User.LastName <br/>
+                                <strong>Duration (Days):</strong> @userInsurance.Package.DurationDays <br/>
+                                <br/>
+
+                                <h5>
+
+                                    <div style="display: flex; gap: 40px;">
+                                        <div>
+                                            <strong>From Date:</strong>
+                                            <span>@userInsurance.StartDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div>
+                                            <strong>To Date:</strong>
+                                            <span>@userInsurance.EndDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+
+                                </h5>
+
+                            </div>
+                           
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</section>

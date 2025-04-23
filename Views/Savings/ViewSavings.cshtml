@@ -1,0 +1,305 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.Savings>
+
+    <!-- page-title -->
+    <section class="page-title">
+        <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+        <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+        <div class="auto-container">
+            <div class="content-box">
+                <h1>My Savings</h1>
+                <ul class="bread-crumb clearfix"></ul>
+            </div>
+        </div>
+    </section>
+    <!-- page-title end -->
+
+    <section class="sidebar-page-container blog-list-two pt_120 pb_120">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 content-side">
+                    <div class="blog-list-content">
+                        @if (!Model.Any())
+                    {
+                        <p>You do not have any savings. Create a new savings!</p>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Amount</th>
+                                    <th>Withdrawal Amount</th>
+                                    <th>Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var withdrawalAmount = item.SavingCategory.Money + (item.SavingCategory.Month * item.SavingCategory.Money * 0.03m);
+                                <tr>
+                                    <td>@item.TypeTk</td>
+                                    <td>@item.DateStart.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.DateEnd.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.SavingCategory.Money.ToString("N0") $</td>
+                                    <td>@withdrawalAmount.ToString("N0") $</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.Pay</td>
+                                    <td>
+                                        <button type="button" class="theme-btn withdraw-btn"
+                                                data-id="@item.Id"
+                                                @(item.DateEnd <= DateTime.Now && item.Pay == "chưa rút" ? "" : "disabled")>
+                                            <span>Withdraw</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Withdraw Modal -->
+    <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border: none;">
+                <div class="modal-header" style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                    <h5 class="modal-title" id="withdrawModalLabel" style="color: #000; font-weight: 600;">Withdraw Savings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="withdrawForm">
+                        <div class="mb-3">
+                            <label class="form-label text-dark">Saving Type</label>
+                            <input type="text" class="form-control" id="savingType" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark">End Date</label>
+                            <input type="text" class="form-control" id="savingEndDate" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark">Withdrawal Amount</label>
+                            <input type="text" class="form-control" id="withdrawalAmount" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-dark">PIN</label>
+                            <input type="password" class="form-control" id="pin" placeholder="Enter your PIN" required>
+                        </div>
+                        <input type="hidden" id="savingsId">
+                        <div class="text-end">
+                            <button type="button" class="btn btn-danger" id="proceedWithdraw" style="padding: 10px 25px;">Proceed to Withdraw</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
+    <div id="customAlert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span id="customAlertMessage">Success!</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const withdrawButtons = document.querySelectorAll('.withdraw-btn');
+            let isProcessing = false;
+
+            withdrawButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    console.log("Withdraw clicked with id:", id);
+
+                    if (!id || id <= 0) {
+                        console.error("Invalid data-id on button:", this);
+                        showCustomAlert("Invalid savings ID.");
+                        return;
+                    }
+
+                    fetch(`/Savings/WithdrawNow?id=${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("WithdrawNow response:", data);
+                            if (!data.success) {
+                                showCustomAlert(data.message);
+                                return;
+                            }
+
+                            document.getElementById('savingType').value = data.typeTk || '';
+                            document.getElementById('savingEndDate').value = data.dateEnd || '';
+                            document.getElementById('withdrawalAmount').value = data.withdrawalAmount ? data.withdrawalAmount.toLocaleString() + " $" : '';
+                            document.getElementById('savingsId').value = data.id || '';
+                            document.getElementById('pin').value = '';
+
+                            const savingsIdAfterFetch = parseInt(document.getElementById('savingsId').value);
+                            console.log("savingsId set in modal:", savingsIdAfterFetch);
+                            if (!savingsIdAfterFetch || savingsIdAfterFetch <= 0) {
+                                showCustomAlert("It is impossible to get a valid savings from the server.");
+                                return;
+                            }
+
+                            const modal = new bootstrap.Modal(document.getElementById('withdrawModal'));
+                            modal.show();
+                        })
+                        .catch(error => {
+                            console.error("Error in WithdrawNow:", error);
+                            showCustomAlert("Cannot download savings data: " + error.message);
+                        });
+                });
+            });
+
+            document.getElementById('proceedWithdraw').addEventListener('click', function () {
+                if (isProcessing) {
+                    console.log("Request already in progress, ignoring click.");
+                    return;
+                }
+
+                isProcessing = true;
+                this.disabled = true;
+                this.textContent = "Processing...";
+
+                const savingsIdInput = document.getElementById('savingsId').value;
+                const pinInput = document.getElementById('pin').value;
+
+                const savingsId = parseInt(savingsIdInput);
+                const pin = parseInt(pinInput);
+
+                console.log("Raw savingsId input:", savingsIdInput, "Parsed savingsId:", savingsId);
+                console.log("Raw pin input:", pinInput, "Parsed pin:", pin);
+
+                if (!savingsId || isNaN(savingsId) || savingsId <= 0) {
+                    console.error("Invalid savingsId in modal:", savingsId);
+                    showCustomAlert("Invalid savings. Please try again.");
+                    isProcessing = false;
+                    this.disabled = false;
+                    this.textContent = "Proceed to Withdraw";
+                    return;
+                }
+
+                if (!pin || isNaN(pin)) {
+                    console.error("Invalid PIN:", pin);
+                    showCustomAlert("Please enter valid PIN.");
+                    isProcessing = false;
+                    this.disabled = false;
+                    this.textContent = "Proceed to Withdraw";
+                    return;
+                }
+
+                const requestBody = { savingsId: savingsId, pin: pin };
+                console.log("Sending WithdrawSaving request with body:", JSON.stringify(requestBody));
+
+                fetch(`/Savings/WithdrawSaving`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        console.log("WithdrawSaving response:", result);
+                        showCustomAlert(result.message);
+                        if (result.success) {
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error in WithdrawSaving:", error);
+                        showCustomAlert("Error occurred during the withdrawal: " + error.message);
+                    })
+                    .finally(() => {
+                        isProcessing = false;
+                        this.disabled = false;
+                        this.textContent = "Proceed to Withdraw";
+                    });
+            });
+
+            function showCustomAlert(message) {
+                const alertBox = document.getElementById("customAlert");
+                const messageBox = document.getElementById("customAlertMessage");
+
+                messageBox.textContent = message;
+                alertBox.style.display = "block";
+                alertBox.style.opacity = 1;
+
+                setTimeout(() => {
+                    alertBox.style.opacity = 0;
+                    setTimeout(() => {
+                        alertBox.style.display = "none";
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
+
+    <style>
+        .custom-alert {
+            text-align: center;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00c292;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 9999;
+            font-size: 16px;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+        }
+
+            .table th,
+            .table td {
+                padding: 0.75rem;
+                vertical-align: middle;
+                border: 1px solid #dee2e6;
+            }
+
+            .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+                background-color: #f8f9fa;
+            }
+
+        .withdraw-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>

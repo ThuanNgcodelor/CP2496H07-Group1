@@ -9,52 +9,185 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/LoansController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controllers/TransferController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dtos/CreateLoanViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/TransferViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pages/Shared/Components/Account/Default.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/Insurance/PaymentCard.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/AdminController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/CardController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageAccountDiscountController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageDiscountController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanOptionController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanPaymentScheduleController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoansController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/SecController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/TopupsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/TransactionsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/UserController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/AccountDiscounts/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Admin/Add.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Admin/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Admin/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Card/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Card/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/AllComments.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Create.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Delete.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Edit.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/HistoryTransaction/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/HistoryTransaction/SavingCategory/Add.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/HistoryTransaction/SavingCategory/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/HistoryTransaction/SavingCategory/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/LoanPaymentSchedules/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Loans/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Create.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Delete.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Edit.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Sec/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Sec/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/Topups/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/User/Add.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/User/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Areas/Admin/Views/User/Update.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/SavingsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/TopupController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/VipController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/CreditCardDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/LoginViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/PurchaseVipRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Hubs/ChatHub.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/ChatMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/LoanPaymentSchedule.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/Topup.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/VipViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Main/IMainService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Main/MainService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Insurance/PaymentBySec.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Insurance/UserInsurance.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Insurance/UserSec.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Savings/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Savings/ViewSavings.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Topup/HistoryTopup.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Topup/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Transfer/Vip/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Views/Vip/Index.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wwwroot/images/team/Qr.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/CommentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/CommentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/DashboardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/DashboardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageCategoryNewsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageCategoryNewsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageFaqController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageFaqController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageNewsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageNewsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/SavingCategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/SavingCategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Pages/Dashboard/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/Topup/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Add.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Add.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Update.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Insurance/Update.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Edit.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageCategoryNews/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Edit.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageFaq/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Delete.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Delete.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Details.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Details.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Edit.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/NewsComments.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageNews/NewsComments.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Add.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Add.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Update.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/SavingCategory/Update.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Slider/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Slider/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Add.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Add.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Update.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Vip/Update.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CP2496H07Group1.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CP2496H07Group1.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Database/AppDataContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/DependencyInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/Jwt/JwtAuthenticationExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Jwt/JwtAuthenticationExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Jwt/JwtHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/HomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/Redis/RedisService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/Redis/RedisService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/InsuranceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/LoansController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LoansController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/NewsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/NewsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/TransferController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/TransferController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dtos/CreateLoanViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dtos/CreateLoanViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Folder.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Folder.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250411090254_MigrationName.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250411090254_MigrationName.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250414014549_UpdateModel.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Migrations/20250414014549_UpdateModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250415030758_MigrationName.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Migrations/20250415030758_MigrationName.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Migrations/AppDataContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Account.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Admin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Admin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Category.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Comment.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/InsurancePackage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/InsurancePackage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/CreaditCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/CreaditCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Faq.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Faq.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/LoanOption.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/LoanOption.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Loans.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Loans.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/SavingCategory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/SavingCategory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/News.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/News.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Savings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Savings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Slider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Slider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Transaction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/UserInsurance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/UserInsurance.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/Vip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Vip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pages/Shared/Components/Account/Default.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Account/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/AccountService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Account/IAccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Account/IAccountService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/AuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/IAuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Auth/ITransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/ITransactionService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Auth/TransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Auth/TransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Hangfire/HangFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Hangfire/HangFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Hangfire/IHangFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Hangfire/IHangFile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Package/IPackageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Package/IPackageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Package/IUserInsurance.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/Package/PackageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Package/PackageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Package/UserInsurance.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Card.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Card.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/CardDetails.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/CardDetails.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/CreateCard.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/CreateCard.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/EnterOtp.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/EnterOtpCreateCard.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/EnterOtpCreateCard.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Login.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/RecentTransactions.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/RecentTransactions.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Register.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/Users.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/Users.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Auth/VerifyOtp.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Views/Insurance/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Insurance/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Insurance/PaymentCard.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Insurance/PaymentByCard.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Loans/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Loans/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Loans/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Loans/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Transfer/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Transfer/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Transfer/Success.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Transfer/Success.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/obj/CP2496H07Group1.csproj.nuget.g.targets" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.MvcApplicationPartsAssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.MvcApplicationPartsAssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
@@ -66,6 +199,7 @@
       <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwwroot/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/images/logo1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,24 +230,23 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0c62d318f59a47d3b6ff125a5e3be617c2ea00/42/d624d1b2/ArgumentNullException.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/67cad72163994822b2fade9c9199ae971dea00/3e/f3cef736/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/72777d0da81f4179b9174d9caf6977b113800/df/b84b8dec/ClaimsPrincipal.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/887cd4aa062a44a8a4937f673828ebd536800/aa/361a0fb1/RazorPage`1.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c21239f5e9ae48ed9ffa1ea518f50aefad400/f1/6623fdc7/ViewComponentHelperExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c40b6827f21841c89806245805c11473ad400/61/195caec8/HtmlHelperValidationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/db6d0a696c6644f2bb3d26257f6f731b4000/b3/debdc0b3/IPagedList.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ccd5471bcfa956aa7e0c547d6795895a1919119dc282d9d4fec3766fd8df/AuthorizeAttribute.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0c62d318f59a47d3b6ff125a5e3be617c2ea00/9c/18cb4001/Type.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2c9774fd563fbe33fb9113d6db7c9e933268d176e42abc3af8e24a99a7894/HangfireApplicationBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e358d67bcd5815a5083706ec88db8489a9872915d46156ba24277cd21bd662/AsyncTaskMethodBuilderT.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/InsuranceController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/Test.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/Account.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Views/Insurance/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Views/Insurance/PaymentCard.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Views/Insurance/PaymentByCard.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$APPLICATION_HOME_DIR$/lib/app.jar!/resources/html5-schema/html5/web-forms.rnc" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_HOME_DIR$/plugins/javascript-plugin/jsLanguageServicesImpl/external/lib.dom.d.ts" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="MigrationScriptOptions">
+    <option name="ignoreImplicitObjects" value="true" />
+    <option name="ignoreSourceCode" value="false" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -121,29 +254,39 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2v8DqxhKUlet9Lu446N26RKiPUu" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.CP2496H07Group1: http.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/davidnguyen/Code/Asp/Anime&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.CP2496H07Group1: http.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "XThreadsFramesViewSplitterKey": "0.6786469",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/davidnguyen/Code/Asp/Anime",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver.localdb",
+      "redis",
+      "duckdb",
+      "exasol",
+      "firebird"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.CP2496H07Group1: http">
     <configuration name="CP2496H07Group1: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/CP2496H07Group1.csproj" />
@@ -263,7 +406,34 @@
       <workItem from="1744641734992" duration="2319000" />
       <workItem from="1744649195788" duration="295000" />
       <workItem from="1744682582727" duration="4886000" />
-      <workItem from="1744687512049" duration="2660000" />
+      <workItem from="1744687512049" duration="5296000" />
+      <workItem from="1744696356026" duration="6946000" />
+      <workItem from="1744725856966" duration="6482000" />
+      <workItem from="1744767538331" duration="22203000" />
+      <workItem from="1744807996683" duration="4025000" />
+      <workItem from="1744818955840" duration="58000" />
+      <workItem from="1744819027872" duration="2923000" />
+      <workItem from="1744853356342" duration="18493000" />
+      <workItem from="1744896377845" duration="4272000" />
+      <workItem from="1744975600454" duration="1222000" />
+      <workItem from="1744979364529" duration="7784000" />
+      <workItem from="1744990642688" duration="6099000" />
+      <workItem from="1745042258609" duration="6731000" />
+      <workItem from="1745066128184" duration="12074000" />
+      <workItem from="1745127445712" duration="723000" />
+      <workItem from="1745128201419" duration="927000" />
+      <workItem from="1745129138604" duration="655000" />
+      <workItem from="1745129812178" duration="477000" />
+      <workItem from="1745130485596" duration="13230000" />
+      <workItem from="1745150037816" duration="10186000" />
+      <workItem from="1745199079985" duration="22194000" />
+      <workItem from="1745240948179" duration="6308000" />
+      <workItem from="1745285270229" duration="8173000" />
+      <workItem from="1745293481797" duration="3719000" />
+      <workItem from="1745300147698" duration="12909000" />
+      <workItem from="1745327110029" duration="1187000" />
+      <workItem from="1745330112724" duration="7040000" />
+      <workItem from="1745371773019" duration="18905000" />
     </task>
     <servers />
   </component>
@@ -292,5 +462,127 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Areas/Admin/Controllers/UserController.cs</url>
+          <line>55</line>
+          <properties documentPath="$PROJECT_DIR$/Areas/Admin/Controllers/UserController.cs" containingFunctionPresentation="Method 'Add'">
+            <startOffsets>
+              <option value="1410" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1433" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs</url>
+          <line>49</line>
+          <properties documentPath="$PROJECT_DIR$/Areas/Admin/Controllers/InsuranceController.cs" containingFunctionPresentation="Method 'Update'">
+            <startOffsets>
+              <option value="1366" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1367" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/Package/PackageService.cs</url>
+          <line>133</line>
+          <properties documentPath="$PROJECT_DIR$/Services/Package/PackageService.cs" containingFunctionPresentation="Method 'UpdateInsurancePackage'">
+            <startOffsets>
+              <option value="4578" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4579" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/InsuranceController.cs</url>
+          <line>216</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" containingFunctionPresentation="Method 'HandleInsurancePayment'">
+            <startOffsets>
+              <option value="6861" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6862" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/InsuranceController.cs</url>
+          <line>283</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" containingFunctionPresentation="Method 'PaymentByCardInsurancePackage'">
+            <startOffsets>
+              <option value="9589" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9670" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/InsuranceController.cs</url>
+          <line>289</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/InsuranceController.cs" containingFunctionPresentation="Method 'PaymentBySecInsurancePackage'">
+            <startOffsets>
+              <option value="9829" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9909" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Controllers/AuthController.cs</url>
+          <line>39</line>
+          <properties documentPath="$PROJECT_DIR$/Controllers/AuthController.cs" containingFunctionPresentation="Method 'Pay'">
+            <startOffsets>
+              <option value="1365" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1426" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Services/Account/AccountService.cs</url>
+          <line>158</line>
+          <properties documentPath="$PROJECT_DIR$/Services/Account/AccountService.cs" containingFunctionPresentation="Method 'PayPartialDebtAsync'">
+            <startOffsets>
+              <option value="4916" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4917" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

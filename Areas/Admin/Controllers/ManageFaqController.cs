@@ -1,4 +1,4 @@
-using CP2496H07Group1.Models;
+﻿using CP2496H07Group1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,10 +57,34 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Kiểm tra trùng câu hỏi
+                bool isQuestionDuplicate = await _context.Fqas
+                    .AnyAsync(f => f.Question == faq.Question);
+
+                if (isQuestionDuplicate)
+                {
+                    ModelState.AddModelError("Question", "This question already exists in the system.");
+                }
+
+                // Kiểm tra trùng câu trả lời
+                bool isAnswerDuplicate = await _context.Fqas
+                    .AnyAsync(f => f.Answer == faq.Answer);
+
+                if (isAnswerDuplicate)
+                {
+                    ModelState.AddModelError("Answer", "This answer already exists in the system.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(faq);
+                }
+
                 _context.Add(faq);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(faq);
         }
 
@@ -92,6 +116,28 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+            
+                bool isQuestionDuplicate = await _context.Fqas
+                    .AnyAsync(f => f.Id != faq.Id && f.Question.ToLower() == faq.Question.ToLower() && f.IsConfirm == true);
+
+                if (isQuestionDuplicate)
+                {
+                    ModelState.AddModelError("Question", "This question already exists in the system.");
+                }
+
+                bool isAnswerDuplicate = await _context.Fqas
+                    .AnyAsync(f => f.Id != faq.Id && f.Answer.ToLower() == faq.Answer.ToLower() && f.IsConfirm == true);
+
+                if (isAnswerDuplicate)
+                {
+                    ModelState.AddModelError("Answer", "This answer already exists in the system.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(faq);
+                }
+
                 try
                 {
                     _context.Update(faq);
@@ -108,10 +154,13 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(faq);
+
         }
+
 
         // GET: Admin/ManageFaq/Delete/5
         public async Task<IActionResult> Delete(long? id)
@@ -139,8 +188,8 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
             var faq = await _context.Fqas.FindAsync(id);
             if (faq != null)
             {
-                faq.IsConfirm = false;
-                _context.Fqas.Update(faq);
+                _context.Fqas.Remove(faq);
+                await _context.SaveChangesAsync();
             }
 
             await _context.SaveChangesAsync();

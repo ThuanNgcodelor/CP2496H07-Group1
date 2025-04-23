@@ -1,0 +1,33 @@
+﻿ @model CP2496H07Group1.Models.LoanOption
+
+@{
+    ViewData["Title"] = "Delete Loan Option";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4 border border-danger">
+                <h6 class="mb-4 text-danger">Delete Loan Option</h6>
+
+                <h5 class="mb-4">Are you sure you want to delete this loan option?</h5>
+                <dl class="row">
+                    <dt class="col-sm-3">Loan Duration (Months)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.LoanDate)</dd>
+
+                    <dt class="col-sm-3">Interest Rate</dt>
+                    <dd class="col-sm-9">@Model.InterestRate.ToString("P2")</dd>
+                </dl>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a asp-action="Index" class="btn btn-secondary ms-2">No</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

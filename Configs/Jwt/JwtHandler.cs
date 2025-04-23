@@ -46,36 +46,7 @@ public class JwtHandler
         var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         return Task.FromResult(tokenString);
     }
-    
-    
-    public Task<string> GenerateRefreshTokenAdmin(Admin admin)
-    {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.Name, admin.Username),
-            new Claim(ClaimTypes.Email, admin.Email),
-            new Claim("hashed_id", HashId(admin.Id)),
-            new Claim(ClaimTypes.NameIdentifier, admin.Id.ToString()),
-        };
-        var roleClaims = admin.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
-        var allClaims = claims.Concat(roleClaims);
-
-        var token = new JwtSecurityToken(
-            issuer: _jwtModel.Issuer,
-            audience: _jwtModel.Audience,
-            claims: allClaims,
-            expires: DateTime.UtcNow.AddDays(1),
-            signingCredentials: credentials
-        );
-
-        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-        return Task.FromResult(tokenString);
-    }
-    
-    
     public Task<string> GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
@@ -85,13 +56,14 @@ public class JwtHandler
         {
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("hashed_id",HashId(user.Id)), 
+            new Claim("hashed_id", HashId(user.Id)),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim("FirstName", user.FirstName),
             new Claim("LastName", user.LastName)
         };
 
-        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
+        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, "User"));
+
         var allClaims = claims.Concat(roleClaims);
 
         var token = new JwtSecurityToken(
@@ -107,8 +79,6 @@ public class JwtHandler
     }
 
 
-   
-    
     public Task<string> GenerateRefreshToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Secret));
@@ -118,14 +88,14 @@ public class JwtHandler
         {
             new Claim(ClaimTypes.Name, user.PhoneNumber),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim("hashed_id",HashId(user.Id)), 
+            new Claim("hashed_id", HashId(user.Id)),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim("FirstName", user.FirstName),
             new Claim("LastName", user.LastName)
         };
 
-        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
-        var allClaims = claims.Concat(roleClaims); 
+        var roleClaims = user.Roles.Select(role => new Claim(ClaimTypes.Role, "User"));
+        var allClaims = claims.Concat(roleClaims);
 
         var token = new JwtSecurityToken(
             issuer: _jwtModel.Issuer,
@@ -139,7 +109,7 @@ public class JwtHandler
         return Task.FromResult(tokenString);
     }
 
-    
+
     public string HashId(long userId)
     {
         using (var sha256Hash = SHA256.Create())
@@ -148,6 +118,7 @@ public class JwtHandler
             return Convert.ToBase64String(bytes);
         }
     }
+
     //Tra ve userId
     public long? GetUserIdFromToken(string token)
     {
@@ -157,7 +128,7 @@ public class JwtHandler
         var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
         return userIdClaim != null ? long.Parse(userIdClaim.Value) : null;
     }
-    
+
     public ClaimsPrincipal ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

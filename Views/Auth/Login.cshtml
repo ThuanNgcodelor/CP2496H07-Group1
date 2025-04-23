@@ -125,7 +125,6 @@
                 return;
             }
 
-            // Disable the login button
             loginButton.prop('disabled', true).text('Logging in...');
 
             $.ajax({
@@ -143,13 +142,16 @@
                         }, 1000);
                     } else {
                         showCustomAlert(response.message || 'Invalid login credentials');
-                        loginButton.prop('disabled', false).text('Login');
+                        setTimeout(() => {
+                            loginButton.prop('disabled', false).text('Login');
+                        }, 3000);
                     }
                 },
                 error: function (xhr) {
-                    alert(xhr.responseJSON?.message || 'An error occurred during login');
-                    // Re-enable login button on error
-                    loginButton.prop('disabled', false).text('Login');
+                    showCustomAlert(xhr.responseJSON?.message || 'An error occurred during login');
+                    setTimeout(() => {
+                        loginButton.prop('disabled', false).text('Login');
+                    }, 3000);
                 }
             });
         });
@@ -165,10 +167,10 @@
 
         setTimeout(() => {
             alertBox.style.display = "none";
-        }, 3000); // 3 giây tự động ẩn
+        }, 3000); 
     }
-
 </script>
+
 <style>
     .custom-alert {
         text-align: center;
@@ -176,7 +178,7 @@
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #00c292; /* Màu xanh thành công */
+        background-color: #00c292; 
         color: white;
         padding: 15px 25px;
         border-radius: 8px;
@@ -186,5 +188,4 @@
         font-size: 16px;
         animation: slideIn 0.5s ease forwards;
     }
-
 </style>

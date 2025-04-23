@@ -1,0 +1,91 @@
+﻿@model CP2496H07Group1.Models.DiscountCode
+
+@{
+    ViewData["Title"] = "Create Discount Code";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Create Discount Code</h6>
+
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="row mb-3">
+                        <label asp-for="DiscountCodes" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="DiscountCodes" class="form-control" />
+                            <span asp-validation-for="DiscountCodes" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label asp-for="Points" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                    
+                            <input asp-for="Points" class="form-control" id="PointsInput" />
+                            <span asp-validation-for="Points" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label asp-for="Percent" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            
+                            <input asp-for="Percent" class="form-control" max="100" min="1" id="PercentInput" />
+                            <span asp-validation-for="Percent" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label asp-for="LongDate" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="LongDate" class="form-control" type="number" min="1" id="LongDateInput" />
+                            <span asp-validation-for="LongDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-0">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                            <a asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the input fields for Points, Percent, and LongDate
+        const pointsInput = document.getElementById("PointsInput");
+        const percentInput = document.getElementById("PercentInput");
+        const longDateInput = document.getElementById("LongDateInput");
+
+        // Function to prevent invalid characters
+        function restrictInput(inputElement) {
+            inputElement.addEventListener("keydown", function (e) {
+                if (["e", "E", "-", "+", ",", "."].includes(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            inputElement.addEventListener("input", function () {
+                if (parseFloat(this.value) < 0) {
+                    this.value = "";  // Clear the field if negative value
+                }
+            });
+        }
+
+        // Apply the restriction to each input field
+        restrictInput(pointsInput);
+        restrictInput(percentInput);
+        restrictInput(longDateInput);
+    });
+</script>

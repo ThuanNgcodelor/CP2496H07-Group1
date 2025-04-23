@@ -16,20 +16,24 @@ public class AuthService : IAuthService
     private readonly RedisService _redis;
     private readonly IEmailService _emailService;
     private readonly SpeedSmsService _smsService;
+    private readonly ILogger<AuthService> _logger;
 
-    public AuthService(AppDataContext context, RedisService redis, IEmailService emailService, SpeedSmsService smsService)
+
+    public AuthService(AppDataContext context, RedisService redis, IEmailService emailService,
+        SpeedSmsService smsService, ILogger<AuthService> logger)
     {
         _context = context;
         _redis = redis;
         _emailService = emailService;
         _smsService = smsService;
+        _logger = logger;
     }
-    
-    public async Task<Admin?> LoginAdmin(Admin model)
+
+    public async Task<Admin?> LoginAdmin(LoginViewModel model)
     {
         var admin = await _context.Admins
-            .Include(a=>a.Roles)
-            .FirstOrDefaultAsync(a=>a.Email == model.Email);
+            .Include(a => a.Roles)
+            .FirstOrDefaultAsync(a => a.Email == model.Email);
 
         if (admin == null)
         {
@@ -40,7 +44,7 @@ public class AuthService : IAuthService
         {
             throw new ApplicationException("Invalid Email or password");
         }
-        
+
         return admin;
     }
 
@@ -65,8 +69,8 @@ public class AuthService : IAuthService
 
         if (failedLoginAttempts >= 3)
         {
-       
-            throw new ArgumentException("User has been locked");;
+            throw new ArgumentException("User has been locked");
+            ;
         }
 
         if (!VerifyPassword(model.PasswordHash, user.PasswordHash))
@@ -78,6 +82,7 @@ public class AuthService : IAuthService
                 user.Status = "Off";
                 await _context.SaveChangesAsync();
             }
+
             _redis.Set(redisKey, failedLoginAttempts.ToString(), TimeSpan.FromMinutes(30));
             throw new ArgumentException("Password is invalid" + failedLoginAttempts);
         }
@@ -85,8 +90,6 @@ public class AuthService : IAuthService
         _redis.Remove(redisKey);
         return user;
     }
-
-
 
 
     public async Task<User> Register(User model)
@@ -132,7 +135,7 @@ public class AuthService : IAuthService
         {
             throw new ArgumentException("This phone number does not exist.");
         }
-     
+
         //Tao Opt sau do gui len Cache voi 30
         var otp = new Random().Next(100000, 999999).ToString();
         string redisKey = $"reset_password_{user.PhoneNumber}";
@@ -164,44 +167,46 @@ public class AuthService : IAuthService
 
     public async Task<string> SendOtpChangeEmail(string oldMail, string newEmail)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u=>u.Email == oldMail);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == oldMail);
         if (user == null)
         {
             throw new ArgumentException("User does not exist.");
         }
+
         var opt = new Random().Next(100000, 999999).ToString();
         string redisKey = $"change_email_{newEmail}";
         _redis.Set(redisKey, opt, TimeSpan.FromMinutes(5));
-        
+
         var sendMail = CreateOtpChangeEmail(user.Email, opt);
         await _emailService.Send(user.Email, "Change email", sendMail);
         return "OTP sent to your email. Please check your inbox.";
     }
 
-    public async Task<User?> ConfirmOtpChangeEmail(string oldEmail,string newEmail, string inputOtp)
+    public async Task<User?> ConfirmOtpChangeEmail(string oldEmail, string newEmail, string inputOtp)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u=>u.Email == oldEmail);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == oldEmail);
         if (user == null)
         {
             throw new ArgumentException("User does not exist.");
         }
-        
+
         string redisKey = $"change_email_{newEmail}";
         var storedOtp = _redis.Get(redisKey);
-        
+
         if (storedOtp == null)
             throw new Exception("OTP is invalid.");
 
         if (storedOtp != inputOtp)
             throw new Exception("OTP entered wrong OTP.");
-        
+
         user.Email = newEmail;
         await _context.SaveChangesAsync();
         _redis.Remove(redisKey);
         return user;
     }
 
-    public async Task ChangePassword(string? phoneNumber, string oldPassword, string newPassword, string confirmPassword)
+    public async Task ChangePassword(string? phoneNumber, string oldPassword, string newPassword,
+        string confirmPassword)
     {
         if (string.IsNullOrEmpty(oldPassword) && string.IsNullOrEmpty(phoneNumber))
         {
@@ -209,8 +214,9 @@ public class AuthService : IAuthService
         }
 
         var oldPasswordHash = HashPassword(oldPassword);
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber && u.PasswordHash == oldPasswordHash);
-    
+        var user = await _context.Users.FirstOrDefaultAsync(u =>
+            u.PhoneNumber == phoneNumber && u.PasswordHash == oldPasswordHash);
+
         if (user == null)
         {
             throw new ArgumentException("Incorrect phone number or old password.");
@@ -221,8 +227,7 @@ public class AuthService : IAuthService
     }
 
 
-
-    public async Task ResetPassword(string? phoneNumber,string newPassword, string confirmPassword )
+    public async Task ResetPassword(string? phoneNumber, string newPassword, string confirmPassword)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         if (user == null)
@@ -239,15 +244,9 @@ public class AuthService : IAuthService
 
     public async Task<User> RegisterOpt(User model)
     {
-        if (await _context.Users.AnyAsync(u => u.PhoneNumber == model.PhoneNumber))
-        {
-            throw new ArgumentException("This phone number is already registered.");
-        }
-
-        if (await _context.Users.AnyAsync(u => u.Email == model.Email))
-        {
-            throw new ArgumentException("This email is already registered.");
-        }
+        var existingUser = await _context.Users
+            .Include(u => u.Roles)
+            .FirstOrDefaultAsync(u => u.PhoneNumber == model.PhoneNumber || u.Email == model.Email);
 
         var otp = new Random().Next(100000, 999999).ToString();
 
@@ -264,6 +263,26 @@ public class AuthService : IAuthService
             await _context.SaveChangesAsync();
         }
 
+        if (existingUser != null)
+        {
+            if (existingUser.IsConfirm)
+            {
+                throw new ArgumentException("This phone number or email is already registered.");
+            }
+
+            existingUser.ConfirmationToken = otp;
+            existingUser.IsConfirm = false;
+            existingUser.PasswordHash = HashPassword(model.PasswordHash);
+
+            _context.Users.Update(existingUser);
+            await _context.SaveChangesAsync();
+
+            var emailBody = CreateOtpEmailForgot(existingUser.Email, otp);
+            await _emailService.Send(existingUser.Email, "Confirm register", emailBody);
+            return existingUser;
+        }
+
+
         model.IsConfirm = false;
         model.ConfirmationToken = otp;
         // Gán mật khẩu đã hash
@@ -275,11 +294,33 @@ public class AuthService : IAuthService
         _context.Users.Add(model);
         await _context.SaveChangesAsync();
 
-        var emailBody = CreateOtpEmailForgot(model.Email, otp);
-        await _emailService.Send(model.Email, "Confirm register", emailBody);
+        var newEmailBody = CreateOtpEmailForgot(model.Email, otp);
+        await _emailService.Send(model.Email, "Confirm register", newEmailBody);
 
         return model;
     }
+
+    public async Task ResendOtp(string email)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        if (user == null)
+        {
+            throw new ArgumentException("User not found.");
+        }
+
+        if (user.IsConfirm)
+        {
+            throw new InvalidOperationException("User already confirmed.");
+        }
+
+        var otp = new Random().Next(100000, 999999).ToString();
+        user.ConfirmationToken = otp;
+        await _context.SaveChangesAsync();
+
+        var emailBody = CreateOtpEmailForgot(email, otp);
+        await _emailService.Send(email, "Resend OTP", emailBody);
+    }
+
 
     private static string CreateOtpEmailTemplate(string email, string otp)
     {
@@ -296,7 +337,7 @@ public class AuthService : IAuthService
             </body>
             </html>";
     }
-    
+
     private static string CreateOtpChangeEmail(string email, string otp)
     {
         return $@"
@@ -350,5 +391,142 @@ public class AuthService : IAuthService
     private static bool VerifyPassword(string inputPassword, string storedHash)
     {
         return HashPassword(inputPassword) == storedHash;
+    }
+
+
+    public async Task SendLoanConfirmationEmail(User user, Loans loan)
+    {
+        if (user == null || string.IsNullOrEmpty(user.Email))
+        {
+            _logger.LogWarning("Invalid user or email when sending loan confirmation.");
+            return;
+        }
+
+        var fullName = !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName)
+            ? $"{user.FirstName} {user.LastName}"
+            : user.FirstName ?? user.LastName ?? "Valued Customer";
+
+        var subject = "✅ Loan Confirmation - TeckBank";
+        var body = $@"
+    <html>
+    <body style='font-family: Arial, sans-serif;'>
+        <h2>Loan Successfully Created</h2>
+        <p>Hi {fullName},</p>
+        <p>Your loan has been successfully created with the following details:</p>
+        <ul>
+            <li><strong>Loan Name:</strong> {loan.LoanName}</li>
+            <li><strong>Loan Amount:</strong> {loan.AmountBorrowed:N0} $</li>
+            <li><strong>Start Date:</strong> {loan.StartDate:dd/MM/yyyy}</li>
+            <li><strong>End Date:</strong> {loan.EndDate:dd/MM/yyyy}</li>
+            <li><strong>Monthly Payment:</strong> {loan.MonthlyPayment:N0} $</li>
+        </ul>
+        <p>Thank you for using TeckBank! If you have any questions, feel free to contact us.</p>
+        <p>Best regards,<br/>TeckBank Team 🏦</p>
+    </body>
+    </html>";
+
+        try
+        {
+            await _emailService.Send(user.Email, subject, body);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to send loan confirmation email to {user.Email}.");
+        }
+    }
+
+
+    public async Task SendMonthlyRemindersAsync()
+    {
+        var reminderDate = DateTime.Today.AddDays(-3);
+
+        var schedules = await _context.LoanPaymentSchedules
+            .Include(s => s.Loan)
+            .ThenInclude(l => l.User)
+            .Where(s => s.PaymentDueDate.Date == reminderDate && !s.IsReminderSent)
+            .ToListAsync();
+
+        foreach (var schedule in schedules)
+        {
+            var loan = schedule.Loan;
+            var user = loan?.User;
+
+            // Nếu đã thanh toán hoặc không có email → đánh dấu là đã gửi để không bị lặp
+            if (schedule.Paymentstatus || user == null || string.IsNullOrEmpty(user.Email))
+            {
+                schedule.IsReminderSent = true;
+                continue;
+            }
+
+            var fullName = !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName)
+                ? $"{user.FirstName} {user.LastName}"
+                : user.FirstName ?? user.LastName ?? "Valued Customer";
+
+            var subject = $"💰 Monthly Loan Payment Reminder (Due {schedule.PaymentDueDate:dd/MM/yyyy})";
+            var body = $@"
+        <p>Hi {fullName},</p>
+        <p>This is a reminder that your loan payment is due on <b>{schedule.PaymentDueDate:dd/MM/yyyy}</b>.</p>
+        <ul>
+            <li><strong>Loan ID:</strong> #{loan.Id}</li>
+            <li><strong>Monthly Payment:</strong> {loan.MonthlyPayment:N0} VND</li>
+        </ul>
+        <p>Please make your payment on time to avoid penalties.</p>
+        <p>Thanks,<br/>AnimeAsp Team 🏦</p>";
+
+            try
+            {
+                await _emailService.Send(user.Email, subject, body);
+                schedule.IsReminderSent = true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Failed to send reminder email to {user.Email} for schedule {schedule.Id}.");
+            }
+        }
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SendTopupConfirmationEmail(User user, Topup topup)
+    {
+        if (user == null || string.IsNullOrEmpty(user.Email))
+        {
+            _logger.LogWarning("Invalid user or email when sending top-up confirmation.");
+            return;
+        }
+
+        var fullName = !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName)
+            ? $"{user.FirstName} {user.LastName}"
+            : user.FirstName ?? user.LastName ?? "Valued Customer";
+
+        var subject = "💰 Top-up Confirmation - TeckBank";
+        var body = $@"
+
+
+
+
+<html>
+<body style='font-family: Arial, sans-serif;'>
+    <h2>Your topup information is incorrect.</h2>
+    <p>Hi {fullName},</p>
+    <p>We’ve received your top-up request with the following details:</p>
+    <ul>
+        <li><strong>AmountTopup:</strong> {topup.AmountTopup:N0} $</li>
+        <li><strong>Description:</strong> {topup.Description}</li>
+        <li><strong>Created At:</strong> {topup.CreatedAt:dd/MM/yyyy HH:mm}</li>
+    </ul>
+    <p>Thank you for banking with TeckBank.</p>
+    <p>Best regards,<br/>TeckBank Team 🏦</p>
+</body>
+</html>";
+
+        try
+        {
+            await _emailService.Send(user.Email, subject, body);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to send top-up confirmation email to {user.Email}.");
+        }
     }
 }

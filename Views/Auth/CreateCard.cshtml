@@ -5,24 +5,29 @@
         width: 80%;
         margin: 0 auto;
     }
+
     .form-group {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 15px;
     }
+
     .form-group input, .form-group select {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
     }
+
     .icon-box {
         margin-bottom: 5px;
     }
+
     .message-btn {
         text-align: center;
     }
+
     .form-group input[type='password'] {
         background: #f5f4f4;
         border: 1px solid #f5f4f4;
@@ -30,6 +35,7 @@
         color: #333;
         padding: 10px 20px;
     }
+
     #pinError {
         color: red;
         font-size: 14px;
@@ -41,13 +47,14 @@
 </style>
 
 <section class="appointment-section pt_120 pb_120">
-    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="bg-layer"
+         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <span class="big-text">Create Card <br>TechBank</span>
     <div class="auto-container">
         <div class="appointment-form">
             <form asp-controller="Auth" asp-action="CreateCard" method="post">
-                <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+                <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value"/>
                 @Html.AntiForgeryToken()
                 <div class="row clearfix">
                     <div class="sec-title">
@@ -56,19 +63,19 @@
                     </div>
 
                     <!-- Card Type -->
-                    <div class="col-12">
-                        <div class="form-group">
-                            <div class="icon-box">
-                                <img src="images/icons/icon-223.png" alt="">
-                            </div>
-                            <label for="AccountType">Card Type</label>
-                            <select id="AccountType" name="AccountType" required>
-                                <option value="">Select</option>
-                                <option value="NormalCard">Normal</option>
-                                <option value="CreditCard">Credit</option>
-                            </select>
+
+                    <div class="form-group w-100">
+                        <div class="icon-box">
+                            <img src="images/icons/icon-223.png" alt="">
                         </div>
+                        <label for="AccountType">Card Type</label>
+                        <select id="AccountType" class="w-100" name="AccountType" required>
+                            <option disabled selected>Select</option>
+                            <option value="Normal Card">Normal</option>
+                            <option value="Credit Card">Credit</option>
+                        </select>
                     </div>
+
 
                     <div class="col-12">
                         <div class="form-group">

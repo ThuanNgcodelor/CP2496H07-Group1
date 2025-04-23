@@ -9,34 +9,36 @@
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Update Insurance Package</h6>
-                <form asp-action="Update" method="post" id="productForm">
+                <form asp-action="Update" method="post" id="productForm" novalidate>
                     <input type="hidden" asp-for="Id" />
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" asp-for="Name" id="productName">
-                            <div class="invalid-feedback">Name is required.</div>
+                            <div class="invalid-feedback">Please enter the package name.</div>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Type</label>
                         <div class="col-sm-10">
-                            <select class="form-select" asp-for="Type">
+                            <select class="form-select" asp-for="Type" id="typeSelect">
+                                <option value="">-- Select Type --</option>
                                 <option value="Health">Health</option>
                                 <option value="Life">Life</option>
                                 <option value="Travel">Travel</option>
                                 <option value="Property">Property</option>
                             </select>
+                            <div class="invalid-feedback">Please select a type.</div>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Price</label>
                         <div class="col-sm-10">
-                            <input type="number" step="0.01" class="form-control" asp-for="Price" id="productPrice">
-                            <div class="invalid-feedback">Price is required.</div>
+                            <input type="number" step="0.01" min="0" class="form-control" asp-for="Price" id="productPrice">
+                            <div class="invalid-feedback">Please enter a valid price (greater than 0).</div>
                         </div>
                     </div>
 
@@ -44,7 +46,7 @@
                         <label class="col-sm-2 col-form-label">Duration Days</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" asp-for="DurationDays" id="productQuantity">
-                            <div class="invalid-feedback">Duration Days is required.</div>
+                            <div class="invalid-feedback">Please enter a duration between 1 and 1825 days (5 years).</div>
                         </div>
                     </div>
 
@@ -52,68 +54,105 @@
                         <label class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" asp-for="Description" id="productDescription" style="height: 150px;"></textarea>
-                            <div class="invalid-feedback">Description is required.</div>
+                            <div class="invalid-feedback">Please enter a description.</div>
                         </div>
                     </div>
-                   
 
                     <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Back</a>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- CKEditor 5 Classic -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let editorInstance;
+    let editorInstance;
 
-        ClassicEditor
-            .create(document.querySelector('#productDescription'))
-            .then(editor => {
-                editorInstance = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    ClassicEditor
+        .create(document.querySelector('#productDescription'))
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
-        // Form validation
-        document.getElementById('productForm').addEventListener('submit', function (e) {
+    $(document).ready(function () {
+        $('#productName').on('input', function () {
+            if ($(this).val().trim()) {
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).addClass('is-invalid');
+            }
+        });
+
+        $('#typeSelect').on('change', function () {
+            if ($(this).val()) {
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).addClass('is-invalid');
+            }
+        });
+
+        $('#productPrice').on('input', function () {
+            const value = parseFloat($(this).val());
+            if (value > 0 && !isNaN(value)) {
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).addClass('is-invalid');
+            }
+        });
+
+        $('#productQuantity').on('input', function () {
+            const value = parseInt($(this).val());
+            if (value >= 1 && value <= 1825 && !isNaN(value)) {
+                $(this).removeClass('is-invalid');
+            } else {
+                $(this).addClass('is-invalid');
+            }
+        });
+
+        $('#productForm').on('submit', function (e) {
             let isValid = true;
-            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+            $('.form-control, .form-select').removeClass('is-invalid');
 
-            const name = document.getElementById('productName');
-            const price = document.getElementById('productPrice');
-            const duration = document.getElementById('productQuantity');
-
-            if (!name.value.trim()) {
-                name.classList.add('is-invalid');
+            if (!$('#productName').val().trim()) {
+                $('#productName').addClass('is-invalid');
                 isValid = false;
             }
 
-            const desc = editorInstance.getData().trim();
-            if (!desc) {
-                document.querySelector('#productDescription').classList.add('is-invalid');
+            if (!$('#typeSelect').val()) {
+                $('#typeSelect').addClass('is-invalid');
                 isValid = false;
             }
 
-            if (!price.value || isNaN(price.value)) {
-                price.classList.add('is-invalid');
+            const price = parseFloat($('#productPrice').val());
+            if (isNaN(price) || price <= 0) {
+                $('#productPrice').addClass('is-invalid');
                 isValid = false;
             }
 
-            if (!duration.value || isNaN(duration.value)) {
-                duration.classList.add('is-invalid');
+            const duration = parseInt($('#productQuantity').val());
+            if (isNaN(duration) || duration < 1 || duration > 1825) {
+                $('#productQuantity').addClass('is-invalid');
                 isValid = false;
+            }
+
+            const description = editorInstance.getData().trim();
+            if (!description) {
+                $('#productDescription').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#productDescription').val(description);
             }
 
             if (!isValid) {
                 e.preventDefault();
-            } else {
-                // Sync data from editor back to textarea
-                document.querySelector('#productDescription').value = desc;
             }
         });
     });
@@ -124,7 +163,8 @@
         display: none;
     }
 
-    .form-control.is-invalid ~ .invalid-feedback {
+    .form-control.is-invalid ~ .invalid-feedback,
+    .form-select.is-invalid ~ .invalid-feedback {
         display: block;
     }
 </style>

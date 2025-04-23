@@ -56,7 +56,6 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
             return news == null ? NotFound() : View(news);
         }
 
-        // GET: Admin/ManageNews/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
@@ -69,7 +68,19 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         {
             try
             {
-                // File upload handling
+                if (await IsTitleDuplicate(news.Title, null))
+                {
+                    ModelState.AddModelError("Title", "This title already exists. Please choose another title.");
+                    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+                    return View(news);
+                }
+                if (imageFile == null || imageFile.Length == 0)
+                {
+                    ViewBag.ImageError = "Image cannot be blank.";
+                    ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+                    return View(news);
+                }
+
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
@@ -103,6 +114,7 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                 return View(news);
             }
         }
+
         // GET: Admin/ManageNews/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -123,6 +135,21 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
 
             try
             {
+                // Lấy bài viết hiện tại từ database để so sánh tiêu đề
+                var existingNews = await _context.News.AsNoTracking().FirstOrDefaultAsync(n => n.Id == id);
+                if (existingNews == null) return NotFound();
+
+                // Kiểm tra trùng tiêu đề với các bài viết khác (ngoài bài hiện tại)
+                if (existingNews.Title != news.Title)
+                {
+                    if (await IsTitleDuplicate(news.Title, news.Id))  // Chỉ kiểm tra với những bài viết khác ngoài bài hiện tại
+                    {
+                        ModelState.AddModelError("Title", "This title already exists. Please choose another title.");
+                        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", news.CategoryId);
+                        return View(news);
+                    }
+                }
+
                 // Handle image upload if new file is provided
                 if (imageFile != null && imageFile.Length > 0)
                 {
@@ -163,6 +190,8 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                 return View(news);
             }
         }
+
+
         // GET: Admin/ManageNews/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
@@ -183,7 +212,7 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
             if (news != null)
             {
                 // Soft delete by setting IsConfirm to false
-                news.IsConfirm = false;
+                _context.News.Remove(news);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -213,6 +242,24 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         private bool NewsExists(long id)
         {
             return _context.News.Any(e => e.Id == id);
+        }
+
+        private async Task<bool> IsTitleDuplicate(string title, long? currentNewsId)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                return false;
+
+            var existingNews = await _context.News
+                .Where(n => n.Title.ToLower() == title.ToLower() && n.IsConfirm == true)
+                .FirstOrDefaultAsync();
+
+            if (existingNews == null)
+                return false;
+
+            if (currentNewsId.HasValue && existingNews.Id == currentNewsId.Value)
+                return false;
+
+            return true;
         }
     }
 }

@@ -1,17 +1,31 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CP2496H07Group1.Models;
 
 public class Savings
 {
-    public required long Id { get; set; }
-    public long? AccountId { get; set; } // Có thể null nếu chưa liên kết với tài khoản nào
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public long Id { get; set; } // Removed 'required' since DB generates it
+
+    public long? AccountId { get; set; } // Nullable, as per your model
+
     public DateTime DateStart { get; set; }
+
     public DateTime DateEnd { get; set; }
-    public required string TypeTk { get; set; }
-    public string Status { get; set; } = "chưa được rút";
-    public string Pay { get; set; } = "chưa rút";
 
-    public required long SavingCategoryId { get; set; } // Liên kết đến SavingCategory
-    public required SavingCategory SavingCategory { get; set; }
+    [Required(ErrorMessage = "TypeTk is required")]
+    public string TypeTk { get; set; } = string.Empty; // Initialized to avoid nullable warning
 
-    public Account? Account { get; set; } // Liên kết với Account, có thể null nếu chưa gắn với tài khoản
+    public string Status { get; set; } = "chưa hoàn thành";   //chưa hoàn thành
+
+    public string Pay { get; set; } = "chưa rút";    //
+
+    public long SavingCategoryId { get; set; } // Required by relationship
+
+    [ForeignKey("SavingCategoryId")]
+    public SavingCategory SavingCategory { get; set; } = null!; // Non-nullable, EF will ensure it's set
+
+    public Account? Account { get; set; } // Nullable, as per your model
 }

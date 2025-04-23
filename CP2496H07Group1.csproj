@@ -311,14 +311,44 @@
       <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_utilities.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\scss\material-dashboard\_variables.scss" />
       <_ContentIncludedByDefault Remove="Areas\Admin\Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\UserInsurance\index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Slider\Add.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Slider\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Slider\Update.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Vip\Add.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Vip\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Vip\Update.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Transfer\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Transfer\Success.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageNews\NewsComments.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageFaq\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageFaq\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageFaq\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageFaq\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageCategoryNews\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageCategoryNews\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageCategoryNews\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageCategoryNews\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\HistoryTransaction\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\SavingCategory\Add.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\SavingCategory\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\SavingCategory\Update.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Vip\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
       <PackageReference Include="Hangfire" Version="1.8.18" />
       <PackageReference Include="Hangfire.AspNetCore" Version="1.8.18" />
+      <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.1" />
       <PackageReference Include="MailKit" Version="4.11.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
         <PrivateAssets>all</PrivateAssets>
@@ -332,6 +362,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
       <PackageReference Include="PasswordHash" Version="1.1.0" />
       <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
       <PackageReference Include="Twilio" Version="7.9.1" />
       <PackageReference Include="X.PagedList" Version="10.5.7" />
       <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
@@ -340,6 +371,18 @@
     <ItemGroup>
       <AdditionalFiles Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Areas\Admin\Views\ManageFaq\Create.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\ManageFaq\Delete.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\ManageFaq\Edit.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\ManageFaq\Index.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\Slider\Add.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\Slider\Index.cshtml" />
+      <UpToDateCheckInput Remove="Areas\Admin\Views\Slider\Update.cshtml" />
+      <UpToDateCheckInput Remove="Views\Transfer\Index.cshtml" />
+      <UpToDateCheckInput Remove="Views\Transfer\Success.cshtml" />
     </ItemGroup>
 
 </Project>

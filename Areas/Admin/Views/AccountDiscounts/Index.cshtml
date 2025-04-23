@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CP2496H07Group1.Models.AccountDiscounts>
+@{
+    ViewData["Title"] = "Account Discounts";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="mb-0">Account Discount List</h6>
+                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+                </div>
+
+                <div class="mb-4">
+                    <form method="get" asp-action="Index">
+                        <div class="input-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search account discounts..." />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">Clear</a>
+                        </div>
+                    </form>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Full Name</th>
+                            <th>Account Number</th>
+                            <th>Discount Code</th>
+                            <th>Start Date</th>
+                            <th>Stop Date</th>
+                            <th>Status</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int index = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@item.Account.User.FirstName @item.Account.User.LastName</td>
+                                    <td>@item.Account.AccountNumber</td>
+                                    <td>@item.DiscountCode.DiscountCodes (@item.DiscountCode.Percent%)</td>
+                                    <td>@item.SDateTime.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.STopDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@(item.Status == 1 ? "Active" : "Inactive")</td>
+                                    
+                                </tr>
+                                index++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

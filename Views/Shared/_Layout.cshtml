@@ -33,6 +33,7 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/responsive.css" rel="stylesheet">
     <script src="~/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 
@@ -90,7 +91,7 @@
                     <div class="menu-area">
                         <div class="logo-box mr_110">
                             <figure class="logo"><a asp-action="Index" asp-controller="Home"><img
-                                        src="~/images/logo.png" alt=""></a></figure>
+                                                                                                 src="~/images/logo.jpg" width="200rem" alt=""></a></figure>
                         </div>
                         <!--Mobile Navigation Toggler-->
                         <div class="mobile-nav-toggler">
@@ -113,7 +114,13 @@
 
                                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                                     {
-                                        <li><a asp-action="Index" asp-controller="Insurance">Insurance</a></li>
+                                        <li class="dropdown"><a href="#">More</a>
+                                            <ul>
+                                                <li><a asp-controller="Insurance" asp-action="Index">Insurance</a></li>
+                                                <li><a asp-action="UserInsurance" asp-controller="Insurance">My Insurance</a></li>
+                                                <li><a asp-action="UserSec" asp-controller="Insurance">My Sec</a></li>
+                                            </ul>
+                                        </li>
                                         <li class="dropdown"><a href="#">Function</a>
                                             <ul>
                                                 <li class="dropdown"><a href="#">More</a>
@@ -122,11 +129,11 @@
                                                     </ul>
                                                 </li>
                                                 <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
-                                                <li><a asp-action="Card" asp-controller="Auth">My Account</a></li>
+                                                <li><a asp-action="Card" asp-controller="Auth">My Card</a></li>
                                                 <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
                                                 <li><a asp-controller="Auth" asp-action="RecentTransactions">History
                                                     transaction</a></li>
-                                                <li><a>Logout</a></li>
+                                                <li><a asp-action="Logout" asp-controller="Auth">Logout</a></li>
                                             </ul>
                                         </li>
                                     }
@@ -167,7 +174,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                         <div class="tab" id="atm-btn">
@@ -183,7 +190,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +208,7 @@
                 <div class="outer-box">
                     <div class="menu-area">
                         <div class="logo-box mr_110">
-                            <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
+                            <figure class="logo"><a href="index.html"><img src="~/images/logo1.png" alt=""></a></figure>
                         </div>
                         <nav class="main-menu clearfix">
                         </nav>
@@ -236,7 +243,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                         <div class="tab" id="atm-btn2">
@@ -252,7 +259,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -264,8 +271,33 @@
             </div>
         </div>
     </header>
-    <!-- main-header end -->
+    
+    <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+        <div class="close-btn"><i class="fas fa-times"></i></div>
 
+        <nav class="menu-box">
+            <div class="nav-logo"><a href="#"><img src="/images/logo-2.png" alt="" title=""></a></div>
+            <div class="menu-outer"></div>
+            <div class="contact-info">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>Chicago 12, Melborne City, USA</li>
+                    <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+                    <li><a href="mailto:info@example.com">info@example.com</a></li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <ul class="clearfix">
+                    <li><a href="index.html"><span class="fab fa-twitter"></span></a></li>
+                    <li><a href="index.html"><span class="fab fa-facebook-square"></span></a></li>
+                    <li><a href="index.html"><span class="fab fa-pinterest-p"></span></a></li>
+                    <li><a href="index.html"><span class="fab fa-instagram"></span></a></li>
+                    <li><a href="index.html"><span class="fab fa-youtube"></span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
 
 
@@ -398,9 +430,8 @@
                         </ul>
                     </div>
                     <div class="footer-logo">
-                        <figure class="logo"><a href="index.html"><img src="~/images/logo.png" alt=""></a></figure>
-                        <div class="copyright"><p>copyrights <a href="index.html">&copy; 2025 Flexibank.</a> All Rights
-                                Reserved.</p></div>
+                        <figure class="logo"><a href="index.html"><img src="~/images/logo1.png" alt=""></a></figure>
+                        <div class="copyright"><p> <a asp-action="Index" asp-controller="Home">&copy;  TeckBank.</a> </p></div>
                     </div>
                     <ul class="footer-nav clearfix">
                         <li><a href="index.html">Privacy Policy</a></li>
@@ -420,7 +451,6 @@
 
     @RenderSection("Styles", required: false)
 
-    <!--Scroll to top-->
     <div class="scroll-to-top">
         <svg class="scroll-top-inner" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
@@ -446,7 +476,7 @@
 
 <script src="~/js/script.js"></script>
 
-</body><!-- End of .page_wrapper -->
+</body>
 
 </html>
 
@@ -480,7 +510,6 @@
                 withCredentials: true,
             },
             success: function () {
-                // Logged in => refresh access token
                 refreshAccessToken(function (success) {
                     if (success) {
                         console.log("Token refreshed successfully");
@@ -488,7 +517,6 @@
                 });
             },
             error: function () {
-                // Not logged in => stop checking
                 console.log("User is not logged in. Stopping auto refresh.");
                 if (refreshIntervalId) {
                     clearInterval(refreshIntervalId);
@@ -498,10 +526,7 @@
     }
 
     $(document).ready(function () {
-        // Gọi kiểm tra lần đầu tiên khi vào trang
         checkLoginAndRefresh();
-
-        // Sau đó định kỳ nếu còn đăng nhập
         refreshIntervalId = setInterval(checkLoginAndRefresh, 1750000); // ~29 phút
     });
 </script>

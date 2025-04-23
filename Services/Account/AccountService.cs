@@ -27,20 +27,23 @@ public class AccountService : IAccountService
         try
         {
             return await _context.Accounts
-                .Where(a => a.UserId == userId)
+                .Include(c => c.CreditCard)
+                .Where(a => a.UserId == userId && a.Status == "Active")
                 .ToListAsync();
-        }catch
+        }
+        catch
         {
             throw new ArgumentException("Invalid or expired OTP.");
         }
     }
 
-    public Task<Models.Account?> GetAccountDetails(long userId, long accountId)
+    public Task<Models.Account?> GetAccountDetails(long userId, long accountId, string pin)
     {
         try
         {
             return Task.FromResult(_context.Accounts
-                .FirstOrDefault(a => a != null && a.UserId == userId && a.Id == accountId));
+                .Include(c => c.CreditCard)
+                .FirstOrDefault(a => a.UserId == userId && a.Id == accountId && a.Pin == int.Parse(pin)));
         }
         catch
         {
@@ -51,10 +54,10 @@ public class AccountService : IAccountService
     public async Task<string> SendMailCreateAccount(long userId, string accountType, int pin)
     {
         var user = await _context.Users.FindAsync(userId);
-        if(user == null)
+        if (user == null)
             throw new ApplicationException($"User with id {userId} not found");
 
-        var otp = new Random().Next(100000,999999).ToString();
+        var otp = new Random().Next(100000, 999999).ToString();
         var tempAccount = new
         {
             userId = user.Id,
@@ -78,6 +81,125 @@ public class AccountService : IAccountService
 
         return "OTP sent to your email.";
     }
+
+    public async Task<string> SendMailResendCreateOtp(long userId)
+    {
+        string redisKey = $"create_account_otp_{userId}";
+
+        var data = _redis.Get(redisKey);
+        if (string.IsNullOrEmpty(data))
+        {
+            throw new ApplicationException("No pending card creation request found. Please start the process again.");
+        }
+
+        var parsedData = JsonConvert.DeserializeObject<dynamic>(data);
+        var tempAccount = parsedData?.tempAccount;
+        if (tempAccount == null)
+        {
+            throw new ApplicationException("Invalid OTP data.");
+        }
+
+        var otp = new Random().Next(100000, 999999).ToString();
+
+        var updatedData = new
+        {
+            otp,
+            tempAccount
+        };
+
+        _redis.Set(redisKey, JsonConvert.SerializeObject(updatedData), TimeSpan.FromMinutes(10));
+
+        var email = (string)tempAccount.Email;
+        var emailContent = CreateOtpEmailCreateAccount(email, otp);
+
+        await _emailService.Send(email, "Resend OTP - Create Card", emailContent);
+
+        return "New OTP has been sent to your email.";
+    }
+
+    public async Task<bool> PayFullDebtAsync(long userId)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        var account = _context.Accounts
+            .Include(a => a.CreditCard)
+            .FirstOrDefault(a => a.UserId == userId && a.AccountType == "Credit Card");
+
+        if (account == null || account.CreditCard == null || !account.CreditCard.IsActive)
+            return false;
+
+        var debt = account.CreditCard.CurrentDebt;
+        var now = DateTime.Now.Date;
+        var dueDate = account.CreditCard.DueDate.Date;
+
+        if (now > dueDate)
+        {
+            int overdueDays = (now - dueDate).Days;
+            decimal interestRate = account.CreditCard.InterestRate / 100;
+            decimal penalty = debt * interestRate * overdueDays;
+            debt += penalty;
+            account.CreditCard.CurrentDebt += penalty;
+        }
+
+        if (account.Balance < debt)
+            return false;
+
+        account.Balance -= debt;
+        account.CreditCard.CurrentDebt = 0;
+
+
+        var emailBody = SendMailPayment(user.Email, debt, account.Balance);
+        await _emailService.Send(user.Email, "Payment Confirmation", emailBody);
+
+        _context.Update(account);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> PayPartialDebtAsync(long userId, decimal amount)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        var account = _context.Accounts
+            .Include(a => a.CreditCard)
+            .FirstOrDefault(a => a.UserId == userId && a.AccountType == "Credit Card");
+
+        if (account == null || account.CreditCard == null || !account.CreditCard.IsActive)
+            return false;
+
+        var now = DateTime.Now.Date;
+        var dueDate = account.CreditCard.DueDate.Date;
+
+        decimal penalty = 0;
+
+        // Nếu quá hạn thanh toán thì cộng lãi vào CurrentDebt
+        if (now > dueDate)
+        {
+            int overdueDays = (now - dueDate).Days;
+            decimal interestRate = account.CreditCard.InterestRate / 100;
+            penalty = account.CreditCard.CurrentDebt * interestRate * overdueDays;
+
+            account.CreditCard.CurrentDebt += penalty;
+        }
+
+        if (account.Balance < amount || amount <= 0 || amount > account.CreditCard.CurrentDebt)
+            return false;
+
+        account.Balance -= amount;
+        account.CreditCard.CurrentDebt -= amount;
+
+        string emailBody = SendMailPayment(user.Email, amount, account.Balance);
+        if (penalty > 0)
+        {
+            emailBody += $"\n\n⚠️ Note: You were { (now - dueDate).Days } days overdue.";
+            emailBody += $"\nInterest charged: {penalty:C}.";
+        }
+
+        await _emailService.Send(user.Email, "Partial Payment Confirmation", emailBody);
+
+        _context.Update(account);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
 
     public async Task<Models.Account?> VerifyOtpAndCommitCreateAccount(long userId, string otpInput)
     {
@@ -111,6 +233,7 @@ public class AccountService : IAccountService
             User = user,
             VipId = null,
             Point = 0,
+            Status = "Active",
             TransactionsFrom = new List<Transaction>(),
             TransactionsTo = new List<Transaction>()
         };
@@ -132,28 +255,28 @@ public class AccountService : IAccountService
 
         await _context.Transactions.AddAsync(transaction);
 
-        if (accountType == "CreditCard")
+        if (accountType == "Credit Card")
         {
             var creditCard = new CreditCard
             {
                 AccountId = account.Id,
                 CardNumber = GenerateCreditCardNumber(),
-                CreditLimit = 20000000, // hạn mức mặc định 20 triệu
+                CreditLimit = 2000, // hạn mức mặc định 1 ngan do
                 CurrentDebt = 0,
                 InterestRate = 18, // 18%/năm
-                StatementDate = DateTime.Now, // ngày sao kê hôm nay
-                DueDate = DateTime.Now.AddDays(20), // hạn thanh toán sau 20 ngày
+                BillingCycleStart = DateTime.Now,
+                StatementDate = DateTime.Now.AddDays(30),
+                DueDate = DateTime.Now.AddDays(35), 
                 IsActive = true,
                 Account = account
             };
-            await  _context.CreditCards.AddAsync(creditCard);
+            await _context.CreditCards.AddAsync(creditCard);
         }
-        
+
         await _context.SaveChangesAsync();
 
         return account;
     }
-    
 
 
     private string GenerateAccountNumber()
@@ -161,14 +284,14 @@ public class AccountService : IAccountService
         var random = new Random();
         return string.Concat(Enumerable.Range(0, 12).Select(_ => random.Next(0, 10).ToString()));
     }
-    
+
     private string GenerateCreditCardNumber()
     {
-        Random rand = new();
-        return $"{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}-{rand.Next(1000, 9999)}";
+        var random = new Random();
+        return string.Concat(Enumerable.Range(0, 12).Select(_ => random.Next(0, 10).ToString()));
     }
 
-    
+
     private static string CreateOtpEmailCreateAccount(string email, string otp)
     {
         return $@"
@@ -177,7 +300,26 @@ public class AccountService : IAccountService
                 <h2>Confirm OTP to Create Card</h2>
                 <p>Your OTP is <strong>{otp}</strong></p>
                 <p>This code is valid for 10 minutes.</p>
+                <p>TeckBank</p>
+
             </body>
             </html>";
+    }
+
+    private static string SendMailPayment(string email, decimal amountPaid, decimal newBalance)
+    {
+        return $@"
+        <html>
+        <body style='font-family: Arial, sans-serif;'>
+            <h2>Payment Confirmation</h2>
+            <p>Dear {email},</p>
+            <p>We have received your payment of <strong>{amountPaid:C}</strong>.</p>
+            <p>Your new account balance is <strong>{newBalance:C}</strong>.</p>
+            <p>This payment was successfully processed on {DateTime.Now:MMMM dd, yyyy hh:mm tt}.</p>
+            <br/>
+            <p>Thank you for using our services!</p>
+                            <p>TeckBank</p>
+        </body>
+        </html>";
     }
 }
