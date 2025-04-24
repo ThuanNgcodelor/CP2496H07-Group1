@@ -64,18 +64,25 @@
                                     </div>
                                     
                                 </h5>
-                                <div class="message-btn pt_7 text-end">
-                                    <a href="javascript:void(0);" class="theme-btn open-update-modal"
-                                       data-id="@sec.Id"
-                                       data-name="@sec.Package.Name"
-                                       data-price="@sec.Package.Price.ToString("C")"
-                                       data-type="@sec.Package.Type"
-                                       data-duration="@sec.Package.DurationDays">
-                                        <span>Update</span>
-                                    </a>
-
-                                </div>
-
+                                @if (sec.Status != "Cancel")
+                                {
+                                    <div class="message-btn pt_7 text-end">
+                                        <a href="javascript:void(0);" class="theme-btn open-update-modal"
+                                           data-id="@sec.Id"
+                                           data-name="@sec.Package.Name"
+                                           data-price="@sec.Package.Price.ToString("C")"
+                                           data-type="@sec.Package.Type"
+                                           data-duration="@sec.Package.DurationDays">
+                                            <span>Update</span>
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-end text-muted" style="padding-top: 10px;">
+                                        <em>Cannot update cancelled Sec.</em>
+                                    </div>
+                                }
                             </div>
                             
                         </div>

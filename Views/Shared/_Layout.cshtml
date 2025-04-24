@@ -130,6 +130,7 @@
                                                 </li>
                                                 <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
                                                 <li><a asp-action="Card" asp-controller="Auth">My Card</a></li>
+                                                <li><a asp-action="CreateCard" asp-controller="Auth">My Card</a></li>
                                                 <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
                                                 <li><a asp-controller="Auth" asp-action="RecentTransactions">History
                                                     transaction</a></li>
@@ -208,15 +209,15 @@
                 <div class="outer-box">
                     <div class="menu-area">
                         <div class="logo-box mr_110">
-                            <figure class="logo"><a href="index.html"><img src="~/images/logo1.png" alt=""></a></figure>
+                            <figure class="logo"><a asp-controller="Home" asp-action="Index"><img src="~/images/logo.jpg" width="200rem" ></a></figure>
                         </div>
                         <nav class="main-menu clearfix">
                         </nav>
                     </div>
                     <div class="menu-right-content">
-                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a href="index.html">Support</a>
+                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a asp-action="Index" asp-controller="Faq">Support</a>
                         </div>
-                        <div class="btn-box mr_10"><a href="index.html" class="theme-btn"><span>New Account</span></a>
+                        <div class="btn-box mr_10"><a asp-controller="Auth" asp-action="Register" class="theme-btn"><span>New Account</span></a>
                         </div>
                         <div class="nav-toggler">
                             <button type="button" class="side-panel-btn nav-btn-2"><img src="~/images/icons/icon-10.png"

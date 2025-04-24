@@ -51,6 +51,7 @@ public class AuthController : Controller
         if (account == null || account.CreditCard == null || !account.CreditCard.IsActive)
             return Json(new { success = false, message = "No active credit card found!" });
 
+        Console.WriteLine();
         var now = DateTime.Now.Date;
         var statementDate = account.CreditCard.StatementDate.Date;
         var dueDate = account.CreditCard.DueDate.Date;
@@ -622,7 +623,7 @@ public class AuthController : Controller
             SameSite = SameSiteMode.Strict,
             Expires = DateTime.UtcNow.AddMinutes(30)
         });
-        Console.WriteLine($"AccessToken: {newAccessToken}");
+        // Console.WriteLine($"AccessToken: {newAccessToken}");
         return Ok(new { token = newAccessToken });
     }
 

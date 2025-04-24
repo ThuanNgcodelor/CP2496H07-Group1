@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace CP2496H07Group1.Controllers
 {
@@ -23,7 +24,34 @@ namespace CP2496H07Group1.Controllers
         {
             try
             {
+                string[] bannedWords = new string[]
+                {
+                    "địt", "lồn", "cặc", "bú lol", "bú cu", "đụ", "bú m*", "bú zú", "xếp hình", "hiếp dâm",
+                    "dâm đãng", "dâm loạn", "thằng chó", "con đĩ", "con mẹ mày", "đồ khốn", "thằng khốn", "má mày",
+                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me", "vkl", "vkvl", "md", "vl",
+                    "vl qlq", "qlq",
+                    "fuck", "shit", "bitch", "asshole", "bastard", "slut", "dick", "pussy", "fucker",
+                    "motherfucker", "rape", "kill", "violence", "bloody", "suck my dick", "blowjob",
+                    "porn", "porno", "sex", "orgy", "nude", "cum", "ejaculate"
+                };
+
+                bool containsBannedWord = bannedWords.Any(word =>
+                    Regex.IsMatch(Content, @"\b" + Regex.Escape(word) + @"\b", RegexOptions.IgnoreCase));
+
+                if (containsBannedWord)
+                {
+                    return BadRequest("Comment contains invalid words.");
+                }
+
                 var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+                // Limit to 2 top-level comments per user per news
+                int userCommentCount = await _context.Comments
+                    .CountAsync(c => c.NewsId == NewsId && c.UserId == userId && c.ParentId == null);
+                if (userCommentCount >= 2)
+                {
+                    return BadRequest("You have reached the maximum number of comments for this news.");
+                }
 
                 var comment = new Comment
                 {
@@ -36,11 +64,11 @@ namespace CP2496H07Group1.Controllers
                 _context.Comments.Add(comment);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("NewsDetail", "News", new { id = NewsId });
+                return Ok();
             }
-            catch (Exception)
+            catch
             {
-                return RedirectToAction("NewsDetail", "News", new { id = NewsId });
+                return StatusCode(500, "An error occurred while submitting the comment.");
             }
         }
 
@@ -50,14 +78,45 @@ namespace CP2496H07Group1.Controllers
         {
             try
             {
+                string[] bannedWords = new string[]
+                {
+                    "địt", "lồn", "cặc", "bú lol", "bú cu", "đụ", "bú m*", "bú zú", "xếp hình", "hiếp dâm",
+                    "dâm đãng", "dâm loạn", "thằng chó", "con đĩ", "con mẹ mày", "má mày", "đồ khốn", "thằng khốn",
+                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me", "vkl", "vkvl", "md", "vl",
+                    "vl qlq", "qlq",
+                    "fuck", "shit", "bitch", "asshole", "bastard", "slut", "dick", "pussy", "fucker",
+                    "motherfucker", "rape", "kill", "violence", "bloody", "suck my dick", "blowjob",
+                    "porn", "porno", "sex", "orgy", "nude", "cum", "ejaculate"
+                };
+
+                bool containsBannedWord = bannedWords.Any(word =>
+                    Regex.IsMatch(Content, @"\b" + Regex.Escape(word) + @"\b", RegexOptions.IgnoreCase));
+
+                if (containsBannedWord)
+                {
+                    return BadRequest("Comment contains invalid words.");
+                }
+
                 var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                // Prevent self-reply
                 var parentComment = await _context.Comments.FindAsync(ParentId);
-                if (parentComment != null && parentComment.UserId == userId)
+                if (parentComment == null)
                 {
-                    TempData["ErrorMessage"] = "You cannot reply to your own comments";
-                    return RedirectToAction("NewsDetail", "News", new { id = NewsId });
+                    return NotFound("Parent comment not found.");
+                }
+
+                if (parentComment.UserId == userId)
+                {
+                    return BadRequest("You cannot reply to your own comments.");
+                }
+
+                // Check if user already replied to this comment
+                bool hasReplied = await _context.Comments.AnyAsync(c =>
+                    c.ParentId == ParentId && c.UserId == userId);
+
+                if (hasReplied)
+                {
+                    return BadRequest("You have already replied to this comment.");
                 }
 
                 var reply = new Comment
@@ -72,12 +131,11 @@ namespace CP2496H07Group1.Controllers
                 _context.Comments.Add(reply);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("NewsDetail", "News", new { id = NewsId });
+                return Ok();
             }
             catch (Exception)
             {
-                TempData["ErrorMessage"] = "An error occurred while sending feedback.";
-                return RedirectToAction("NewsDetail", "News", new { id = NewsId });
+                return StatusCode(500, "An error occurred while sending the response.");
             }
         }
 
