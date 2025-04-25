@@ -25,7 +25,7 @@
                         <ul class="category-list clearfix">
                             <li><a asp-action="Users" asp-controller="Auth">User Setting</a></li>
                             <li><a asp-controller="Auth" asp-action="Card" class="current">My Card</a></li>
-                            <li><a asp-controller="Auth" asp-action="CreateCard" class="current">Create Card</a></li>
+                            <li><a asp-controller="Auth" asp-action="CreateCard" >Create Card</a></li>
                             <li><a asp-controller="Loans" asp-action="Index">My Loans</a></li>
                             <li><a asp-controller="Insurance" asp-action="UserInsurance">My Insurance</a></li>
                             <li><a asp-controller="Transfer" asp-action="Index">Transfer</a></li>
@@ -113,7 +113,7 @@
                                         <p>@Model.CreditCard?.BillingCycleStart.ToString("MM/dd/yyyy").</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                     <div class="single-item">
                                         <div class="icon-box"></div>
@@ -121,12 +121,31 @@
                                         <p>@Model.CreditCard?.StatementDate.ToString("MM/dd/yyyy").</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6 col-md-6 col-sm-12 single-column">
                                     <div class="single-item">
                                         <div class="icon-box"></div>
                                         <h3>Due date</h3>
                                         <p>@Model.CreditCard?.DueDate.ToString("MM/dd/yyyy").</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>CVV</h3>
+                                        <p id="cvvValue" style="display: none;">@Model.CreditCard?.Cvv</p>
+                                        <button type="button" class="theme-btn" onclick="toggleCVV()">
+                                            Show
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 single-column">
+                                    <div class="single-item">
+                                        <div class="icon-box"></div>
+                                        <h3>Expired date</h3>
+                                        <p>@Model.CreditCard?.ExpirationDate.ToString("MM/dd/yyyy").</p>
                                     </div>
                                 </div>
                             </div>
@@ -224,10 +243,10 @@
                                                            class="form-control"/>
                                                 </div>
                                                 <br/>
-                                                <button 
-                                                    id="paymentBtn" 
-                                                    type="button" 
-                                                    class="theme-btn" 
+                                                <button
+                                                    id="paymentBtn"
+                                                    type="button"
+                                                    class="theme-btn"
                                                     onclick="makePayment(this); return false;">
                                                     <span>Payment</span>
                                                 </button>
@@ -266,6 +285,18 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
+    function toggleCVV() {
+        const cvvElement = document.getElementById("cvvValue");
+        const button = event.target;
+
+        if (cvvElement.style.display === "none") {
+            cvvElement.style.display = "inline";
+            button.innerText = "Hiden";
+        } else {
+            cvvElement.style.display = "none";
+            button.innerText = "Show";
+        }
+    }
 
     function makePayment(btn) {
         const $btn = $(btn);
@@ -277,7 +308,7 @@
         $.ajax({
             url: '/Auth/Pay',
             method: 'POST',
-            data: { type, amount },
+            data: {type, amount},
             success: function (response) {
                 if (response.success) {
                     showCustomAlert(response.message);
@@ -290,6 +321,7 @@
             }
         });
     }
+
     function showCustomAlert(message) {
         const alertBox = document.getElementById("customAlert");
         const messageBox = document.getElementById("customAlertMessage");

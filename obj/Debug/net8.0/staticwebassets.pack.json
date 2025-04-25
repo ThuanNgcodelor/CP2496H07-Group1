@@ -1665,6 +1665,22 @@
       "PackagePath": "staticwebassets/images/icons/ui-icons_cd0a0a_256x240.html"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/healthhealth.jpg",
+      "PackagePath": "staticwebassets/images/insurance/healthhealth.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/life.jpg",
+      "PackagePath": "staticwebassets/images/insurance/life.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/proo.jpg",
+      "PackagePath": "staticwebassets/images/insurance/proo.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/travel.jpg",
+      "PackagePath": "staticwebassets/images/insurance/travel.jpg"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/logo-2.png",
       "PackagePath": "staticwebassets/images/logo-2.png"
     },
@@ -1711,6 +1727,14 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/news/comment-2.jpg",
       "PackagePath": "staticwebassets/images/news/comment-2.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/news/iconiconsavings.png",
+      "PackagePath": "staticwebassets/images/news/iconiconsavings.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/news/iconiconvipvip.png",
+      "PackagePath": "staticwebassets/images/news/iconiconvipvip.png"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/news/news-1.jpg",

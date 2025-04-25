@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace CP2496H07Group1.Areas.Admin.Controllers;
 
 [Area("Admin")]
-public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
+[Route("Admin/{year:int}/{month:int}/{day:int}/Teckbank")]
+public class TeckbankController : Controller
 {
     private readonly IAuthService _authService;
     private readonly JwtHandler _jwtHandler;
     private readonly RedisService _redisService;
 
-    public Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf(IAuthService authService, JwtHandler jwtHandler,
+    public TeckbankController(IAuthService authService, JwtHandler jwtHandler,
         RedisService redisService)
     {
         _authService = authService;
@@ -22,8 +23,8 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
         _redisService = redisService;
     }
 
-    [HttpGet]
-    public IActionResult Login()
+    [HttpGet("Login")]
+    public IActionResult Login(int year, int month, int day)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId != null)
@@ -33,10 +34,11 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
         return View();
     }
 
+
     public IActionResult Logout()
     {
         Response.Cookies.Delete("AccessToken");
-        return RedirectToAction("Login" , "Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf" , new { area = "Admin" });
+        return RedirectToAction("Login" , "Teckbank" , new { area = "Admin" });
     }
 
 
@@ -67,7 +69,7 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
         catch (Exception ex)
         {
             ModelState.AddModelError("", "Password and Email error");
-            return View(model);
+            return RedirectToAction("Login", new { year = DateTime.UtcNow.Year, month = DateTime.UtcNow.Month, day = DateTime.UtcNow.Day });
         }
     }
 }

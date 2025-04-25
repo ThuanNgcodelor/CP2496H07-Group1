@@ -267,6 +267,8 @@ public class AccountService : IAccountService
                 BillingCycleStart = DateTime.Now,
                 StatementDate = DateTime.Now.AddDays(30),
                 DueDate = DateTime.Now.AddDays(35), 
+                Cvv = new Random().Next(100, 1000),
+                ExpirationDate = DateTime.Now.AddYears(3),
                 IsActive = true,
                 Account = account
             };
@@ -278,7 +280,7 @@ public class AccountService : IAccountService
         return account;
     }
 
-
+    
     private string GenerateAccountNumber()
     {
         var random = new Random();

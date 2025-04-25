@@ -1,4 +1,6 @@
 @model CP2496H07Group1.Models.User
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+
 <style>
     .appointment-form {
         width: 80%;
@@ -27,6 +29,7 @@
         text-align: center;
     }
 
+    .form-group input[type='tel'],
     .form-group input[type='password'] {
         position: relative;
         display: block;
@@ -81,8 +84,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="text" name="PhoneNumber" placeholder="Phone number" value="@Model?.PhoneNumber"
-                                   required/>
+                            <input type="tel" id="phone" name="PhoneNumber" placeholder="Phone number" style="width: 465px" required/>
+                            <span id="phoneError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "validation-error" })
                         </div>
                     </div>
@@ -140,6 +143,8 @@
         </div>
     </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 
 <script>
     const passwordInput = document.getElementById("password");
@@ -171,6 +176,19 @@
     emailError.className = "validation-error";
     emailInput.parentElement.appendChild(emailError);
     phoneNumberInput.parentElement.appendChild(phoneNumberError);
+    
+
+
+    const phoneInputField = document.querySelector("#phone");
+    const phoneError = document.getElementById("phoneError");
+
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "vn",
+        preferredCountries: ["vn", "us", "kr", "jp", "fr", "de"],
+        separateDialCode: true,
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
 
     function validateEmail() {
         const emailRegex = /^[^\s@@]+@@[^\s@@]+\.(com|net|org|edu|gov|mil|vn|info|co)$/i;
@@ -189,12 +207,19 @@
             : "";
     }
 
+    // function validatePhone() {
+    //     const phone = phoneNumberInput.value.trim();
+    //     const phoneRegex = /^\d{1,15}$/;
+    //     phoneNumberError.textContent = !phoneRegex.test(phone)
+    //         ? "Phone number must contain only digits and be no more than 15 digits long."
+    //         : "";
+    // }
     function validatePhone() {
-        const phone = phoneNumberInput.value.trim();
-        const phoneRegex = /^\d{1,15}$/;
-        phoneNumberError.textContent = !phoneRegex.test(phone)
-            ? "Phone number must contain only digits and be no more than 15 digits long."
-            : "";
+        if (!phoneInput.isValidNumber()) {
+            phoneError.textContent = "Số điện thoại không hợp lệ.";
+        } else {
+            phoneError.textContent = "";
+        }
     }
 
 
@@ -235,6 +260,7 @@
     phoneNumberInput.addEventListener("input", validatePhone);
 
     form.addEventListener("submit", function (e) {
+        phoneInputField.value = phoneInput.getNumber();
         validatePassword();
         validatePasswordMatch();
         validateIdentity();

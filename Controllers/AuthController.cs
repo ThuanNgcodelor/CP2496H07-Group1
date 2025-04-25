@@ -291,13 +291,28 @@ public class AuthController : Controller
             return View();
         }
 
-        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (value != null)
+        // Lấy userId từ claim
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null)
         {
-            var userId = long.Parse(value);
-            await _accountService.SendMailCreateAccount(userId, accountType, pin);
-            TempData["UserId"] = userId.ToString();
+            return RedirectToAction("Login", "Auth");
         }
+
+        var userId = long.Parse(userIdClaim);
+
+        if (accountType == "Credit Card")
+        {
+            bool alreadyHas = await _context.CreditCards
+                .AnyAsync(cc => cc.Account.UserId == userId);
+            if (alreadyHas)
+            {
+                ModelState.AddModelError("", "You have a Credit Card");
+                return View();
+            }
+        }
+        
+        await _accountService.SendMailCreateAccount(userId, accountType, pin);
+        TempData["UserId"] = userId.ToString();
 
         return RedirectToAction("EnterOtpCreateCard");
     }

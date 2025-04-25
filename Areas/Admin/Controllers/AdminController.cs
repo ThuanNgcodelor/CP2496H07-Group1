@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CP2496H07Group1.Areas.Admin.Controllers;
 
 [Area("Admin")]
-[Authorize("Admin")]
 public class AdminController : Controller
 {
     private readonly IMainService _mainService;

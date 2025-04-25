@@ -11,6 +11,10 @@ public class CreditCard
 
     public decimal NewDebt { get; set; } = 0;
     
+    public int? Cvv { get; set; }
+    
+    public required DateTime ExpirationDate { get; set; }  
+    
     public required DateTime BillingCycleStart { get; set; }
     public required DateTime StatementDate { get; set; }   // Ngày sao kê
     public required DateTime DueDate { get; set; }         // Ngày thanh toán tra truoc ngay nay thi ko bi tinh lai
