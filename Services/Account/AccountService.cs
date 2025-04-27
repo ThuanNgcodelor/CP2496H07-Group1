@@ -50,6 +50,20 @@ public class AccountService : IAccountService
             throw new ArgumentException("Invalid or expired OTP.");
         }
     }
+    
+    public Task<Models.Account?> GetAccountDetails(long userId, long accountId)
+    {
+        try
+        {
+            return Task.FromResult(_context.Accounts
+                .Include(c => c.CreditCard)
+                .FirstOrDefault(a => a.UserId == userId && a.Id == accountId ));
+        }
+        catch
+        {
+            throw new ArgumentException("Invalid or expired OTP.");
+        }
+    }
 
     public async Task<string> SendMailCreateAccount(long userId, string accountType, int pin)
     {
@@ -80,6 +94,41 @@ public class AccountService : IAccountService
         await _emailService.Send(user.Email, "Create Card", emailSend);
 
         return "OTP sent to your email.";
+    }
+
+    public async Task<string> ChangePin(long userId, long accountId)
+    {   
+        var account = _context.Accounts.
+            Include(a => a.User)
+            .FirstOrDefault(a => a.UserId == userId && a.Id == accountId);
+        
+        if (account == null)
+            throw new ApplicationException("Invalid or expired OTP.");
+        string redisKey = $"change_pin_{userId}_{accountId}";
+        var pin = new Random().Next(100000, 999999).ToString();
+        _redis.Set(redisKey, pin, TimeSpan.FromMinutes(10));
+        var email = (string)account.User.Email;
+        var emailContent = ChangePinCard(email, pin);
+        await _emailService.Send(email, "Change Pin", emailContent);
+        return "New OTP has been sent to your email.";
+    }
+
+    public async Task<Models.Account?> ConfirmChangePin(long userId, long accountId, string pin, string otp)
+    {
+        string redisKey = $"change_pin_{userId}_{accountId}";
+        var data = _redis.Get(redisKey);
+        if (string.IsNullOrEmpty(data) || data != otp) return null;
+        
+        var account = await _context.Accounts
+            .Include(a => a.User)
+            .FirstOrDefaultAsync(a => a.UserId == userId && a.Id == accountId);
+
+        if (account == null) return null;
+        if(!int.TryParse(pin, out int newPin)) return null;
+        account.Pin = newPin;
+        await _context.SaveChangesAsync();
+        _redis.Remove(redisKey);
+        return account;
     }
 
     public async Task<string> SendMailResendCreateOtp(long userId)
@@ -267,6 +316,8 @@ public class AccountService : IAccountService
                 BillingCycleStart = DateTime.Now,
                 StatementDate = DateTime.Now.AddDays(30),
                 DueDate = DateTime.Now.AddDays(35), 
+                Cvv = new Random().Next(100, 1000),
+                ExpirationDate = DateTime.Now.AddYears(3),
                 IsActive = true,
                 Account = account
             };
@@ -278,7 +329,7 @@ public class AccountService : IAccountService
         return account;
     }
 
-
+    
     private string GenerateAccountNumber()
     {
         var random = new Random();
@@ -306,6 +357,20 @@ public class AccountService : IAccountService
             </html>";
     }
 
+    private static string ChangePinCard(string email, string otp)
+    {
+        return $@"
+            <html>
+            <body style='font-family: Arial, sans-serif;'>
+                <h2>Confirm OTP to Change Pin</h2>
+                <p>Your OTP is <strong>{otp}</strong></p>
+                <p>This code is valid for 10 minutes.</p>
+                <p>TeckBank</p>
+
+            </body>
+            </html>";
+    }
+    
     private static string SendMailPayment(string email, decimal amountPaid, decimal newBalance)
     {
         return $@"

@@ -270,7 +270,13 @@ namespace CP2496H07Group1.Migrations
                     b.Property<decimal>("CurrentDebt")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("Cvv")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("InterestRate")

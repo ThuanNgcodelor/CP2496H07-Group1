@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Dtos;
-
 namespace CP2496H07Group1.Controllers;
 
 public class VipController : Controller
@@ -41,6 +40,7 @@ public class VipController : Controller
             PageNumber = page,
             PageCount = (int)Math.Ceiling(totalItems / (double)pageSize)
         };
+      
 
         ViewBag.Keyword = keyword;
         return View(model);
@@ -86,6 +86,25 @@ public class VipController : Controller
                 balance = a.Balance.ToString("N2") // Numeric format (e.g., "1000.00")
             })
             .ToListAsync();
+        Console.WriteLine($"UserId: {userId}");
+  
+
+        // Retrieve the discount codes associated with the user's accounts
+        var discountCodes = await (
+            from ac in _context.Accounts
+            join ad in _context.AccountDiscounts on ac.Id equals ad.AccountId
+            join dc in _context.DiscountCodes on ad.DiscountId equals dc.Id
+            where ac.UserId == userId
+            select new DiscountcodeViewModel
+            {
+                Id = dc.Id,
+                DiscountCodes = dc.DiscountCodes,
+                Points = dc.Points,
+                Percent = dc.Percent,
+                LongDate = dc.LongDate
+            }).Distinct().ToListAsync();
+
+        Console.WriteLine($"Found {discountCodes.Count} discount codes.");
 
         Console.WriteLine($"Found {accounts.Count} accounts for userId: {userId}");
         if (accounts.Count == 0)
@@ -102,7 +121,8 @@ public class VipController : Controller
             price = vip.Price,
             moneyBack = vip.MoneyBack,
             noPick = vip.NoPick,
-            accounts = accounts
+            accounts = accounts,
+            discountCodes = discountCodes // Pass the discount codes here
         });
     }
 
@@ -118,20 +138,20 @@ public class VipController : Controller
                 Console.WriteLine("Invalid vipId or accountId");
                 return Json(new { success = false, message = "Vip package ID or invalid account." });
             }
-
+    
             if (!User.Identity.IsAuthenticated)
             {
                 Console.WriteLine("User is not authenticated.");
                 return Json(new { success = false, message = "Users have not logged in." });
             }
-
+    
             var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdStr) || !long.TryParse(userIdStr, out long userId))
             {
                 Console.WriteLine("Invalid userId.");
                 return Json(new { success = false, message = "Can't get user information." });
             }
-
+    
             var account = await _context.Accounts
                 .Include(a => a.Vip)
                 .FirstOrDefaultAsync(a => a.Id == request.AccountId && a.UserId == userId);
@@ -140,26 +160,26 @@ public class VipController : Controller
                 Console.WriteLine($"Account not found for accountId: {request.AccountId}, userId: {userId}");
                 return Json(new { success = false, message = "The account does not exist or does not belong to you." });
             }
-
+    
             var vip = await _context.Vips.FindAsync(request.VipId);
             if (vip == null)
             {
                 Console.WriteLine($"VIP not found for vipId: {request.VipId}");
                 return Json(new { success = false, message = "VIP package does not exist." });
             }
-
+    
             if (account.Balance < vip.Price)
             {
                 Console.WriteLine($"Insufficient balance for accountId: {account.Id}, balance: {account.Balance}, price: {vip.Price}");
                 return Json(new { success = false, message = "The balance is not enough to buy VIP package." });
             }
-
+    
             if (account.Pin != request.Pin)
             {
                 Console.WriteLine($"Incorrect PIN for accountId: {account.Id}");
                 return Json(new { success = false, message = "The PIN is not correct." });
             }
-
+    
             // Kiểm tra thứ tự nâng cấp VIP
             if (account.Vip == null)
             {
@@ -177,28 +197,55 @@ public class VipController : Controller
                     return Json(new { success = false, message = "Please upgrade VIP in order." });
                 }
             }
-
-            // Cập nhật số dư và gán VIP cho tài khoản
-            account.Balance -= vip.Price;
+            decimal discountAmount = 0;
+            decimal finalPrice = vip.Price;
+    
+            if (request.DiscountId != null && request.DiscountId > 0)
+            {
+                var discount = await _context.DiscountCodes
+                    .Include(d => d.AccountDiscounts)
+                    .FirstOrDefaultAsync(dc => dc.Id == request.DiscountId);
+    
+                if (discount == null || !discount.AccountDiscounts.Any(ad => ad.AccountId == request.AccountId))
+                {
+                    return Json(new { success = false, message = "Coupon code is invalid or does not belong to this account." });
+                }
+    
+                // Áp dụng giảm giá
+                discountAmount = (vip.Price * discount.Percent) / 100;
+                finalPrice -= discountAmount;
+    
+                var accountDiscount = await _context.AccountDiscounts
+                    .FirstOrDefaultAsync(ad => ad.AccountId == request.AccountId && ad.DiscountId == request.DiscountId);
+    
+                if (accountDiscount != null)
+                {
+                    _context.AccountDiscounts.Remove(accountDiscount);
+                    await _context.SaveChangesAsync();
+                }
+            }
+    
+            // ❌ Đừng trừ vip.Price – dùng finalPrice thay vì vip.Price
+            account.Balance -= finalPrice;
             account.VipId = vip.Id;
-
-            // Tạo giao dịch
+    
             var transaction = new Transaction
             {
                 FromAccountId = account.Id,
                 ToAccountId = null,
-                Amount = vip.Price,
+                Amount = finalPrice,
                 TransactionType = "PURCHASE_VIP",
-                Description = $"Buy package VIP {vip.TypeVip}",
+                Description = $"Buy package VIP {vip.TypeVip}" + (discountAmount > 0 ? $" (discounted {discountAmount})" : ""),
                 TransactionDate = DateTime.Now,
                 FromAccount = account,
                 ToAccount = null,
-                VipId = vip.Id
+                VipId = vip.Id,
+                DiscountCodeId = request.DiscountId
             };
-
+    
             _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
-
+    
             Console.WriteLine($"Purchase successful for vipId: {request.VipId}, accountId: {account.Id}");
             return Json(new { success = true, message = "Buy Vip package successfully!" });
         }

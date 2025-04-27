@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CP2496H07Group1.Controllers
 {
-    [Area("Admin")] // Đảm bảo đã có dòng này
+    [Area("Admin")]
+    [Authorize("Admin")]
     public class TransactionsController : Controller
     {
         private readonly AppDataContext _context;

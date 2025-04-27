@@ -259,4 +259,14 @@ public class HangFile : IHangFile
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task AutoBlockCreditCard()
+    {
+        var today = DateTime.Today;
+        await _context.CreditCards
+            .Where(c => c.IsActive && c.ExpirationDate < today)
+            .ExecuteUpdateAsync(b => b
+                .SetProperty(c => c.IsActive, false)
+            );
+    }
 }

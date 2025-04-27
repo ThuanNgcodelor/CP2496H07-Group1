@@ -4,4 +4,5 @@ public interface IHangFile
 {
     Task AutoPayCreditCardDebts();
     Task ProcessMonthlyPayments();
+    Task AutoBlockCreditCard();
 }

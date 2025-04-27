@@ -51,6 +51,7 @@ public class AuthController : Controller
         if (account == null || account.CreditCard == null || !account.CreditCard.IsActive)
             return Json(new { success = false, message = "No active credit card found!" });
 
+        Console.WriteLine();
         var now = DateTime.Now.Date;
         var statementDate = account.CreditCard.StatementDate.Date;
         var dueDate = account.CreditCard.DueDate.Date;
@@ -223,7 +224,6 @@ public class AuthController : Controller
     {
         return View();
     }
-
     [HttpPost]
     public async Task<IActionResult> CardDetails(long accountId, string pin)
     {
@@ -242,11 +242,27 @@ public class AuthController : Controller
             return RedirectToAction("Card", "Auth");
         }
 
-        // Lưu dấu xác thực 1 lần
         TempData["AccessGranted"] = "true";
         TempData.Keep("AccessGranted");
 
         return View(account);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ChangePin(long accountId)
+    {
+        var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var message = await _accountService.ChangePin(userId, accountId);
+        return Ok(message);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ConfirmOtpChangePin(long accountId, string pin, string inputOtp)
+    {
+        var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _accountService.ConfirmChangePin(userId, accountId, pin, inputOtp);
+        if(result == null) return BadRequest("Failed to change PIN");
+        return Ok("PIN changed successfully");
     }
 
 
@@ -290,13 +306,28 @@ public class AuthController : Controller
             return View();
         }
 
-        var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (value != null)
+        // Lấy userId từ claim
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdClaim == null)
         {
-            var userId = long.Parse(value);
-            await _accountService.SendMailCreateAccount(userId, accountType, pin);
-            TempData["UserId"] = userId.ToString();
+            return RedirectToAction("Login", "Auth");
         }
+
+        var userId = long.Parse(userIdClaim);
+
+        if (accountType == "Credit Card")
+        {
+            bool alreadyHas = await _context.CreditCards
+                .AnyAsync(cc => cc.Account.UserId == userId);
+            if (alreadyHas)
+            {
+                ModelState.AddModelError("", "You have a Credit Card");
+                return View();
+            }
+        }
+        
+        await _accountService.SendMailCreateAccount(userId, accountType, pin);
+        TempData["UserId"] = userId.ToString();
 
         return RedirectToAction("EnterOtpCreateCard");
     }
@@ -622,7 +653,7 @@ public class AuthController : Controller
             SameSite = SameSiteMode.Strict,
             Expires = DateTime.UtcNow.AddMinutes(30)
         });
-        Console.WriteLine($"AccessToken: {newAccessToken}");
+        // Console.WriteLine($"AccessToken: {newAccessToken}");
         return Ok(new { token = newAccessToken });
     }
 

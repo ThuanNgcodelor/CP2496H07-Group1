@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <style>
     .appointment-form {
         width: 80%;
@@ -26,6 +29,7 @@
         text-align: center;
     }
 
+    .form-group input[type='tel'],
     .form-group input[type='password'] {
         position: relative;
         display: block;
@@ -39,7 +43,68 @@
         transition: all 500ms ease;
     }
 
+    .custom-alert {
+        text-align: center;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #00c292;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 9999;
+        font-size: 16px;
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    .forgot-password-link {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .forgot-password-link:hover {
+        text-decoration: underline;
+    }
 </style>
+
+<style>
+    /* Đảm bảo wrapper chiếm toàn bộ chiều rộng */
+    .intl-tel-input {
+        width: 100%;
+    }
+
+    /* Input bên trong chiếm 100% và có padding phù hợp */
+    .intl-tel-input input[type='tel'] {
+        width: 100% !important;
+        height: 56px !important;
+        background: #f5f4f4;
+        border: 1px solid #f5f4f4;
+        font-size: 17px;
+        padding-left: 60px !important;
+        border-radius: 5px !important;
+        color: #a8a7a7;
+    }
+
+    /* Phần chọn cờ quốc gia */
+    .intl-tel-input .selected-flag {
+        background: #f5f4f4;
+        height: 56px;
+        border: 1px solid #f5f4f4;
+        border-right: none;
+        border-radius: 5px 0 0 5px;
+    }
+
+    /* Phần dropdown quốc gia */
+    .intl-tel-input .country-list {
+        z-index: 9999;
+    }
+</style>
+
+
 
 <div id="customAlert" class="custom-alert">
     <div class="custom-alert-content">
@@ -48,8 +113,7 @@
 </div>
 
 <section class="appointment-section pt_120 pb_120">
-    <div class="bg-layer"
-         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <span class="big-text">LOGIN <br>TechBank</span>
     <div class="auto-container">
@@ -67,7 +131,7 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="phone">Phone</label>
-                            <input type="text" id="phone" name="PhoneNumber" placeholder="Phone number" required>
+                            <input type="tel" id="phone" name="PhoneNumber" style="width: 465px" placeholder="Phone number" required>
                         </div>
                     </div>
                     <div class="col-12">
@@ -76,8 +140,7 @@
                                 <img src="images/icons/icon-223.png" alt="">
                             </div>
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="PasswordHash" placeholder="Enter password"
-                                   required>
+                            <input type="password" id="password" name="PasswordHash" placeholder="Enter password" required>
                         </div>
                     </div>
 
@@ -89,29 +152,28 @@
                     <div class="col-12 text-center pt_10">
                         <a asp-controller="Auth" asp-action="Forgot" class="forgot-password-link">Forgot Password?</a>
                     </div>
-                    <style>
-                        .forgot-password-link {
-                            color: #007bff;
-                            text-decoration: none;
-                            font-size: 14px;
-                        }
-
-                        .forgot-password-link:hover {
-                            text-decoration: underline;
-                        }
-                    </style>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
 
 <script>
+    // Khởi tạo intl-tel-input cho ô số điện thoại
+    const phoneInput = window.intlTelInput(document.querySelector("#phone"), {
+        initialCountry: "vn",
+        separateDialCode: true,
+        preferredCountries: ["vn", "in", "jp", "kr"],
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
+
     $(document).ready(function () {
         $('#loginForm').on('submit', function (e) {
             e.preventDefault();
@@ -124,6 +186,9 @@
                 showCustomAlert('CSRF token missing. Please refresh the page.');
                 return;
             }
+
+            const phoneField = document.querySelector("#phone");
+            phoneField.value = phoneInput.getNumber();
 
             loginButton.prop('disabled', true).text('Logging in...');
 
@@ -157,7 +222,6 @@
         });
     });
 
-
     function showCustomAlert(message) {
         const alertBox = document.getElementById("customAlert");
         const messageBox = document.getElementById("customAlertMessage");
@@ -167,25 +231,6 @@
 
         setTimeout(() => {
             alertBox.style.display = "none";
-        }, 3000); 
+        }, 3000);
     }
 </script>
-
-<style>
-    .custom-alert {
-        text-align: center;
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #00c292; 
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        display: none;
-        z-index: 9999;
-        font-size: 16px;
-        animation: slideIn 0.5s ease forwards;
-    }
-</style>

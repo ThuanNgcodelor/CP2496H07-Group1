@@ -10,7 +10,6 @@
         </div>
     </div>
 </section>
-<!-- page-title end -->
 
 
 <section class="sidebar-page-container blog-list-two pt_120 pb_120">
@@ -25,22 +24,39 @@
                     {
                         <div class="news-block-one style-two">
                             <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image">
-                                        <a href="">
-                                            <img
-                                                src="~/images/news/news-29.jpg" alt=""></a></figure>
-                                    <figure class="overlay-image">
-                                        <a href="">
-                                            <img
-                                                src="~/images/news/news-29.jpg" alt=""></a></figure>
-                                    <div class="view-btn">
-                                        <a href="~/images/news/news-29.jpg"
-                                           class="lightbox-image"
-                                           data-fancybox="gallery">
-                                            <img
-                                                src="~/images/icons/icon-87.png" alt=""></a></div>
-                                </div>
+                                @if (item.Type == "Health")
+                                {
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="">
+                                                <img
+                                                    src="~/images/insurance/healthhealth.jpg" style="width: 20rem" alt=""></a></figure>
+                                    </div>
+                                }else if (item.Type == "Life")
+                                {
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="">
+                                                <img
+                                                    src="~/images/insurance/life.jpg" style="width: 20rem" alt=""></a></figure>
+                                    </div>
+                                }else if (item.Type == "Travel")
+                                {
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="">
+                                                <img
+                                                    src="~/images/insurance/travel.jpg" style="width: 20rem" alt=""></a></figure>
+                                    </div>
+                                }else if (item.Type == "Property")
+                                {
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="">
+                                                <img
+                                                    src="~/images/insurance/proo.jpg" style="width: 20rem" alt=""></a></figure>
+                                    </div>
+                                }
 
                                 <div class="content-box">
                                     <div class="upper-box">

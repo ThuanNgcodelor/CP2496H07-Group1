@@ -222,8 +222,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2xpZGVyL1VwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVGVja2JhbmtfYzlmMWQwZWE2NGEwNGE2OWE1YmRhM2IxMmY1ZTkyY2YvTG9naW4uY3NodG1s
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Teckbank/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVGVja2JhbmsvTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Topups/Index.cshtml]
@@ -264,6 +264,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Pages/Topup/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVG9wdXAvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/AccountDiscount/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudERpc2NvdW50L0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Card.cshtml]
@@ -312,6 +316,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/VerifyOtp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9WZXJpZnlPdHAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/DiscountCode/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGlzY291bnRDb2RlL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Error/Index.cshtml]

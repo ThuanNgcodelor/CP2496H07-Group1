@@ -1,0 +1,23 @@
+Admin manage 
+user manage
+Card Manage
+Insurance 
+Sec,UserInsurance
+
+Slider
+History transaction
+Savings
+Category saving
+vip
+
+Loans
+manage loans
+loans option
+Topup
+discountCode
+loans payment
+
+News
+category news
+Faq
+

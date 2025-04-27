@@ -28,19 +28,28 @@
                             <h3>Card Types</h3>
                         </div>
                         <ul class="category-list clearfix">
-                            <li><a asp-action="Users" asp-controller="Auth" >User Setting</a></li>
+                            <li><a asp-action="Users" asp-controller="Auth">User Setting</a></li>
                             <li><a asp-controller="Auth" asp-action="Card" class="current">My Card</a></li>
+                            <li><a asp-controller="Auth" asp-action="CreateCard">Create Card</a></li>
                             <li><a asp-controller="Loans" asp-action="Index">My Loans</a></li>
                             <li><a asp-controller="Insurance" asp-action="UserInsurance">My Insurance</a></li>
                             <li><a asp-controller="Transfer" asp-action="Index">Transfer</a></li>
                             <li><a asp-controller="Auth" asp-action="RecentTransactions">History Transaction</a></li>
                         </ul>
                     </div>
-                  
+
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 content-side">
                 <div class="content-box">
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <script>
+                            Swal.fire('Error', '@TempData["Error"]', 'error');
+                        </script>
+                    }
+
                     @if (!Model.Any())
                     {
                         <p>You have no card.</p>
@@ -65,7 +74,10 @@
                                         </figure>
 
                                         <div class="btn-box">
-                                            <a href="#">Deposit Now</a>
+                                            <a href="javascript:void(0);"
+                                               onclick="showChangePinModal('@account.Id')">Change
+                                                Pin</a>
+
                                             <a href="#" data-bs-toggle="modal"
                                                data-bs-target="#readMoreModal-@account.Id">Read More</a>
                                         </div>
@@ -90,31 +102,77 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="readMoreModal-@account.Id" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="border:none;">
+                                        <form asp-action="CardDetails"
+                                              asp-controller="Auth"
+                                              method="post"
+                                              id="readMoreForm-@account.Id">
+                                            @Html.AntiForgeryToken()   <!-- nếu bạn dùng [ValidateAntiForgeryToken] -->
 
-                            <div class="modal fade" id="readMoreModal-@account.Id" tabindex="-1" aria-labelledby="readMoreLabel-"
-                                 aria-hidden="true">
+                                            <div class="modal-header"
+                                                 style="background:#f1f1f1;border-top-left-radius:15px;border-top-right-radius:15px;">
+                                                <h5 class="modal-title" style="color:#000;font-weight:600;">Enter PIN to read more</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close" style="filter:invert(1);"></button>
+                                            </div>
+
+                                            <div class="modal-body p-4">
+                                                <!-- accountId ẩn -->
+                                                <input type="hidden" name="accountId" value="@account.Id"/>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label text-dark">PIN</label>
+                                                    <input type="password"
+                                                           id="readMorePin-@account.Id"
+                                                           name="pin"
+                                                           class="form-control"
+                                                           maxlength="6"
+                                                           placeholder="Enter your PIN"/>
+                                                </div>
+
+                                                <div class="text-end">
+                                                    <button type="button"
+                                                            class="btn btn-danger"
+                                                            onclick="submitReadMore('@account.Id')">
+                                                        Confirm
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="changePinModal-@account.Id" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content" style="border: none;">
                                         <div class="modal-header"
                                              style="background-color: #f1f1f1; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                                            <h5 class="modal-title" id="readMoreLabel-" style="color: #000; font-weight: 600;">
-                                                Enter PIN to read more
+                                            <h5 class="modal-title" style="color: #000; font-weight: 600;">
+                                                Change PIN
                                             </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                                    style="filter: invert(1);"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close" style="filter: invert(1);"></button>
                                         </div>
                                         <div class="modal-body p-4">
-                                            <form method="post" action="@Url.Action("CardDetails", "Auth")">
-                                                <input type="hidden" name="accountId" value="@account.Id"/>
-                                                <div class="mb-3">
-                                                    <label class="form-label text-dark">PIN</label>
-                                                    <input type="password" name="pin" class="form-control" placeholder="Enter your PIN" required>
-                                                </div>
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn btn-danger" style="padding: 10px 25px;">Confirm</button>
-                                                </div>
-                                            </form>
+                                            <div>
+                                                <p>Enter the OTP sent to your email:</p>
+                                                <input type="text" id="otp-input-@account.Id" class="form-control mb-3"
+                                                       placeholder="Enter OTP">
+
+                                                <p>Enter your new PIN:</p>
+                                                <input type="password" id="new-pin-input-@account.Id"
+                                                       class="form-control mb-3" placeholder="New PIN">
+
+                                                <button class="btn btn-danger w-100"
+                                                        onclick="submitOtpAndNewPin('@account.Id')">
+                                                    Confirm Change
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,22 +185,75 @@
     </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function submitReadMore(accountId) {
+        const pinInput = $('#readMorePin-' + accountId);
+        const pin = pinInput.val();
+
+        if (!pin) {
+            Swal.fire('Error', 'Please enter your PIN.', 'error');
+            return;
+        }
+        if (pin.length > 6) {
+            Swal.fire('Error', 'PIN must be 6 digits maximum.', 'error');
+            return;
+        }
+        $('#readMoreForm-' + accountId).submit();
+    }
+</script>
+
 
 
 <script>
-    function viewAccountDetails(accountId) {
-        var form = document.createElement("form");
-        form.method = "POST";
-        form.action = "@Url.Action("CardDetails", "Auth")";
+    function showChangePinModal(accountId) {
+        Swal.fire({
+            title: 'Send OTP ...',
+            text: 'please wait a moment',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        $.post('@Url.Action("ChangePin", "Auth")', {accountId: accountId})
+            .done(function (res) {
+                Swal.close();
+                Swal.fire('OTP Sent', res, 'success');
+                $('#changePinModal-' + accountId).modal('show');
+            })
+            .fail(function (xhr) {
+                Swal.fire('Error', xhr.responseText, 'error');
+            });
+    }
 
-        var input = document.createElement("input");
-        input.type = "hidden";
-        input.name = "accountId";
-        input.pin = "pin";
-        input.value = accountId;
-        form.appendChild(input);
+    function submitOtpAndNewPin(accountId) {
+        var otp = $('#otp-input-' + accountId).val();
+        var newPin = $('#new-pin-input-' + accountId).val();
 
-        document.body.appendChild(form);
-        form.submit();
+        if (!otp) {
+            Swal.fire('Error', 'Please enter the OTP.', 'error');
+            return;
+        }
+        if (otp.length > 6) {
+            Swal.fire('Error', 'OTP must be 6 digits maximum.', 'error');
+            return;
+        }
+        if (!newPin) {
+            Swal.fire('Error', 'Please enter your new PIN.', 'error');
+            return;
+        }
+        if (newPin.length > 6) {
+            Swal.fire('Error', 'PIN must be 6 digits maximum.', 'error');
+            return;
+        }
+
+        $.post('@Url.Action("ConfirmOtpChangePin", "Auth")', {accountId: accountId, inputOtp: otp, pin: newPin})
+            .done(function (res) {
+                Swal.fire('Success', res, 'success');
+                $('#changePinModal-' + accountId).modal('hide');
+            })
+            .fail(function (xhr) {
+                Swal.fire('Error', xhr.responseText, 'error');
+            });
     }
 </script>

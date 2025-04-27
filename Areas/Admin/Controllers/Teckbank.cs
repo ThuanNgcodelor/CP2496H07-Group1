@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace CP2496H07Group1.Areas.Admin.Controllers;
 
 [Area("Admin")]
-public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
+[Route("Admin/{year:int}/{month:int}/{day:int}/Teckbank")]
+public class TeckbankController : Controller
 {
     private readonly IAuthService _authService;
     private readonly JwtHandler _jwtHandler;
     private readonly RedisService _redisService;
 
-    public Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf(IAuthService authService, JwtHandler jwtHandler,
+    public TeckbankController(IAuthService authService, JwtHandler jwtHandler,
         RedisService redisService)
     {
         _authService = authService;
@@ -22,25 +23,41 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
         _redisService = redisService;
     }
 
-    [HttpGet]
-    public IActionResult Login()
+    [HttpGet("Login")]
+    public IActionResult Login(int year, int month, int day)
     {
+        var today = DateTime.UtcNow.Date;
+
+        if (year != today.Year || month != today.Month || day != today.Day)
+        {
+            return Forbid();
+        }
+
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId != null)
         {
             return RedirectToAction("Users", "Auth");
         }
+
         return View();
     }
+
 
     public IActionResult Logout()
     {
         Response.Cookies.Delete("AccessToken");
-        return RedirectToAction("Login" , "Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf" , new { area = "Admin" });
+        return RedirectToAction("Login", "Teckbank", new
+        {
+            area = "Admin",
+            year = DateTime.UtcNow.Year,
+            month = DateTime.UtcNow.Month,
+            day = DateTime.UtcNow.Day
+        });
+
     }
 
 
-    [HttpPost]
+    [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         try
@@ -59,15 +76,15 @@ public class Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf : Controller
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddMinutes(30)
+                Expires = DateTime.UtcNow.AddHours(4)
             });
-  
+
             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
         }
-        catch (Exception ex)
+        catch
         {
             ModelState.AddModelError("", "Password and Email error");
-            return View(model);
+            return RedirectToAction("Login"); 
         }
     }
 }

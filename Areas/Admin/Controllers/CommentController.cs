@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 [Area("Admin")]
-[Authorize(Roles = "Admin")]
+[Authorize("Admin")]
 public class CommentController : Controller
 {
     private readonly AppDataContext _context;
