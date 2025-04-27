@@ -83,25 +83,41 @@ app.UseStatusCodePages(context =>
 
     return Task.CompletedTask;
 });
+
+
 app.Lifetime.ApplicationStarted.Register(() =>
 {
     using var scope = app.Services.CreateScope();
-    var recurringJobs = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+    var recurringJobs = scope.ServiceProvider
+        .GetRequiredService<IRecurringJobManager>();
 
+    // GỬI NHẮC HÀNG THÁNG (đã có)
     recurringJobs.AddOrUpdate<IAuthService>(
         "send-monthly-reminders",
-        job => job.SendMonthlyRemindersAsync(),
+        svc => svc.SendMonthlyRemindersAsync(),
         Cron.Monthly());
 
+    // XỬ LÝ KHOẢN THANH TOÁN HÀNG THÁNG (đã có)
     recurringJobs.AddOrUpdate<HangFile>(
-        "test-loan-payment",
+        "process-monthly-payments",
         job => job.ProcessMonthlyPayments(),
         Cron.Monthly());
+
+    // 🆕 TỰ ĐỘNG THANH TOÁN NỢ THẺ TÍN DỤNG – chạy mỗi đêm 02:00
+    recurringJobs.AddOrUpdate<HangFile>(
+        "auto-pay-credit-card-debts",
+        job => job.AutoPayCreditCardDebts(),
+        "0 2 * * *");            // Cron.Daily(2) cũng được
+
+    // 🆕 TỰ ĐỘNG KHÓA THẺ QUÁ HẠN – chạy mỗi đêm 03:00
+    recurringJobs.AddOrUpdate<HangFile>(
+        "auto-block-credit-card",
+        job => job.AutoBlockCreditCard(),
+        "0 3 * * *");            // Cron.Daily(3)
 });
 
 
 app.UseHangfireDashboard();
-
 
 
 app.UseCors("AllowAllOrigins");

@@ -1,0 +1,169 @@
+@using System.Security.Claims
+@using System.Text
+@using CP2496H07Group1.Configs.Jwt
+@using CP2496H07Group1.Dtos
+@model IEnumerable<CP2496H07Group1.Models.DiscountCode>
+
+<!-- page-title -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Discount Codes</h1>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="discount-footer">
+        <button type="button" class="theme-btn" onclick="location.href='@Url.Action("Index", "AccountDiscounts")'">
+            <span>Existing coupons</span>
+        </button>
+    </div>
+</section>
+
+
+<style>
+    .corporate-block-one {
+        background-color: #fff9e6;
+        transition: background-color 0.3s ease;
+    }
+
+        .corporate-block-one:hover {
+            background-color: #fff1c7;
+        }
+
+    .theme-btn {
+        background-color: #dc3545; /* Màu đỏ */
+        color: #fff;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .theme-btn:hover {
+            background-color: #c82333; /* Đỏ đậm hơn khi hover */
+        }
+
+    .discount-footer {
+        margin-top: 15px;
+        text-align: right;
+    }
+</style>
+
+<!-- discount section -->
+<section class="corporate-section sec-pad-2">
+    <div class="auto-container">
+        <!-- Di chuyển thông báo lên trên cùng -->
+        @if (TempData["DiscountSuccess"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["DiscountSuccess"]
+            </div>
+        }
+
+        @if (TempData["DiscountError"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["DiscountError"]
+            </div>
+        }
+
+        <!-- Các phần còn lại -->
+
+        <div class="row clearfix">
+            @foreach (var discount in Model)
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 corporate-block mb-4">
+                    <div class="corporate-block-one p-4 border rounded shadow-sm">
+                        <div class="inner-box">
+                            <p><strong>Discount Code:</strong> @discount.DiscountCodes</p>
+                            <p><strong>Points Required:</strong> @discount.Points</p>
+                            <p><strong>Discount Percent:</strong> @discount.Percent%</p>
+                            <p><strong>Valid Until:</strong> @discount.LongDate</p>
+                        </div>
+
+                        <div class="discount-footer">
+                            <button type="button" class="theme-btn" onclick="showModal(@discount.Id)">
+                                <span>Redeem coupon</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<form id="redeemForm" method="post" asp-action="Redeem">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" id="formDiscountId" />
+    <input type="hidden" name="accountId" id="formAccountId" />
+</form>
+<!-- Modal xác nhận -->
+<div id="confirmModal" class="modal" tabindex="-1" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+            <h4 class="mb-4">Confirm redeeming discount code</h4>
+
+            <!-- Chọn tài khoản -->
+            <div class="mb-3 w-100">
+                <label for="accountSelect" class="form-label">Select account:</label>
+                <select id="accountSelect" class="form-select w-100">
+                    <option value="">           -- Select Card--</option>
+                    @foreach (var account in ViewBag.Accounts as List<AccountViewModel>)
+                    {
+                        <option value="@account.AccountId">@account.DisplayText</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Các nút xác nhận và hủy -->
+            <div class="d-flex justify-content-left">
+                <button id="confirmRedeem" class="theme-btn me-3">Confirm</button> <!-- Thêm class "me-3" -->
+                <button type="button" class="theme-btn" onclick="hideModal()">Cannel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    // Hàm đóng modal khi nhấn nút "Hủy"
+    function hideModal() {
+        document.getElementById('confirmModal').style.display = 'none';
+    }
+
+    // Hiển thị modal khi nhấn nút "Redeem coupon"
+    function showModal(discountId) {
+        selectedDiscountId = discountId;
+        document.getElementById('confirmModal').style.display = 'block';
+    }
+
+    // Xử lý khi nhấn nút "Xác nhận"
+    document.getElementById('confirmRedeem').addEventListener('click', function () {
+        const accountId = document.getElementById('accountSelect').value;
+        if (!accountId) {
+            alert('Please select account.');
+            return;
+        }
+
+        document.getElementById('formDiscountId').value = selectedDiscountId;
+        document.getElementById('formAccountId').value = accountId;
+
+        document.getElementById('redeemForm').submit(); 
+    });
+
+
+</script>
+<form id="antiForgeryForm">
+    @Html.AntiForgeryToken()
+</form>

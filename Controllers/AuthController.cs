@@ -224,7 +224,6 @@ public class AuthController : Controller
     {
         return View();
     }
-
     [HttpPost]
     public async Task<IActionResult> CardDetails(long accountId, string pin)
     {
@@ -243,11 +242,27 @@ public class AuthController : Controller
             return RedirectToAction("Card", "Auth");
         }
 
-        // Lưu dấu xác thực 1 lần
         TempData["AccessGranted"] = "true";
         TempData.Keep("AccessGranted");
 
         return View(account);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ChangePin(long accountId)
+    {
+        var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var message = await _accountService.ChangePin(userId, accountId);
+        return Ok(message);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ConfirmOtpChangePin(long accountId, string pin, string inputOtp)
+    {
+        var userId = long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        var result = await _accountService.ConfirmChangePin(userId, accountId, pin, inputOtp);
+        if(result == null) return BadRequest("Failed to change PIN");
+        return Ok("PIN changed successfully");
     }
 
 

@@ -28,6 +28,7 @@ namespace CP2496H07Group1.Dtos
         public string DisplayText { get; set; }
         public int? TypeVip { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
+        public long? Point { get; set; }
     }
 
     public class LoanOptionViewModel

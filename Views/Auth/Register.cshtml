@@ -84,7 +84,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="tel" id="phone" name="PhoneNumber" placeholder="Phone number" style="width: 465px" required/>
+                            <input type="tel" id="phone" name="PhoneNumber" placeholder="Phone Number" style="width: 465px" required/>
                             <span id="phoneError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "validation-error" })
                         </div>
@@ -184,7 +184,7 @@
 
     const phoneInput = window.intlTelInput(phoneInputField, {
         initialCountry: "vn",
-        preferredCountries: ["vn", "us", "kr", "jp", "fr", "de"],
+        preferredCountries: ["vn", "in", "kr", "jp", "fr", "de"],
         separateDialCode: true,
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
     });
@@ -216,7 +216,7 @@
     // }
     function validatePhone() {
         if (!phoneInput.isValidNumber()) {
-            phoneError.textContent = "Số điện thoại không hợp lệ.";
+            phoneError.textContent = "Invalid phone number.";
         } else {
             phoneError.textContent = "";
         }

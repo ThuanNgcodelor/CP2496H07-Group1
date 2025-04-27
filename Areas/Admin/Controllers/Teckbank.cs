@@ -26,11 +26,19 @@ public class TeckbankController : Controller
     [HttpGet("Login")]
     public IActionResult Login(int year, int month, int day)
     {
+        var today = DateTime.UtcNow.Date;
+
+        if (year != today.Year || month != today.Month || day != today.Day)
+        {
+            return Forbid();
+        }
+
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId != null)
         {
             return RedirectToAction("Users", "Auth");
         }
+
         return View();
     }
 
@@ -38,11 +46,18 @@ public class TeckbankController : Controller
     public IActionResult Logout()
     {
         Response.Cookies.Delete("AccessToken");
-        return RedirectToAction("Login" , "Teckbank" , new { area = "Admin" });
+        return RedirectToAction("Login", "Teckbank", new
+        {
+            area = "Admin",
+            year = DateTime.UtcNow.Year,
+            month = DateTime.UtcNow.Month,
+            day = DateTime.UtcNow.Day
+        });
+
     }
 
 
-    [HttpPost]
+    [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         try
@@ -61,15 +76,15 @@ public class TeckbankController : Controller
                 HttpOnly = true,
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
-                Expires = DateTime.UtcNow.AddMinutes(30)
+                Expires = DateTime.UtcNow.AddHours(4)
             });
-  
+
             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
         }
-        catch (Exception ex)
+        catch
         {
             ModelState.AddModelError("", "Password and Email error");
-            return RedirectToAction("Login", new { year = DateTime.UtcNow.Year, month = DateTime.UtcNow.Month, day = DateTime.UtcNow.Day });
+            return RedirectToAction("Login"); 
         }
     }
 }

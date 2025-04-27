@@ -31,7 +31,8 @@
     <link href="~/Admin/css/style.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 
 
     <style>
@@ -91,21 +92,54 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a asp-controller="Dashboard" asp-action="Index" asp-area="Admin" class="nav-item nav-link @(currentController == "Dashboard" && currentAction == "Index" ? "active" : "")"><i
+                <a asp-controller="Dashboard" asp-action="Index" asp-area="Admin"
+                   class="nav-item nav-link @(currentController == "Dashboard" && currentAction == "Index" ? "active" : "")"><i
                         class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a asp-controller="Transactions" asp-action="Index" asp-area="Admin"
+                   class="nav-item nav-link @(currentController == "Transactions" && currentAction == "Index" ? "active" : "")"><i
+                        class="fas fa-toolbox"></i> Transaction</a>
+
+                <a asp-controller="Topups" asp-action="Index" asp-area="Admin"
+                   class="nav-item nav-link @(currentController == "Topups" && currentAction == "Index" ? "active" : "")"><i
+                        class="fas fa-university"></i> Top Up</a>
+
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                             class="fa fa-laptop me-2"></i>Important</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a asp-controller="Admin" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Admin" && currentAction == "Index" ? "active" : "")">Admin
+                        <a asp-controller="Admin" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Admin" && currentAction == "Index" ? "active" : "")">Admin
                             Management</a>
-                        <a asp-controller="User" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "User" && currentAction == "Index" ? "active" : "")">User
+                        <a asp-controller="User" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "User" && currentAction == "Index" ? "active" : "")">User
                             Management</a>
-                        <a asp-controller="Card" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Card" && currentAction == "Index" ? "active" : "")">Card
+                        <a asp-controller="Card" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Card" && currentAction == "Index" ? "active" : "")">Card
                             Management</a>
-                        <a asp-controller="Sec" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Sec" && currentAction == "Index" ? "active" : "")">Sec,UserInsurance</a>
-                        <a asp-controller="" asp-action="" asp-area="Admin" class="dropdown-item @(currentController == "Insurance" && currentAction == "Index" ? "active" : "")">History
-                            Transaction</a>
+                        <a asp-controller="Insurance" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Insurance" && currentAction == "Index" ? "active" : "")">Insurance
+                            Management</a>
+                    </div>
+                </div>
+
+
+                <div class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                            class="fa fa-laptop me-2"></i>Loans</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a asp-controller="Loans" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Loans" && currentAction == "Index" ? "active" : "")">Loans
+                            Management</a>
+                        <a asp-controller="ManageLoanOptions" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "ManageLoanOptions" && currentAction == "Index" ? "active" : "")">Loan
+                            Options</a>
+                        <a asp-controller="LoanPaymentSchedules" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "LoanPaymentSchedules" && currentAction == "Index" ? "active" : "")">Loan
+                            Payment</a>
+                        <a asp-controller="DiscountCode" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "DiscountCode" && currentAction == "Index" ? "active" : "")">Discount
+                            Code</a>
+
                     </div>
                 </div>
 
@@ -113,29 +147,46 @@
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                             class="fa fa-laptop me-2"></i>Utilities</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a asp-controller="Vip" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Vip" && currentAction == "Index" ? "active" : "")">Vip
+                        <a asp-controller="Slider" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Slider" && currentAction == "Index" ? "active" : "")">Slider
                             Management</a>
-                        <a asp-controller="Insurance" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Insurance" && currentAction == "Index" ? "active" : "")">Insurance
+                        <a asp-controller="Vip" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Vip" && currentAction == "Index" ? "active" : "")">Vip
                             Management</a>
+
                     </div>
                 </div>
-
-                <a asp-controller="Insurance" asp-action="Index" asp-area="Admin" class="nav-item nav-link @(currentController == "Insurance" && currentAction == "Index" ? "active" : "")"><i class="fa fa-th me-2"></i>Insurance</a>
 
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                            class="fa fa-laptop me-2"></i>More</a>
+                            class="fas fa-piggy-bank"></i> Savings</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a asp-controller="Slider" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "Slider" && currentAction == "Index" ? "active" : "")">Slider
+                        <a asp-controller="Savings" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Savings" && currentAction == "Index" ? "active" : "")">Saving
                             Management</a>
-                        <a asp-controller="ManageFaq" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "ManageFaq" && currentAction == "Index" ? "active" : "")">Faq
-                            Management</a>
-                        <a asp-controller="ManageNews" asp-action="Index" asp-area="Admin" class="dropdown-item @(currentController == "ManageNews" && currentAction == "Index" ? "active" : "")">News
-                            Management</a>
-                        <a asp-controller="ManageCategoryNews" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "ManageCategoryNews" && currentAction == "Index" ? "active" : "")">Category Management</a>
+                        <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Category
+                            Savings</a>
                     </div>
                 </div>
+
+
+                <div class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                            class="fas fa-piggy-bank"></i> News</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a asp-controller="Savings" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Savings" && currentAction == "Index" ? "active" : "")">News
+                            Management</a>
+                        <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Category
+                            News</a>
+                        <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Faq
+                            Management</a>
+                    </div>
+                </div>
+
 
             </div>
         </nav>
@@ -225,14 +276,23 @@
                         <span class="d-none d-lg-inline-flex">John Doe</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a asp-action="Logout" asp-controller="Teckbank_c9f1d0ea64a04a69a5bda3b12f5e92cf"  asp-area="Admin" class="dropdown-item">Log Out</a>
+                        <a asp-action="Logout"
+                           asp-controller="Teckbank"
+                           asp-area="Admin"
+                           asp-route-year="@DateTime.UtcNow.Year"
+                           asp-route-month="@DateTime.UtcNow.Month"
+                           asp-route-day="@DateTime.UtcNow.Day"
+                           class="dropdown-item">
+                            Log Out
+                        </a>
+
                     </div>
                 </div>
             </div>
         </nav>
 
         @RenderBody()
-        </div>
+    </div>
 
 
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -248,112 +308,115 @@
 <script src="~/Admin/lib/tempusdominus/js/moment.min.js"></script>
 <script src="~/Admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="~/Admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min discounted css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="~/Admin/js/main.js"></script>
-    <!-- Chat Floating Button -->
-    <!-- Chat Floating Button & Chat Box -->
-    @if (User.IsInRole("Admin"))
-    {
-        <button id="chatToggleBtn" class="btn btn-primary rounded-circle shadow position-fixed"
-                style="bottom: 20px; right: 20px; z-index: 1050; width: 60px; height: 60px;">
-            <i class="fas fa-comment-dots"></i>
-            <span id="chatBadge" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
-                  style="display: none; width: 10px; height: 10px;"></span>
-        </button>
+<!-- Chat Floating Button -->
+<!-- Chat Floating Button & Chat Box -->
+@if (User.IsInRole("Admin"))
+{
+    <button id="chatToggleBtn" class="btn btn-primary rounded-circle shadow position-fixed"
+            style="bottom: 20px; right: 20px; z-index: 1050; width: 60px; height: 60px;">
+        <i class="fas fa-comment-dots"></i>
+        <span id="chatBadge"
+              class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+              style="display: none; width: 10px; height: 10px;"></span>
+    </button>
 
-        <div id="chatBox" class="card shadow position-fixed"
-             style="bottom: 90px; right: 20px; width: 350px; display: none; z-index: 1050;">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <span>Chat Admin</span>
-                <button type="button" class="btn-close btn-close-white btn-sm" id="closeChat"></button>
-            </div>
-            <div class="card-body" style="height: 450px; overflow-y: auto;" id="messagesList"></div>
-            <div class="card-footer p-2">
-                <div class="input-group input-group-sm">
-                    <input type="text" id="messageInput" class="form-control" placeholder="Enter message...">
-                    <button class="btn btn-primary" id="sendMessage">Send</button>
-                </div>
+    <div id="chatBox" class="card shadow position-fixed"
+         style="bottom: 90px; right: 20px; width: 350px; display: none; z-index: 1050;">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <span>Chat Admin</span>
+            <button type="button" class="btn-close btn-close-white btn-sm" id="closeChat"></button>
+        </div>
+        <div class="card-body" style="height: 450px; overflow-y: auto;" id="messagesList"></div>
+        <div class="card-footer p-2">
+            <div class="input-group input-group-sm">
+                <input type="text" id="messageInput" class="form-control" placeholder="Enter message...">
+                <button class="btn btn-primary" id="sendMessage">Send</button>
             </div>
         </div>
-    }
+    </div>
+}
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-    <script>
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/chathub")
-            .build();
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chathub")
+        .build();
 
-        connection.on("ReceiveMessage", function (user, message) {
-            const container = document.getElementById("messagesList");
-            const msgDiv = document.createElement("div");
-            const currentUser = "@User.Identity.Name".trim();
+    connection.on("ReceiveMessage", function (user, message) {
+        const container = document.getElementById("messagesList");
+        const msgDiv = document.createElement("div");
+        const currentUser = "@User.Identity.Name".trim();
 
-            msgDiv.className = "mb-2";
+        msgDiv.className = "mb-2";
 
-            const alignment = user === currentUser ? "chat-right" : "chat-left";
-msgDiv.innerHTML = `<div class="chat-message ${alignment}">
+        const alignment = user === currentUser ? "chat-right" : "chat-left";
+        msgDiv.innerHTML = `<div class="chat-message ${alignment}">
                                     <strong>${user}:</strong> ${message}
                                 </div>`;
-            container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
 
-            const chatBox = document.getElementById("chatBox");
-            if (chatBox.style.display === "none") {
-                document.getElementById("chatBadge").style.display = "block";
-            }
-        });
+        const chatBox = document.getElementById("chatBox");
+        if (chatBox.style.display === "none") {
+            document.getElementById("chatBadge").style.display = "block";
+        }
+    });
 
 
-        connection.on("LoadMessages", function (messages) {
-            const container = document.getElementById("messagesList");
-            container.innerHTML = "";
-            const currentUser = "@User.Identity.Name".trim();
+    connection.on("LoadMessages", function (messages) {
+        const container = document.getElementById("messagesList");
+        container.innerHTML = "";
+        const currentUser = "@User.Identity.Name".trim();
 
-            messages.forEach(m => {
-                const alignment = m.admin === currentUser ? "chat-right" : "chat-left";
+        messages.forEach(m => {
+            const alignment = m.admin === currentUser ? "chat-right" : "chat-left";
 
-                const msgDiv = document.createElement("div");
-                msgDiv.className = "mb-2";
-                msgDiv.innerHTML = `<div class="chat-message ${alignment}">
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "mb-2";
+            msgDiv.innerHTML = `<div class="chat-message ${alignment}">
                                         <small class="text-muted">${m.timestamp}</small><br>
                                         <strong>${m.admin}:</strong> ${m.message}
                                     </div>`;
-                container.appendChild(msgDiv);
-            });
-            container.scrollTop = container.scrollHeight;
+            container.appendChild(msgDiv);
         });
+        container.scrollTop = container.scrollHeight;
+    });
 
 
-        connection.start().then(() => {
-            connection.invoke("LoadMessages");
-        }).catch(err => console.error(err.toString()));
+    connection.start().then(() => {
+        connection.invoke("LoadMessages");
+    }).catch(err => console.error(err.toString()));
 
-        document.getElementById("sendMessage").addEventListener("click", function () {
-            const input = document.getElementById("messageInput");
-            const message = input.value.trim();
-            if (message !== "") {
-                connection.invoke("SendMessage", message).catch(err => console.error(err.toString()));
-                input.value = "";
-            }
-        });
+    document.getElementById("sendMessage").addEventListener("click", function () {
+        const input = document.getElementById("messageInput");
+        const message = input.value.trim();
+        if (message !== "") {
+            connection.invoke("SendMessage", message).catch(err => console.error(err.toString()));
+            input.value = "";
+        }
+    });
 
-        document.getElementById("chatToggleBtn").addEventListener("click", () => {
-            const box = document.getElementById("chatBox");
-            const badge = document.getElementById("chatBadge");
+    document.getElementById("chatToggleBtn").addEventListener("click", () => {
+        const box = document.getElementById("chatBox");
+        const badge = document.getElementById("chatBadge");
 
-            if (box.style.display === "none") {
-                box.style.display = "block";
-                badge.style.display = "none";
-            } else {
-                box.style.display = "none";
-            }
-        });
+        if (box.style.display === "none") {
+            box.style.display = "block";
+            badge.style.display = "none";
+        } else {
+            box.style.display = "none";
+        }
+    });
 
-        document.getElementById("closeChat").addEventListener("click", () => {
-            document.getElementById("chatBox").style.display = "none";
-        });
-    </script>
+    document.getElementById("closeChat").addEventListener("click", () => {
+        document.getElementById("chatBox").style.display = "none";
+    });
+</script>
 
 
 </body>

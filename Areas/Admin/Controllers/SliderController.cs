@@ -4,11 +4,13 @@ using CP2496H07Group1.Models;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
 namespace CP2496H07Group1.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("Admin")]
     public class SliderController : Controller
     {
         private readonly AppDataContext _context;

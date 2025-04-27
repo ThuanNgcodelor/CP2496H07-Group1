@@ -1,4 +1,5 @@
 ﻿@model CP2496H07Group1.Models.VipViewModel
+@using CP2496H07Group1.Models; 
 
 <!-- page-title -->
 <section class="page-title">
@@ -167,6 +168,14 @@
                         </select>
                     </div>
                     <div class="form-group mb-3">
+                        <label for="discountId">Select Discount</label>
+                        <select id="discountId" class="form-control" name="DiscountId" aria-label="Select Discount">
+                      
+                        </select>
+                    </div>
+
+
+                    <div class="form-group mb-3">
                         <label class="form-label text-dark">PIN</label>
                         <input type="password" class="form-control" id="pin" placeholder="Enter your PIN" required>
                     </div>
@@ -191,6 +200,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const buyNowButtons = document.querySelectorAll('.buy-now-btn');
         let isProcessing = false;
+        let allDiscounts = []; // Store all discounts globally
 
         buyNowButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -199,7 +209,7 @@
 
                 if (!id || id <= 0) {
                     console.error("Invalid data-id on button:", this);
-                    showCustomAlert("Invalid VIP package ID. Please check data..");
+                    showCustomAlert("Invalid VIP package ID. Please check data.");
                     return;
                 }
 
@@ -224,7 +234,7 @@
                             return;
                         }
 
-                        // Điền dữ liệu vào modal
+                        // Fill modal fields
                         document.getElementById('vipType').value = data.typeVip ?? '';
                         document.getElementById('vipPrice').value = data.price ? data.price.toLocaleString() + " $" : '';
                         document.getElementById('vipMoneyBack').value = data.moneyBack ? data.moneyBack.toLocaleString() + " %" : '';
@@ -232,7 +242,7 @@
                         document.getElementById('vipId').value = data.id ?? '';
                         document.getElementById('pin').value = '';
 
-                        // Điền danh sách tài khoản vào dropdown
+                        // Populate account dropdown
                         const accountSelect = document.getElementById('accountId');
                         if (!accountSelect) {
                             console.error("Account select element not found in DOM!");
@@ -245,12 +255,11 @@
                             console.log("Accounts received:", data.accounts);
                             data.accounts.forEach((account, index) => {
                                 console.log(`Processing account ${index}:`, account);
-                                // Handle case-insensitive property names
-                                const accountId = account.id || account.Id;
-                                const accountNumber = account.accountNumber || account.AccountNumber;
-                                const balance = account.balance || account.Balance;
+                                const accountId = account.id;
+                                const accountNumber = account.accountNumber;
+                                const balance = account.balance;
 
-                                if (accountId && accountNumber && balance) {
+                                if (accountId && accountNumber && balance !== undefined) {
                                     const option = document.createElement('option');
                                     option.value = accountId;
                                     option.textContent = `Account: ${accountNumber} | ${balance}`;
@@ -261,8 +270,6 @@
                                 }
                             });
 
-                            // Log final dropdown state
-                            console.log("Dropdown options after population:", accountSelect.options.length, Array.from(accountSelect.options).map(opt => opt.textContent));
                             if (accountSelect.options.length <= 1) {
                                 console.warn("No valid accounts added to dropdown");
                                 showCustomAlert("There is no valid account for payment.");
@@ -274,15 +281,14 @@
                             return;
                         }
 
-                        // Kiểm tra vipId
-                        const vipIdAfterFetch = parseInt(document.getElementById('vipId').value);
-                        console.log("vipId set in modal:", vipIdAfterFetch);
-                        if (!vipIdAfterFetch || vipIdAfterFetch <= 0) {
-                            showCustomAlert("Unable to get valid VIP package ID from server.");
-                            return;
-                        }
+                        // Store discounts globally
+                        allDiscounts = data.discountCodes || [];
+                        console.log("Stored discounts:", allDiscounts);
 
-                        // Hiển thị modal
+                        // Populate discount dropdown
+                        populateDiscountDropdown(null);
+
+                        // Show modal
                         const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
                         modal.show();
                     })
@@ -293,7 +299,72 @@
             });
         });
 
-        // Xử lý nút Proceed to Buy
+        // Event listener for account selection change
+        let accountChangeHandler = null;
+        const accountSelect = document.getElementById('accountId');
+        if (accountSelect) {
+            // Remove existing listeners to prevent duplicates
+            if (accountChangeHandler) {
+                accountSelect.removeEventListener('change', accountChangeHandler);
+            }
+            accountChangeHandler = function () {
+                const selectedAccountId = parseInt(this.value);
+                console.log("Account selected:", selectedAccountId);
+                populateDiscountDropdown(selectedAccountId);
+            };
+            accountSelect.addEventListener('change', accountChangeHandler);
+        }
+
+        // Function to populate discount dropdown
+        function populateDiscountDropdown(accountId) {
+            const discountSelect = document.getElementById('discountId');
+            if (!discountSelect) {
+                console.error("Discount select element not found in DOM!");
+                showCustomAlert("Interface error: Discount dropdown not found.");
+                return;
+            }
+
+            // Clear existing options
+            discountSelect.innerHTML = '<option value="" disabled selected>Select Discount</option>';
+            console.log("Cleared discount dropdown");
+
+            // Use all discounts (no account-specific filtering unless backend supports it)
+            const applicableDiscounts = allDiscounts;
+
+            console.log("Applicable discounts:", applicableDiscounts);
+
+            if (applicableDiscounts.length > 0) {
+                applicableDiscounts.forEach((discount, index) => {
+                    const discountId = discount.id;
+                    const discountCode = discount.discountCodes;
+                    const percent = discount.percent;
+
+                    if (discountId && discountCode && percent !== undefined) {
+                        const option = document.createElement('option');
+                        option.value = discountId;
+                        option.textContent = `${discountCode} (${percent}%)`;
+                        discountSelect.appendChild(option);
+                        console.log(`Added discount ${discountId} to dropdown`);
+                    } else {
+                        console.warn(`Invalid discount data at index ${index}:`, discount);
+                    }
+                });
+            } else {
+                console.log("No discounts available.");
+                const option = document.createElement('option');
+                option.value = "";
+                option.textContent = "No discounts available";
+                option.disabled = true;
+                discountSelect.appendChild(option);
+            }
+
+            // Ensure dropdown is visible
+            discountSelect.style.display = 'block';
+            discountSelect.style.visibility = 'visible';
+            console.log("Discount dropdown populated with", discountSelect.options.length, "options");
+        }
+
+        // Handle Proceed to Buy
         document.getElementById('proceedBuy').addEventListener('click', function () {
             if (isProcessing) {
                 console.log("Request already in progress, ignoring click.");
@@ -306,25 +377,27 @@
 
             const vipIdInput = document.getElementById('vipId').value;
             const accountIdInput = document.getElementById('accountId').value;
+            const discountIdInput = document.getElementById('discountId').value;
             const pinInput = document.getElementById('pin').value;
 
             const vipId = parseInt(vipIdInput);
             const accountId = parseInt(accountIdInput);
+            const discountId = discountIdInput ? parseInt(discountIdInput) : null;
             const pin = parseInt(pinInput);
 
-            console.log("Raw inputs:", { vipIdInput, accountIdInput, pinInput });
-            console.log("Parsed values:", { vipId, accountId, pin });
+            console.log("Raw inputs:", { vipIdInput, accountIdInput, discountIdInput, pinInput });
+            console.log("Parsed values:", { vipId, accountId, discountId, pin });
 
             if (!vipId || isNaN(vipId) || vipId <= 0) {
                 console.error("Invalid vipId in modal:", vipId);
-                showCustomAlert("VIP Package is invalid. Please try again..");
+                showCustomAlert("VIP Package is invalid. Please try again.");
                 resetButton();
                 return;
             }
 
             if (!accountId || isNaN(accountId) || accountId <= 0) {
                 console.error("Invalid accountId in modal:", accountId);
-                showCustomAlert("Please select payment account.");
+                showCustomAlert("Please select a payment account.");
                 resetButton();
                 return;
             }
@@ -336,10 +409,15 @@
                 return;
             }
 
-            const requestBody = { vipId: vipId, accountId: accountId, pin: pin };
+            const requestBody = {
+                vipId: vipId,
+                accountId: accountId,
+                discountId: discountId,
+                pin: pin
+            };
             console.log("Sending PurchaseVip request with body:", JSON.stringify(requestBody));
 
-            fetch(`/Vip/PurchaseVip`, {
+            fetch('/Vip/PurchaseVip', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -395,6 +473,7 @@
     });
 </script>
 
+<!-- Existing styles remain unchanged -->
 <style>
     .custom-alert {
         text-align: center;
@@ -436,10 +515,11 @@
             border-radius: 5px;
         }
 
-    select#accountId {
+    select#accountId,
+    select#discountId {
         display: block !important;
         visibility: visible !important;
         height: auto !important;
-        min-height: 40px; /* Đảm bảo dropdown có chiều cao đủ */
+        min-height: 40px;
     }
 </style>

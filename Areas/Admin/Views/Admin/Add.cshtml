@@ -41,20 +41,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- CKEditor 5 CDN -->
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-    let editorInstance;
-
-    ClassicEditor
-        .create(document.querySelector('#Description'))
-        .then(editor => {
-            editorInstance = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
 
     $(document).ready(function () {
         $('#adminForm').on('submit', function (e) {
@@ -82,7 +70,7 @@
                 $('#Description').addClass('is-invalid');
                 isValid = false;
             } else {
-                $('#Description').val(description); // Gán dữ liệu cho textarea thật
+                $('#Description').val(description); 
             }
 
             if (!isValid) {

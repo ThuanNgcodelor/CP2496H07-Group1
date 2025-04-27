@@ -103,8 +103,8 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li><a asp-action="Index" asp-controller="Home">Home</a>
+                                    <li><a asp-action="Index" asp-controller="Home">About</a>
                                     </li>
-                                    <li class="dropdown"><a href="#">About</a>
                                     <li class="dropdown">
                                         <a asp-controller="News" asp-action="Index">News</a>
                                         <ul>
@@ -123,7 +123,13 @@
                                         </li>
                                         <li class="dropdown"><a href="#">Function</a>
                                             <ul>
-                                                <li class="dropdown"><a href="#">More</a>
+                                                <li class="dropdown"><a href="#">Loans</a>
+                                                    <ul>
+                                                        <li><a asp-controller="Loans" asp-action="Index">Personal Loans</a></li>
+                                                    </ul>
+                                                </li>
+                                                
+                                                <li class="dropdown"><a href="#">Vip</a>
                                                     <ul>
                                                         <li><a asp-controller="Loans" asp-action="Index">Personal Loans</a></li>
                                                     </ul>
@@ -131,12 +137,14 @@
                                                 <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
                                                 <li><a asp-action="Card" asp-controller="Auth">My Card</a></li>
                                                 <li><a asp-action="CreateCard" asp-controller="Auth">Create Card</a></li>
-                                                <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
                                                 <li><a asp-controller="Auth" asp-action="RecentTransactions">History
                                                     transaction</a></li>
                                                 <li><a asp-action="Logout" asp-controller="Auth">Logout</a></li>
                                             </ul>
                                         </li>
+                                        <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
+                                        
+                                        
                                     }
                                     else
                                     {
