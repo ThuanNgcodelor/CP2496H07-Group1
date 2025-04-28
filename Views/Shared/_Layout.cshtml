@@ -91,7 +91,7 @@
                     <div class="menu-area">
                         <div class="logo-box mr_110">
                             <figure class="logo"><a asp-action="Index" asp-controller="Home"><img
-                                                                                                 src="~/images/logo.jpg" width="200rem" alt=""></a></figure>
+                                        src="~/images/logo.jpg" width="200rem" alt=""></a></figure>
                         </div>
                         <!--Mobile Navigation Toggler-->
                         <div class="mobile-nav-toggler">
@@ -103,7 +103,7 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li><a asp-action="Index" asp-controller="Home">Home</a>
-                                    <li><a asp-action="Index" asp-controller="Home">About</a>
+                                    <li><a asp-action="Index" asp-controller="About">About</a>
                                     </li>
                                     <li class="dropdown">
                                         <a asp-controller="News" asp-action="Index">News</a>
@@ -117,34 +117,42 @@
                                         <li class="dropdown"><a href="#">More</a>
                                             <ul>
                                                 <li><a asp-controller="Insurance" asp-action="Index">Insurance</a></li>
-                                                <li><a asp-action="UserInsurance" asp-controller="Insurance">My Insurance</a></li>
+                                                <li><a asp-action="UserInsurance" asp-controller="Insurance">My
+                                                        Insurance</a></li>
                                                 <li><a asp-action="UserSec" asp-controller="Insurance">My Sec</a></li>
+                                                <li><a asp-action="Index" asp-controller="DiscountCode">Discount Code</a></li>
+                                                <li><a asp-action="Index" asp-controller="Savings">Buy Saving</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown"><a href="#">Function</a>
                                             <ul>
                                                 <li class="dropdown"><a href="#">Loans</a>
                                                     <ul>
-                                                        <li><a asp-controller="Loans" asp-action="Index">Personal Loans</a></li>
+                                                        <li><a asp-controller="Loans" asp-action="Index">Personal
+                                                                Loans</a></li>
                                                     </ul>
                                                 </li>
-                                                
+
                                                 <li class="dropdown"><a href="#">Vip</a>
                                                     <ul>
-                                                        <li><a asp-controller="Loans" asp-action="Index">Personal Loans</a></li>
+                                                        <li><a asp-controller="Vip" asp-action="Index">Personal
+                                                                Vip</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a asp-controller="Auth" asp-action="Users">User setting</a></li>
                                                 <li><a asp-action="Card" asp-controller="Auth">My Card</a></li>
-                                                <li><a asp-action="CreateCard" asp-controller="Auth">Create Card</a></li>
+                                                <li><a asp-action="CreateCard" asp-controller="Auth">Create Card</a>
+                                                </li>
+                                                <li><a asp-action="Index" asp-controller="Topup">Top-up</a>
+                                                </li>
+                                                <li><a asp-action="ViewSavings" asp-controller="Savings">View Savings</a>
+                                                </li>
                                                 <li><a asp-controller="Auth" asp-action="RecentTransactions">History
-                                                    transaction</a></li>
+                                                        transaction</a></li>
                                                 <li><a asp-action="Logout" asp-controller="Auth">Logout</a></li>
                                             </ul>
                                         </li>
                                         <li><a asp-action="Index" asp-controller="Transfer">Transfer</a></li>
-                                        
-                                        
                                     }
                                     else
                                     {
@@ -155,7 +163,8 @@
                         </nav>
                     </div>
                     <div class="menu-right-content">
-                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a asp-controller="Faq" asp-action="Index">Support</a>
+                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a
+                                asp-controller="Faq" asp-action="Index">Support</a>
                         </div>
                         <div class="btn-box mr_10"><a asp-action="Register" asp-controller="Auth"
                                                       class="theme-btn"><span>New Account</span></a></div>
@@ -183,7 +192,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                         <div class="tab" id="atm-btn">
@@ -199,7 +208,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,15 +226,18 @@
                 <div class="outer-box">
                     <div class="menu-area">
                         <div class="logo-box mr_110">
-                            <figure class="logo"><a asp-controller="Home" asp-action="Index"><img src="~/images/logo.jpg" width="200rem" ></a></figure>
+                            <figure class="logo"><a asp-controller="Home" asp-action="Index"><img
+                                        src="~/images/logo.jpg" width="200rem"></a></figure>
                         </div>
                         <nav class="main-menu clearfix">
                         </nav>
                     </div>
                     <div class="menu-right-content">
-                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a asp-action="Index" asp-controller="Faq">Support</a>
+                        <div class="support-box mr_50"><img src="~/images/icons/icon-8.png" alt=""><a asp-action="Index"
+                                                                                                      asp-controller="Faq">Support</a>
                         </div>
-                        <div class="btn-box mr_10"><a asp-controller="Auth" asp-action="Register" class="theme-btn"><span>New Account</span></a>
+                        <div class="btn-box mr_10"><a asp-controller="Auth" asp-action="Register"
+                                                      class="theme-btn"><span>New Account</span></a>
                         </div>
                         <div class="nav-toggler">
                             <button type="button" class="side-panel-btn nav-btn-2"><img src="~/images/icons/icon-10.png"
@@ -252,7 +264,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                         <div class="tab" id="atm-btn2">
@@ -268,7 +280,7 @@
                                                 </div>
                                                 <div class="link-box"><a href="https://www.google.com/maps"
                                                                          target="_blank"><i
-                                                                                             class="flaticon-right-arrow"></i>Find On Map</a></div>
+                                                            class="flaticon-right-arrow"></i>Find On Map</a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -280,7 +292,7 @@
             </div>
         </div>
     </header>
-    
+
     <div class="mobile-menu">
         <div class="menu-backdrop"></div>
         <div class="close-btn"><i class="fas fa-times"></i></div>
@@ -331,9 +343,9 @@
                                     <div class="contact-info">
                                         <h3>Enquiry</h3>
                                         <ul class="list-item clearfix">
-                                            <li><a href="tel:08008961234">0800 896 1234</a> <span>(Toll Free) <br/>Personal</span>
+                                            <li><a href="tel:0123456789">0123456789</a> <span>(Toll Free) <br/>Personal</span>
                                             </li>
-                                            <li><a href="tel:496912345678">+49 69 1234 5678</a>
+                                            <li><a href="tel:0123456789">+84 0123456789</a>
                                                 <br/><span>Corporate</span></li>
                                         </ul>
                                     </div>
@@ -347,10 +359,7 @@
                                 </div>
                                 <div class="support-box">
                                     <div class="icon-box"><img src="~/images/icons/icon-35.png" alt=""></div>
-                                    <h4><a href="mailto:getsupport@flexibank.com">getsupport@flexibank.com</a></h4>
-                                    <p>Send your queries.</p>
-                                    <div class="link-box"><a href="contact.html"><i
-                                                class="flaticon-right-arrow"></i></a></div>
+                                    <h4><a href="mailto:getsupport@teckbank.com">getsupport@teckbank.com</a></h4>
                                 </div>
                             </div>
                         </div>
@@ -362,10 +371,10 @@
                             </div>
                             <div class="widget-content mb_25">
                                 <ul class="links-list clearfix">
-                                    <li><a href="about.html">About Us<i class="flaticon-next"></i></a></li>
-                                    <li><a href="index.html">Awards & Recognition<i class="flaticon-next"></i></a></li>
-                                    <li><a href="team.html">Leadership<i class="flaticon-next"></i></a></li>
-                                    <li><a href="blog.html">News & Media<i class="flaticon-next"></i></a></li>
+                                    <li><a asp-action="Index" asp-controller="About">About Us<i
+                                                class="flaticon-next"></i></a></li>
+                                    <li><a asp-action="Index" asp-controller="News">News & Media<i
+                                                class="flaticon-next"></i></a></li>
                                 </ul>
                             </div>
                             <div class="widget-title">
@@ -373,11 +382,8 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="links-list clearfix">
-                                    <li><a href="contact.html">Branches<i class="flaticon-next"></i></a></li>
-                                    <li><a href="cards.html">ATM’s<i class="flaticon-next"></i></a></li>
-                                    <li><a href="contact.html">Customer Care<i class="flaticon-next"></i></a></li>
-                                    <li><a href="faq.html">Faq’s<i class="flaticon-next"></i></a></li>
-                                    <li><a href="contact.html">Contact Us<i class="flaticon-next"></i></a></li>
+                                    <li><a asp-action="Index" asp-controller="Faq">Faq’s<i
+                                                class="flaticon-next"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -389,17 +395,16 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="links-list clearfix">
-                                    <li><a href="account.html">Accounts<i class="flaticon-next"></i></a></li>
-                                    <li><a href="index.html">Fixed Deposits<i class="flaticon-next"></i></a></li>
-                                    <li><a href="cards.html">Credit Cards<i class="flaticon-next"></i></a></li>
-                                    <li><a href="loans-1.html">Loans<i class="flaticon-next"></i></a></li>
-                                    <li><a href="index.html">Locker<i class="flaticon-next"></i></a></li>
-                                    <li><a href="cards.html">Money Transfer<i class="flaticon-next"></i></a></li>
-                                    <li><a href="investments-details-6.html">Investments<i
+                                    <li><a asp-controller="Auth" asp-action="Users">Accounts<i
                                                 class="flaticon-next"></i></a></li>
-                                    <li><a href="investments-details-4.html">Insurance<i class="flaticon-next"></i></a>
+                                    <li><a asp-action="Card" asp-controller="Auth">Credit Cards<i
+                                                class="flaticon-next"></i></a></li>
+                                    <li><a asp-controller="Loans" asp-action="Index">Loans<i class="flaticon-next"></i></a>
                                     </li>
-                                    <li><a href="cards.html">Payments<i class="flaticon-next"></i></a></li>
+                                    <li><a asp-action="Index" asp-controller="Transfer">Transfer<i
+                                                class="flaticon-next"></i></a></li>
+                                    <li><a asp-controller="Insurance" asp-action="Index">Insurance<i
+                                                class="flaticon-next"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -413,11 +418,11 @@
                     <ul class="list-item">
                         <li>
                             <div class="icon-box"><img src="~/images/icons/icon-38.png" alt=""></div>
-                            <h4><a href="index.html">Branches & ATMs</a></h4>
+                            <h4>Branches & ATMs</h4>
                         </li>
                         <li>
                             <div class="icon-box"><img src="~/images/icons/icon-39.png" alt=""></div>
-                            <h4><a href="index.html">Complaint Registration</a></h4>
+                            <h4>Complaint Registration</h4>
                         </li>
                         <li>
                             <div class="icon-box"><img src="~/images/icons/icon-40.png" alt=""></div>
@@ -431,21 +436,26 @@
                     <div class="social-box">
                         <span>Follow Us On</span>
                         <ul class="social-links">
-                            <li><a href="index.html"><i class="flaticon-facebook"></i></a></li>
-                            <li><a href="index.html"><i class="flaticon-twitter"></i></a></li>
-                            <li><a href="index.html"><i class="flaticon-instagram-logo"></i></a></li>
-                            <li><a href="index.html"><i class="flaticon-youtube"></i></a></li>
-                            <li><a href="index.html"><i class="flaticon-vimeo"></i></a></li>
+                            <li><a href="#"><i class="flaticon-facebook"></i></a></li>
+                            <li><a href="#"><i class="flaticon-twitter"></i></a></li>
+                            <li><a href="#"><i class="flaticon-instagram-logo"></i></a></li>
+                            <li><a href="#"><i class="flaticon-youtube"></i></a></li>
+                            <li><a href="#"><i class="flaticon-vimeo"></i></a></li>
                         </ul>
                     </div>
                     <div class="footer-logo">
-                        <figure class="logo"><a href="index.html"><img src="~/images/logo1.png" alt=""></a></figure>
-                        <div class="copyright"><p> <a asp-action="Index" asp-controller="Home">&copy;  TeckBank.</a> </p></div>
+                        <figure class="logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                <img src="~/images/logo.jpg" width="200rem" alt="">
+                            </a>
+                        </figure>
+                        <div class="copyright"><p><a asp-action="Index" asp-controller="Home">&copy; TeckBank.</a></p>
+                        </div>
                     </div>
                     <ul class="footer-nav clearfix">
-                        <li><a href="index.html">Privacy Policy</a></li>
-                        <li><a href="index.html">Terms & Conditions</a></li>
-                        <li><a href="index.html">Disclaimer.</a></li>
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Disclaimer</li>
                     </ul>
                 </div>
             </div>

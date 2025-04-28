@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<CP2496H07Group1.Models.Faq>
+@{
+    ViewBag.Title = "FAQ";
+    int index = ((int)ViewBag.CurrentPage - 1) * 5 + 1;
+}
 
 <!-- Mobile Menu -->
 <div class="mobile-menu">
     <div class="menu-backdrop"></div>
     <div class="close-btn"><i class="fas fa-times"></i></div>
-
     <nav class="menu-box">
         <div class="nav-logo"><a href="@Url.Action("Index", "Home")"><img src="/assets/images/logo-2.png" alt="" title=""></a></div>
         <div class="menu-outer"></div>
@@ -28,23 +31,18 @@
     </nav>
 </div>
 <!-- End Mobile Menu -->
-
 <!-- page-title -->
 <section class="page-title">
-    <div class="pattern-layer" style="background-image: url(images/shape/shape-32.png);"></div>
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
+    <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <div class="auto-container">
         <div class="content-box">
-            <h1>Faq’s</h1>
-            <ul class="bread-crumb clearfix">
-                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                <li>About</li>
-                <li><span>Faq’s</span></li>
-            </ul>
+            <h1>FAQ</h1>
+            <ul class="bread-crumb clearfix"></ul>
         </div>
     </div>
 </section>
 <!-- page-title end -->
-
 <!-- faq-section -->
 <section class="faq-section sec-pad">
     <div class="pattern-layer" style="background-image: url(images/shape/shape-46.png);"></div>
@@ -54,19 +52,16 @@
             <h2>Read Questions & Answers</h2>
         </div>
         <div class="row clearfix">
-            <div class="col-lg-8 col-md-12 col-sm-12 accordion-column">
+            <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 accordion-column">
                 <ul class="accordion-box">
-                    @{
-                        int index = 1; // Biến đếm để hiển thị số thứ tự
-                    }
                     @foreach (var faq in Model)
                     {
-                        <li class="accordion block @(index == 1 ? "active-block" : "")">
-                            <div class="acc-btn @(index == 1 ? "active" : "")">
+                        <li class="accordion block @(index == ((int)ViewBag.CurrentPage - 1) * 5 + 1 ? "active-block" : "")">
+                            <div class="acc-btn @(index == ((int)ViewBag.CurrentPage - 1) * 5 + 1 ? "active" : "")">
                                 <div class="icon-box"><i class="fas fa-chevron-down"></i></div>
                                 <h4><span>@(index.ToString("D2"))</span>@faq.Question</h4>
                             </div>
-                            <div class="acc-content @(index == 1 ? "current" : "")">
+                            <div class="acc-content @(index == ((int)ViewBag.CurrentPage - 1) * 5 + 1 ? "current" : "")">
                                 <div class="content">
                                     <p>@faq.Answer</p>
                                 </div>
@@ -75,48 +70,73 @@
                         index++;
                     }
                 </ul>
+
+                <!-- Pagination (Updated Style to Match News) -->
+                <div class="pagination-wrapper centred pt_30">
+                    <ul class="pagination clearfix">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">
+                                    <i class="flaticon-next" style="transform: rotate(180deg); display: inline-block;"></i>
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = i })" class="@(i == ViewBag.CurrentPage ? "current" : "")">@i</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">
+                                    <i class="flaticon-next"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+
             </div>
         </div>
     </div>
 </section>
 <!-- faq-section end -->
-
 @section Scripts {
     <script>
         $(document).ready(function () {
-            // Kiểm tra jQuery có hoạt động không
             if (typeof jQuery === 'undefined') {
                 console.error('jQuery is not loaded!');
                 return;
             }
 
-            // Đảm bảo tất cả acc-content ban đầu được ẩn, trừ cái có class current
             $('.accordion-box .acc-content').not('.current').hide();
 
             $('.accordion-box .acc-btn').on('click', function (e) {
-                e.preventDefault(); // Ngăn chặn hành vi mặc định nếu có
+                e.preventDefault();
 
                 var $this = $(this);
                 var $parent = $this.closest('.accordion');
                 var $content = $this.next('.acc-content');
 
-                // Nếu accordion đang mở, đóng nó; nếu đang đóng, mở nó
                 if ($this.hasClass('active')) {
-                    // Đóng accordion
                     $parent.removeClass('active-block');
                     $this.removeClass('active');
                     $content.removeClass('current').slideUp(300, function () {
-                        $content.hide(); // Đảm bảo ẩn hoàn toàn sau khi slideUp
+                        $content.hide();
                     });
                 } else {
-                    // Đóng tất cả các accordion khác
                     $('.accordion-box .accordion').not($parent).removeClass('active-block');
                     $('.accordion-box .acc-btn').not($this).removeClass('active');
                     $('.accordion-box .acc-content').not($content).removeClass('current').slideUp(300, function () {
-                        $(this).hide(); // Đảm bảo ẩn hoàn toàn sau khi slideUp
+                        $(this).hide();
                     });
 
-                    // Mở accordion hiện tại
                     $parent.addClass('active-block');
                     $this.addClass('active');
                     $content.addClass('current').slideDown(300);
@@ -124,4 +144,54 @@
             });
         });
     </script>
+    <style>
+        .pagination-wrapper ul.pagination {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+            .pagination-wrapper ul.pagination li a {
+                display: inline-block;
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                border: 1px solid #ccc; /* Viền xám nhạt */
+                color: #999; /* Màu chữ xám nhạt */
+                font-weight: 500;
+                font-size: 18px;
+                border-radius: 0px; /* Không bo góc */
+                transition: all 0.3s ease;
+            }
+
+                .pagination-wrapper ul.pagination li a:hover {
+                    background-color: #f0f0f0;
+                    color: #333;
+                    border-color: #aaa;
+                }
+
+                .pagination-wrapper ul.pagination li a.current {
+                    background-color: #e60000; /* Nền đỏ đậm */
+                    color: #fff; /* Chữ trắng */
+                    font-weight: 600;
+                    border-color: #e60000;
+                }
+
+                .pagination-wrapper ul.pagination li a i {
+                    font-size: 16px;
+                    line-height: 45px;
+                    color: #999;
+                }
+
+        .pagination-wrapper .pagination li {
+            margin: 0;
+        }
+    </style>
+
+
 }

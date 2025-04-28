@@ -64,30 +64,31 @@
                             </thead>
                             <tbody>
                                 @if (Model.Any())
-                            {
-                                var index = (ViewBag.CurrentPage - 1) * 10 + 1; // Giả sử 10 giao dịch mỗi trang
-                                foreach (var item in Model)
-                                {
+        {
+            var index = (ViewBag.CurrentPage - 1) * 10 + 1;
+            foreach (var item in Model)
+            {
                                 <tr>
                                     <td>@index</td>
                                     <td>@Html.DisplayFor(modelItem => item.TransactionType)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.FromAccountId)</td>
+                                    <td>@(item.FromAccount?.AccountNumber ?? "")</td>
                                     <td>@Html.DisplayFor(modelItem => item.Amount)</td>
-                                    <td>@(item.ToAccountId.HasValue ? item.ToAccountId.ToString() : "")</td>
+                                    <td>@(item.ToAccount?.AccountNumber ?? "")</td>
                                     <td>@(item.Description ?? "")</td>
                                     <td>@item.TransactionDate.ToString("dd/MM/yyyy HH:mm")</td>
                                     <td>@(item.DiscountCodeId.HasValue ? item.DiscountCodeId.ToString() : "")</td>
                                 </tr>
-                                    index++;
-                                }
-                            }
-                            else
-                            {
+                index++;
+            }
+        }
+        else
+        {
                                 <tr>
                                     <td colspan="8" class="text-center">No transactions found!!!.</td>
                                 </tr>
-                            }
+        }
                             </tbody>
+
                         </table>
                     </div>
 

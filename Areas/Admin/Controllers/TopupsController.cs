@@ -50,7 +50,8 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                     t.CreatedAt.ToString("yyyy-MM-dd HH:mm").Contains(searchString));
             }
 
-            ViewData["CurrentFilter"] = searchString;
+            ViewBag.Keyword = searchString;
+
             return View(await topups.ToListAsync());
         }
 

@@ -2,16 +2,12 @@
 using CP2496H07Group1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
+
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CP2496H07Group1.Controllers
 {
-    [Area("Admin")]
-    [Authorize("Admin")]
     public class SavingsController : Controller
     {
         private readonly AppDataContext _context;

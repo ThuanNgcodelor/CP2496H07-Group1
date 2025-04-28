@@ -52,7 +52,7 @@
                                     <td>
                                         <button type="button" class="theme-btn withdraw-btn"
                                                 data-id="@item.Id"
-                                                @(item.DateEnd <= DateTime.Now && item.Pay == "chưa rút" ? "" : "disabled")>
+                                                @(item.DateEnd <= DateTime.Now && item.Pay == "Not withdrawn yet" ? "" : "disabled")>
                                             <span>Withdraw</span>
                                         </button>
                                     </td>

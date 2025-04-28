@@ -1,7 +1,7 @@
 ﻿@model CP2496H07Group1.Models.News
 @using System.Security.Claims
 @{
-ViewData["Title"] = "NewsDetail";
+    ViewData["Title"] = "NewsDetail";
 }
 
 <!-- page-title -->
@@ -32,12 +32,12 @@ ViewData["Title"] = "NewsDetail";
 
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
                     {
-                    <div class="blog__details__pic mb-4 text-center">
-                        <div style="width: 100%; max-width: 800px; height: 400px; margin: 0 auto; overflow: hidden; border-radius: 10px;">
-                            <img src="@Model.ImageUrl" alt="@Model.Title"
-                                 style="width: 100%; height: 100%; object-fit: cover;" />
+                        <div class="blog__details__pic mb-4 text-center">
+                            <div style="width: 100%; max-width: 800px; height: 400px; margin: 0 auto; overflow: hidden; border-radius: 10px;">
+                                <img src="@Model.ImageUrl" alt="@Model.Title"
+                                     style="width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
                         </div>
-                    </div>
                     }
 
 
@@ -47,7 +47,7 @@ ViewData["Title"] = "NewsDetail";
 
                     @if (TempData["ErrorMessage"] != null)
                     {
-                    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
                     }
 
                     <!-- Comments -->
@@ -57,97 +57,97 @@ ViewData["Title"] = "NewsDetail";
 
                         @foreach (var comment in Model.Comments.Where(c => c.ParentId == null))
                         {
-                        <div class="blog__comment__item d-flex mb-4">
-                            <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -comment.AdminId : comment.UserId)"
-                                 class="rounded-circle me-3"
-                                 alt="avatar"
-                                 style="width:60px; height:60px; object-fit:cover;" />
+                            <div class="blog__comment__item d-flex mb-4">
+                                <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -comment.AdminId : comment.UserId)"
+                                     class="rounded-circle me-3"
+                                     alt="avatar"
+                                     style="width:60px; height:60px; object-fit:cover;" />
 
-                            <div class="blog__comment__item__text">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        @if (comment.IsAdminReply)
-                                        {
-                                        <span class="badge bg-danger me-2">ADMIN</span>
-                                        <h6 class="fw-bold mb-1 d-inline">@comment.Admin?.Username</h6>
-                                        }
-                                        else
-                                        {
-                                        <h6 class="fw-bold mb-1">@comment.User?.FirstName @comment.User?.LastName</h6>
-                                        }
-                                    </div>
-                                    <small class="text-muted">@comment.CreatedAt.ToString("dd MMM, yyyy")</small>
-                                </div>
-                                <p>@comment.Content</p>
-
-                                @if (!comment.IsAdminReply)
-                                {
-                                <div class="d-flex gap-2">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                    @if (comment.UserId.ToString() != User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
-                                    {
-                                    <button class="btn btn-sm btn-outline-dark btn-reply" data-commentid="@comment.Id">
-                                        <i class="fa fa-comment-dots me-1 text-danger"></i> Reply
-                                    </button>
-                                    }
-                                    @if (comment.UserId.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
-                                    {
-                                    <button class="btn btn-sm btn-outline-danger btn-delete-comment" data-commentid="@comment.Id">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    }
-                                    }
-                                </div>
-                                }
-
-                                <div class="reply-form mt-3" style="display:none;" data-commentid="@comment.Id">
-                                    <form asp-controller="Comment" asp-action="Reply" method="post">
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" name="NewsId" value="@Model.Id" />
-                                        <input type="hidden" name="ParentId" value="@comment.Id" />
-                                        <textarea name="Content" class="form-control mb-2" rows="2" required placeholder="Write a reply..."></textarea>
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-paper-plane me-1"></i> Send Reply
-                                        </button>
-                                    </form>
-                                </div>
-
-                                <div class="replies mt-3 ps-3 border-start">
-                                    @foreach (var reply in comment.Replies)
-                                    {
-                                    <div class="reply mb-2 p-2 @(reply.IsAdminReply ? "admin-reply" : "bg-light") rounded d-flex">
-                                        <img src="https://i.pravatar.cc/50?u=@(reply.IsAdminReply ? -reply.AdminId : reply.UserId)"
-                                             class="rounded-circle me-2 mt-1"
-                                             style="width:50px; height:50px; object-fit:cover;" />
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    @if (reply.IsAdminReply)
-                                                    {
-                                                    <span class="badge bg-danger me-2">ADMIN</span>
-                                                    <strong>@reply.Admin?.Username</strong>
-                                                    }
-                                                    else
-                                                    {
-                                                    <strong>@reply.User?.FirstName @reply.User?.LastName</strong>
-                                                    }
-                                                </div>
-                                                <small class="text-muted">@reply.CreatedAt.ToString("dd/MM HH:mm")</small>
-                                            </div>
-                                            <p class="mb-1 mt-1">@reply.Content</p>
-                                            @if (User.Identity.IsAuthenticated && !reply.IsAdminReply && reply.UserId.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                <div class="blog__comment__item__text">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            @if (comment.IsAdminReply)
                                             {
-                                            <button class="btn btn-sm btn-outline-danger btn-delete-comment" data-commentid="@reply.Id">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                                <span class="badge bg-danger me-2">ADMIN</span>
+                                                <h6 class="fw-bold mb-1 d-inline">@comment.Admin?.Username</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6 class="fw-bold mb-1">@comment.User?.FirstName @comment.User?.LastName</h6>
                                             }
                                         </div>
+                                        <small class="text-muted">@comment.CreatedAt.ToString("dd MMM, yyyy")</small>
                                     </div>
+                                    <p>@comment.Content</p>
+
+                                    @if (!comment.IsAdminReply)
+                                    {
+                                        <div class="d-flex gap-2">
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                @if (comment.UserId.ToString() != User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                                {
+                                                    <button class="btn btn-sm btn-outline-dark btn-reply" data-commentid="@comment.Id">
+                                                        <i class="fa fa-comment-dots me-1 text-danger"></i> Reply
+                                                    </button>
+                                                }
+                                                @if (comment.UserId.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                                {
+                                                    <button class="btn btn-sm btn-outline-danger btn-delete-comment" data-commentid="@comment.Id">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                }
+                                            }
+                                        </div>
                                     }
+
+                                    <div class="reply-form mt-3" style="display:none;" data-commentid="@comment.Id">
+                                        <form asp-controller="Comment" asp-action="Reply" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="NewsId" value="@Model.Id" />
+                                            <input type="hidden" name="ParentId" value="@comment.Id" />
+                                            <textarea name="Content" class="form-control mb-2" rows="2" required placeholder="Write a reply..."></textarea>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-paper-plane me-1"></i> Send Reply
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="replies mt-3 ps-3 border-start">
+                                        @foreach (var reply in comment.Replies)
+                                        {
+                                            <div class="reply mb-2 p-2 @(reply.IsAdminReply ? "admin-reply" : "bg-light") rounded d-flex">
+                                                <img src="https://i.pravatar.cc/50?u=@(reply.IsAdminReply ? -reply.AdminId : reply.UserId)"
+                                                     class="rounded-circle me-2 mt-1"
+                                                     style="width:50px; height:50px; object-fit:cover;" />
+                                                <div class="flex-grow-1">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            @if (reply.IsAdminReply)
+                                                            {
+                                                                <span class="badge bg-danger me-2">ADMIN</span>
+                                                                <strong>@reply.Admin?.Username</strong>
+                                                            }
+                                                            else
+                                                            {
+                                                                <strong>@reply.User?.FirstName @reply.User?.LastName</strong>
+                                                            }
+                                                        </div>
+                                                        <small class="text-muted">@reply.CreatedAt.ToString("dd/MM HH:mm")</small>
+                                                    </div>
+                                                    <p class="mb-1 mt-1">@reply.Content</p>
+                                                    @if (User.Identity.IsAuthenticated && !reply.IsAdminReply && reply.UserId.ToString() == User.FindFirst(ClaimTypes.NameIdentifier)?.Value)
+                                                    {
+                                                        <button class="btn btn-sm btn-outline-danger btn-delete-comment" data-commentid="@reply.Id">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         }
                     </div>
 
@@ -157,23 +157,23 @@ ViewData["Title"] = "NewsDetail";
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <form id="commentForm" asp-controller="Comment" asp-action="Create" method="post">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="NewsId" value="@Model.Id" />
+                            <form id="commentForm" asp-controller="Comment" asp-action="Create" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="NewsId" value="@Model.Id" />
 
-                            <div class="form-group mb-3">
-                                <textarea name="Content" class="form-control" rows="3" required placeholder="Write your comment..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-paper-plane me-1"></i> Post Comment
-                            </button><br />
-                        </form>
+                                <div class="form-group mb-3">
+                                    <textarea name="Content" class="form-control" rows="3" required placeholder="Write your comment..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa fa-paper-plane me-1"></i> Post Comment
+                                </button><br />
+                            </form>
                         }
                         else
                         {
-                        <div class="alert alert-info">
-                            <i class="fa fa-info-circle me-2"></i> Please <a asp-controller="Auth" asp-action="Login" class="alert-link">log in</a> to comment.
-                        </div>
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle me-2"></i> Please <a asp-controller="Auth" asp-action="Login" class="alert-link">log in</a> to comment.
+                            </div>
                         }
                     </div>
                 </div>
@@ -221,86 +221,86 @@ ViewData["Title"] = "NewsDetail";
 </style>
 
 @section Scripts {
-<script>
-    $(document).ready(function () {
-        $('.btn-reply').click(function () {
-            const replyForm = $(this).closest('.blog__comment__item__text').find('.reply-form');
-            replyForm.slideToggle(200);
-        });
+    <script>
+        $(document).ready(function () {
+            $('.btn-reply').click(function () {
+                const replyForm = $(this).closest('.blog__comment__item__text').find('.reply-form');
+                replyForm.slideToggle(200);
+            });
 
-        $('.btn-delete-comment').click(function () {
-            const commentId = $(this).data('commentid');
-            const isReply = $(this).closest('.reply').length > 0;
-            const message = isReply
-                ? "Are you sure you want to delete this reply?"
-                : "Are you sure you want to delete this comment and all its replies?";
-            if (confirm(message)) {
-                const form = $('<form>', {
-                    method: 'POST',
-                    action: '/Comment/Delete/' + commentId
-                }).append($('<input>', {
-                    type: 'hidden',
-                    name: '__RequestVerificationToken',
-                    value: $('input[name="__RequestVerificationToken"]').val()
-                }));
-                $('body').append(form);
-                form.submit();
-            }
-        });
-
-        // AJAX gửi comment chính
-        $('#commentForm').submit(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function () {
-                    location.reload(); // reload khi thành công
-                },
-                error: function (xhr) {
-                    const errorMessage = xhr.responseText || "Đã xảy ra lỗi khi gửi bình luận.";
-                    const alertDiv = $('<div class="alert alert-danger"></div>').text(errorMessage);
-                    $('.blog__comment__form').prepend(alertDiv);
-
-                    // Ẩn thông báo sau 5 giây
-                    setTimeout(function () {
-                        alertDiv.fadeOut(500, function () {
-                            $(this).remove();
-                        });
-                    }, 2000);
+            $('.btn-delete-comment').click(function () {
+                const commentId = $(this).data('commentid');
+                const isReply = $(this).closest('.reply').length > 0;
+                const message = isReply
+                    ? "Are you sure you want to delete this reply?"
+                    : "Are you sure you want to delete this comment and all its replies?";
+                if (confirm(message)) {
+                    const form = $('<form>', {
+                        method: 'POST',
+                        action: '/Comment/Delete/' + commentId
+                    }).append($('<input>', {
+                        type: 'hidden',
+                        name: '__RequestVerificationToken',
+                        value: $('input[name="__RequestVerificationToken"]').val()
+                    }));
+                    $('body').append(form);
+                    form.submit();
                 }
             });
-        });
 
-        // AJAX gửi phản hồi (reply)
-        $('.reply-form form').submit(function (e) {
-            e.preventDefault();
-            const form = $(this);
-            const container = form.closest('.reply-form');
+            // AJAX gửi comment chính
+            $('#commentForm').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function () {
+                        location.reload(); // reload khi thành công
+                    },
+                    error: function (xhr) {
+                        const errorMessage = xhr.responseText || "Đã xảy ra lỗi khi gửi bình luận.";
+                        const alertDiv = $('<div class="alert alert-danger"></div>').text(errorMessage);
+                        $('.blog__comment__form').prepend(alertDiv);
 
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: form.serialize(),
-                success: function () {
-                    location.reload();
-                },
-                error: function (xhr) {
-                    const errorMessage = xhr.responseText || "Đã xảy ra lỗi khi gửi phản hồi.";
-                    const alertDiv = $('<div class="alert alert-danger"></div>').text(errorMessage);
-                    container.prepend(alertDiv);
+                        // Ẩn thông báo sau 5 giây
+                        setTimeout(function () {
+                            alertDiv.fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                        }, 2000);
+                    }
+                });
+            });
 
-                    // Ẩn thông báo sau 5 giây
-                    setTimeout(function () {
-                        alertDiv.fadeOut(500, function () {
-                            $(this).remove();
-                        });
-                    }, 2000);
-                }
+            // AJAX gửi phản hồi (reply)
+            $('.reply-form form').submit(function (e) {
+                e.preventDefault();
+                const form = $(this);
+                const container = form.closest('.reply-form');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        const errorMessage = xhr.responseText || "Đã xảy ra lỗi khi gửi phản hồi.";
+                        const alertDiv = $('<div class="alert alert-danger"></div>').text(errorMessage);
+                        container.prepend(alertDiv);
+
+                        // Ẩn thông báo sau 5 giây
+                        setTimeout(function () {
+                            alertDiv.fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                        }, 2000);
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 }

@@ -394,7 +394,7 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task SendLoanConfirmationEmail(User user, Loans loan)
+        public async Task SendLoanConfirmationEmail(User user, Loans loan)
     {
         if (user == null || string.IsNullOrEmpty(user.Email))
         {
@@ -435,57 +435,65 @@ public class AuthService : IAuthService
         }
     }
 
-
     public async Task SendMonthlyRemindersAsync()
     {
-        var reminderDate = DateTime.Today.AddDays(-3);
+        var currentDate = DateTime.Now.Date;
 
-        var schedules = await _context.LoanPaymentSchedules
-            .Include(s => s.Loan)
-            .ThenInclude(l => l.User)
-            .Where(s => s.PaymentDueDate.Date == reminderDate && !s.IsReminderSent)
+        // Lấy tất cả khoản vay còn hiệu lực, bao gồm PaymentSchedules
+        var loans = await _context.Loans
+            .Where(l => l.StartDate <= currentDate && l.EndDate >= currentDate)
+            .Include(l => l.PaymentSchedules)
             .ToListAsync();
 
-        foreach (var schedule in schedules)
+        foreach (var loan in loans)
         {
-            var loan = schedule.Loan;
-            var user = loan?.User;
+            var firstReminderDate = loan.StartDate.AddDays(30);
+            int monthsRemaining = (loan.EndDate - loan.StartDate).Days / 30;
 
-            // Nếu đã thanh toán hoặc không có email → đánh dấu là đã gửi để không bị lặp
-            if (schedule.Paymentstatus || user == null || string.IsNullOrEmpty(user.Email))
+            for (int i = 0; i < monthsRemaining; i++)
             {
-                schedule.IsReminderSent = true;
-                continue;
-            }
+                var reminderDate = firstReminderDate.AddDays(i * 30);
 
-            var fullName = !string.IsNullOrEmpty(user.FirstName) && !string.IsNullOrEmpty(user.LastName)
-                ? $"{user.FirstName} {user.LastName}"
-                : user.FirstName ?? user.LastName ?? "Valued Customer";
+                // Nếu hôm nay là ngày nhắc nhở
+                if (currentDate == reminderDate.Date)
+                {
+                    var user = await _context.Users.FindAsync(loan.UserId);
+                    if (user == null || string.IsNullOrEmpty(user.Email)) continue;
 
-            var subject = $"💰 Monthly Loan Payment Reminder (Due {schedule.PaymentDueDate:dd/MM/yyyy})";
-            var body = $@"
-        <p>Hi {fullName},</p>
-        <p>This is a reminder that your loan payment is due on <b>{schedule.PaymentDueDate:dd/MM/yyyy}</b>.</p>
-        <ul>
-            <li><strong>Loan ID:</strong> #{loan.Id}</li>
-            <li><strong>Monthly Payment:</strong> {loan.MonthlyPayment:N0} VND</li>
-        </ul>
-        <p>Please make your payment on time to avoid penalties.</p>
-        <p>Thanks,<br/>AnimeAsp Team 🏦</p>";
+                    foreach (var paymentSchedule in loan.PaymentSchedules)
+                    {
+                        if (paymentSchedule.PaymentDueDate.Date == reminderDate.Date && !paymentSchedule.IsReminderSent)
+                        {
+                            var subject = $"💰 Loan Payment Reminder for {paymentSchedule.PaymentDueDate:MMMM yyyy}";
+                            var body = $@"
+                             <p>Hi {user.FirstName ?? "Valued Customer"},</p>
+<p>This is a reminder that your loan payment is due on <b>{paymentSchedule.PaymentDueDate:dd/MM/yyyy}</b>.</p>
+                             <ul>
+                                 <li><strong>Loan ID:</strong> #{loan.Id}</li>
+                                 <li><strong>Monthly Payment:</strong> {loan.MonthlyPayment:N0} VND</li>
+                             </ul>
+                             <p>Please make your payment as soon as possible to avoid penalties.</p>
+                             <p>Thanks,<br/>Your Loan Service Team 🏦</p>";
 
-            try
-            {
-                await _emailService.Send(user.Email, subject, body);
-                schedule.IsReminderSent = true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Failed to send reminder email to {user.Email} for schedule {schedule.Id}.");
+                            try
+                            {
+                                await _emailService.Send(user.Email, subject, body);
+                                paymentSchedule.IsReminderSent = true; // Đánh dấu đã gửi
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogError(ex, $"Failed to send reminder email to {user.Email} for schedule {paymentSchedule.Id}.");
+                            }
+                        }
+                    }
+
+                    // Sau mỗi loan => save changes để đảm bảo lưu trạng thái đã gửi
+                    await _context.SaveChangesAsync();
+                }
             }
         }
-
-        await _context.SaveChangesAsync();
     }
+
 
     public async Task SendTopupConfirmationEmail(User user, Topup topup)
     {

@@ -12,15 +12,24 @@ namespace CP2496H07Group1.Controllers
             _context = context;
         }
 
-        // Hiển thị danh sách FAQ
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+            int pageSize = 5;
+            var totalFaqs = _context.Fqas.Where(f => f.IsConfirm).Count();
+            var totalPages = (int)Math.Ceiling((double)totalFaqs / pageSize);
+
             var faqs = _context.Fqas
-                .Where(f => f.IsConfirm) // Chỉ lấy FAQ đã được xác nhận
+                .Where(f => f.IsConfirm)
                 .OrderBy(f => f.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
             return View(faqs);
         }
+
     }
 }

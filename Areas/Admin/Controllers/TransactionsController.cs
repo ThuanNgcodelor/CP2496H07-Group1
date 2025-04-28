@@ -1,4 +1,4 @@
-﻿using CP2496H07Group1.Models;
+﻿﻿using CP2496H07Group1.Models;
 using CP2496H07Group1.Configs.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CP2496H07Group1.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin")] // Đảm bảo đã có dòng này
     [Authorize("Admin")]
     public class TransactionsController : Controller
     {
@@ -36,10 +36,11 @@ namespace CP2496H07Group1.Controllers
                 keyword = keyword.Trim();
                 query = query.Where(t =>
                     (t.Description != null && t.Description.Contains(keyword)) ||
-                    t.FromAccountId.ToString().Contains(keyword) ||
-                    (t.ToAccountId != null && t.ToAccountId.ToString().Contains(keyword)) ||
+                    (t.FromAccount != null && t.FromAccount.AccountNumber.Contains(keyword)) ||
+                    (t.ToAccount != null && t.ToAccount.AccountNumber.Contains(keyword)) ||
                     (t.DiscountCodeId != null && t.DiscountCodeId.ToString().Contains(keyword)));
             }
+
 
             // Lọc theo Loại Giao Dịch
             if (!string.IsNullOrEmpty(transactionType))

@@ -1,10 +1,12 @@
+@using System.Text.Json
 @model CP2496H07Group1.Areas.Admin.Controllers.DashboardViewModel
 <!-- Sale & Revenue Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-line fa-3x text-primary"></i>
+                <i class="fa fa-chart-line fa-3x text-danger"></i>
+
                 <div class="ms-3">
                     <p class="mb-2">Money</p>
                     <h6 class="mb-0">$@Model.TotalMoney.ToString("N2")</h6>
@@ -22,7 +24,7 @@
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-area fa-3x text-primary"></i>
+                <i class="fa fa-chart-area fa-3x text-success"></i>
                 <div class="ms-3">
                     <p class="mb-2">Today Transfer</p>
                     <h6 class="mb-0">$@Model.TodayTransactions.ToString("N2")</h6>
@@ -31,7 +33,7 @@
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                <i class="fa fa-chart-pie fa-3x text-purple"></i>
                 <div class="ms-3">
                     <p class="mb-2">User</p>
                     <h6 class="mb-0">@Model.TotalUsers</h6>
@@ -44,26 +46,18 @@
 <!-- Sales Chart Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
+        <div class="col-xl-12">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Transaction</h6>
-                    <a href="">Show All</a>
+                    <a href="#">Show All</a>
                 </div>
-                <canvas id="worldwide-sales"></canvas>
-            </div>
-        </div>
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Discount & Point</h6>
-                    <a href="">Show All</a>
-                </div>
-                <canvas id="salse-revenue"></canvas>
+                <canvas id="worldwide-saless"></canvas>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Sales Chart End -->
 <!-- Recent Sales Start -->
 <!-- Recent Sales Start -->
@@ -120,10 +114,11 @@
                 @foreach (var comment in ViewBag.RecentComments as List<Comment>)
                 {
                     <div class="d-flex align-items-center border-bottom py-3">
-                        <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? comment.AdminId : comment.UserId)"
-                             class="rounded-circle flex-shrink-0 me-3"
-                             alt="avatar"
-                             style="width:60px; height:60px; object-fit:cover;"/>
+                        <img
+                            src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -comment.AdminId : comment.UserId)"
+                            class="rounded-circle flex-shrink-0 me-3"
+                            alt="avatar"
+                            style="width:60px; height:60px; object-fit:cover;"/>
                         <div class="w-100 ms-1">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-0">
@@ -208,3 +203,37 @@
     </div>
 </div>
 <!-- Widgets End -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+        const chartLabels = @Html.Raw(JsonSerializer.Serialize(
+                                Model.TransactionByDay.Keys.Select(d => d.ToString("dd/MM"))
+                            ));
+        const chartData = @Html.Raw(JsonSerializer.Serialize(
+                              Model.TransactionByDay.Values
+                          ));
+
+        const ctx = document.getElementById('worldwide-saless').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Total Transaction per Day ($)',
+                    data: chartData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+</script>

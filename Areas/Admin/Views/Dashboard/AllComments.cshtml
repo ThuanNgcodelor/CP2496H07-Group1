@@ -18,7 +18,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="d-flex mb-3">
-                            <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -15 : comment.UserId)"
+                            <img src="https://i.pravatar.cc/60?u=@(comment.IsAdminReply ? -comment.AdminId : comment.UserId)"
                                  class="rounded-circle me-3"
                                  alt="avatar"
                                  style="width:60px; height:60px; object-fit:cover;" />
@@ -51,11 +51,11 @@
 
                                 <!-- Replies Section -->
                                 <div class="replies mt-4">
-                                    @foreach (var reply in comment.Replies.OrderBy(r => r.CreatedAt))
+@foreach (var reply in comment.Replies.OrderBy(r => r.CreatedAt))
                                     {
                                         <div class="reply-item card mb-2 @(reply.IsAdminReply ? "admin-reply" : "user-reply")">
                                             <div class="card-body d-flex p-3">
-                                                <img src="https://i.pravatar.cc/50?u=@(reply.IsAdminReply ? -15 : reply.UserId)"
+                                                <img src="https://i.pravatar.cc/50?u=@(reply.IsAdminReply ? -reply.AdminId : reply.UserId)"
                                                      class="rounded-circle me-3 mt-1"
                                                      alt="avatar"
                                                      style="width:50px; height:50px; object-fit:cover;" />

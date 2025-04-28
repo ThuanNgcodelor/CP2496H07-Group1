@@ -124,12 +124,6 @@ namespace CP2496H07Group1.Controllers
             return View(viewModel);
 
         }
-        [HttpPost]
-        public async Task<IActionResult> SendReminders()
-        {
-            await _authService.SendMonthlyRemindersAsync();
-            return Ok("Reminders sent!");
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -209,8 +203,10 @@ namespace CP2496H07Group1.Controllers
 
 
             await _context.SaveChangesAsync();
-            await _authService.SendLoanConfirmationEmail(user, loan);
-            
+            await _authService.SendLoanConfirmationEmail( user, loan);
+
+
+
             if (!ModelState.IsValid)
             {
                 TempData["LoanError"] = "Invalid information. Please check again.";
@@ -263,64 +259,70 @@ namespace CP2496H07Group1.Controllers
 
             var account = loan.Account;
 
+            if (account == null)
+            {
+                TempData["LoanError"] = "Associated account not found.";
+                return RedirectToAction("Index");
+            }
+
             if (account.Balance < loan.MonthlyPayment)
             {
                 TempData["LoanError"] = "Insufficient balance.";
                 return RedirectToAction("Index");
             }
 
-          
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-               
-                account.Balance -= loan.MonthlyPayment;             
-                loan.OweMoney -= loan.MonthlyPayment;              
+                // Trừ tiền tài khoản
+                account.Balance -= loan.MonthlyPayment;
+
+                // Cập nhật khoản vay
+                loan.OweMoney -= loan.MonthlyPayment;
                 loan.OweMoney = Math.Max(0, loan.OweMoney);
+
+                // Cập nhật lịch thanh toán
                 firstUnpaid.Paymentstatus = true;
                 firstUnpaid.IsReminderSent = true;
 
+                // Tạo giao dịch mới
                 var paymentTransaction = new Transaction
                 {
                     FromAccountId = account.Id,
-                    ToAccountId = null,
+                    ToAccountId = null, // vì trả nợ cho hệ thống
                     Amount = loan.MonthlyPayment,
                     TransactionDate = DateTime.Now,
                     TransactionType = "LoanPayment",
-                    Description = $"Loan is paid monthly { loan.PaymentSchedules}",
-                    FromAccount = account,
-                    ToAccount = null
+                    Description = $"Loan payment for due date {firstUnpaid.PaymentDueDate:MM/dd/yyyy}",
+                    FromAccount = account
                 };
+
                 _context.Transactions.Add(paymentTransaction);
 
-           
-
-                // Lưu thay đổi
-                await _context.SaveChangesAsync();
-
-                // Commit transaction
-                await transaction.CommitAsync();
+                // Nếu đã trả hết nợ, xóa các lịch thanh toán và khoản vay
                 if (loan.OweMoney == 0)
                 {
                     _context.LoanPaymentSchedules.RemoveRange(loan.PaymentSchedules);
                     _context.Loans.Remove(loan);
                 }
 
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 TempData["LoanSuccess"] = loan.OweMoney == 0
                     ? "You have fully paid off your loan. Loan closed!"
                     : "Monthly payment successful!";
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 TempData["LoanError"] = "An error occurred while processing the payment.";
-                // Có thể log lỗi: _logger.LogError(ex, "Error processing loan payment.");
                 return RedirectToAction("Index");
             }
         }
+
 
 
 
@@ -335,47 +337,6 @@ namespace CP2496H07Group1.Controllers
         {
             return HashPassword(inputPassword) == storedHash;
         }
-        /*public async Task<IActionResult> CreateLoan(Loans model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Add the loan to the database
-                _context.Loans.Add(model);
-                await _context.SaveChangesAsync();
-
-                // Get the user associated with the loan to send the email
-                var user = await _context.Users.FindAsync(model.UserId);
-                if (user != null && !string.IsNullOrEmpty(user.Email))
-                {
-                    // Create the email subject and body
-                    var subject = "Loan Created Successfully";
-                    var body = $"Dear {user.FirstName} {user.LastName},\n\n" +
-                               $"Your loan has been successfully created. Here are the details:\n\n" +
-                               $"Loan ID: {model.Id}\n" +
-
-                               $"Thank you for choosing our service!\n\nBest regards,\nYour Loan Team";
-
-                    try
-                    {
-                        // Send the email using the email service
-                        await _emailService.Send(user.Email, subject, body);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, $"Failed to send loan creation email to {user.Email}.");
-                    }
-                }
-
-                // Redirect to Loan Index view or any page after successful creation
-                return RedirectToAction("Index");
-            }
-
-            // If the ModelState is invalid, return the current view with validation errors
-            return View(model);
-        }
-
-    }*/
+        
 }
 }
-
-

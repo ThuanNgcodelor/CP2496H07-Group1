@@ -203,101 +203,102 @@
         let allDiscounts = []; // Store all discounts globally
 
         buyNowButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const id = parseInt(this.getAttribute('data-id'));
-                console.log("BuyNow clicked with id:", id);
+    button.addEventListener('click', function () {
+        const id = parseInt(this.getAttribute('data-id'));
+        console.log("BuyNow clicked with id:", id);
 
-                if (!id || id <= 0) {
-                    console.error("Invalid data-id on button:", this);
-                    showCustomAlert("Invalid VIP package ID. Please check data.");
+        if (!id || id <= 0) {
+            console.error("Invalid data-id on button:", this);
+            showCustomAlert("Invalid VIP package ID. Please check data.");
+            return;
+        }
+
+        fetch(`/Vip/BuyNow?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log("Response status:", response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Full BuyNow response:", data);
+                if (!data.success) {
+                    console.warn("Unsuccessful response:", data.message);
+                    showCustomAlert(data.message);
                     return;
                 }
 
-                fetch(`/Vip/BuyNow?id=${id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                    .then(response => {
-                        console.log("Response status:", response.status);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("Full BuyNow response:", data);
-                        if (!data.success) {
-                            console.warn("Unsuccessful response:", data.message);
-                            showCustomAlert(data.message);
-                            return;
-                        }
+                // Fill modal fields
+                document.getElementById('vipType').value = data.typeVip ?? '';
+                document.getElementById('vipPrice').value = data.price ? data.price.toLocaleString() + " $" : '';
+                document.getElementById('vipMoneyBack').value = data.moneyBack ? data.moneyBack.toLocaleString() + " %" : '';
+                document.getElementById('vipNoPick').value = data.noPick ? "Yes" : "No";
+                document.getElementById('vipId').value = data.id ?? '';
+                document.getElementById('pin').value = '';
 
-                        // Fill modal fields
-                        document.getElementById('vipType').value = data.typeVip ?? '';
-                        document.getElementById('vipPrice').value = data.price ? data.price.toLocaleString() + " $" : '';
-                        document.getElementById('vipMoneyBack').value = data.moneyBack ? data.moneyBack.toLocaleString() + " %" : '';
-                        document.getElementById('vipNoPick').value = data.noPick ? "Yes" : "No";
-                        document.getElementById('vipId').value = data.id ?? '';
-                        document.getElementById('pin').value = '';
+                // Populate account dropdown
+                const accountSelect = document.getElementById('accountId');
+                if (!accountSelect) {
+                    console.error("Account select element not found in DOM!");
+                    showCustomAlert("Interface error: Account dropdown not found.");
+                    return;
+                }
 
-                        // Populate account dropdown
-                        const accountSelect = document.getElementById('accountId');
-                        if (!accountSelect) {
-                            console.error("Account select element not found in DOM!");
-                            showCustomAlert("Interface error: Account dropdown not found.");
-                            return;
-                        }
+                accountSelect.innerHTML = '<option value="" disabled selected>Select Account</option>';
+                if (data.accounts && Array.isArray(data.accounts) && data.accounts.length > 0) {
+                    console.log("Accounts received:", data.accounts);
+                    data.accounts.forEach((account, index) => {
+                        console.log(`Processing account ${index}:`, account);
+                        const accountId = account.id;
+                        const accountNumber = account.accountNumber;
+                        const balance = account.balance;
 
-                        accountSelect.innerHTML = '<option value="" disabled selected>Select Account</option>';
-                        if (data.accounts && Array.isArray(data.accounts) && data.accounts.length > 0) {
-                            console.log("Accounts received:", data.accounts);
-                            data.accounts.forEach((account, index) => {
-                                console.log(`Processing account ${index}:`, account);
-                                const accountId = account.id;
-                                const accountNumber = account.accountNumber;
-                                const balance = account.balance;
-
-                                if (accountId && accountNumber && balance !== undefined) {
-                                    const option = document.createElement('option');
-                                    option.value = accountId;
-                                    option.textContent = `Account: ${accountNumber} | ${balance}`;
-                                    accountSelect.appendChild(option);
-                                    console.log(`Added account ${accountId} to dropdown`);
-                                } else {
-                                    console.warn(`Invalid account data at index ${index}:`, account);
-                                }
-                            });
-
-                            if (accountSelect.options.length <= 1) {
-                                console.warn("No valid accounts added to dropdown");
-                                showCustomAlert("There is no valid account for payment.");
-                                return;
-                            }
+                        if (accountId && accountNumber && balance !== undefined) {
+                            const option = document.createElement('option');
+                            option.value = accountId;
+                            option.textContent = `Account: ${accountNumber} | ${balance}`;
+                            accountSelect.appendChild(option);
+                            console.log(`Added account ${accountId} to dropdown`);
                         } else {
-                            console.warn("No accounts received or invalid data:", data.accounts);
-                            showCustomAlert("No account found for payment.");
-                            return;
+                            console.warn(`Invalid account data at index ${index}:`, account);
                         }
-
-                        // Store discounts globally
-                        allDiscounts = data.discountCodes || [];
-                        console.log("Stored discounts:", allDiscounts);
-
-                        // Populate discount dropdown
-                        populateDiscountDropdown(null);
-
-                        // Show modal
-                        const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
-                        modal.show();
-                    })
-                    .catch(error => {
-                        console.error("Error in BuyNow:", error);
-                        showCustomAlert("Unable to load VIP package data: " + error.message);
                     });
+
+                    if (accountSelect.options.length <= 1) {
+                        console.warn("No valid accounts added to dropdown");
+                        showCustomAlert("There is no valid account for payment.");
+                        return;
+                    }
+                } else {
+                    console.warn("No accounts received or invalid data:", data.accounts);
+                    showCustomAlert("No account found for payment.");
+                    return;
+                }
+
+                // Store discounts in dataset
+                const discountSelect = document.getElementById('discountId');
+                discountSelect.dataset.discounts = JSON.stringify(data.discountCodes || []);
+                console.log("Stored discounts in discount select:", data.discountCodes);
+
+                // Initially populate discount dropdown with no discounts
+                populateDiscountDropdown(null);
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.getElementById('buyNowModal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error("Error in BuyNow:", error);
+                showCustomAlert("Unable to load VIP package data: " + error.message);
             });
-        });
+    });
+});
 
         // Event listener for account selection change
         let accountChangeHandler = null;
@@ -316,6 +317,8 @@
         }
 
         // Function to populate discount dropdown
+        // Function to populate discount dropdown
+// Function to populate discount dropdown
         function populateDiscountDropdown(accountId) {
             const discountSelect = document.getElementById('discountId');
             if (!discountSelect) {
@@ -328,10 +331,15 @@
             discountSelect.innerHTML = '<option value="" disabled selected>Select Discount</option>';
             console.log("Cleared discount dropdown");
 
-            // Use all discounts (no account-specific filtering unless backend supports it)
-            const applicableDiscounts = allDiscounts;
+            // Get discounts from dataset
+            const allDiscounts = JSON.parse(discountSelect.dataset.discounts || '[]');
+            console.log("All discounts:", allDiscounts);
 
-            console.log("Applicable discounts:", applicableDiscounts);
+            // Filter discounts by accountId if provided
+            const applicableDiscounts = accountId
+                ? allDiscounts.filter(discount => discount.accountId === accountId)
+                : [];
+            console.log("Applicable discounts for accountId", accountId, ":", applicableDiscounts);
 
             if (applicableDiscounts.length > 0) {
                 applicableDiscounts.forEach((discount, index) => {
@@ -350,10 +358,10 @@
                     }
                 });
             } else {
-                console.log("No discounts available.");
+                console.log("No discounts available for selected account.");
                 const option = document.createElement('option');
                 option.value = "";
-                option.textContent = "No discounts available";
+                option.textContent = accountId ? "No discounts available" : "Select an account first";
                 option.disabled = true;
                 discountSelect.appendChild(option);
             }

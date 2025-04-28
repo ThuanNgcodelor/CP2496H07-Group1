@@ -1,9 +1,7 @@
-﻿
-@using System.Security.Claims
-@using System.Text
-@using CP2496H07Group1.Configs.Jwt
+﻿@using System.Security.Claims
 @model IEnumerable<CP2496H07Group1.Models.Loans>
-    <!-- page-title -->
+
+<!-- page-title -->
 <section class="page-title">
     <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/page-title.jpg")');"></div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
@@ -11,12 +9,12 @@
         <div class="content-box">
             <h1>Loans</h1>
             <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
-            <ul class="bread-crumb clearfix">
-            </ul>
+            <ul class="bread-crumb clearfix"></ul>
         </div>
     </div>
 </section>
 
+<!-- Style -->
 <style>
     .appointment-form {
         width: 80%;
@@ -46,8 +44,6 @@
     }
 
     .form-group input[type='password'] {
-        position: relative;
-        display: block;
         width: 100%;
         height: 56px;
         background: #f5f4f4;
@@ -99,18 +95,15 @@
 <!-- appointment-section -->
 <section class="corporate-section sec-pad-2">
     <div class="auto-container">
+
         @if (TempData["LoanSuccess"] != null)
         {
-        <div class="alert alert-success">
-            @TempData["LoanSuccess"]
-        </div>
+        <div class="alert alert-success">@TempData["LoanSuccess"]</div>
         }
 
         @if (TempData["LoanError"] != null)
         {
-        <div class="alert alert-danger">
-            @TempData["LoanError"]
-        </div>
+        <div class="alert alert-danger">@TempData["LoanError"]</div>
         }
 
         @if (!Model.Any())
@@ -120,7 +113,6 @@
             <h2>No Loans Currently Available</h2>
         </div>
         }
-
 
         <div class="row clearfix">
             @foreach (var loan in Model)
@@ -138,13 +130,16 @@
                         <p><strong>Owe Money:</strong> @Math.Max(0, loan.OweMoney).ToString("F2")</p>
                         <p><strong>Duration:</strong> @loan.StartDate.ToString("M/d/yyyy") - @loan.EndDate.ToString("M/d/yyyy")</p>
 
+                        <!-- Nút mở Modal -->
                         <a href="javascript:void(0);"
                            class="theme-btn open-modal-btn"
                            data-loan-id="@loan.Id"
                            data-loan-name="@loan.LoanName"
                            data-amount="@loan.AmountBorrowed.ToString("F2")"
                            data-monthly="@loan.MonthlyPayment.ToString("F2")"
-                           data-firstdue="@(loan.PaymentSchedules != null && loan.PaymentSchedules.Any() ? loan.PaymentSchedules.OrderBy(s => s.PaymentDueDate).FirstOrDefault()?.PaymentDueDate.ToString("dd/MM/yyyy") : "N/A")">
+                           data-firstdue="@(loan.PaymentSchedules != null && loan.PaymentSchedules.Any(p => !p.Paymentstatus)
+                           ? loan.PaymentSchedules.Where(p => !p.Paymentstatus).OrderBy(p => p.PaymentDueDate).FirstOrDefault()?.PaymentDueDate.ToString("dd/MM/yyyy")
+                           : "N/A")">
                             <span>Pay Now</span>
                         </a>
 
@@ -152,7 +147,6 @@
                 </div>
             </div>
             }
-
         </div>
 
         @if (!Model.Any())
@@ -163,9 +157,12 @@
             </button>
         </div>
         }
+
     </div>
 </section>
-<div class="modal fade" id="loanModal" tabindex="-1" role="dialog" aria-labelledby="loanModalLabel" aria-hidden="true">
+
+<!-- Loan Modal -->
+<div class="modal fade" id="loanModal" tabindex="-1" aria-labelledby="loanModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content p-3">
             <div class="modal-header">
@@ -174,40 +171,44 @@
             </div>
             <div class="modal-body">
                 <p><strong>Loan Name:</strong> <span id="modal-loan-name"></span></p>
-                <p><strong>Amount Borrowed:</strong> <span id="modal-amount"></span> $<p>
+                <p><strong>Amount Borrowed:</strong> <span id="modal-amount"></span> $</p>
                 <p><strong>Monthly Payment:</strong> <span id="modal-monthly"></span> $</p>
                 <p><strong>First Due Date:</strong> <span id="modal-firstdue"></span></p>
             </div>
             <div class="modal-footer">
-                <a id="modal-pay-link" href="#" class="btn btn-primary">Proceed to Pay</a>
+                <a id="modal-pay-link" href="#" class="btn btn-danger">Proceed to Pay</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
 </div>
+
+<!-- Script mở modal -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const modal = new bootstrap.Modal(document.getElementById('loanModal'));
-        const buttons = document.querySelectorAll('.open-modal-btn');
+        const loanModal = new bootstrap.Modal(document.getElementById('loanModal'));
+        const modalElements = {
+            loanName: document.getElementById('modal-loan-name'),
+            amount: document.getElementById('modal-amount'),
+            monthly: document.getElementById('modal-monthly'),
+            firstDue: document.getElementById('modal-firstdue'),
+            payLink: document.getElementById('modal-pay-link')
+        };
 
-        buttons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const loanId = btn.dataset.loanId;
-                const loanName = btn.dataset.loanName;
-                const amount = btn.dataset.amount;
-                const monthly = btn.dataset.monthly;
-                const firstDue = btn.dataset.firstdue;
+        document.querySelectorAll('.open-modal-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                modalElements.loanName.innerText = button.dataset.loanName || 'N/A';
+                modalElements.amount.innerText = button.dataset.amount || '0';
+                modalElements.monthly.innerText = button.dataset.monthly || '0';
+                modalElements.firstDue.innerText = button.dataset.firstdue || 'N/A';
 
-                document.getElementById('modal-loan-name').innerText = loanName;
-                document.getElementById('modal-amount').innerText = amount;
-                document.getElementById('modal-monthly').innerText = monthly;
-                document.getElementById('modal-firstdue').innerText = firstDue;
+                if (modalElements.payLink && button.dataset.loanId) {
+                    modalElements.payLink.href = `/Loans/Pay/${button.dataset.loanId}`;
+                }
 
-                document.getElementById('modal-pay-link').href = `/Loans/Pay/${loanId}`;
-
-                modal.show();
+                loanModal.show();
             });
         });
     });
 </script>
-  

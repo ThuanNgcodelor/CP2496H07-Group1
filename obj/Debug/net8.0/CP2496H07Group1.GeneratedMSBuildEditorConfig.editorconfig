@@ -82,18 +82,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSGlzdG9yeVRyYW5zYWN0aW9uL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/HistoryTransaction/SavingCategory/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSGlzdG9yeVRyYW5zYWN0aW9uL1NhdmluZ0NhdGVnb3J5L0FkZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/HistoryTransaction/SavingCategory/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSGlzdG9yeVRyYW5zYWN0aW9uL1NhdmluZ0NhdGVnb3J5L0luZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/HistoryTransaction/SavingCategory/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSGlzdG9yeVRyYW5zYWN0aW9uL1NhdmluZ0NhdGVnb3J5L1VwZGF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL0FkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -266,8 +254,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVG9wdXAvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/AccountDiscount/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudERpc2NvdW50L0luZGV4LmNzaHRtbA==
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Leader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member3.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/AccountDiscounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudERpc2NvdW50cy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Card.cshtml]

@@ -1,4 +1,4 @@
-﻿using CP2496H07Group1.Configs.Database;
+﻿﻿using CP2496H07Group1.Configs.Database;
 using CP2496H07Group1.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +28,7 @@ namespace CP2496H07Group1.Controllers
                 {
                     "địt", "lồn", "cặc", "bú lol", "bú cu", "đụ", "bú m*", "bú zú", "xếp hình", "hiếp dâm",
                     "dâm đãng", "dâm loạn", "thằng chó", "con đĩ", "con mẹ mày", "đồ khốn", "thằng khốn", "má mày",
-                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me", "vkl", "vkvl", "md", "vl",
-                    "vl qlq", "qlq",
+                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me", "vkl", "vkvl", "md", "vl", "vl qlq", "qlq",
                     "fuck", "shit", "bitch", "asshole", "bastard", "slut", "dick", "pussy", "fucker",
                     "motherfucker", "rape", "kill", "violence", "bloody", "suck my dick", "blowjob",
                     "porn", "porno", "sex", "orgy", "nude", "cum", "ejaculate"
@@ -82,8 +81,7 @@ namespace CP2496H07Group1.Controllers
                 {
                     "địt", "lồn", "cặc", "bú lol", "bú cu", "đụ", "bú m*", "bú zú", "xếp hình", "hiếp dâm",
                     "dâm đãng", "dâm loạn", "thằng chó", "con đĩ", "con mẹ mày", "má mày", "đồ khốn", "thằng khốn",
-                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me", "vkl", "vkvl", "md", "vl",
-                    "vl qlq", "qlq",
+                    "thằng ngu", "con ngu", "chó má", "bạo lực", "giết người", "máu me","vkl", "vkvl", "md", "vl", "vl qlq", "qlq",
                     "fuck", "shit", "bitch", "asshole", "bastard", "slut", "dick", "pussy", "fucker",
                     "motherfucker", "rape", "kill", "violence", "bloody", "suck my dick", "blowjob",
                     "porn", "porno", "sex", "orgy", "nude", "cum", "ejaculate"

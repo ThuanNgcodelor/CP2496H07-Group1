@@ -24,11 +24,11 @@ namespace CP2496H07Group1.Dtos
     {
         public long AccountId { get; set; }
         public string AccountNumber { get; set; }
+        public long? Point { get; set; }
         public decimal Balance { get; set; }
         public string DisplayText { get; set; }
         public int? TypeVip { get; set; }
         public List<AccountViewModel> Accounts { get; set; }
-        public long? Point { get; set; }
     }
 
     public class LoanOptionViewModel
@@ -54,5 +54,23 @@ namespace CP2496H07Group1.Dtos
         public string? Description { get; set; }
         public List<AccountViewModel> Accounts { get; set; } = new();
     }
+    public class LoanPaymentDto
+    {
+        public long LoanId { get; set; }
+        public string LoanName { get; set; }
+        public decimal AmountBorrowed { get; set; }
+        public decimal MonthlyPayment { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime FirstDueDate { get; set; }
+        public decimal OweMoney { get; set; }
+        public string Status { get; set; }
+        public long LoanOptionId { get; set; }
+
+        // Next payment information
+        public DateTime? NextDueDate { get; set; }
+        public decimal? NextAmount { get; set; }
+    }
+
 
 }

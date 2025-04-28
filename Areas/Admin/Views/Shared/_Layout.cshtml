@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -82,12 +83,15 @@
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
                 <div class="position-relative">
-                    <img class="rounded-circle" src="/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                    <img class="rounded-circle"
+                         src="https://i.pravatar.cc/50?u=-@(User.FindFirstValue(ClaimTypes.NameIdentifier))"
+                         alt="Admin Avatar"
+                         style="width: 40px; height: 40px; object-fit: cover;">
                     <div
                         class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">David Nguyen</h6>
+                    <h6 class="mb-0">@User.Identity?.Name</h6>
                     <span>Admin</span>
                 </div>
             </div>
@@ -271,10 +275,12 @@
                 </div>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
+                        <img class="rounded-circle me-lg-2"
+                             src="https://i.pravatar.cc/50?u=-@(User.FindFirstValue(ClaimTypes.NameIdentifier))"
                              style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                        <span class="d-none d-lg-inline-flex">@User.Identity?.Name</span>
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a asp-action="Logout"
                            asp-controller="Teckbank"
@@ -295,7 +301,6 @@
     </div>
 
 
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 
 <!-- JavaScript Libraries -->
@@ -340,7 +345,6 @@
     </div>
 }
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
     const connection = new signalR.HubConnectionBuilder()
@@ -353,17 +357,47 @@
         const currentUser = "@User.Identity.Name".trim();
 
         msgDiv.className = "mb-2";
-
         const alignment = user === currentUser ? "chat-right" : "chat-left";
+
         msgDiv.innerHTML = `<div class="chat-message ${alignment}">
-                                    <strong>${user}:</strong> ${message}
-                                </div>`;
+                                            <strong>${user}:</strong> ${message}
+                                        </div>`;
         container.appendChild(msgDiv);
         container.scrollTop = container.scrollHeight;
 
+        // ❗❗ Show badge if chatBox is closed
         const chatBox = document.getElementById("chatBox");
         if (chatBox.style.display === "none") {
             document.getElementById("chatBadge").style.display = "block";
+            document.getElementById("messageTopBadge").style.display = "block";
+        }
+
+        // 👉 Update message dropdown preview
+        const dropdownList = document.getElementById("messageDropdownList");
+
+        const newPreview = document.createElement("a");
+        newPreview.href = "#";
+        newPreview.className = "dropdown-item";
+        newPreview.innerHTML = `
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="fw-normal mb-0">${user} sent a message</h6>
+                                <small>${new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</small>
+                            </div>
+                        </div>`;
+
+        // Add to top and limit to 4 messages
+        dropdownList.prepend(newPreview);
+        while (dropdownList.children.length > 4) {
+            dropdownList.removeChild(dropdownList.lastChild);
+        }
+
+        // Optional: Add divider after previews
+        if (!document.querySelector("#messageDropdownList .dropdown-divider")) {
+            const hr = document.createElement("hr");
+            hr.className = "dropdown-divider";
+            dropdownList.appendChild(hr);
+            dropdownList.appendChild(seeAll);
         }
     });
 
@@ -379,9 +413,9 @@
             const msgDiv = document.createElement("div");
             msgDiv.className = "mb-2";
             msgDiv.innerHTML = `<div class="chat-message ${alignment}">
-                                        <small class="text-muted">${m.timestamp}</small><br>
-                                        <strong>${m.admin}:</strong> ${m.message}
-                                    </div>`;
+                                                <small class="text-muted">${m.timestamp}</small><br>
+                                                <strong>${m.admin}:</strong> ${m.message}
+                                            </div>`;
             container.appendChild(msgDiv);
         });
         container.scrollTop = container.scrollHeight;
@@ -416,9 +450,12 @@
     document.getElementById("closeChat").addEventListener("click", () => {
         document.getElementById("chatBox").style.display = "none";
     });
+
+    document.getElementById("messageDropdown").addEventListener("click", () => {
+        document.getElementById("messageTopBadge").style.display = "none";
+    });
+
 </script>
-
-
 </body>
 
 </html>

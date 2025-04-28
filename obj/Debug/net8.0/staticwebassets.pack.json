@@ -1665,6 +1665,102 @@
       "PackagePath": "staticwebassets/images/icons/ui-icons_cd0a0a_256x240.html"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/AboutController.cs",
+      "PackagePath": "staticwebassets/images/insurance/AboutController.cs"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/CommentController.cs",
+      "PackagePath": "staticwebassets/images/insurance/CommentController.cs"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/FaqController.cs",
+      "PackagePath": "staticwebassets/images/insurance/FaqController.cs"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon.sb3",
+      "PackagePath": "staticwebassets/images/insurance/dragon.sb3"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/06b22fa80118529436fa9eaaa79620c2.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/06b22fa80118529436fa9eaaa79620c2.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/11010d0dae77cbfb8b26ae5d58ecffaa.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/11010d0dae77cbfb8b26ae5d58ecffaa.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/262355534a57e92d793961c2551e4fd3.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/262355534a57e92d793961c2551e4fd3.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/348e733bc7ec1ef0e76d1544391d6231.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/348e733bc7ec1ef0e76d1544391d6231.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/3b56f5e924518d83ae9cbba90c140d16.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/3b56f5e924518d83ae9cbba90c140d16.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/3bef9d08de847c1610066a20918a7934.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/3bef9d08de847c1610066a20918a7934.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/3cc1cf23950a37f529e0a8ac37801676.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/3cc1cf23950a37f529e0a8ac37801676.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/3f5f9c26a45290b9fa3792b7519e89fd.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/3f5f9c26a45290b9fa3792b7519e89fd.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/483986eb6cd585f81cb5ab5c644502e9.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/483986eb6cd585f81cb5ab5c644502e9.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/48b97813b103af937fb0099da1953866.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/48b97813b103af937fb0099da1953866.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/61866bedc13e1d941df12e215cd856bf.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/61866bedc13e1d941df12e215cd856bf.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/62cd4061ebfaa510b5b43696a57340e7.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/62cd4061ebfaa510b5b43696a57340e7.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/83a9787d4cb6f3b7632b4ddfebf74367.wav",
+      "PackagePath": "staticwebassets/images/insurance/dragon/83a9787d4cb6f3b7632b4ddfebf74367.wav"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/83c36d806dc92327b9e7049a565c6bff.wav",
+      "PackagePath": "staticwebassets/images/insurance/dragon/83c36d806dc92327b9e7049a565c6bff.wav"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/8fba37baec852b646e4b62be7da42565.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/8fba37baec852b646e4b62be7da42565.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/9bc30aa6e22c8b9f826d93e5a6bd803d.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/9bc30aa6e22c8b9f826d93e5a6bd803d.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/b51e15ae193f1ffe89bb9667e63333aa.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/b51e15ae193f1ffe89bb9667e63333aa.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/c15498f634e7870849fdd602e417c064.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/c15498f634e7870849fdd602e417c064.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/e5cf2faedda4377245d39232f052be31.svg",
+      "PackagePath": "staticwebassets/images/insurance/dragon/e5cf2faedda4377245d39232f052be31.svg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/dragon/project.json",
+      "PackagePath": "staticwebassets/images/insurance/dragon/project.json"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/insurance/healthhealth.jpg",
       "PackagePath": "staticwebassets/images/insurance/healthhealth.jpg"
     },
@@ -2407,6 +2503,10 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/team/team-9.jpg",
       "PackagePath": "staticwebassets/images/team/team-9.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/12b1dba9-f9b2-43eb-b58f-ebe098ecae3c.jpg",
+      "PackagePath": "staticwebassets/images/topups/12b1dba9-f9b2-43eb-b58f-ebe098ecae3c.jpg"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/e4540af1-ba45-4c7f-842b-de1313b96281.jpg",

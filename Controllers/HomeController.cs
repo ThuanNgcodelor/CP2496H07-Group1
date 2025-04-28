@@ -17,6 +17,8 @@ namespace CP2496H07Group1.Controllers
         {
             // Lấy danh sách các slider có Status = true
             var sliders = _context.Sliders.Where(s => s.Status == true).ToList();
+            
+            
             return View(sliders);
         }
     }

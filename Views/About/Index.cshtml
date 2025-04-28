@@ -1,0 +1,223 @@
+﻿@{
+    ViewData["Title"] = "My Team";
+    Layout = "_Layout";
+}
+
+<!-- Mobile Menu (copy from your existing layout) -->
+<div class="mobile-menu">
+    <div class="menu-backdrop"></div>
+    <div class="close-btn"><i class="fas fa-times"></i></div>
+
+    <nav class="menu-box">
+        <div class="nav-logo"><a href="/"><img src="/images/logo.png" alt="Company Logo"></a></div>
+        <div class="menu-outer">
+            <!-- Menu will be populated via JavaScript -->
+        </div>
+        <div class="contact-info">
+            <h4>Contact Info</h4>
+            <ul>
+                <li>Your Company Address</li>
+                <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                <li><a href="mailto:info@yourcompany.com">info@yourcompany.com</a></li>
+            </ul>
+        </div>
+        <div class="social-links">
+            <ul class="clearfix">
+                <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                <li><a href="#"><span class="fab fa-linkedin"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!-- Page Title Section -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('images/background/team.png');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Our Leadership</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/">Home</a></li>
+                <li>About</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section sec-pad">
+    <div class="auto-container">
+        <div class="sec-title centred">
+            <span class="sub-title">Meet Our Team</span>
+            <h2>Executive Leadership</h2>
+        </div>
+
+        <div class="row clearfix">
+            <!-- Team Member 1 -->
+            <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                <div class="team-block-one">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <img src="/images/team/team-1.jpg" alt="Leader">
+                            </figure>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a asp-controller="About" asp-action="Leader" class="leader-link">Nguyen Trung Thuan</a></h3>
+                            <span class="designation">Leader</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                <div class="team-block-one">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <img src="/images/team/team-2.jpg" alt="Member">
+                            </figure>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a asp-controller="About" asp-action="Member1">Le Thanh Dat</a></h3>
+                            <span class="designation">Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 3-->
+            <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                <div class="team-block-one">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <img src="/images/team/team-5.jpg" alt="Member">
+                            </figure>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a asp-controller="About" asp-action="Member2">Luu Quoc Trong</a></h3>
+                            <span class="designation">Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Member 4-->
+            <div class="col-lg-3 col-md-6 col-sm-12 team-block">
+                <div class="team-block-one">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image">
+                                <img src="/images/team/team-4.jpg" alt="Member">
+                            </figure>
+                            <ul class="social-links">
+                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="lower-content">
+                            <h3><a asp-controller="About" asp-action="Member3">Truong Van Lam</a></h3>
+                            <span class="designation">Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        /* Page Title Styles */
+        .page-title {
+            position: relative;
+            padding: 120px 0 70px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-title .bg-layer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        /* Team Section Styles */
+        .team-section {
+            padding: 100px 0;
+        }
+
+        .team-block-one {
+            margin-bottom: 30px;
+        }
+
+        .team-block-one .inner-box {
+            background: #fff;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .team-block-one .image-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .team-block-one .image-box img {
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .team-block-one .social-links {
+            position: absolute;
+            left: 0;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-block-one .inner-box:hover .social-links {
+            bottom: 20px;
+        }
+
+        .team-block-one .social-links li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .team-block-one .social-links a {
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background: #fff;
+            color: #333;
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
+}

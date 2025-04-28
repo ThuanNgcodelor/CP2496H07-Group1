@@ -1,0 +1,65 @@
+@page
+@model CP2496H07Group1.Views.About.Member3
+
+@{
+    Layout = "_Layout";
+}
+<!-- Page Title -->
+<section class="page-title">
+    <div class="bg-layer" style="background-image: url('images/background/page-title.jpg');"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <h1>Member Details</h1>
+            <ul class="bread-crumb clearfix">
+                <li><a href="/">Home</a></li>
+                <li><a href="/About">About</a></li>
+                <li><span>Truong Van Lam</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Team Details -->
+<section class="team-details">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                <div class="image-box mr_30">
+                    <figure class="image">
+                        <img src="/images/team/team-4.jpg" alt="Truong Van Lam">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                <div class="content-box">
+                    <h3>Hi, I am</h3>
+                    <h2>Truong Van Lam</h2>
+                    <span class="designation">CEO & Founder</span>
+                    <p>With over 10 years of experience in banking and finance, Bret founded our company with a vision to revolutionize digital banking services.</p>
+                    <h3>Key Achievements</h3>
+                    <ul class="list-item mt_15 mb_30 clearfix">
+                        <li>Founded the company in 2015</li>
+                        <li>Grew assets to $1B in 5 years</li>
+                        <li>Pioneered mobile banking solutions</li>
+                    </ul>
+                    <h3>Contact</h3>
+                    <h5><img src="/images/icons/email.png" alt=""><a href="mailto:bret@bank.com">bret@bank.com</a></h5>
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        /* Add your custom styles here */
+        .team-details { padding: 80px 0; }
+        .designation { color: #666; font-size: 18px; }
+        .social-links { margin-top: 20px; }
+        .social-links li { display: inline-block; margin-right: 10px; }
+    </style>
+}

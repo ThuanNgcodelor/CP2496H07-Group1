@@ -16,5 +16,6 @@ namespace CP2496H07Group1.Models
 		public required int LongDate { get; set; }
 		public List<DiscountcodeViewModel> Accounts { get; set; } = new();
 		public long? SelectedDiscountCodeId { get; set; }
+		public long AccountId { get; set; }
 	}
 }

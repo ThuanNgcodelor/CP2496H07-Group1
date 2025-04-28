@@ -340,6 +340,10 @@
       <_ContentIncludedByDefault Remove="Areas\Admin\Views\SavingCategory\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Admin\Views\SavingCategory\Update.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Vip\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\FAQ\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\HistoryTransaction\SavingCategory\Add.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\HistoryTransaction\SavingCategory\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\HistoryTransaction\SavingCategory\Update.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

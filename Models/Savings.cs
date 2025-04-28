@@ -18,9 +18,9 @@ public class Savings
     [Required(ErrorMessage = "TypeTk is required")]
     public string TypeTk { get; set; } = string.Empty; // Initialized to avoid nullable warning
 
-    public string Status { get; set; } = "chưa hoàn thành";   //chưa hoàn thành
+    public string Status { get; set; } = "Unfinished";   //chưa hoàn thành
 
-    public string Pay { get; set; } = "chưa rút";    //
+    public string Pay { get; set; } = "Not withdrawn yet";    //
 
     public long SavingCategoryId { get; set; } // Required by relationship
 

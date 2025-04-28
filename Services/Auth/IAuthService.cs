@@ -20,6 +20,6 @@ public interface IAuthService
     
     
     Task SendMonthlyRemindersAsync();
-    Task SendLoanConfirmationEmail(User user,Loans loan);
+    Task SendLoanConfirmationEmail(User user, Loans loan);
     Task SendTopupConfirmationEmail(User user, Topup topup);
 }
