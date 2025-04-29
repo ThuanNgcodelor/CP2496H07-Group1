@@ -100,6 +100,44 @@
         </div>
     </div>
 </section>
+@if (ViewBag.TotalPages > 1)
+
+{
+    <nav aria-label="Page navigation example" class="mt-4 mb-5">
+        <ul class="pagination justify-content-center">
+
+            <!-- Previous -->
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (var i = 1; i <= (int)ViewBag.TotalPages; i++)
+
+            {
+
+                bool isCurrent = i == (int)ViewBag.CurrentPage;
+                <li class="page-item @(isCurrent ? "active" : "")">
+                    <a class="page-link"
+                       href="@Url.Action("Index", new { page = i })"
+                       style="@(isCurrent ? "background-color: red; color: white; border-color: red;" : "")">
+                        @i
+                    </a>
+                </li>
+            }
+
+            <!-- Next -->
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+}
+
 <form id="redeemForm" method="post" asp-action="Redeem">
     @Html.AntiForgeryToken()
     <input type="hidden" name="id" id="formDiscountId" />

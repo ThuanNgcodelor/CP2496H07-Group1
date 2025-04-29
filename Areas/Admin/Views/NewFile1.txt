@@ -4,11 +4,7 @@ Card Manage
 Insurance 
 Sec,UserInsurance
 
-Slider
-History transaction
-Savings
-Category saving
-vip
+
 
 Loans
 manage loans
@@ -20,4 +16,4 @@ loans payment
 News
 category news
 Faq
-
+Chat box

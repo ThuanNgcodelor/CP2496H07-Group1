@@ -18,8 +18,11 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         }
 
         // GET: Admin/Loans
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Admin/Loans
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
+            int pageSize = 5; // 5 dòng mỗi trang
+
             var loans = _context.Loans
                 .Include(l => l.User)
                 .Include(l => l.Account)
@@ -37,8 +40,22 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                     l.LoanOption.InterestRate.ToString().Contains(searchString));
             }
 
+            int totalItems = await loans.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var pagedLoans = await loans
+                .OrderByDescending(l => l.AmountBorrowed)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
             ViewData["CurrentFilter"] = searchString;
-            return View(await loans.ToListAsync());
+
+            return View(pagedLoans);
         }
 
         // GET: Admin/Loans/Details/5

@@ -2509,6 +2509,10 @@
       "PackagePath": "staticwebassets/images/topups/12b1dba9-f9b2-43eb-b58f-ebe098ecae3c.jpg"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/aa518f0a-1bc1-4757-baf9-a2b893725608.png",
+      "PackagePath": "staticwebassets/images/topups/aa518f0a-1bc1-4757-baf9-a2b893725608.png"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/e4540af1-ba45-4c7f-842b-de1313b96281.jpg",
       "PackagePath": "staticwebassets/images/topups/e4540af1-ba45-4c7f-842b-de1313b96281.jpg"
     },
@@ -2589,8 +2593,44 @@
       "PackagePath": "staticwebassets/uploads/1563c5a3-21a0-4c8e-b28a-a1201d765923.jpg"
     },
     {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/1ac926c5-7d80-4220-9365-424a78abde32.jpg",
+      "PackagePath": "staticwebassets/uploads/1ac926c5-7d80-4220-9365-424a78abde32.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/2453278f-29d8-46b3-9f4a-d8d33c227f0c.jpg",
+      "PackagePath": "staticwebassets/uploads/2453278f-29d8-46b3-9f4a-d8d33c227f0c.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/26c91eb4-9b18-429e-a903-5e5e5cef5414.jpg",
+      "PackagePath": "staticwebassets/uploads/26c91eb4-9b18-429e-a903-5e5e5cef5414.jpg"
+    },
+    {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/2a6a2216-b544-4dfc-8354-d901632720fb.jpg",
       "PackagePath": "staticwebassets/uploads/2a6a2216-b544-4dfc-8354-d901632720fb.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/3f4f3dd7-aa8a-4ad2-a3bf-19b2870d145c.jpg",
+      "PackagePath": "staticwebassets/uploads/3f4f3dd7-aa8a-4ad2-a3bf-19b2870d145c.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/61932c08-2df2-4fba-8873-1a5897882615.jpg",
+      "PackagePath": "staticwebassets/uploads/61932c08-2df2-4fba-8873-1a5897882615.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/68d38a2b-ebe1-4104-b0e9-93e20d413a7c.jpg",
+      "PackagePath": "staticwebassets/uploads/68d38a2b-ebe1-4104-b0e9-93e20d413a7c.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/70ec9b8a-6869-4068-8b85-da1865ea8f7f.jpg",
+      "PackagePath": "staticwebassets/uploads/70ec9b8a-6869-4068-8b85-da1865ea8f7f.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/75fb1863-3122-4630-8b36-eab8f9899544.jpg",
+      "PackagePath": "staticwebassets/uploads/75fb1863-3122-4630-8b36-eab8f9899544.jpg"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/937de1d8-2975-4d3e-a54c-a1b01f0711ce.jpg",
+      "PackagePath": "staticwebassets/uploads/937de1d8-2975-4d3e-a54c-a1b01f0711ce.jpg"
     },
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/acbecae8-2124-4f46-80ef-ea8d1216ea58.png",
@@ -2599,6 +2639,10 @@
     {
       "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/c89e7859-5d8a-4f5a-b3e8-27b014900d14.png",
       "PackagePath": "staticwebassets/uploads/c89e7859-5d8a-4f5a-b3e8-27b014900d14.png"
+    },
+    {
+      "Id": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/uploads/ede4a41c-654b-4fc8-9b58-063a4fc3beb4.jpg",
+      "PackagePath": "staticwebassets/uploads/ede4a41c-654b-4fc8-9b58-063a4fc3beb4.jpg"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.CP2496H07Group1.Microsoft.AspNetCore.StaticWebAssets.props",

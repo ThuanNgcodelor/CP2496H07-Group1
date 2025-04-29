@@ -12,14 +12,15 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
     public class DiscountCodeController : Controller
     {
         private readonly AppDataContext _context;
-
+        private const int PageSize = 5;
         public DiscountCodeController(AppDataContext context)
         {
             _context = context;
+
         }
 
         // GET: DiscountCode
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
             var discounts = _context.DiscountCodes.AsQueryable();
 
@@ -29,12 +30,23 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                     d.DiscountCodes.Contains(searchString) ||
                     d.Points.ToString().Contains(searchString) ||
                     d.Percent.ToString().Contains(searchString) ||
-                    d.LongDate.ToString().Contains(searchString) // hoặc chỉ ".ToString()" nếu bạn không cần định dạng
+                    d.LongDate.ToString().Contains(searchString)
                 );
             }
 
+            discounts = discounts.OrderByDescending(d => d.Id); // Mặc định mới nhất lên trước
+
+            int totalItems = await discounts.CountAsync();
+            var pagedDiscounts = await discounts
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
             ViewData["CurrentFilter"] = searchString;
-            return View(await discounts.ToListAsync());
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = (int)Math.Ceiling(totalItems / (double)PageSize);
+
+            return View(pagedDiscounts);
         }
 
 

@@ -36,24 +36,38 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         }
 
         // GET: Admin/Topups
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int page = 1, int pageSize = 5  )
         {
-            var topups = _context.Topups
+            var query = _context.Topups
                 .Include(t => t.Account)
-                .AsQueryable();
+                .AsQueryable(); // Bắt đầu bằng IQueryable
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                topups = topups.Where(t =>
+                query = query.Where(t =>
                     (t.Account != null && t.Account.AccountNumber.Contains(searchString)) ||
                     t.AmountTopup.ToString().Contains(searchString) ||
-                    t.CreatedAt.ToString("yyyy-MM-dd HH:mm").Contains(searchString));
+                    t.CreatedAt.ToString("yyyy-MM-dd HH:mm").Contains(searchString)
+                );
             }
 
+            int totalItems = await query.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var topups = await query
+                .OrderByDescending(t => t.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
             ViewBag.Keyword = searchString;
 
-            return View(await topups.ToListAsync());
+            return View(topups);
         }
+
+
 
 
         // GET: Admin/Topups/Details/5

@@ -190,7 +190,13 @@ namespace CP2496H07Group1.Controllers
             await _context.SaveChangesAsync();
            
 
-
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == AccountId);
+            if (account != null)
+            {
+                // Cộng số tiền vay vào balance của tài khoản
+                account.Balance += AmountBorrowed;
+                await _context.SaveChangesAsync();
+            }
             for (int i = 1; i <= loanOption.LoanDate; i++)
             {
                 var dueDate = loan.StartDate.AddMonths(i);

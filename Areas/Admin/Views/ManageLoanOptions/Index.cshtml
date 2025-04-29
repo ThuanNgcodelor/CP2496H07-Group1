@@ -74,42 +74,25 @@
                 <!-- Pagination -->
                 <nav aria-label="Page navigation" class="mt-4">
                     <ul class="pagination justify-content-center">
-                        @if (pageNumber > 1)
+                        <!-- Previous -->
+                        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, searchString = ViewBag.Keyword })">&laquo;</a>
+                        </li>
+
+                        @for (var i = 1; i <= (int)ViewBag.TotalPages; i++)
                         {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = pageNumber - 1, searchString = ViewData["CurrentFilter"] })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
+                            bool isCurrent = i == (int)ViewBag.CurrentPage;
+                            <li class="page-item @(isCurrent ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, searchString = ViewBag.Keyword })">
+                                    @i
                                 </a>
                             </li>
                         }
-                        else
-                        {
-                            <li class="page-item disabled">
-                                <span class="page-link">&laquo;</span>
-                            </li>
-                        }
 
-                        @for (int i = 1; i <= totalPages; i++)
-                        {
-                            <li class="page-item @(i == pageNumber ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", new { page = i, searchString = ViewData["CurrentFilter"] })">@i</a>
-                            </li>
-                        }
-
-                        @if (pageNumber < totalPages)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = pageNumber + 1, searchString = ViewData["CurrentFilter"] })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="page-item disabled">
-                                <span class="page-link">&raquo;</span>
-                            </li>
-                        }
+                        <!-- Next -->
+                        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, searchString = ViewBag.Keyword })">&raquo;</a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -117,4 +100,3 @@
         </div>
     </div>
 </div>
-

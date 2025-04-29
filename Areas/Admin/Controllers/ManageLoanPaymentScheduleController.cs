@@ -18,8 +18,11 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         }
 
         // GET: Admin/LoanPaymentSchedules
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Admin/LoanPaymentSchedules
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
+            int pageSize = 5; // 5 dòng mỗi trang
+
             var schedules = _context.LoanPaymentSchedules
                 .Include(s => s.Loan)
                     .ThenInclude(l => l.User)
@@ -40,9 +43,22 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
                     s.Paymentstatus.ToString().Contains(searchString));
             }
 
+            int totalItems = await schedules.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var pagedSchedules = await schedules
+                .OrderByDescending(s => s.PaymentDueDate) // bạn có thể thay đổi thứ tự nếu cần
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
             ViewData["CurrentFilter"] = searchString;
-            return View(await schedules.ToListAsync());
+
+            return View(pagedSchedules);
         }
+
 
         // GET: Admin/LoanPaymentSchedules/Details/5
         public async Task<IActionResult> Details(long? id)

@@ -59,3 +59,26 @@
         </div>
     </div>
 </div>
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <!-- Previous -->
+        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, searchString = ViewBag.Keyword })">&laquo;</a>
+        </li>
+
+        @for (var i = 1; i <= (int)ViewBag.TotalPages; i++)
+        {
+            bool isCurrent = i == (int)ViewBag.CurrentPage;
+            <li class="page-item @(isCurrent ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i, searchString = ViewBag.Keyword })">
+                    @i
+                </a>
+            </li>
+        }
+
+        <!-- Next -->
+        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, searchString = ViewBag.Keyword })">&raquo;</a>
+        </li>
+    </ul>
+</nav>

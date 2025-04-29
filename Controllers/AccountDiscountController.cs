@@ -16,11 +16,12 @@ namespace CP2496H07Group1.Controllers
 
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            int pageSize = 3; // Hiển thị 3 mã giảm giá mỗi trang
 
-            if (string.IsNullOrEmpty(value) || !long.TryParse(value, out long userId))
+            var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdStr) || !long.TryParse(userIdStr, out long userId))
             {
                 return RedirectToAction("Login", "Auth");
             }
@@ -32,13 +33,24 @@ namespace CP2496H07Group1.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
+            // Lấy tổng số mã giảm giá của người dùng
+            var totalItems = await _context.AccountDiscounts
+                .Where(ad => ad.Account.UserId == userId)
+                .CountAsync();
+
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            // Lấy danh sách mã giảm giá cho trang hiện tại
             var discounts = await _context.AccountDiscounts
                 .Where(ad => ad.Account.UserId == userId)
                 .Include(ad => ad.Account)
                 .Include(ad => ad.DiscountCode)
                 .OrderByDescending(ad => ad.SDateTime)
+                .Skip((page - 1) * pageSize) // Bỏ qua các phần tử của các trang trước đó
+                .Take(pageSize) // Lấy đúng 3 phần tử
                 .ToListAsync();
-            // Xoá trước khi trả view
+
+            // Xóa mã giảm giá hết hạn
             var expired = await _context.AccountDiscounts
                 .Where(ad => ad.Account.UserId == userId && ad.STopDate <= DateTime.Now)
                 .ToListAsync();
@@ -49,7 +61,11 @@ namespace CP2496H07Group1.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
             return View(discounts);
         }
+
     }
 }

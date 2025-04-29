@@ -53,25 +53,28 @@ public class TeckbankController : Controller
             month = DateTime.UtcNow.Month,
             day = DateTime.UtcNow.Day
         });
-
     }
 
 
     [HttpPost("Login")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
+        if (!ModelState.IsValid) return View(model);
+
         try
         {
             var admin = await _authService.LoginAdmin(model);
+
             if (admin == null)
             {
-                ModelState.AddModelError("", "Email or password is incorrect. Please try again.");
-                return View(model); 
+                ModelState.AddModelError(string.Empty,
+                    "Email or password is incorrect. Please try again.");
+                return View(model);
             }
 
-            var accessToken = await _jwtHandler.GenerateTokenAdmin(admin);
-
-            Response.Cookies.Append("AccessToken", accessToken, new CookieOptions
+            var token = await _jwtHandler.GenerateTokenAdmin(admin);
+            Response.Cookies.Append("AccessToken", token, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
@@ -81,10 +84,10 @@ public class TeckbankController : Controller
 
             return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
         }
-        catch
+        catch (Exception ex)
         {
-            ModelState.AddModelError("", "Password and Email error");
-            return RedirectToAction("Login"); 
+            ModelState.AddModelError(string.Empty, "Unexpected error: " + ex.Message);
+            return View(model);
         }
     }
 }

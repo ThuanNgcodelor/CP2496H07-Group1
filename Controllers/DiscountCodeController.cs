@@ -30,9 +30,19 @@ namespace CP2496H07Group1.Controllers
         }
 
         // GET: Hiển thị danh sách mã giảm giá
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var discounts = _context.DiscountCodes.ToList();
+            int pageSize = 3; // 3 mã giảm giá mỗi trang
+            var discountsQuery = _context.DiscountCodes.AsQueryable();
+
+            var totalItems = discountsQuery.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var discounts = discountsQuery
+                .OrderByDescending(d => d.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
             var userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdStr) || !long.TryParse(userIdStr, out long userId))
@@ -47,13 +57,17 @@ namespace CP2496H07Group1.Controllers
                     AccountId = a.Id,
                     AccountNumber = a.AccountNumber,
                     Point = a.Point,
-                    DisplayText = $"Account {a.AccountNumber} - Ponits: {a.Point}"
-                }).ToList();
+                    DisplayText = $"Account {a.AccountNumber} - Points: {a.Point}"
+                })
+                .ToList();
 
             ViewBag.Accounts = accounts;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
-            return View(discounts); // vẫn giữ nguyên model là List<DiscountCode>
+            return View(discounts);
         }
+
 
 
         // POST: Đổi mã giảm giá

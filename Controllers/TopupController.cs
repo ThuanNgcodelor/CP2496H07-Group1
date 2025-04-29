@@ -26,7 +26,7 @@ namespace CP2496H07Group1.Controllers
             _redisService = redisService;
             _context = appDataContext;
         }
-        public async Task<IActionResult> HistoryTopup()
+        public async Task<IActionResult> HistoryTopup(int page = 1)
         {
             var value = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -43,14 +43,39 @@ namespace CP2496H07Group1.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
+            var accountIds = await _context.Accounts
+                .Where(a => a.UserId == user.Id)
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            const int pageSize = 3; // 3 topup mỗi trang
+            var totalTopups = await _context.Topups
+                .Where(t => accountIds.Contains(t.AccountId))
+                .CountAsync();
+
+            var totalPages = (int)Math.Ceiling(totalTopups / (double)pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+
             var topups = await _context.Topups
-                .Where(t => t.AccountId == user.Id)
+                .Where(t => accountIds.Contains(t.AccountId))
                 .Include(t => t.Account)
                 .OrderByDescending(t => t.CreatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
+
+            ViewBag.UserFullName = user.FirstName + " " + user.LastName;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
             return View(topups);
         }
+
+
+
+
 
 
 

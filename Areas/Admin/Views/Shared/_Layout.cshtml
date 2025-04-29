@@ -101,11 +101,11 @@
                         class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a asp-controller="Transactions" asp-action="Index" asp-area="Admin"
                    class="nav-item nav-link @(currentController == "Transactions" && currentAction == "Index" ? "active" : "")"><i
-                        class="fas fa-toolbox"></i> Transaction</a>
+                        class="fas fa-toolbox me-2"></i> Transaction</a>
 
                 <a asp-controller="Topups" asp-action="Index" asp-area="Admin"
                    class="nav-item nav-link @(currentController == "Topups" && currentAction == "Index" ? "active" : "")"><i
-                        class="fas fa-university"></i> Top Up</a>
+                        class="fas fa-wallet me-2"></i>Top Up</a>
 
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
@@ -129,17 +129,23 @@
 
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                            class="fa fa-laptop me-2"></i>Loans</a>
+                            class="fas fa-landmark me-2"></i>Loans</a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a asp-controller="Loans" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "Loans" && currentAction == "Index" ? "active" : "")">Loans
+                           class="dropdown-item @(currentController == "Loans" && currentAction == "Index" ? "active" : "")">View Loans
                             Management</a>
+                    
+                     
                         <a asp-controller="ManageLoanOptions" asp-action="Index" asp-area="Admin"
                            class="dropdown-item @(currentController == "ManageLoanOptions" && currentAction == "Index" ? "active" : "")">Loan
                             Options</a>
                         <a asp-controller="LoanPaymentSchedules" asp-action="Index" asp-area="Admin"
                            class="dropdown-item @(currentController == "LoanPaymentSchedules" && currentAction == "Index" ? "active" : "")">Loan
                             Payment</a>
+                        <a asp-controller="AccountDiscounts" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "AccountDiscounts" && currentAction == "Index" ? "active" : "")">AccountDiscount
+                        </a>
+                        
                         <a asp-controller="DiscountCode" asp-action="Index" asp-area="Admin"
                            class="dropdown-item @(currentController == "DiscountCode" && currentAction == "Index" ? "active" : "")">Discount
                             Code</a>
@@ -157,17 +163,17 @@
                         <a asp-controller="Vip" asp-action="Index" asp-area="Admin"
                            class="dropdown-item @(currentController == "Vip" && currentAction == "Index" ? "active" : "")">Vip
                             Management</a>
+                        <a asp-controller="Sec" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "Sec" && currentAction == "Index" ? "active" : "")">Sec
+                            ,UserInsurance</a>
 
                     </div>
                 </div>
 
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                            class="fas fa-piggy-bank"></i> Savings</a>
+                            class="fas fa-piggy-bank me-2"></i>Savings</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a asp-controller="Savings" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "Savings" && currentAction == "Index" ? "active" : "")">Saving
-                            Management</a>
                         <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
                            class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Category
                             Savings</a>
@@ -177,16 +183,16 @@
 
                 <div class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                            class="fas fa-piggy-bank"></i> News</a>
+                            class="fas fa-newspaper me-2"></i>News</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a asp-controller="Savings" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "Savings" && currentAction == "Index" ? "active" : "")">News
+                        <a asp-controller="ManageNews" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "ManageNews" && currentAction == "Index" ? "active" : "")">News
                             Management</a>
-                        <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Category
+                        <a asp-controller="ManageCategoryNews" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "ManageCategoryNews" && currentAction == "Index" ? "active" : "")">Category
                             News</a>
-                        <a asp-controller="SavingCategory" asp-action="Index" asp-area="Admin"
-                           class="dropdown-item @(currentController == "SavingCategory" && currentAction == "Index" ? "active" : "")">Faq
+                        <a asp-controller="ManageFaq" asp-action="Index" asp-area="Admin"
+                           class="dropdown-item @(currentController == "ManageFaq" && currentAction == "Index" ? "active" : "")">Faq
                             Management</a>
                     </div>
                 </div>

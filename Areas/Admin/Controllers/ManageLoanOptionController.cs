@@ -18,21 +18,36 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
         }
 
         // GET: Admin/ManageLoanOptions
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Admin/ManageLoanOptions
+        public async Task<IActionResult> Index(string searchString, int page = 1)
         {
-            var loanOptions = _context.LoanOptions.AsQueryable();
+            int pageSize = 5; // 5 dòng mỗi trang
+
+            var query = _context.LoanOptions.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                // Giả sử bạn muốn tìm theo số tháng vay (LoanDate) hoặc lãi suất (InterestRate)
-                loanOptions = loanOptions.Where(lo =>
+                query = query.Where(lo =>
                     lo.LoanDate.ToString().Contains(searchString) ||
                     lo.InterestRate.ToString().Contains(searchString));
             }
 
+            int totalItems = await query.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var loanOptions = await query
+                .OrderByDescending(lo => lo.Id) // bạn có thể đổi thành LoanDate nếu thích
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
             ViewData["CurrentFilter"] = searchString;
-            return View(await loanOptions.ToListAsync());
+
+            return View(loanOptions);
         }
+
 
         // GET: Admin/ManageLoanOptions/Details/5
         public async Task<IActionResult> Details(long? id)

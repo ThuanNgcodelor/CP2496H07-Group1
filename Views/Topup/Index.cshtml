@@ -87,7 +87,7 @@
         }
         <div class="sec-title centred">
             <span class="sub-title">Top up</span>
-            <h2>TopUp money into account</h2>
+            <h2>TopUp money into Card</h2>
         </div>
         <div class="message-btn pt_7 text-center">
             <button type="button" class="theme-btn" onclick="location.href='@Url.Action("HistoryTopup", "Topup")'">
@@ -113,9 +113,9 @@
                                         <h4>@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</h4>
                                     </div>
                                     <div class="form-group">                                    
-                                        <label asp-for="AccountId">Select Account</label>
+                                        <label asp-for="AccountId">Select Card</label>
                                         <select asp-for="AccountId" class="form-control" required>
-                                            <option value="">------------------Select Account ------------------</option>
+                                            <option value="">------------------Select Card ------------------</option>
                                             @foreach (var acc in Model.Accounts)
 
                                             {
