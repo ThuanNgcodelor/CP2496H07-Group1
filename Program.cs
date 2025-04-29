@@ -95,13 +95,13 @@ app.Lifetime.ApplicationStarted.Register(() =>
     recurringJobs.AddOrUpdate<IAuthService>(
         "send-monthly-reminders",
         svc => svc.SendMonthlyRemindersAsync(),
-        Cron.Monthly());
+        Cron.Daily());
 
     // XỬ LÝ KHOẢN THANH TOÁN HÀNG THÁNG (đã có)
     recurringJobs.AddOrUpdate<HangFile>(
         "process-monthly-payments",
         job => job.ProcessMonthlyPayments(),
-        Cron.Monthly());
+        Cron.Minutely());
 
     // 🆕 TỰ ĐỘNG THANH TOÁN NỢ THẺ TÍN DỤNG – chạy mỗi đêm 02:00
     recurringJobs.AddOrUpdate<HangFile>(

@@ -76,7 +76,7 @@
                 <input type="hidden" name="UserId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
                 <div class="row clearfix">
                     <div class="sec-title">
-                        <span class="sub-title">Online Banking</span>
+                        <span class="sub-title">TeckBank</span>
                         <h2>Create Loans </h2>
                     </div>
 
@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>AmountBorrowed</label>
+                        <label>Amount Borrowed</label>
                         <input type="text" id="displayAmountBorrowed"
                                value="@(Model?.AmountBorrowed ?? 0)"
                                placeholder="AmountBorrowed" required />
@@ -106,7 +106,7 @@
                     }
 
                     <div class="form-group">
-                        <label asp-for="LoanOptionId" class="control-label">LoanOption</label>
+                        <label asp-for="LoanOptionId" class="control-label">Loan Option</label>
                         <select asp-for="LoanOptionId" class="form-control w-50" required id="LoanOptionId">
                             <option value="">-- Select Loan Option --</option>
                             @foreach (var option in Model.LoanOptions)
@@ -124,9 +124,9 @@
 
 
                     <div class="form-group">
-                        <label asp-for="AccountId" class="control-label">Account</label>
+                        <label asp-for="AccountId" class="control-label">Card</label>
                         <select asp-for="AccountId" class="form-control w-100" required id="AccountId">
-                            <option value="">------------ Select Account Option ------------</option>
+                            <option value="">------------ Select Card Option ------------</option>
                             @if (Model.Accounts != null)
                             {
                             foreach (var option in Model.Accounts)

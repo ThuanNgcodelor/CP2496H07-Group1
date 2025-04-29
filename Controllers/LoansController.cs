@@ -193,8 +193,23 @@ namespace CP2496H07Group1.Controllers
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == AccountId);
             if (account != null)
             {
-                // Cộng số tiền vay vào balance của tài khoản
+               
                 account.Balance += AmountBorrowed;
+                await _context.SaveChangesAsync();
+
+                var paymentTransaction = new Transaction
+                {
+                    FromAccountId = account.Id, 
+                    ToAccountId = null, 
+                    Amount = AmountBorrowed,
+                    TransactionDate = DateTime.Now,
+                    TransactionType = "LoanDisbursement", 
+                    Description = $"Loan disbursement: {loan.LoanName} - Amount: ${AmountBorrowed.ToString("F2")}",
+                    FromAccount = null,
+                    ToAccount = account
+                };
+
+                _context.Transactions.Add(paymentTransaction);
                 await _context.SaveChangesAsync();
             }
             for (int i = 1; i <= loanOption.LoanDate; i++)

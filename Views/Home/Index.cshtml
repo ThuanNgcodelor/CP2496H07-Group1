@@ -1,9 +1,9 @@
 ﻿@model List<CP2496H07Group1.Models.Slider>
 
-    <section class="banner-section p_relative">
-        <div class="banner-carousel owl-theme owl-carousel">
-            @foreach (var slider in Model)
-            {
+<section class="banner-section p_relative">
+    <div class="banner-carousel owl-theme owl-carousel">
+        @foreach (var slider in Model)
+        {
             <div class="slide-item p_relative" style="width: 100%; height: 100vh; overflow: hidden; position: relative;">
                 <div class="bg-layer"
                      style="background-image: url('@slider.Image');
@@ -36,12 +36,111 @@
                     </div>
                 </div>
             </div>
+        }
+    </div>
+</section>
+
+<section class="news-section pt_120 pb_120">
+    <div class="auto-container">
+        <div class="sec-title">
+            <span class="sub-title">News</span>
+            <h2>Latest from News</h2>
+        </div>
+        <div class="three-item-carousel owl-carousel owl-theme owl-dots-none nav-style-one">
+            @if (ViewBag.LatestNews != null)
+            {
+                foreach (var news in ViewBag.LatestNews as List<CP2496H07Group1.Models.News>)
+                {
+                    <div class="col-lg-10 col-md-8 col-sm-12 news-block">
+                        <div class="news-block-one">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image">
+                                        <a asp-controller="News" asp-action="NewsDetail" asp-route-id="@news.Id">
+                                            <img src="@news.ImageUrl" alt="@news.Title">
+                                        </a>
+                                    </figure>
+                                    <figure class="overlay-image">
+                                        <a asp-controller="News"  asp-action="NewsDetail" asp-route-id="@news.Id">
+                                            <img src="@news.ImageUrl" alt="@news.Title">
+                                        </a>
+                                    </figure>
+                                </div>
+                                <div class="content-box">
+                                    <div class="upper-box">
+                                        <div class="title-box">
+                                            <h6>
+                                                <img src="assets/images/icons/icon-36.png" alt="">
+                                                @news.Category?.Name
+                                            </h6>
+                                            <h5><span>By </span>Admin</h5>
+                                        </div>
+                                        <div class="post-date align-3">
+                                            <h3>@news.CreatedAt.Day</h3>
+                                            <h6>@news.CreatedAt.ToString("MMM, yyyy")</h6>
+                                        </div>
+                                    </div>
+                                    <div class="lower-box">
+                                        <h3>
+                                            <a asp-controller="News" asp-action="NewsDetail" asp-route-id="@news.Id">@news.Title</a>
+                                        </h3>
+                                        <div class="link-box">
+                                            <h5>News Detail</h5>
+                                            <a asp-controller="News" asp-action="NewsDetail" asp-route-id="@news.Id"><i class="flaticon-right-arrow"></i></a>
+                                        </div>
+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
         </div>
-    </section>
+    </div>
+</section>
+<style >
+    .news-block .image-box figure.image,
+    .news-block .image-box figure.overlay-image {
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .news-block .image-box figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .news-block-one {
+        height: 100%;
+    }
+
+        .news-block-one .inner-box {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .news-block-one .content-box {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+    .news-block .lower-box h3 {
+        min-height: 50px;
+    }
+</style>
 
 
-    <script>
+
+<script>
         $(document).ready(function () {
             $(".banner-carousel").owlCarousel({
                 items: 1,

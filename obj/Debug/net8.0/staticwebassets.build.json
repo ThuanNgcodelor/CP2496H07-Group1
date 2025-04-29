@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XoYoejcbkdpBCtOe9akQOdhcZVAA4Y0QX9D8xWYCY58=",
+  "Hash": "OsRJaG6oBcbUhQwK0ITi24FL8VaQnCPzJE0jIJ+MZtM=",
   "Source": "CP2496H07Group1",
   "BasePath": "_content/CP2496H07Group1",
   "Mode": "Default",
@@ -11928,6 +11928,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/topups/12b1dba9-f9b2-43eb-b58f-ebe098ecae3c.jpg"
+    },
+    {
+      "Identity": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/64e5d752-8b15-4ffe-aec1-10d091724d21.png",
+      "SourceId": "CP2496H07Group1",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/",
+      "BasePath": "_content/CP2496H07Group1",
+      "RelativePath": "images/topups/64e5d752-8b15-4ffe-aec1-10d091724d21.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/topups/64e5d752-8b15-4ffe-aec1-10d091724d21.png"
     },
     {
       "Identity": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/wwwroot/images/topups/aa518f0a-1bc1-4757-baf9-a2b893725608.png",

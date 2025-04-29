@@ -10,37 +10,15 @@
   <component name="ChangeListManager">
     <list default="true" id="cffd22a6-6fe8-478f-8509-c19f2680203e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CP2496H07-Group1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageAccountDiscountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageAccountDiscountController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageDiscountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageDiscountController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanOptionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanOptionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanPaymentScheduleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoanPaymentScheduleController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoansController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/ManageLoansController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/Teckbank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/Teckbank.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Controllers/TopupsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Controllers/TopupsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/AccountDiscounts/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/AccountDiscounts/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Dashboard/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/DiscountCode/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/LoanPaymentSchedules/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/LoanPaymentSchedules/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Loans/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Loans/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/ManageLoanOptions/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/NewFile1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/NewFile1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Sec/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Sec/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Areas/Admin/Views/Topups/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Areas/Admin/Views/Topups/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/AccountDiscountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/AccountDiscountController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/DiscountCodeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/DiscountCodeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/HomeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/LoansController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/LoansController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/SavingsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/SavingsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/TopupController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/TopupController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/AccountDiscounts/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/AccountDiscounts/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Views/DiscountCode/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/DiscountCode/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Topup/HistoryTopup.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Topup/HistoryTopup.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Topup/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Topup/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Loans/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Loans/Create.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/CP2496H07Group1.staticwebassets.runtime.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net8.0/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/CP2496H07Group1.dll" afterDir="false" />
@@ -307,6 +285,7 @@
       <workItem from="1745843850103" duration="3509000" />
       <workItem from="1745891730471" duration="862000" />
       <workItem from="1745895085726" duration="2852000" />
+      <workItem from="1745906990281" duration="5059000" />
     </task>
     <servers />
   </component>
@@ -509,13 +488,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Controllers/LoansController.cs</url>
-          <line>211</line>
+          <line>226</line>
           <properties documentPath="$PROJECT_DIR$/Controllers/LoansController.cs" containingFunctionPresentation="Method 'ConfirmLoan'">
             <startOffsets>
-              <option value="7493" />
+              <option value="8099" />
             </startOffsets>
             <endOffsets>
-              <option value="7551" />
+              <option value="8157" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />

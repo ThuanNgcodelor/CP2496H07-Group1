@@ -10032,6 +10032,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\topups\12b1dba9-f9b2-43eb-b58f-ebe098ecae3c.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\topups\64e5d752-8b15-4ffe-aec1-10d091724d21.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>CP2496H07Group1</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CP2496H07Group1</BasePath>
+      <RelativePath>images/topups/64e5d752-8b15-4ffe-aec1-10d091724d21.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\topups\64e5d752-8b15-4ffe-aec1-10d091724d21.png))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\images\topups\aa518f0a-1bc1-4757-baf9-a2b893725608.png))">
       <SourceType>Package</SourceType>
       <SourceId>CP2496H07Group1</SourceId>

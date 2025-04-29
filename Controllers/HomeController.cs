@@ -18,7 +18,10 @@ namespace CP2496H07Group1.Controllers
             // Lấy danh sách các slider có Status = true
             var sliders = _context.Sliders.Where(s => s.Status == true).ToList();
             
-            
+            var latestNews = _context.News.Where(n => n.IsConfirm).OrderByDescending(n => n.CreatedAt).Take(6).ToList();
+
+            ViewBag.LatestNews = latestNews;
+
             return View(sliders);
         }
     }
