@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YL5n9kkjerrnrxOS1f5EGx0jGl3llMgNqKY8By3TPUQ=",
+  "Hash": "0gk46NF8lJdnHqvr2j7qjz2KKrstO9nVh4aN0vjpUno=",
   "Source": "CP2496H07Group1",
   "BasePath": "_content/CP2496H07Group1",
   "Mode": "Default",
@@ -12956,6 +12956,25 @@
       "OriginalItemSpec": "wwwroot\\uploads\\fac65bf4-a706-41bb-a4c4-28bdfda8ab02.jpg"
     },
     {
+      "Identity": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\wwwroot\\uploads\\lam.jpg",
+      "SourceId": "CP2496H07Group1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\wwwroot\\",
+      "BasePath": "_content/CP2496H07Group1",
+      "RelativePath": "uploads/lam.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\lam.jpg"
+    },
+    {
       "Identity": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\wwwroot\\uploads\\thuan.jpg",
       "SourceId": "CP2496H07Group1",
       "SourceType": "Discovered",
@@ -12992,6 +13011,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\trong.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\wwwroot\\uploads\\z6560239439246_cb4ff1ba287ea9512902a96049f96098.jpg",
+      "SourceId": "CP2496H07Group1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\wwwroot\\",
+      "BasePath": "_content/CP2496H07Group1",
+      "RelativePath": "uploads/z6560239439246_cb4ff1ba287ea9512902a96049f96098.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\z6560239439246_cb4ff1ba287ea9512902a96049f96098.jpg"
     }
   ]
 }
