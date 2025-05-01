@@ -327,29 +327,21 @@ public class AuthService : IAuthService
         return $@"
             <html>
             <body style='font-family: Arial, sans-serif;'>
-                <h2>Confirm registration</h2>
-                <p>Hello, I'm David</p>
-                <p>Below is the OTP code to confirm your account.</p>
-                <h3 style='color: #4CAF50;'>{otp}</h3>
-                <p>Plese enter this code on the confirmation page to complete your registrtion. This code is valid for 10 minutes</p>
-                <p>Best regards,<br/>David Nguyen/p>
-                <p>TeckBank</p>
+                <h2>Confirm your OTP register </h2>
+                <p>Your OTP is <strong>{otp}</strong></p>
+                <p>This code is valid for 15 minutes.</p>
             </body>
             </html>";
     }
 
     private static string CreateOtpChangeEmail(string email, string otp)
     {
-        return $@"
+         return $@"
             <html>
             <body style='font-family: Arial, sans-serif;'>
-                <h2>Confirm Change Email.</h2>
-                <p>Hello, I'm David</p>
-                <p>Below is the OTP code to confirm your email.</p>
-                <h3 style='color: #4CAF50;'>{otp}</h3>
-                <p>Plese enter this code on the confirmation page to complete your registrtion. This code is valid for 10 minutes</p>
-                <p>Best regards,<br/>David Nguyen/p>
-                <p>TeckBank</p>
+                <h2>Confirm your OTP change mail </h2>
+                <p>Your OTP is <strong>{otp}</strong></p>
+                <p>This code is valid for 15 minutes.</p>
             </body>
             </html>";
     }
@@ -359,9 +351,9 @@ public class AuthService : IAuthService
         return $@"
             <html>
             <body style='font-family: Arial, sans-serif;'>
-                <h2>Confirm your password reset</h2>
+                <h2>Confirm your OTP</h2>
                 <p>Your OTP is <strong>{otp}</strong></p>
-                <p>This code is valid for 10 minutes.</p>
+                <p>This code is valid for 15 minutes.</p>
             </body>
             </html>";
     }

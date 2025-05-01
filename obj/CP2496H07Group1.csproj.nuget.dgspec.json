@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj": {}
+    "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\CP2496H07Group1.csproj": {}
   },
   "projects": {
-    "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj": {
+    "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\CP2496H07Group1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
+        "projectUniqueName": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\CP2496H07Group1.csproj",
         "projectName": "CP2496H07Group1",
-        "projectPath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/CP2496H07Group1.csproj",
-        "packagesPath": "/home/davidnguyen/.nuget/packages/",
-        "outputPath": "/home/davidnguyen/Code/Asp/CP2496H07-Group1/obj/",
+        "projectPath": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\CP2496H07Group1.csproj",
+        "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nguye\\Desktop\\CP2496H07-Group1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/davidnguyen/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -139,7 +139,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.408/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

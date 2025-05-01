@@ -1,5 +1,5 @@
 @model CP2496H07Group1.Models.User
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" />
 
 <style>
     .appointment-form {
@@ -30,6 +30,7 @@
     }
 
     .form-group input[type='tel'],
+    .form-group input[type='date'],
     .form-group input[type='password'] {
         position: relative;
         display: block;
@@ -50,8 +51,8 @@
 </style>
 
 <section class="appointment-section pt_120 pb_120">
-    <div class="bg-layer"
-         style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');"></div>
+    <div class="bg-layer" style="background-image: url('@Url.Content("~/images/background/appointment-bg.jpg")');">
+    </div>
     <div class="pattern-layer" style="background-image: url('@Url.Content("~/images/shape/shape-32.png")');"></div>
     <span class="big-text">REGISTER <br>TechBank</span>
     <div class="auto-container">
@@ -70,21 +71,22 @@
                     <div class="col-lg-6 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" name="FirstName" placeholder="First Name" value="@Model?.FirstName"/>
+                            <input type="text" name="FirstName" placeholder="First Name" value="@Model?.FirstName" />
                             @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" name="LastName" placeholder="Last Name" value="@Model?.LastName"/>
+                            <input type="text" name="LastName" placeholder="Last Name" value="@Model?.LastName" />
                             @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "validation-error" })
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="tel" id="phone" name="PhoneNumber" placeholder="Phone Number" style="width: 465px" required/>
+                            <input type="tel" id="phone" name="PhoneNumber" placeholder="Phone Number"
+                                style="width: 465px" required />
                             <span id="phoneError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "validation-error" })
                         </div>
@@ -93,7 +95,7 @@
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="Email" placeholder="Email address" value="@Model?.Email"
-                                   required/>
+                                required />
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
                         </div>
                     </div>
@@ -101,7 +103,7 @@
                         <div class="form-group">
                             <label>Address</label>
                             <input type="text" name="Address" placeholder="Your address" value="@Model?.Address"
-                                   required/>
+                                required />
                             @Html.ValidationMessageFor(m => m.Address, "", new { @class = "validation-error" })
                         </div>
                     </div>
@@ -109,16 +111,28 @@
                         <div class="form-group">
                             <label>Identity</label>
                             <input type="text" id="identity" name="Identity" placeholder="Your identity"
-                                   value="@Model?.Identity" required/>
+                                value="@Model?.Identity" required />
                             <span id="identityError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.Identity, "", new { @class = "validation-error" })
                         </div>
                     </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 single-column">
+                        <div class="form-group">
+                            <label>Birthday</label>
+                            <input type="date" id="Birthday" name="Birthday" placeholder="Your Birthday"
+                                value="@Model?.Identity" required />
+                            <span id="birthdayError" class="validation-error"></span>
+                            @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "validation-error" })
+                        </div>
+                    </div>
+
+
                     <div class="col-lg-12 col-md-12 col-sm-12 single-column">
                         <div class="form-group">
                             <label>Password</label>
                             <input type="password" id="password" name="PasswordHash" placeholder="Enter password"
-                                   required/>
+                                required />
                             <span id="passwordError" class="validation-error"></span>
                             @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "validation-error" })
                         </div>
@@ -127,7 +141,7 @@
                         <div class="form-group">
                             <label>Confirm Password</label>
                             <input type="password" id="confirmPassword" name="ConfirmPassword"
-                                   placeholder="Confirm password" required/>
+                                placeholder="Confirm password" required />
                             <span id="passwordMatchError" class="validation-error"></span>
                         </div>
                     </div>
@@ -164,6 +178,8 @@
     const lastNameError = document.createElement("span");
     const phoneNumberError = document.createElement("span");
     const phoneNumberInput = document.querySelector("input[name='PhoneNumber']");
+    const birthdayInput = document.getElementById("Birthday");
+    const birthdayError = document.getElementById("birthdayError");
 
     firstNameError.className = lastNameError.className = "validation-error";
     phoneNumberError.className = "validation-error";
@@ -176,7 +192,7 @@
     emailError.className = "validation-error";
     emailInput.parentElement.appendChild(emailError);
     phoneNumberInput.parentElement.appendChild(phoneNumberError);
-    
+
 
 
     const phoneInputField = document.querySelector("#phone");
@@ -197,6 +213,24 @@
             ? "Email must be a valid format and end with .com, .net, .vn, etc."
             : "";
     }
+    function validateBirthday() {
+        const birthdayValue = new Date(birthdayInput.value);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthdayValue.getFullYear();
+        const monthDiff = today.getMonth() - birthdayValue.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdayValue.getDate())) {
+            age--;
+        }
+
+        if (birthdayValue > today) {
+            birthdayError.textContent = "The date of birth is not bigger than the present date.";
+        } else if (age < 16) {
+            birthdayError.textContent = "You must at least 16 years old.";
+        } else {
+            birthdayError.textContent = "";
+        }
+    }
 
     emailInput.addEventListener("input", validateEmail);
 
@@ -207,13 +241,7 @@
             : "";
     }
 
-    // function validatePhone() {
-    //     const phone = phoneNumberInput.value.trim();
-    //     const phoneRegex = /^\d{1,15}$/;
-    //     phoneNumberError.textContent = !phoneRegex.test(phone)
-    //         ? "Phone number must contain only digits and be no more than 15 digits long."
-    //         : "";
-    // }
+
     function validatePhone() {
         if (!phoneInput.isValidNumber()) {
             phoneError.textContent = "Invalid phone number.";
@@ -251,7 +279,7 @@
             ? "Last name must contain only letters."
             : "";
     }
-
+    birthdayInput.addEventListener("input", validateBirthday);
     passwordInput.addEventListener("input", validatePassword);
     confirmPasswordInput.addEventListener("input", validatePasswordMatch);
     identityInput.addEventListener("input", validateIdentity);

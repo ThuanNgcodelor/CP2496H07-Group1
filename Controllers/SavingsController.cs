@@ -147,8 +147,8 @@ namespace CP2496H07Group1.Controllers
                 DateStart = DateTime.Now,
                 DateEnd = DateTime.Now.AddMonths(category.Month),
                 TypeTk = category.TypeTk,
-                Status = "chưa được rút",
-                Pay = "chưa rút",
+                Status = "Unedened",
+                Pay = "Unedened",
                 SavingCategoryId = category.Id,
                 SavingCategory = category,
                 Account = account
@@ -163,7 +163,7 @@ namespace CP2496H07Group1.Controllers
                 Amount = category.Money,
                 TransactionType = "Saving",
                 TransactionDate = DateTime.Now,
-                Description = $"Mua khoản tiết kiệm {category.TypeTk}",
+                Description = $"Buy savings {category.TypeTk}",
                 FromAccount = account,
                 VipId = account.VipId
             };
@@ -186,7 +186,7 @@ namespace CP2496H07Group1.Controllers
                 return Json(new { success = false, message = "Savings do not exist." });
             }
 
-            if (savings.DateEnd > DateTime.Now || savings.Pay != "chưa rút")
+            if (savings.DateEnd > DateTime.Now || savings.Pay != "Unedened")
             {
                 return Json(new { success = false, message = "Savings are not due or withdrew." });
             }
@@ -254,7 +254,7 @@ namespace CP2496H07Group1.Controllers
                     return Json(new { success = false, message = "Savings are not due. " });
                 }
 
-                if (savings.Pay != "chưa rút")
+                if (savings.Pay != "Unedened")
                 {
                     return Json(new { success = false, message = "Savings have been withdrawn." });
                 }
@@ -288,8 +288,8 @@ namespace CP2496H07Group1.Controllers
                 account.Point = (account.Point ?? 0) + (long)pointEarned;
 
                 // Cập nhật trạng thái
-                savings.Pay = "đã rút";
-                savings.Status = "đã hoàn thành";
+                savings.Pay = "Withdrawn";
+                savings.Status = "Completed";
 
                 // Tạo giao dịch
                 var transaction = new Transaction
@@ -299,7 +299,7 @@ namespace CP2496H07Group1.Controllers
                     Amount = withdrawalAmount,
                     TransactionType = "WithdrawSaving",
                     TransactionDate = DateTime.Now,
-                    Description = $"Rút tiền tiết kiệm {savings.TypeTk} (gốc + lãi)",
+                    Description = $"Savings withdrawal {savings.TypeTk} (principal + interest)",
                     FromAccount = null,
                     ToAccount = account,
                     VipId = account.VipId

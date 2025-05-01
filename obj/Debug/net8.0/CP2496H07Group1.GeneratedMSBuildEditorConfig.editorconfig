@@ -9,435 +9,435 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CP2496H07Group1
 build_property.RootNamespace = CP2496H07Group1
-build_property.ProjectDir = /home/davidnguyen/Code/Asp/CP2496H07-Group1/
+build_property.ProjectDir = C:\Users\nguye\Desktop\CP2496H07-Group1\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/davidnguyen/Code/Asp/CP2496H07-Group1
+build_property.MSBuildProjectDirectory = C:\Users\nguye\Desktop\CP2496H07-Group1
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout.cshtml]
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = 
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = 
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/AccountDiscounts/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWNjb3VudERpc2NvdW50cy9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/AccountDiscounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudERpc2NvdW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Admin/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRtaW4vQWRkLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Admin/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRtaW4vSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Admin/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQWRtaW4vVXBkYXRlLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Admin/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Card/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ2FyZC9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Card/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2FyZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Card/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvQ2FyZC9VcGRhdGUuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Card/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2FyZFxVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Dashboard/AllComments.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGFzaGJvYXJkL0FsbENvbW1lbnRzLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Dashboard/AllComments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFzaGJvYXJkXEFsbENvbW1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Dashboard/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGlzY291bnRDb2RlL0NyZWF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlzY291bnRDb2RlXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGlzY291bnRDb2RlL0RlbGV0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlzY291bnRDb2RlXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGlzY291bnRDb2RlL0VkaXQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlzY291bnRDb2RlXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvRGlzY291bnRDb2RlL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/DiscountCode/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlzY291bnRDb2RlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/HistoryTransaction/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSGlzdG9yeVRyYW5zYWN0aW9uL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/HistoryTransaction/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSGlzdG9yeVRyYW5zYWN0aW9uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL0FkZC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Insurance/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSW5zdXJhbmNlXEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Insurance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSW5zdXJhbmNlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Insurance/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvSW5zdXJhbmNlL1VwZGF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Insurance/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSW5zdXJhbmNlXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/LoanPaymentSchedules/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTG9hblBheW1lbnRTY2hlZHVsZXMvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/LoanPaymentSchedules/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9hblBheW1lbnRTY2hlZHVsZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Loans/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTG9hbnMvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Loans/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9hbnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlQ2F0ZWdvcnlOZXdzL0NyZWF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlQ2F0ZWdvcnlOZXdzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlQ2F0ZWdvcnlOZXdzL0RlbGV0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlQ2F0ZWdvcnlOZXdzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlQ2F0ZWdvcnlOZXdzL0VkaXQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlQ2F0ZWdvcnlOZXdzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlQ2F0ZWdvcnlOZXdzL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageCategoryNews/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlQ2F0ZWdvcnlOZXdzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlRmFxL0NyZWF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlRmFxXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlRmFxL0RlbGV0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlRmFxXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlRmFxL0VkaXQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlRmFxXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlRmFxL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageFaq/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlRmFxXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTG9hbk9wdGlvbnMvQ3JlYXRlLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTG9hbk9wdGlvbnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTG9hbk9wdGlvbnMvRGVsZXRlLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTG9hbk9wdGlvbnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTG9hbk9wdGlvbnMvRWRpdC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTG9hbk9wdGlvbnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTG9hbk9wdGlvbnMvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageLoanOptions/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTG9hbk9wdGlvbnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9DcmVhdGUuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9EZWxldGUuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9EZXRhaWxzLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9FZGl0LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/ManageNews/NewsComments.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvTWFuYWdlTmV3cy9OZXdzQ29tbWVudHMuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/ManageNews/NewsComments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWFuYWdlTmV3c1xOZXdzQ29tbWVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2F2aW5nQ2F0ZWdvcnkvQWRkLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2F2aW5nQ2F0ZWdvcnlcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2F2aW5nQ2F0ZWdvcnkvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2F2aW5nQ2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2F2aW5nQ2F0ZWdvcnkvVXBkYXRlLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/SavingCategory/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2F2aW5nQ2F0ZWdvcnlcVXBkYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Sec/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2VjL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Sec/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2VjXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Sec/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2VjL1VwZGF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Sec/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2VjXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2hhcmVkL19MYXlvdXQxLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Shared/_Layout1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXQxLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Slider/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2xpZGVyL0FkZC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Slider/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyXEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Slider/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2xpZGVyL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Slider/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Slider/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvU2xpZGVyL1VwZGF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Slider/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2xpZGVyXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Teckbank/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVGVja2JhbmsvTG9naW4uY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Teckbank/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGVja2JhbmtcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Topups/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVG9wdXBzL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Topups/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVG9wdXBzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/User/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9BZGQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/User/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/User/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/User/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVXNlci9VcGRhdGUuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/User/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxVcGRhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Vip/Add.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVmlwL0FkZC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Vip/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVmlwXEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Vip/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVmlwL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Vip/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVmlwXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/Vip/Update.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvVmlwL1VwZGF0ZS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/Vip/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVmlwXFVwZGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Areas/Admin/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXMvQWRtaW4vVmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Pages/Topup/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVG9wdXAvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Pages/Topup/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVG9wdXBcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/About/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Leader.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTGVhZGVyLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/About/Leader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcTGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMS5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/About/Member1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcTWVtYmVyMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMi5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/About/Member2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcTWVtYmVyMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/About/Member3.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvTWVtYmVyMy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/About/Member3.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcTWVtYmVyMy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/AccountDiscounts/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudERpc2NvdW50cy9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/AccountDiscounts/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudERpc2NvdW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Card.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DYXJkLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/Card.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CardDetails.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DYXJkRGV0YWlscy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/CardDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDYXJkRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/CreateCard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DcmVhdGVDYXJkLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/CreateCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxDcmVhdGVDYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtp.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9FbnRlck90cC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/EnterOtp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxFbnRlck90cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/EnterOtpCreateCard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9FbnRlck90cENyZWF0ZUNhcmQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/EnterOtpCreateCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxFbnRlck90cENyZWF0ZUNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Forgot.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Gb3Jnb3QuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/Forgot.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxGb3Jnb3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Mb2dpbi5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/NewPassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9OZXdQYXNzd29yZC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/NewPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxOZXdQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/RecentTransactions.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWNlbnRUcmFuc2FjdGlvbnMuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/RecentTransactions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWNlbnRUcmFuc2FjdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9SZWdpc3Rlci5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/Users.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9Vc2Vycy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxVc2Vycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Auth/VerifyOtp.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9WZXJpZnlPdHAuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Auth/VerifyOtp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxWZXJpZnlPdHAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/DiscountCode/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGlzY291bnRDb2RlL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/DiscountCode/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzY291bnRDb2RlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Error/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXJyb3IvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Error/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/FAQ/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRkFRL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/FAQ/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRkFRXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Home/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9FcnJvci5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Home/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL0RldGFpbHMuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/PaymentByCard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL1BheW1lbnRCeUNhcmQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/PaymentByCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXFBheW1lbnRCeUNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/PaymentBySec.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL1BheW1lbnRCeVNlYy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/PaymentBySec.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXFBheW1lbnRCeVNlYy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/UserInsurance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL1VzZXJJbnN1cmFuY2UuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/UserInsurance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXFVzZXJJbnN1cmFuY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Insurance/UserSec.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSW5zdXJhbmNlL1VzZXJTZWMuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Insurance/UserSec.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5zdXJhbmNlXFVzZXJTZWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Loans/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9hbnMvQ3JlYXRlLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Loans/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hbnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Loans/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9hbnMvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Loans/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hbnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/News/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmV3cy9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/News/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/News/NewsDetail.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTmV3cy9OZXdzRGV0YWlsLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/News/NewsDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xOZXdzRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Savings/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2F2aW5ncy9JbmRleC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Savings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F2aW5nc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Savings/ViewSavings.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2F2aW5ncy9WaWV3U2F2aW5ncy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Savings/ViewSavings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F2aW5nc1xWaWV3U2F2aW5ncy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/Components/CategoryMenu/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvQ2F0ZWdvcnlNZW51L0RlZmF1bHQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Shared/Components/CategoryMenu/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2F0ZWdvcnlNZW51XERlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_Layout1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQxLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Shared/_Layout1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQxLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Topup/HistoryTopup.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVG9wdXAvSGlzdG9yeVRvcHVwLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Topup/HistoryTopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9wdXBcSGlzdG9yeVRvcHVwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Topup/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVG9wdXAvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Topup/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9wdXBcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Transfer/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXIvSW5kZXguY3NodG1s
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Transfer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Transfer/Success.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXIvU3VjY2Vzcy5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Transfer/Success.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJcU3VjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Transfer/Vip/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHJhbnNmZXIvVmlwL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Transfer/Vip/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJcVmlwXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/Vip/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVmlwL0luZGV4LmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/Vip/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlwXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/davidnguyen/Code/Asp/CP2496H07-Group1/Views/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/nguye/Desktop/CP2496H07-Group1/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

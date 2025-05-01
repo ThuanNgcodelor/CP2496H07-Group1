@@ -26,9 +26,6 @@ builder.Services.AddSession(options =>
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailService, EmailService>();
 
-
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
@@ -50,7 +47,6 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
-
 
 builder.Services.AddAuthorization(options =>
 {
@@ -58,7 +54,6 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole("Admin"));
     options.AddPolicy("UserOnly", policy => policy.RequireRole("User"));
 });
-// Trước khi gọi builder.Build()
 builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
     .UseSimpleAssemblyNameTypeSerializer()
@@ -67,10 +62,7 @@ builder.Services.AddHangfire(configuration => configuration
 );
 builder.Services.AddHangfireServer();
 
-
-
 var app = builder.Build();
-
 
 app.UseStatusCodePages(context =>
 {
@@ -83,7 +75,6 @@ app.UseStatusCodePages(context =>
 
     return Task.CompletedTask;
 });
-
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {

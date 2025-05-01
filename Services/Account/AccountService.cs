@@ -324,6 +324,14 @@ public class AccountService : IAccountService
             await _context.CreditCards.AddAsync(creditCard);
         }
 
+         await _redis.RemoveByPatternAsync("Card:Page:*");
+            var cacheKey = $"Card{account.Id}";
+            var accountJson = JsonConvert.SerializeObject(account, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            _redis.Set(cacheKey, accountJson, TimeSpan.FromDays(30));
+
         await _context.SaveChangesAsync();
 
         return account;

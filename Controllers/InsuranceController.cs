@@ -56,7 +56,7 @@ public class InsuranceController : Controller
 
     public Task<IActionResult> Index(int? page, string? keyword)
     {
-        int pageSize = 5;
+        int pageSize = 4;
         int pageNumber = page ?? 1;
         var product = _packageService.GetAllInsurancePackages(pageNumber, pageSize, keyword);
         ViewBag.Keyword = keyword;
@@ -161,57 +161,6 @@ public class InsuranceController : Controller
         return View(account);
     }
 
-    // [HttpPost]
-    // public async Task<IActionResult> PaymentByCardInsurancePackage(long insuranceId, long userId, long accountId,
-    //     int pin)
-    // {
-    //     try
-    //     {
-    //         var userInsurance = await _packageService.GetUserInsurance(userId);
-    //         var existingPackageType = userInsurance?.Package.Type;
-    //         var validType = new[] { "Health", "Travel", "Life", "Property" };
-    //
-    //         if (validType.Contains(existingPackageType))
-    //         {
-    //             return Json(new { success = true, message = "You already have this insurance package." });
-    //         }
-    //         
-    //         await _packageService.PaymentByCardInsurance(insuranceId, userId, accountId, pin);
-    //         return Json(new { success = true, message = "Payment service successful." });
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return Json(new { success = false, message = "Pin service failed." });
-    //     }
-    // }
-    //
-    //
-    // [HttpPost]
-    // public async Task<IActionResult> PaymentBySecInsurancePackage(long insuranceId, long userId, long accountId,
-    //     int pin)
-    // {
-    //     try
-    //     {
-    //         var userInsurance = await _packageService.GetUserInsurance(userId);
-    //         var existingPackageType = userInsurance?.Package.Type;
-    //         var validType = new[] { "Health", "Travel", "Life", "Property" };
-    //
-    //         if (validType.Contains(existingPackageType))
-    //         {
-    //             return Json(new { success = true, message = "You already have this insurance package." });
-    //         }
-    //         
-    //         await _packageService.PaymentBySecInsurance(insuranceId, userId, accountId, pin);
-    //         return Json(new { success = true, message = "Your sec is pending approval.." });
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return Json(new { success = false, message = "Pin service failed." });
-    //     }
-    // }
-    //
-    //
-    //
     
     private async Task<IActionResult> HandleInsurancePayment(long insuranceId, long userId, long accountId, int pin, string paymentType)
     {
@@ -232,7 +181,7 @@ public class InsuranceController : Controller
                 return Json(new { success = false, message = $"You already have an active {insurance.Type} insurance package." });
             }
 
-            var validTypes = new[] { "Health", "Travel", "Life", "Property" };
+            var validTypes = new[] { "Health", "Travel", "Life", "Loan" };
             if (!validTypes.Contains(insurance.Type))
             {
                 return Json(new { success = false, message = "Invalid insurance type." });

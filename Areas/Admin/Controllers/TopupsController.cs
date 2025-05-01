@@ -11,6 +11,7 @@ using CP2496H07Group1.Configs.Sms;
 using Twilio.TwiML.Voice;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using Newtonsoft.Json;
 
 
 namespace CP2496H07Group1.Areas.Admin.Controllers
@@ -101,6 +102,17 @@ namespace CP2496H07Group1.Areas.Admin.Controllers
 
             topup.Status = true;
             topup.Account.Balance += topup.AmountTopup;
+
+            
+            await _redisService.RemoveByPatternAsync("Card:Page:*");
+            var cacheKey = $"Card{topup.Account.Id}";
+            var accountJson = JsonConvert.SerializeObject(topup.Account, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            _redisService.Set(cacheKey, accountJson, TimeSpan.FromDays(30));
+
+
 
             await _context.SaveChangesAsync();
             return Ok();

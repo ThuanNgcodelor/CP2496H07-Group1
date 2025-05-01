@@ -115,7 +115,7 @@ namespace CP2496H07Group1.Controllers
                 FromAccountId = sender.Id,
                 ToAccountId = receiver.Id,
                 Amount = model.Monney,
-                TransactionType = "TRANSFER",
+                TransactionType = "Transfer",
                 Description = model.TransferContent,
                 FromAccount = sender,
                 ToAccount = receiver

@@ -48,7 +48,7 @@
                                                 <img
                                                     src="~/images/insurance/travel.jpg" style="width: 20rem" alt=""></a></figure>
                                     </div>
-                                }else if (item.Type == "Property")
+                                }else if (item.Type == "Loan")
                                 {
                                     <div class="image-box">
                                         <figure class="image">
@@ -86,7 +86,7 @@
                                                         <img src="~/images/icons/icon-37.png"
                                                              alt="">@item.DurationDays (Days)</h5>
                                                 </li>
-                                                <li><h5><img src="~/images/icons/icon-211.png" alt="">26 Comments</h5>
+                                                <li><h5><img src="~/images/icons/icon-211.png" alt=""></h5>
                                                 </li>
                                             </ul>
                                             <a href="@Url.Action("Details", new { id = item.Id })">
@@ -245,7 +245,7 @@
                     .then(data => {
                         // Gán dữ liệu vào modal
                         document.getElementById('insuranceName').value = data.name;
-                        document.getElementById('insurancePrice').value = data.price.toLocaleString() + " VND";
+                        document.getElementById('insurancePrice').value = data.price.toLocaleString();
                         document.getElementById('insuranceType').value = data.type;
                         document.getElementById('insuranceDuration').value = data.durationDays;
 

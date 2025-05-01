@@ -232,7 +232,7 @@ public class VipController : Controller
                 FromAccountId = account.Id,
                 ToAccountId = null,
                 Amount = finalPrice,
-                TransactionType = "PURCHASE_VIP",
+                TransactionType = "PurchaseVip",
                 Description = $"Buy package VIP {vip.TypeVip}" + (discountAmount > 0 ? $" (discounted {discountAmount})" : ""),
                 TransactionDate = DateTime.Now,
                 FromAccount = account,

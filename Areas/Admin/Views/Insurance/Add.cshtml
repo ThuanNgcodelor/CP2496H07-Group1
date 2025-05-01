@@ -144,7 +144,7 @@ Layout = "_Layout";
             }
 
             const duration = parseInt($('#productQuantity').val());
-            if (isNaN(duration) || duration < 1 || duration > 1825) {
+            if (isNaN(duration) || duration < 1 || duration >= 1825) {
                 $('#productQuantity').addClass('is-invalid');
                 isValid = false;
             }
